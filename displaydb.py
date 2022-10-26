@@ -22,18 +22,18 @@ def main():
 
             with connection.cursor() as cursor:
 
-                print('-------------------------------------------')
+                print('--------------------------------------------')
                 print('events')
-                print('-------------------------------------------')
+                print('--------------------------------------------')
                 cursor.execute("SELECT * FROM events")
                 row = cursor.fetchone()
                 while row is not None:
                     print(row)
                     row = cursor.fetchone()
 
-                print('-------------------------------------------')
+                print('--------------------------------------------')
                 print('signup')
-                print('-------------------------------------------')
+                print('--------------------------------------------')
                 cursor.execute("SELECT * FROM signup")
                 row = cursor.fetchone()
                 while row is not None:
