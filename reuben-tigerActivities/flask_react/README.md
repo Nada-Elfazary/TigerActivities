@@ -1,9 +1,10 @@
 # Commands to start project: one time
-pip install -r requirements.txt
+cd .. && pip install -r requirements.txt
+cd flask_react
 npm install
 
 # Start backend:
-npm run backend-start
+npm run start-backend
 
 # Start frontend:
 npm run start
