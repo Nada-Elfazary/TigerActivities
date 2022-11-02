@@ -31,24 +31,26 @@ def main():
     database_url = DATABASE_URL
 
     with psycopg2.connect(database_url) as connection:
-
+        
         with connection.cursor() as cursor:
+            day = 4
             statementOne = "SELECT * FROM events WHERE day = %s AND starttime > %s"
-            cursor.execute(statementOne, (get_day(), get_time()))
+            cursor.execute(statementOne, (day, get_time()))
             row = cursor.fetchone()
+            print(day, ": ")
             while row is not None:
                 print(row)
                 row = cursor.fetchone()
 
-            tomorrow = (get_day() + 1)%7
-            endDay = (get_day() + 5)%7
+            tomorrow = (day + 1)%7
+            endDay = (day + 5)%7
             if tomorrow == 0:
                 tomorrow =7
             if endDay == 0:
                 endDay = 7
 
             curr_day = tomorrow
-            while (curr_day <= endDay):
+            while (curr_day != endDay):
                 # select at random from DB instead of shuffling...which is faster?
                 statementTwo = "SELECT * FROM events WHERE day = %s ORDER BY RANDOM() LIMIT 1000"
                 cursor.execute(statementTwo, [curr_day, ])
@@ -59,8 +61,12 @@ def main():
                     print(row)
                     row = cursor.fetchone()
 
-                # send to frontend
                 curr_day += 1
+                curr_day = curr_day % 7
+
+                if (curr_day == 0):
+                    curr_day = 7
+
 
                 
 
