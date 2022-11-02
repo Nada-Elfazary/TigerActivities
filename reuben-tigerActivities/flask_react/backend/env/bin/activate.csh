@@ -8,7 +8,7 @@ alias deactivate 'test $?_OLD_VIRTUAL_PATH != 0 && setenv PATH "$_OLD_VIRTUAL_PA
 # Unset irrelevant variables.
 deactivate nondestructive
 
-setenv VIRTUAL_ENV "/Users/reubenagogoe/Desktop/React/tigerActivities/flask_react/backend/env"
+setenv VIRTUAL_ENV "/Users/reubenagogoe/Desktop/React/TigerActivities/reuben-tigerActivities/flask_react/backend/env"
 
 set _OLD_VIRTUAL_PATH="$PATH"
 setenv PATH "$VIRTUAL_ENV/bin:$PATH"

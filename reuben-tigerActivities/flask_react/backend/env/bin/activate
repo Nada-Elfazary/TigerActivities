@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/reubenagogoe/Desktop/React/tigerActivities/flask_react/backend/env"
+VIRTUAL_ENV="/Users/reubenagogoe/Desktop/React/TigerActivities/reuben-tigerActivities/flask_react/backend/env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

@@ -30,7 +30,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Users/reubenagogoe/Desktop/React/tigerActivities/flask_react/backend/env"
+set -gx VIRTUAL_ENV "/Users/reubenagogoe/Desktop/React/TigerActivities/reuben-tigerActivities/flask_react/backend/env"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
