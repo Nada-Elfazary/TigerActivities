@@ -23,15 +23,15 @@ def main():
             with connection.cursor() as cursor:
 
                 #-------------------------------------------------------
-
+                #Changed some of the days to have a better variety ~ Nada
                 cursor.execute("INSERT INTO events VALUES (1, 'Event 1', 1, 2, 3, 'Sriyans', 'Category 1', 'Location 1', 'Description 1', 1, 1, 1)")
                 cursor.execute("INSERT INTO events VALUES (2, 'Event 2', 1, 2, 3, 'Sriyans', 'Category 1', 'Location 1', 'Description 1', 1, 2, 1)")
-                cursor.execute("INSERT INTO events VALUES (3, 'Event 3', 1, 2, 3, 'Sriyans', 'Category 1', 'Location 1', 'Description 1', 1, 1, 1)")
+                cursor.execute("INSERT INTO events VALUES (3, 'Event 3', 1, 2, 3, 'Sriyans', 'Category 1', 'Location 1', 'Description 1', 1, 3, 1)")
                 cursor.execute("INSERT INTO events VALUES (4, 'Event 4', 1, 2, 3, 'Sriyans', 'Category 1', 'Location 1', 'Description 1', 1, 2, 1)")
                 cursor.execute("INSERT INTO events VALUES (5, 'Event 5', 1, 2, 3, 'Sriyans', 'Category 1', 'Location 1', 'Description 1', 1, 1, 1)")
-                cursor.execute("INSERT INTO events VALUES (6, 'Event 6', 1, 2, 3, 'Sriyans', 'Category 1', 'Location 1', 'Description 1', 1, 2, 1)")
+                cursor.execute("INSERT INTO events VALUES (6, 'Event 6', 1, 2, 3, 'Sriyans', 'Category 1', 'Location 1', 'Description 1', 1, 6, 1)")
                 cursor.execute("INSERT INTO events VALUES (7, 'Event 7', 1, 2, 3, 'Sriyans', 'Category 1', 'Location 1', 'Description 1', 1, 1, 1)")
-                cursor.execute("INSERT INTO events VALUES (8, 'Event 8', 1, 2, 3, 'Sriyans', 'Category 1', 'Location 1', 'Description 1', 1, 2, 1)")
+                cursor.execute("INSERT INTO events VALUES (8, 'Event 8', 1, 2, 3, 'Sriyans', 'Category 1', 'Location 1', 'Description 1', 1, 3, 1)")
                 cursor.execute("INSERT INTO events VALUES (9, 'Event 9', 1, 2, 3, 'Sriyans', 'Category 1', 'Location 1', 'Description 1', 1, 1, 1)")
                 cursor.execute("INSERT INTO events VALUES (10, 'Event 10', 1, 2, 3, 'Sriyans', 'Category 1', 'Location 1', 'Description 1', 1, 2, 1)")
 

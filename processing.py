@@ -27,37 +27,46 @@ def main():
         print('Usage: python display.py', file=sys.stderr)
         sys.exit(1)
 
-    try:
-        database_url = DATABASE_URL
+    #try:
+    database_url = DATABASE_URL
 
-        with psycopg2.connect(database_url) as connection:
+    with psycopg2.connect(database_url) as connection:
 
-            with connection.cursor() as cursor:
+        with connection.cursor() as cursor:
+            statementOne = "SELECT * FROM events WHERE day = %s AND starttime > %s"
+            cursor.execute(statementOne, (get_day(), get_time()))
+            row = cursor.fetchone()
+            while row is not None:
+                print(row)
+                row = cursor.fetchone()
+
+            tomorrow = (get_day() + 1)%7
+            endDay = (get_day() + 5)%7
+            if tomorrow == 0:
+                tomorrow =7
+            if endDay == 0:
+                endDay = 7
+
+            curr_day = tomorrow
+            while (curr_day <= endDay):
+                # select at random from DB instead of shuffling...which is faster?
+                statementTwo = "SELECT * FROM events WHERE day = %s ORDER BY RANDOM() LIMIT 1000"
+                cursor.execute(statementTwo, [curr_day, ])
+                row = cursor.fetchone()
+
+                print(curr_day, ": ")
+                while row is not None:
+                    print(row)
+                    row = cursor.fetchone()
+
+                # send to frontend
+                curr_day += 1
+
                 
-                statementOne = "SELECT * FROM events WHERE day = %s AND starttime > %s"
-                cursor.execute(statementOne, (str(get_day()), str(get_time())))
-                row = cursor.fetchone()
-                while row is not None:
-                    print(row)
-                    row = cursor.fetchone()
 
-                tomorrow = str(get_day() + 1)%7
-                endDay = str(get_day() + 5)%7
-                if tomorrow == 0:
-                    tomorrow =7
-                if endDay == 0:
-                    endDay = 7
-                statementTwo = "SELECT * FROM events WHERE day >= %s" 
-                + "AND day  <= %s GROUP BY day"
-                cursor.execute(statementTwo, [tomorrow, endDay])
-                row = cursor.fetchone()
-                while row is not None:
-                    print(row)
-                    row = cursor.fetchone()
-
-    except Exception as ex:
-        print(ex, file=sys.stderr)
-        sys.exit(1)
+   # except Exception as ex:
+  #      print(ex, file=sys.stderr)
+  #      sys.exit(1)
 
 #-----------------------------------------------------------------------
 
