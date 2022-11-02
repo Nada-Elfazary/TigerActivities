@@ -11,7 +11,7 @@ function Modal(props) {
               {props.setOpenModal(false);}
             }}
           >
-            X
+            x
           </button>
         </div>
         <div className="title">

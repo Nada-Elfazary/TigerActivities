@@ -81,7 +81,7 @@ export default function Welcome(): React.ReactNode{
     ): null
 
 const modal = onSignUp ? (
-  <Modal setOpenModal={onSignUp} event={eventState} />
+  <Modal setOpenModal={setOnSignUp} event={eventState} />
 ): null
     return (
       <div>
