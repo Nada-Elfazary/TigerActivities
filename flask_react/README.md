@@ -1,4 +1,4 @@
-# Installing required packages
+Installing required packages
 
 cd .. && pip install -r requirements.txt
 

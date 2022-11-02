@@ -1,5 +1,14 @@
-# Getting Started with Create React App
+# Commands to start project: one time
+pip install -r requirements.txt
+npm install
 
+# Start backend:
+npm run backend-start
+
+# Start frontend:
+npm run start
+
+# Getting Started with Create React App
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
