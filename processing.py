@@ -27,52 +27,52 @@ def main():
         print('Usage: python display.py', file=sys.stderr)
         sys.exit(1)
 
-    #try:
-    database_url = DATABASE_URL
+    try:
+        database_url = DATABASE_URL
 
-    with psycopg2.connect(database_url) as connection:
-        
-        with connection.cursor() as cursor:
-            day = 4
-            statementOne = "SELECT * FROM events WHERE day = %s AND starttime > %s"
-            cursor.execute(statementOne, (day, get_time()))
-            row = cursor.fetchone()
-            print(day, ": ")
-            while row is not None:
-                print(row)
+        with psycopg2.connect(database_url) as connection:
+            
+            with connection.cursor() as cursor:
+                day = get_day()
+                statementOne = "SELECT * FROM events WHERE day = %s AND starttime > %s"
+                cursor.execute(statementOne, (day, get_time()))
                 row = cursor.fetchone()
-
-            tomorrow = (day + 1)%7
-            endDay = (day + 5)%7
-            if tomorrow == 0:
-                tomorrow =7
-            if endDay == 0:
-                endDay = 7
-
-            curr_day = tomorrow
-            while (curr_day != endDay):
-                # select at random from DB instead of shuffling...which is faster?
-                statementTwo = "SELECT * FROM events WHERE day = %s ORDER BY RANDOM() LIMIT 1000"
-                cursor.execute(statementTwo, [curr_day, ])
-                row = cursor.fetchone()
-
-                print(curr_day, ": ")
+                print("Day", day, ": ")
                 while row is not None:
                     print(row)
                     row = cursor.fetchone()
 
-                curr_day += 1
-                curr_day = curr_day % 7
+                tomorrow = (day + 1)%7
+                endDay = (day + 5)%7
+                if tomorrow == 0:
+                    tomorrow =7
+                if endDay == 0:
+                    endDay = 7
 
-                if (curr_day == 0):
-                    curr_day = 7
+                curr_day = tomorrow
+                while (curr_day != endDay):
+                    # select at random from DB instead of shuffling...which is faster?
+                    statementTwo = "SELECT * FROM events WHERE day = %s ORDER BY RANDOM() LIMIT 1000"
+                    cursor.execute(statementTwo, [curr_day, ])
+                    row = cursor.fetchone()
+
+                    print("Day", curr_day, ": ")
+                    while row is not None:
+                        print(row)
+                        row = cursor.fetchone()
+
+                    curr_day += 1
+                    curr_day = curr_day % 7
+
+                    if (curr_day == 0):
+                        curr_day = 7
 
 
-                
+                    
 
-   # except Exception as ex:
-  #      print(ex, file=sys.stderr)
-  #      sys.exit(1)
+    except Exception as ex:
+        print(ex, file=sys.stderr)
+        sys.exit(1)
 
 #-----------------------------------------------------------------------
 
