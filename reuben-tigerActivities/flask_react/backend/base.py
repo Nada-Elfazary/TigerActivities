@@ -36,3 +36,8 @@ def index():
         results.append(response_body)
     
     return results
+
+@api.route('/create-event', methods = ["POST"])
+def createEvent():
+    
+    print("Recieved request: {}".format(request))

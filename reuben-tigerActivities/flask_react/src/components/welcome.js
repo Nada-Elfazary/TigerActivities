@@ -3,24 +3,28 @@ import React, { useState } from 'react'
 import axios from 'axios';
 
 import Modal from './Modal'
+import CreateEventDialog  from './CreateEventDialog';
 
 export default function Welcome(): React.ReactNode{
-     const [clicked, setClicked] = useState(false)
-     const [disabled, setDisabled] = useState(false)
-     const [events, setEvents] = useState([])
+    const [clickedDisplayEvents, setClickedDisplayEvents] = useState(false)
+    const [disabledCreateEvent, setCreateEvent] = useState(false)
+    const [events, setEvents] = useState([])
     const [onSignUp, setOnSignUp] = useState(false)
     const [eventState, setEventState] = useState(null)
-     const handleOnClicked =()=>{
-        setClicked(true)
-        setDisabled(true)
+    const [clickedCreateEvent, setClickedCreateEvent] = useState(false)
+    
+    const handleOnClickedDisplayEvents =()=>{
+        setClickedDisplayEvents(true)
+        // setDisabledDisplayEvents(true)
         getEvents()
+     }
+     const handleOnClickedCreateEvent = ()=>{
+        setClickedCreateEvent(true)
+     }
 
-     }
-     const handleSignUp= ()=>{
-      setOnSignUp(true)
-     }
     const title = <h1  className='App'>Welcome to TigerActivities</h1>
-    const displayEventsButton = <button onClick={handleOnClicked} disabled={disabled}> Display Events</button>
+    const displayEventsButton = <button onClick={handleOnClickedDisplayEvents} disabled={clickedDisplayEvents}> Display Events</button>
+    const createEventButton = <button onClick={handleOnClickedCreateEvent} disabled={clickedCreateEvent}>Create Event</button>
      
 
 
@@ -43,7 +47,7 @@ export default function Welcome(): React.ReactNode{
 
     const displayEvents = events.map((event)=> (
 
-          <tr key={event.category+" " + event.id}>
+          <tr key={event.category+" "+ event.id}>
             <td>
               {event.event_name}
             </td>
@@ -62,7 +66,7 @@ export default function Welcome(): React.ReactNode{
        
       )
     
-    const showResults = clicked? (
+    const showResults = clickedDisplayEvents? (
     <div className="center">
     <table>
       <tbody>
@@ -83,14 +87,19 @@ export default function Welcome(): React.ReactNode{
 const modal = onSignUp ? (
   <Modal setOpenModal={setOnSignUp} event={eventState} />
 ): null
+
+const createEventModal = clickedCreateEvent ? ( <CreateEventDialog setOpenModal ={setClickedCreateEvent} />): null
+
     return (
       <div>
         <div className='App'>
    {title}
    {displayEventsButton}
+   {createEventButton}
    </div>
    {showResults}
    {modal}
+   {createEventModal}
    </div>
  
    
