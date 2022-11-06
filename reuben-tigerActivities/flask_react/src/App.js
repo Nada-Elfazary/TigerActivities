@@ -1,19 +1,17 @@
-import axios from "axios";
-import logo from './logo.svg';
 import './App.css';
-
+import {Route, Routes} from 'react-router-dom'
 import Welcome from './components/welcome'
-
+import Home from "./components/Home"
 
 function App(): React.ReactNode {
-
-  
-    const welcome = (<Welcome />)  
 
   return (
     
    <div>
-    {welcome}
+      <Routes>
+      <Route path="/home" element={<Home/>}/>
+      <Route path ="/" element={<Welcome/>}/>
+    </Routes>
    </div>
   );
 }

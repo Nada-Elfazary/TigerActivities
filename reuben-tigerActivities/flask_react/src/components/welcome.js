@@ -4,28 +4,43 @@ import axios from 'axios';
 
 import Modal from './Modal'
 import CreateEventDialog  from './CreateEventDialog';
+import RulesModal from './RulesModal';
+import {useNavigate } from 'react-router-dom';
 
 export default function Welcome(): React.ReactNode{
     const [clickedDisplayEvents, setClickedDisplayEvents] = useState(false)
-    const [disabledCreateEvent, setCreateEvent] = useState(false)
     const [events, setEvents] = useState([])
     const [onSignUp, setOnSignUp] = useState(false)
     const [eventState, setEventState] = useState(null)
     const [clickedCreateEvent, setClickedCreateEvent] = useState(false)
-    
+    const [checked, setChecked] = useState(false)
+    const [logInClicked, setLogInClicked] = useState(false)
+    const [redirect, setRedirect] = useState(false)
+  const navigate = useNavigate()
+
     const handleOnClickedDisplayEvents =()=>{
         setClickedDisplayEvents(true)
         // setDisabledDisplayEvents(true)
         getEvents()
      }
-     const handleOnClickedCreateEvent = ()=>{
-        setClickedCreateEvent(true)
-     }
+     const handleOnClickedCreateEvent=()=>{
 
-    const title = <h1  className='App'>Welcome to TigerActivities</h1>
+     }
+   
+    const displayRules = logInClicked ? (<RulesModal setOpenModal={setLogInClicked}  setRedirect = {setRedirect}/>): null
+
+    // const red = redirect ? (navigate('/home')) : null
+    const title = <h1>Welcome to TigerActivities </h1>
+    const logInButton = <button disabled={logInClicked} className='button' onClick={()=>{
+      setLogInClicked(true)}}>Log In</button>
+
+
+
     const displayEventsButton = <button onClick={handleOnClickedDisplayEvents} disabled={clickedDisplayEvents}> Display Events</button>
     const createEventButton = <button onClick={handleOnClickedCreateEvent} disabled={clickedCreateEvent}>Create Event</button>
-     
+    
+
+
 
 
       const getEvents =()=> {
@@ -65,7 +80,6 @@ export default function Welcome(): React.ReactNode{
         )
        
       )
-    
     const showResults = clickedDisplayEvents? (
     <div className="center">
     <table>
@@ -91,17 +105,29 @@ const modal = onSignUp ? (
 const createEventModal = clickedCreateEvent ? ( <CreateEventDialog setOpenModal ={setClickedCreateEvent} />): null
 
     return (
+      /*
       <div>
-        <div className='App'>
+    <div className='App'>
    {title}
+  
+   </div>
    {displayEventsButton}
    {createEventButton}
-   </div>
    {showResults}
    {modal}
    {createEventModal}
    </div>
- 
-   
+ */
+      <div>
+      <div className='AppContainer-1'>
+        <div className='title'>
+          {title}
+        </div>
+        <div className='logIn'>
+          {logInButton}
+        </div>
+      </div>
+      {displayRules}
+      </div>
     );
 }

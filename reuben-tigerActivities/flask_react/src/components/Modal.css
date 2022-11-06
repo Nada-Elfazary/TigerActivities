@@ -9,16 +9,16 @@
     position:absolute;
     top:50%;
     left:50%;
-    width:400px;  /* adjust as per your needs */
-    height:400px;   /* adjust as per your needs */
-    margin-left:-200px;   /* negative half of width above */
+    width:700px;  /* adjust as per your needs */
+    height:500px;   /* adjust as per your needs */
+    margin-left:-350px;   /* negative half of width above */
     margin-top:-200px;   /* negative half of height above */
 
   }
   
   .modalContainer {
-    width: 400px;
-    height: 350px;
+    width: 650px;
+    height: 450px;
     border-radius: 12px;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -45,6 +45,9 @@
     font-size: 25px;
     cursor: pointer;
   }
+  .error {
+    color: red;
+  }
   
   .modalContainer .body {
     flex: 50%;
@@ -66,13 +69,13 @@
     height: 45px;
     margin: 10px;
     border: none;
-    background-color: cornflowerblue;
-    color: white;
+    background-color: orange;
+    color: black;
     border-radius: 8px;
     font-size: 20px;
     cursor: pointer;
   }
   
   #cancelBtn {
-    background-color: crimson;
+    background-color: red;
   }
