@@ -65,10 +65,7 @@ def main():
                     curr_day = curr_day % 7
 
                     if (curr_day == 0):
-                        curr_day = 7
-
-
-                    
+                        curr_day = 7              
 
     except Exception as ex:
         print(ex, file=sys.stderr)

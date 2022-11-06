@@ -28,23 +28,22 @@ def main():
                 cursor.execute("DROP TABLE IF EXISTS events")
                 cursor.execute("CREATE TABLE events "
                     + "(eventid INTEGER, eventname TEXT, " + 
-                    "starttime INTEGER, endtime INTEGER, maxcap " + 
+                    "starttime TIME, endtime TIME, maxcap " + 
                     "INTEGER, creator TEXT, category TEXT, location " + 
-                    "TEXT, description TEXT, cost INTEGER, day INTEGER, " 
-                    + "signup_number INTEGER)")
+                    "TEXT, description TEXT, cost INTEGER, date DATE, " 
+                    + "signedup_number INTEGER)")
                 #-------------------------------------------------------
 
                 cursor.execute("DROP TABLE IF EXISTS signup")
                 cursor.execute("CREATE TABLE signup "
                     + "(eventid INTEGER, signup_netid TEXT, " + 
-                    "waitlist_netid INTEGER, attended TEXT)")
+                    "waitlist_netid INTEGER)")
 
                 #-------------------------------------------------------
 
                 cursor.execute("DROP TABLE IF EXISTS students")
                 cursor.execute("CREATE TABLE students "
-                    + "(netid TEXT, signedup INTEGER, name TEXT, "
-                    + "number TEXT, email TEXT)")
+                    + "(netid TEXT, name TEXT, number TEXT, email TEXT, classyear TEXT)")
 
                 #-------------------------------------------------------
 
