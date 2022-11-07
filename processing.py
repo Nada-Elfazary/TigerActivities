@@ -21,15 +21,11 @@ def get_time():
     current_hour = current_time.hour
     return current_hour
 
-def main():
-
-    if len(sys.argv) != 1:
-        print('Usage: python display.py', file=sys.stderr)
-        sys.exit(1)
-
+def fetch_activities():
     try:
         database_url = DATABASE_URL
 
+        activities = []
         with psycopg2.connect(database_url) as connection:
             
             with connection.cursor() as cursor:
@@ -40,6 +36,7 @@ def main():
                 print("Day", day, ": ")
                 while row is not None:
                     print(row)
+                    activities.append(row)
                     row = cursor.fetchone()
 
                 tomorrow = (day + 1)%7
@@ -59,17 +56,28 @@ def main():
                     print("Day", curr_day, ": ")
                     while row is not None:
                         print(row)
+                        activities.append(row)
                         row = cursor.fetchone()
 
                     curr_day += 1
                     curr_day = curr_day % 7
 
                     if (curr_day == 0):
-                        curr_day = 7              
+                        curr_day = 7  
+
+        return activities              
 
     except Exception as ex:
         print(ex, file=sys.stderr)
         sys.exit(1)
+
+def main():
+
+    if len(sys.argv) != 1:
+        print('Usage: python display.py', file=sys.stderr)
+        sys.exit(1)
+
+    
 
 #-----------------------------------------------------------------------
 
