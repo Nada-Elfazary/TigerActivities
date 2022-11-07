@@ -1,8 +1,20 @@
+*****Notes: WE NEED TO UPDATE OUR PREPOPULATION SINCE THE FIELDS IN THE DATABASE CHANGED*****
+
+
 Put new events function 
+DONE:
+assumed getting times and date as objects for now
+
+hardcoded creator for now
+
 
 Put people in the student table function
 
 Signup function
+DONE:
+not sure if the update is right, would it work with the 'signedup_number = signedup_number + 1', or do we have to do a select first to get the number?
+
+why is waitlist netid an integer? and what do you want to do with it for now? I just put a 0 rn
 
 Expiration stuff 
 
