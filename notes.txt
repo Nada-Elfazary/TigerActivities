@@ -1,0 +1,29 @@
+*****Notes: WE NEED TO UPDATE OUR PREPOPULATION SINCE THE FIELDS IN THE DATABASE CHANGED*****
+WE NEED TO FIX OUR QUERY NOW THAT DATE AND TIME ARE OBJECTS, COULD YOU DO THAT?
+
+WE MIGHT HAVE TO CHANGE THE EVENTID TO BE A STRING, BECAUSE THE ONLY WAY THE FRONTEND CAN SEND US AN EVENTID ASSOCIATED WITH
+A SPECIFIC SIGNUP IS IF THEY USE SOME OF THE INFO FROM THE EVENT
+COMBINED (EG REUBEN WAS SUGGESTING NAME+TIME OR A SEGMENT OF THAT).
+I DON'T THINK IT WOULD WORK IF ONLY THE BACKEND TAKES CARE OF THE 
+EVENTID AND THE FRONTEND HAS NO IDEA WHAT IT IS, SO MAYBE WE SHOULD
+LET THE FRONTEND ASSIGN THE EVENTID WHEN IT'S CREATED
+
+
+Put new events function 
+DONE:
+assumed getting times and date as objects for now
+
+hardcoded creator for now
+
+
+Put people in the student table function
+
+Signup function
+DONE:
+not sure if the update is right, would it work with the 'signedup_number = signedup_number + 1', or do we have to do a select first to get the number?
+
+why is waitlist netid an integer? and what do you want to do with it for now? I just put a 0 rn
+
+Expiration stuff 
+
+Fetch function for the owner of the activity 
