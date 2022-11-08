@@ -9,8 +9,8 @@ function App(): React.ReactNode {
     
    <div>
       <Routes>
-      <Route path="/home" element={<Home/>}/>
       <Route path ="/" element={<Welcome/>}/>
+      <Route path="/home" element={<Home/>}/>
     </Routes>
    </div>
   );
