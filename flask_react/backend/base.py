@@ -1,37 +1,43 @@
 from flask import Flask
-from processing import get_all
+import processing as proc
 
 api = Flask(__name__)
 
 @api.route('/profile')
+@api.route('/')
 def my_profile():
     response_body = {
-        "name": "Anca",
-        "about" :"Hello! I'm basically a full stack developer now."
+        "name": "Reuben",
+        "about" :"Hello! I'm a full stack developer that loves python and javascript"
     }
 
     return response_body
 
-@api.route('/home')
-@api.route('/')
+@api.route("/events", methods = ['GET'])
 def index():
-    ans = get_all()
-    print(ans)
-    one_event = ans[0]
-    response_body = {
-        "id": one_event[0],
-        "event_name":one_event[1],
-        "start_time":one_event[2],
-        "end_time":one_event[3],
-        "maxcap":one_event[4],
-        "creator":one_event[5],
-        "category":one_event[6],
-        "location":one_event[7],
-        "description":one_event[8],
-        "cost":one_event[9],
-        "day":one_event[10],
-        "signup_number":one_event[11]
+    events = proc.get_all()
+    print(events)
+    results =[]
+    for event in events:
+        response_body={
+            "id": event[0],
+            "event_name":event[1],
+            "start_time":event[2],
+            "end_time":event[3],
+            "maxcap":event[4],
+            "creator":event[5],
+            "category":event[6],
+            "location":event[7],
+            "description":event[8],
+            "cost":event[9],
+            "day":event[10],
+            "signup_number":event[11]
+        }
+        results.append(response_body)
+    
+    return results
 
-    }
-
-    return response_body
+@api.route('/create-event', methods = ["POST"])
+def createEvent():
+    
+    print("Recieved request: {}".format(request))

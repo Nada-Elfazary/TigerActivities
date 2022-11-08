@@ -1,9 +1,15 @@
-Installing required packages
-
+# Commands to start project: one time
 cd .. && pip install -r requirements.txt
+cd flask_react
+npm install
+
+# Start backend:
+npm run start-backend
+
+# Start frontend:
+npm run start
 
 # Getting Started with Create React App
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -17,9 +23,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
-
-### `npm backend-start`
-Runs the flask backend.
 
 ### `npm test`
 
