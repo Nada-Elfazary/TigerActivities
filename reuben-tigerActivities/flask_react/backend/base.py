@@ -1,5 +1,6 @@
 from flask import Flask
 import processing as proc
+import json
 
 api = Flask(__name__)
 
@@ -34,8 +35,9 @@ def index():
             "signup_number":event[11]
         }
         results.append(response_body)
+    print(results[0])
     
-    return results
+    return json.dumps(results)
 
 @api.route('/create-event', methods = ["POST"])
 def createEvent():

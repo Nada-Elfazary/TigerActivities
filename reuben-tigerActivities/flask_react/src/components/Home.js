@@ -19,9 +19,10 @@ const check= ()=>{
 }
 
 const getEvents =()=> {
+  /*
   axios({
     method: "GET",
-    url:"/home",
+    url:"/events",
   })
   .then((response) => {
     const res =response.data
@@ -33,7 +34,15 @@ const getEvents =()=> {
       console.log(error.response.status)
       console.log(error.response.headers)
       }
-  })}
+  })
+*/
+axios.get('/events').then(res =>{
+  console.log(res)
+  setEvents(res.data)
+}).catch(err =>{
+  console.log(err)
+})
+}
 
   const title = <h1><i>TigerActivities </i></h1>
   const activities = <button className="button" onClick={activitesClicked}>Activities</button>
