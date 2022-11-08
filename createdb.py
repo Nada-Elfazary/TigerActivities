@@ -42,9 +42,9 @@ def main():
                 #-------------------------------------------------------
 
                 cursor.execute("DROP TABLE IF EXISTS students")
-                cursor.execute("CREATE TABLE students "
-                    + "(netid TEXT, name TEXT, number TEXT, email TEXT, classyear TEXT)")
-
+                cursor.execute("CREATE TABLE students (netid TEXT, name" 
+                + " TEXT, number TEXT, email TEXT, classyear TEXT)")
+                
                 #-------------------------------------------------------
 
     except Exception as ex:

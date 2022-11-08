@@ -8,64 +8,65 @@ from audioop import tomono
 import sys
 import psycopg2
 import datetime
+import pytz
 #-----------------------------------------------------------------------
 DATABASE_URL = 'postgres://hwwlwcbv:hyNZQS9_LH8CSD3yQoc5IpDHkBJeSlhF@peanut.db.elephantsql.com/hwwlwcbv'
 
-DICT_DAY = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 3: "Thursday", 4: "Friday", 5: "Saturday", 6: "Sunday"}
+def get_current_date():
+    currDay = datetime.datetime.now(pytz.timezone('US/Central'))
+    currDay = currDay.strftime("%Y/%m/%d")
+    return currDay
 
-EVENT_ID = 10 #??
+def get_current_time():
+    currTime = datetime.datetime.now(pytz.timezone('US/Central'))
+    currTime = currTime.strftime("%H:%M")
+    return currTime
 
-def get_day():
-    return datetime.datetime.now().weekday()
+def convert_date(year, month, day):
+    date = datetime.date(year, month, day)
+    return date
 
-def get_time():
-    current_time = datetime.datetime.now().time()
-    current_hour = current_time.hour
-    return current_hour
+def convert_time(hour, minute):
+    time = datetime.time(hour, minute)
+    return time
+
+def get_date_limit():
+    currDay = datetime.datetime.now(pytz.timezone('US/Central'))
+    year = currDay.year
+    month = currDay.month
+    newDay = currDay.day + 6
+    if newDay > 30:
+        month += 1
+        newDay = newDay - 30
+    currDay = convert_date(year, month, newDay)
+    return currDay
 
 def fetch_activities():
     try:
         database_url = DATABASE_URL
-
         activities = []
-        with psycopg2.connect(database_url) as connection:
-            
+        currDate = get_current_date()
+        currTime = get_current_time()
+        dateLimit = get_date_limit()
+        with psycopg2.connect(database_url) as connection:            
             with connection.cursor() as cursor:
-                day = get_day()
-                statementOne = "SELECT * FROM events WHERE day = %s AND starttime > %s"
-                cursor.execute(statementOne, (day, get_time()))
+                statementOne = "SELECT * FROM events WHERE date = %s AND starttime > %s"
+                cursor.execute(statementOne, [currDate, currTime])
                 row = cursor.fetchone()
-                print("Day", day, ": ")
+                print("Date: ", get_current_date())
                 while row is not None:
                     print(row)
                     activities.append(row)
                     row = cursor.fetchone()
 
-                tomorrow = (day + 1)%7
-                endDay = (day + 5)%7
-                if tomorrow == 0:
-                    tomorrow =7
-                if endDay == 0:
-                    endDay = 7
-
-                curr_day = tomorrow
-                while (curr_day != endDay):
-                    # select at random from DB instead of shuffling...which is faster?
-                    statementTwo = "SELECT * FROM events WHERE day = %s ORDER BY RANDOM() LIMIT 1000"
-                    cursor.execute(statementTwo, [curr_day, ])
+                statementTwo = "SELECT * FROM events WHERE %s < date AND date < %s ORDER BY RANDOM() LIMIT 1000"
+                cursor.execute(statementTwo, [currDate, dateLimit])
+                row = cursor.fetchone()
+                print("Date: ", get_current_date(), "+ 5 days")
+                while row is not None:
+                    print(row)
+                    activities.append(row)
                     row = cursor.fetchone()
-
-                    print("Day", curr_day, ": ")
-                    while row is not None:
-                        print(row)
-                        activities.append(row)
-                        row = cursor.fetchone()
-
-                    curr_day += 1
-                    curr_day = curr_day % 7
-
-                    if (curr_day == 0):
-                        curr_day = 7  
 
         return activities              
 
@@ -73,88 +74,88 @@ def fetch_activities():
         print(ex, file=sys.stderr)
         sys.exit(1)
 
-def store_activity(activity):
-    title = activity[0]
-    location = activity[1]
-    date = activity[2]
-    start_time = activity[3]
-    end_time = activity[4]
-    cap = activity[5]
-    cost = activity[6]
-    description = activity[7]
-    category = activity[8]
+# this is workinggggggggggggggggg
+def store_activity():
+    title = "New Activity"
+    location = "New Location"
+    date = convert_date(2022, 11, 8)
+    start_time = convert_time(15, 30)
+    end_time = convert_time(16, 30)
+    cap = 10
+    cost = 100
+    description = "Haha haha haha haha"
+    category = "Category7"
 
     #******
-    creator = 'elfazary'
+    creator = 'choppercabras'
 
     try:
         database_url = DATABASE_URL
-        event_id = EVENT_ID+1
+        event_id = 11
         with psycopg2.connect(database_url) as connection:
             
             with connection.cursor() as cursor:
-                day = get_day()
-                statement = "INSERT INTO events VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-                cursor.execute(statement, (event_id, title, start_time,
+                statement = "INSERT INTO events VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)" 
+                # how to actually check if the event id is unique and not duplicate
+                # statement += " ON CONFLICT (events.eventid) DO NOTHING"
+                cursor.execute(statement, [event_id, title, start_time,
                 end_time, cap, creator, category, location, description,
-                cost, date, 0))            
+                cost, date, 0])            
 
     except Exception as ex:
-        print(ex, file=sys.stderr)
+        print(ex, file=sys.stderr) 
         sys.exit(1)
 
-def store_sign_up(sign_up):
-    netid = 'elfazary' #hardcoded for now
-    eventid = sign_up[0]
-    name = sign_up[1]
-    phone_num = sign_up[2]
-    email = sign_up[3]
-
+# this is workinnggggggggggggggggg
+def store_sign_up():
+    netid = 'checkcheck' #hardcoded for now
+    eventid = 10
+    name = "I am check"
+    phone_num = "1212141414"
+    email = "hahahaha@gmail.haha"
+    classyear = "junior"
 
     try:
         database_url = DATABASE_URL
         with psycopg2.connect(database_url) as connection:
             
             with connection.cursor() as cursor:
-                day = get_day()
+               # day = get_day()
                # statement = "SELECT "
 
                # UPDATE EVENTS TABLE
-                statement = "UPDATE events SET signedup_number"
-                + "= %s WHERE eventid = %s"
+                statement = "UPDATE events SET signedup_number = signedup_number + 1 WHERE eventid = %s"
 
-                cursor.execute(statement, ('signedup_number + 1', eventid))
+                cursor.execute(statement, [eventid])
 
-                # UPDATE SIGNUP TABLE
-                statement = "INSERT INTO signup VALUES"
-                + "(%s, %s, %s)"  
-                cursor.execute(statement, (eventid, netid, 0))       
+                # UPDATE SIGNUP TABLE  
+                statement = "INSERT INTO signup VALUES(%s, %s, %s)"  
+                cursor.execute(statement, (eventid, netid, 0))
+                
+                # UPDATE STUDENTS TABLE
+                statement = "INSERT INTO students VALUES(%s, %s, %s, %s, %s)"  
+                cursor.execute(statement, (netid, name, phone_num, email, classyear))    
 
     except Exception as ex:
         print(ex, file=sys.stderr)
         sys.exit(1)
 
-
-
-
-
-
 def main():
 
-    if len(sys.argv) != 1:
-        print('Usage: python display.py', file=sys.stderr)
-        sys.exit(1)
+    # if len(sys.argv) != 1:
+    #     print('Usage: python display.py', file=sys.stderr)
+    #     sys.exit(1)
 
-    start_time = datetime.time(12, 30)
-    end_time = datetime.time(13, 30)
-    date = datetime.date(2022, 11, 8)
+    # start_time = datetime.time(12, 30)
+    # end_time = datetime.time(13, 30)
+    # date = datetime.date(2022, 11, 8)
 
-    store_activity(['Canoeing', 'Carnegie Lake', date, start_time, end_time, 20,
-    100, 'Canoeing at carnegie lake', 'Off-campus'])
+    # store_activity(['Canoeing', 'Carnegie Lake', date, start_time, end_time, 20,
+    # 100, 'Canoeing at carnegie lake', 'Off-campus'])
 
+    store_sign_up()
+    store_activity() 
     fetch_activities()
-
-    
 
 #-----------------------------------------------------------------------
 
