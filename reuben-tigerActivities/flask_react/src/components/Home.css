@@ -52,4 +52,10 @@
     justify-content: flex-end;
 }
 
+table.center {
+  margin-left: auto; 
+  margin-right: auto;
+}
+
+
 

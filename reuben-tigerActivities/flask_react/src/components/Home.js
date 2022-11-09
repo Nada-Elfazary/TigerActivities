@@ -106,7 +106,7 @@ const showResults = clickedActivites? (
   ): null
 
   const showOwnerButton = clickedMyActivites? (
- 
+
     createEventButton
   
 
@@ -119,11 +119,8 @@ const showResults = clickedActivites? (
           {title}
         
         </div>
-        
-      
 
-   
-        </div>   
+      </div>   
 
       <div className = "LeftNavContainer-1">
         <div className="btn">
@@ -132,7 +129,7 @@ const showResults = clickedActivites? (
         </div>
         </div>  
         <div className="content">
-       <table>
+       <table class="center">
         <tr>
        {showOwnerButton}
        </tr>
@@ -142,7 +139,7 @@ const showResults = clickedActivites? (
        </div>
        {modal}
       </div>
-
+    
   );
 };
   
