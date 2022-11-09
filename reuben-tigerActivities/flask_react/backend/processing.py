@@ -24,10 +24,12 @@ def get_current_time():
 
 def convert_date(year, month, day):
     date = datetime.date(year, month, day)
+    date = date.strftime("%Y/%m/%d")
     return date
 
 def convert_time(hour, minute):
     time = datetime.time(hour, minute)
+    time = time.strftime("%H:%M")
     return time
 
 def get_date_limit():
@@ -87,34 +89,42 @@ def fetch_activities():
         sys.exit(1)
 
 # this is workinggggggggggggggggg
-def store_activity():
-    title = "New Activity"
-    location = "New Location"
-    start_date = convert_date(2022, 11, 8)
-    end_date = convert_date(2022, 11, 9)
-    start_time = convert_time(15, 30)
+def store_activity(res):
+    title = res['event_name']
+    location = res['location']
+    
+    time = res['start_time']
+    print(time)
+    split_time = time.split('T')
+    start_date = split_time[0].split('-')
+    split_time_start = split_time[1].split(':')
+    print("split",start_date )
+    start_date = convert_date(int(start_date[0]), int(start_date[1]), int(start_date[2]))
+    end_date = convert_date(2022, 11, 11)
+    start_time = convert_time(int(split_time_start[0]), int(split_time_start[1]))
     end_time = convert_time(16, 30)
     cap = 10
     cost = 100
-    description = "Haha haha haha haha"
-    category = "Category7"
+    description = res['description']
+    category = res['category']
+    EVENT_ID = 100
 
     #******
-    creator = 'choppercabras'
+    creator = 'reubenSriyans'
 
     try:
         database_url = DATABASE_URL
-        event_id = 11
         with psycopg2.connect(database_url) as connection:
             
             with connection.cursor() as cursor:
                 statement = "INSERT INTO events VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)" 
                 # how to actually check if the event id is unique and not duplicate
-                # statement += " ON CONFLICT (events.eventid) DO NOTHING"
-                cursor.execute(statement, [event_id, title, start_time,
-                end_time, cap, creator, category, location, description,
-                cost, start_date, end_date, 0])            
-
+                # statement += " ON CONFLICT (events.eventid) DO UPDATE SET events.title = %s, events.location = %s, events.startdate = %s, events.enddate = %s, events.starttime = %s, events.endtime = %s, events.capacity = %s, events.cost = %s, events.description = %s, events.category = %s, events.creator = %s"
+                cursor.execute(statement, [str(EVENT_ID), title, start_time,
+                end_time, str(cap), creator, category, location, description,
+                str(cost), start_date, end_date])  
+                print("done")
+        EVENT_ID += 1          
     except Exception as ex:
         print(ex, file=sys.stderr) 
         sys.exit(1)
@@ -146,7 +156,9 @@ def store_sign_up():
                 cursor.execute(statement, (eventid, netid, 0))
                 
                 # UPDATE STUDENTS TABLE
-                statement = "INSERT INTO students VALUES(%s, %s, %s, %s, %s)"  
+                statement = "INSERT INTO students VALUES(%s, %s, %s, %s, %s) "
+                # statement += "ON CONFLICT (netid) DO UPDATE SET students.name = %s, "
+                # statement += "students.phone_num = %s, students.email = %s, students.classyear = %s"  
                 cursor.execute(statement, (netid, name, phone_num, email, classyear))    
 
     except Exception as ex:

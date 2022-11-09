@@ -64,6 +64,7 @@ function CreateEventDialog(props) {
       console.log(description)
       console.log(eventLocation)
       submitForm()
+      props.setOpenModal(false)
     }
     const errorM  = showErrorMsg? <strong className="error">{errorMsg}</strong> : null
 
