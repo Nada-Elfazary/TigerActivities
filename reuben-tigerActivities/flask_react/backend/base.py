@@ -16,15 +16,15 @@ def my_profile():
 
 @api.route("/events", methods = ['GET'])
 def index():
-    events = proc.get_all()
+    events = proc.fetch_activities()
     print(events)
     results =[]
     for event in events:
         response_body={
             "id": event[0],
             "event_name":event[1],
-            "start_time":event[2],
-            "end_time":event[3],
+            "start_time":"event[2]",
+            "end_time":"sth",
             "maxcap":event[4],
             "creator":event[5],
             "category":event[6],
@@ -35,9 +35,8 @@ def index():
             "signup_number":event[11]
         }
         results.append(response_body)
-    print(results[0])
     
-    return json.dumps(results)
+    return results
 
 @api.route('/create-event', methods = ["POST"])
 def createEvent():

@@ -48,36 +48,31 @@ axios.get('/events').then(res =>{
   const activities = <button className="button" onClick={activitesClicked}>Activities</button>
   const myActivities = <button className="button">My Activities</button>
   const displayEvents = events.map((event)=> (
-    /*
-    <div className="center">
+  
+    <div className="content" key ={event.id + " " + event.category}>
   <table>
     <tbody>
     <tr>
-      <td><strong>Event Name</strong></td>
-      <td><strong>Category</strong></td>
-      <td><strong>Creator</strong></td>
+      <td></td>
+      <td><strong>{event.event_name}</strong> </td>
 
     </tr>
     <tr key={event.category+" "+ event.id}>
       <td>
-        <strong>{event.event_name}</strong>
+        Category:{event.category}
       </td>
       <td>
-      {event.category}
+      Location : {event.location}
       </td>
       <td>
         {event.creator}
       </td>
-      <td><button onClick={()=>{
-      }}>Sign Up</button></td>
     </tr>
     </tbody>
   </table>
   </div>
-  */
- <div className="center">
-  here
- </div>
+ 
+ 
   ) 
 )
 
