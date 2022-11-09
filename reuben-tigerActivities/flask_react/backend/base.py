@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 import processing as proc
 import json
 
@@ -42,3 +42,7 @@ def index():
 def createEvent():
     
     print("Recieved request: {}".format(request))
+    print("Body", request.form)
+    print("Event Name", request.form.get("event_name"))
+    print("Location", request.form.get("location"))
+    return request

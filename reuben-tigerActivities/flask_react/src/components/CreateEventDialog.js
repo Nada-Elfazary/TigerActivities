@@ -1,20 +1,47 @@
 import React, { useState } from "react";
-import "./Modal.css";
+import Flatpickr from "react-flatpickr";
+import "flatpickr/dist/themes/material_orange.css";
 import axios from 'axios';
 
+
 function CreateEventDialog(props) {
+    const MAX_NO_DAYS = 5
+    const DEFAULT_CREATOR = "DefaultCreator"
+    const DEFAULT_CATEGORY = "Sports"
+    const DEFAULT_SIGNUP_NR = 0
     const[eventTitle, setEventTitle] = useState('')
     const[eventLocation, setEventLocation] = useState('')
     const[maxAttendeeCount, setMaxAttendeeCount] = useState(5)
     const [disableSubmitForm, setDisableSubmitForm] = useState(false)
+    const [startTime, setStartTime] = useState(new Date())
+    const [endTime, setEndTime] = useState(new Date())
+    const [cost, setCost] = useState(0)
+    const [description, setDescription] = useState("")
+    const [saving, setSaving] = useState(false)
+    const [errorMsg, setErrorMsg] = useState([])
+    const [showErrorMsg, setShowErrorMsg] = useState(false)
+    const curr_time = new Date()
+    // console.log("Current time", curr_time.getTime())
+    // const five_days_in_future = curr_time.setDate(curr_time.getDate() + MAX_NO_DAYS) 
+    // console.log("Max time in future",five_days_in_future)
+   
 
     const submitForm = ()=>{
         setDisableSubmitForm(true)
         console.log(disableSubmitForm)
         axios.post('/create-event', {
-            title: eventTitle,
-            location: eventLocation,
-            MaxAttendeeCount: maxAttendeeCount
+          // create_id
+            event_name:    eventTitle,
+            start_time:    startTime,
+            end_time:      endTime,
+            maxcap:        maxAttendeeCount,
+            creator:       DEFAULT_CREATOR,
+            category:      DEFAULT_CATEGORY,
+            location:      eventLocation,
+            description:   description,
+            cost:          cost,
+            signup_number: DEFAULT_SIGNUP_NR,
+
           })
           .then(function (response) {
             console.log(response);
@@ -23,14 +50,27 @@ function CreateEventDialog(props) {
             console.log(error);
           });
     }
-    
+
+    const failureCallBack = (error)=>{
+      setSaving(false)
+      setErrorMsg(error)
+      setShowErrorMsg(true)
+    }
+    const successCallBack = ()=>{
+      showErrorMsg(false)
+      setErrorMsg(null)
+      setSaving(true)
+      submitForm()
+    }
+    const errorM  = showErrorMsg? <strong className="error">{errorMsg}</strong> : null
+
   return (
     <div className="modalBackground">
       <div className="modalContainer">
         <div className="titleCloseBtn">
           <button
             onClick={() => {
-              {props.setOpenModal(false);}
+              props.setOpenModal(false)
             }}
           >
             x
@@ -40,32 +80,70 @@ function CreateEventDialog(props) {
           <h2>Create A TigerActivity </h2>
         </div>
         <div className="body">
-          <p>
+
             <form action='/createEvent' method = "get">
             <table>
+              <tbody>
                     <tr>
-                    <td ><label>Event Title:</label></td>
+                    <td >Title:</td>
                     <td><input type="text" name="title"  value={eventTitle} onChange={(event)=>{
                         setEventTitle(event.target.value)
                         console.log(eventTitle)
                     }}/> </td>
                     </tr>
                     <tr>
-                    <td ><label>Location:</label></td>
+                    <td >Location:</td>
                     <td><input type="text" name="Location" value ={eventLocation} onChange={(event)=>{
                         setEventLocation(event.target.value)
                     }}/> </td>
                     </tr>
                     <tr>
-                    <td ><label>Max Attendee Count:</label></td>
+                      <td>Start Time</td>
+                     <td><Flatpickr
+                     data-enable-time 
+                     value={startTime} 
+                     onChange={(event) => 
+                     {
+                        console.log("date:" +  startTime)
+                        setStartTime(new Date(event))
+                        console.log("date after:", event)
+                     }} /> </td>
+                    </tr>
+                    <tr>
+                    <td> End Time</td>
+                    <td><Flatpickr
+                     data-enable-time 
+                     value={endTime} 
+                     onChange={(event) => 
+                     {
+                        setEndTime(new Date(event))
+                        console.log("date:", event)
+                     }} /> </td>     
+                    </tr>
+                    <tr>
+                    <td >Max Attendee Count:</td>
                     <td><input type="text" name="Attendee Count" value={maxAttendeeCount} onChange={(event) =>
                         {
                             setMaxAttendeeCount(event.target.value)
                         }} /> </td>
                     </tr>
+                    <tr>
+                      <td>Approximate Cost Involved (in $)</td>
+                      <td><input type="text" name="Cost" value={cost} onChange={(event) =>
+                        {
+                        setCost(event.target.value)
+                        }} /></td>
+                    </tr>
+                    <tr>
+                      <td>Description: </td>
+                      <td><textarea name ="description" value={description} onChange={(event) =>
+                      {
+                      setDescription(event.target.value)
+                      }}></textarea></td>
+                    </tr>
+                    </tbody>
                 </table>
                 </form>
-                </p>
         </div>
         <div className="footer">
           <button
@@ -76,7 +154,18 @@ function CreateEventDialog(props) {
           >
             Cancel
           </button>
-          <button disabled={disableSubmitForm} onClick={submitForm}>Sign Up</button>
+          <button disabled={disableSubmitForm} onClick={()=>{
+            console.log(endTime.getTime())
+            console.log(startTime.getTime())
+            if( endTime.getTime() < startTime.getTime()){
+              console.log("wrong dates")
+              failureCallBack("End Date before start date. Please fix this")
+            }
+            else {
+             successCallBack()
+            }
+
+          }}>Create</button>{errorM}
         </div>
       </div>
     </div>

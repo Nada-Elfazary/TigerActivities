@@ -15,12 +15,14 @@ function Modal(props) {
           </button>
         </div>
         <div className="title">
-          <h2>Want to sign up for {props.event.event_name}</h2>
+          <h2>Want to sign up for</h2>
         </div>
         <div className="body">
-          <p>
-            {props.event.description}
+  
             <table>
+              <tbody>
+
+            
                     <tr>
                     <td ><label>Name:</label></td>
                     <td><input type="text" name="name"/> </td>
@@ -29,8 +31,9 @@ function Modal(props) {
                     <td ><label>Phone Number:</label></td>
                     <td><input type="text" name="Number"/> </td>
                     </tr>
+                    </tbody>
                 </table>
-                </p>
+
         </div>
         <div className="footer">
           <button

@@ -1,6 +1,8 @@
 import React, {useState} from "react";
+import CreateEventDialog from "./CreateEventDialog";
 import "./Home.css";
 import axios from 'axios';
+
 
 // importing Link from react-router-dom to navigate to 
 // different end points.
@@ -8,7 +10,7 @@ import axios from 'axios';
 export default function  Home() : React.ReactNode {
   const [clickedActivites, setClickedActivities] = useState(false)
   const [events, setEvents] = useState([])
-
+  const [displayModal, setDisplayModal] = useState(false)
 const activitesClicked= ()=>{
   setClickedActivities(true)
   getEvents()
@@ -17,9 +19,11 @@ const activitesClicked= ()=>{
 const check= ()=>{
   console.log(events)
 }
-
+const handleCreateEvent = ()=>{
+  setDisplayModal(true);
+}
 const getEvents =()=> {
-  /*
+/*
   axios({
     method: "GET",
     url:"/events",
@@ -35,20 +39,26 @@ const getEvents =()=> {
       console.log(error.response.headers)
       }
   })
-*/
+  */
+
+/*
 axios.get('/events').then(res =>{
   console.log(res)
   setEvents(res.data)
 }).catch(err =>{
   console.log(err)
 })
+*/
 }
 
   const title = <h1><i>TigerActivities </i></h1>
   const activities = <button className="button" onClick={activitesClicked}>Activities</button>
   const myActivities = <button className="button">My Activities</button>
+  const createEventButton = <button onClick={handleCreateEvent}>Create Activity</button>
+  const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal}/>) : null
+
+
   const displayEvents = events.map((event)=> (
-  
     <div className="content" key ={event.id + " " + event.category}>
   <table>
     <tbody className="body">
@@ -66,13 +76,13 @@ axios.get('/events').then(res =>{
       </td>
     </tr>
     <tr>
-      Start time: <td>{event.start_time}</td>
-      Created By: <td>{event.creator}</td>
+   <td> Start time:{event.start_time}</td>
+   <td>   Created By: {event.creator}</td>
     </tr>
     <tr>
       <td></td>
       <td></td>
-      Number Of Attendees: <td>{event.signup_number}/{event.maxcap}</td>
+      <td> Number Of Attendees:{event.signup_number}/{event.maxcap}</td>
     </tr>
     </tbody>
   </table>
@@ -94,7 +104,12 @@ const showResults = clickedActivites? (
      <div className='HomeContainer-1'>
      <div className='title'>
           {title}
+        
         </div>
+
+        {createEventButton}
+
+   
         </div>   
 
       <div className = "LeftNavContainer-1">
@@ -106,6 +121,7 @@ const showResults = clickedActivites? (
         <div className="content">
         {showResults}
        </div>
+       {modal}
       </div>
 
   );
