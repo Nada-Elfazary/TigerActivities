@@ -30,8 +30,8 @@ def main():
                     + "(eventid INTEGER, eventname TEXT, " + 
                     "starttime TIME, endtime TIME, maxcap " + 
                     "INTEGER, creator TEXT, category TEXT, location " + 
-                    "TEXT, description TEXT, cost INTEGER, date DATE, " 
-                    + "signedup_number INTEGER)")
+                    "TEXT, description TEXT, cost INTEGER, startdate DATE, " +
+                    "enddate DATE, signedup_number INTEGER)")
                 #-------------------------------------------------------
 
                 cursor.execute("DROP TABLE IF EXISTS signup")
