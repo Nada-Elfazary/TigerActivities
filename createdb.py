@@ -31,13 +31,13 @@ def main():
                     "starttime TIME, endtime TIME, maxcap " + 
                     "INTEGER, creator TEXT, category TEXT, location " + 
                     "TEXT, description TEXT, cost INTEGER, startdate DATE, " +
-                    "enddate DATE, signedup_number INTEGER)")
+                    "enddate DATE, signedup_number INTEGER, PRIMARY KEY(creator, startdate, starttime))")
                 #-------------------------------------------------------
 
                 cursor.execute("DROP TABLE IF EXISTS signup")
                 cursor.execute("CREATE TABLE signup "
                     + "(eventid INTEGER, signup_netid TEXT, " + 
-                    "waitlist_netid INTEGER)")
+                    "waitlist_netid INTEGER, PRIMARY KEY(eventid, signup_netid))")
 
                 #-------------------------------------------------------
 
