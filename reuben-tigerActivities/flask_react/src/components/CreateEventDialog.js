@@ -20,7 +20,7 @@ function CreateEventDialog(props) {
     const [saving, setSaving] = useState(false)
     const [errorMsg, setErrorMsg] = useState([])
     const [showErrorMsg, setShowErrorMsg] = useState(false)
-    const curr_time = new Date()
+    // const curr_time = new Date()
     // console.log("Current time", curr_time.getTime())
     // const five_days_in_future = curr_time.setDate(curr_time.getDate() + MAX_NO_DAYS) 
     // console.log("Max time in future",five_days_in_future)
