@@ -43,12 +43,11 @@ function CreateEventDialog(props) {
             signup_number: DEFAULT_SIGNUP_NR,
 
           })
-          .then(function (response) {
+          .then((response) =>{
             console.log(response);
+          }, (error) => {
+            console.log(error)
           })
-          .catch(function (error) {
-            console.log(error);
-          });
     }
 
     const failureCallBack = (error)=>{
@@ -57,9 +56,13 @@ function CreateEventDialog(props) {
       setShowErrorMsg(true)
     }
     const successCallBack = ()=>{
-      showErrorMsg(false)
-      setErrorMsg(null)
+      console.log("success")
+     setShowErrorMsg(false) 
+     setErrorMsg(null)
       setSaving(true)
+      console.log(eventTitle)
+      console.log(description)
+      console.log(eventLocation)
       submitForm()
     }
     const errorM  = showErrorMsg? <strong className="error">{errorMsg}</strong> : null

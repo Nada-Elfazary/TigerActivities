@@ -34,11 +34,11 @@
 }
 .content{
     display: flex;
+    align-items: center;
 
 }
 .content div{
     background-color: grey;
-    justify-content: space-evenly;
     margin-top: 1rem;
     margin-left: 0.2rem;
     border-radius: 10px;
@@ -46,7 +46,7 @@
     width: 80%;
 }
 .body{
-    flex-direction: row;
+    flex-direction: column;
 }
 .location{
     justify-content: flex-end;

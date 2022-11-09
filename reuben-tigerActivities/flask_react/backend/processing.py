@@ -13,9 +13,9 @@ import pytz
 DATABASE_URL = 'postgres://hwwlwcbv:hyNZQS9_LH8CSD3yQoc5IpDHkBJeSlhF@peanut.db.elephantsql.com/hwwlwcbv'
 
 def get_current_date():
-    currDay = datetime.datetime.now(pytz.timezone('US/Central'))
-    currDay = currDay.strftime("%Y/%m/%d")
-    return currDay
+    currDate = datetime.datetime.now(pytz.timezone('US/Central'))
+    currDate = currDate.strftime("%Y/%m/%d")
+    return currDate
 
 def get_current_time():
     currTime = datetime.datetime.now(pytz.timezone('US/Central'))
@@ -35,9 +35,9 @@ def get_date_limit():
     year = currDay.year
     month = currDay.month
     newDay = currDay.day + 6
-    if newDay > 30:
+    if newDay > 31:
         month += 1
-        newDay = newDay - 30
+        newDay = newDay - 31
     currDay = convert_date(year, month, newDay)
     return currDay
 
@@ -50,22 +50,34 @@ def fetch_activities():
         dateLimit = get_date_limit()
         with psycopg2.connect(database_url) as connection:            
             with connection.cursor() as cursor:
-                statementOne = "SELECT * FROM events WHERE date = %s AND starttime > %s"
+                statementOne = "SELECT * FROM events WHERE startdate = %s AND starttime > %s"
                 cursor.execute(statementOne, [currDate, currTime])
                 row = cursor.fetchone()
                 print("Date: ", get_current_date())
                 while row is not None:
-                    print(row)
-                    activities.append(row)
+                    newStartTime = row[2].strftime("%H:%M")
+                    newEndTime = row[3].strftime("%H:%M")
+                    newStartDate = row[10].strftime("%Y/%m/%d")
+                    newEndDate = row[11].strftime("%Y/%m/%d")
+                    copy_row = (row[0], row[1], newStartTime, newEndTime, row[4],
+                    row[5], row[6], row[7], row[8], row[9], newStartDate, newEndTime, row[12])
+                    print(copy_row)
+                    activities.append(copy_row)
                     row = cursor.fetchone()
 
-                statementTwo = "SELECT * FROM events WHERE %s < date AND date < %s ORDER BY RANDOM() LIMIT 1000"
+                statementTwo = "SELECT * FROM events WHERE %s < startdate AND startdate < %s ORDER BY RANDOM() LIMIT 1000"
                 cursor.execute(statementTwo, [currDate, dateLimit])
                 row = cursor.fetchone()
                 print("Date: ", get_current_date(), "+ 5 days")
                 while row is not None:
-                    print(row)
-                    activities.append(row)
+                    newStartTime = row[2].strftime("%H:%M")
+                    newEndTime = row[3].strftime("%H:%M")
+                    newStartDate = row[10].strftime("%Y/%m/%d")
+                    newEndDate = row[11].strftime("%Y/%m/%d")
+                    copy_row = (row[0], row[1], newStartTime, newEndTime, row[4],
+                    row[5], row[6], row[7], row[8], row[9], newStartDate, newEndDate, row[12])
+                    print(copy_row)
+                    activities.append(copy_row)
                     row = cursor.fetchone()
 
         return activities              
@@ -78,7 +90,8 @@ def fetch_activities():
 def store_activity():
     title = "New Activity"
     location = "New Location"
-    date = convert_date(2022, 11, 8)
+    start_date = convert_date(2022, 11, 8)
+    end_date = convert_date(2022, 11, 9)
     start_time = convert_time(15, 30)
     end_time = convert_time(16, 30)
     cap = 10
@@ -100,7 +113,7 @@ def store_activity():
                 # statement += " ON CONFLICT (events.eventid) DO NOTHING"
                 cursor.execute(statement, [event_id, title, start_time,
                 end_time, cap, creator, category, location, description,
-                cost, date, 0])            
+                cost, start_date, end_date, 0])            
 
     except Exception as ex:
         print(ex, file=sys.stderr) 
@@ -140,6 +153,38 @@ def store_sign_up():
         print(ex, file=sys.stderr)
         sys.exit(1)
 
+def student_details():
+    netid = 'rauniyar'
+    try:
+        database_url = DATABASE_URL
+        with psycopg2.connect(database_url) as connection:
+            
+            with connection.cursor() as cursor:
+                statement = "SELECT * FROM students WHERE netid = %s"
+                cursor.execute(statement, [netid])
+                row = cursor.fetchone()
+                print(row)
+    except Exception as ex:
+        print(ex, file=sys.stderr)
+        sys.exit(1)
+
+def get_activity_attendees():
+    eventid = 1
+    try:
+        database_url = DATABASE_URL
+        with psycopg2.connect(database_url) as connection:
+            
+            with connection.cursor() as cursor:
+                statement = "SELECT signup_netid FROM signup WHERE eventid = %s"
+                cursor.execute(statement, [eventid])
+                row = cursor.fetchone()
+                while row is not None:
+                    print(row[0])
+                    row = cursor.fetchone()
+    except Exception as ex:
+        print(ex, file=sys.stderr)
+        sys.exit(1)    
+
 def main():
 
     # if len(sys.argv) != 1:
@@ -153,9 +198,12 @@ def main():
     # store_activity(['Canoeing', 'Carnegie Lake', date, start_time, end_time, 20,
     # 100, 'Canoeing at carnegie lake', 'Off-campus'])
 
-    store_sign_up()
-    store_activity() 
-    fetch_activities()
+    # store_sign_up()
+    # store_activity() 
+    # fetch_activities()
+    # get_activity_attendees()
+    # student_details()
+    return
 
 #-----------------------------------------------------------------------
 

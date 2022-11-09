@@ -23,8 +23,8 @@ def index():
         response_body={
             "id": event[0],
             "event_name":event[1],
-            "start_time":"event[2]",
-            "end_time":"event[3]",
+            "start_time":event[2],
+            "end_time":event[3],
             "maxcap":event[4],
             "creator":event[5],
             "category":event[6],
@@ -39,14 +39,16 @@ def index():
     
     return results
 
-@api.route('/create-event', methods = ["POST"])
+@api.route('/create-event', methods = ['POST'])
 def createEvent():
-    
-    print("Recieved request: {}".format(request))
+    res = request.json
+    print("response", res['event_name'])
+    print("Recieved request: {}".format(request.json))
     print("Body", request.form)
-    print("Event Name", request.form.get("event_name"))
-    print("Location", request.form.get("location"))
-    return request
+    print("Event Name", res["event_name"])
+    print("Location", res["location"])
+    return res
+    # return request
     # @api.route('/create-event', methods = ["POST"])
     # def createEvent():  
     #     print("Recieved request: {}".format(request))
