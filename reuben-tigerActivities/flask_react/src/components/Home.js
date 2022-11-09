@@ -9,10 +9,16 @@ import axios from 'axios';
   
 export default function  Home() : React.ReactNode {
   const [clickedActivites, setClickedActivities] = useState(false)
+  const [clickedMyActivites, setClickedMyActivities] = useState(false)
   const [events, setEvents] = useState([])
   const [displayModal, setDisplayModal] = useState(false)
 const activitesClicked= ()=>{
   setClickedActivities(true)
+  getEvents()
+  check()
+}
+const myActivitesClicked= ()=>{
+  setClickedMyActivities(true)
   getEvents()
   check()
 }
@@ -54,7 +60,7 @@ axios.get('/events').then(res =>{
 
   const title = <h1><i>TigerActivities </i></h1>
   const activities = <button className="button" onClick={activitesClicked}>Activities</button>
-  const myActivities = <button className="button">My Activities</button>
+  const myActivities = <button className="button" onClick={myActivitesClicked}>My Activities</button>
   const createEventButton = <button onClick={handleCreateEvent}>Create Activity</button>
   const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal}/>) : null
 
@@ -89,13 +95,19 @@ axios.get('/events').then(res =>{
   </table>
   </div>
  
- 
   ) 
 )
 
 const showResults = clickedActivites? (
  
     displayEvents
+  
+
+  ): null
+
+  const showOwnerButton = clickedMyActivites? (
+
+    createEventButton
   
 
   ): null
@@ -108,10 +120,7 @@ const showResults = clickedActivites? (
         
         </div>
 
-        {createEventButton}
-
-   
-        </div>   
+      </div>   
 
       <div className = "LeftNavContainer-1">
         <div className="btn">
@@ -120,11 +129,17 @@ const showResults = clickedActivites? (
         </div>
         </div>  
         <div className="content">
+       <table class="center">
+        <tr>
+       {showOwnerButton}
+       </tr>
         {showResults}
+        </table> 
+        
        </div>
        {modal}
       </div>
-
+    
   );
 };
   
