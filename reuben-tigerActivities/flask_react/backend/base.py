@@ -47,6 +47,7 @@ def createEvent():
     print("Body", request.form)
     print("Event Name", res["event_name"])
     print("Location", res["location"])
+    # return {'name':res['event_name'], 'location': res['location']}
     proc.store_activity(res)
     return res
     # return request

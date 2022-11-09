@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import CreateEventDialog from "./CreateEventDialog";
 import DetailsModal from "./DetailsModal";
+// import Modal from "./Modal";
 import "./Home.css";
 import axios from 'axios';
 
