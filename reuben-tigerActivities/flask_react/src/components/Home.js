@@ -74,20 +74,19 @@ const handleMoreDetails = (event)=>{
     <div className="content" key ={event.id + " " + event.category}>
   <table>
     <tbody className="body">
-    <tr>
-      <td></td>
-      <td><strong>{event.event_name}</strong> </td>
-
-    </tr>
-    <tr key={event.category+" "+ event.id}>
-      <td>
-        Category:{event.category}
-      </td>
-      <td></td>
-      <td className="location">
-      Location : {event.location}
-      </td>
-    </tr>
+      <tr className="eventName">
+        <td></td>
+        <td><strong>{event.event_name}</strong> </td>
+      </tr>
+      <tr key={event.category+" "+ event.id}>
+        <td>
+          Category:{event.category}
+        </td>
+        <td></td>
+        <td className="location">
+        Location : {event.location}
+        </td>
+      </tr>
     <tr>
    <td> Start time:{event.start_time}</td>
    <td></td>

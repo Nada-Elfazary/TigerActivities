@@ -8,7 +8,7 @@ function Modal(props) {
   const [phone,setPhone] = useState("")
   const [email,setEmail] = useState("")
   const [disableSubmitForm, setDisableSubmitForm] = useState("")
-
+/*
   const submitForm= () =>
   {
     setDisableSubmitForm(true)
@@ -25,7 +25,7 @@ function Modal(props) {
       console.log(error)
     })
   }
-  
+  */
   return (
     <div className="modalBackground">
       <div className="modalContainer">
@@ -39,7 +39,7 @@ function Modal(props) {
           </button>
         </div>
         <div className="title">
-          <h2>Want to sign up for</h2>
+          <h2>Want to sign up for {props.title} ?</h2>
         </div>
         <div className="body">
   
@@ -83,7 +83,6 @@ function Modal(props) {
           </button>
           <button disabled={disableSubmitForm} onClick={() =>
           {
-            submitForm()
             props.setOpenModal(false)
           }}>Sign Up</button>
         </div>

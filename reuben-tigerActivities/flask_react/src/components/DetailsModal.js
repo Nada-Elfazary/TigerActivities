@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import Modal from "./Modal";
 import "./Modal.css";
 
 export default function DetailsModal(props) {
+  const [displaySignUp, setDisplaySignUp] = useState(false)
+  const [eventTitle, setEventTitle] = useState('')
+
+  const handleSignUp = ()=>{
+    setDisplaySignUp(true)
+    setEventTitle(props.event.event_name)
+  }
+
+  const signUpModal = displaySignUp ? (<Modal setOpenModal={setDisplaySignUp} title ={eventTitle}/>): null
   return (
     <div className="modalBackground">
       <div className="modalContainer">
@@ -53,8 +63,9 @@ export default function DetailsModal(props) {
           >
             Cancel
           </button>
-          <button>Sign Up</button>
+          <button onClick={handleSignUp}>Sign Up</button>
         </div>
+        {signUpModal}
       </div>
     </div>
   );
