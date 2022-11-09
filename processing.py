@@ -4,7 +4,6 @@
 # displaydb.py
 # Author: Sriyans Rauniyar
 #-----------------------------------------------------------------------
-from audioop import tomono
 import sys
 import psycopg2
 import datetime
@@ -214,8 +213,18 @@ def main():
     # store_activity(['Canoeing', 'Carnegie Lake', date, start_time, end_time, 20,
     # 100, 'Canoeing at carnegie lake', 'Off-campus'])
 
+
+    # res = {'start_time' : '2021-11-09T14:30:00', 
+    # 'end_time' : '2021-11-09T15:30:00', 
+    # 'event_name' : 'Mass Canoeing', 
+    # 'location' : 'Carnegie Lake', 
+    # 'maxcap' : 20, 'cost' : 100, 
+    # 'description' : 'Mass Canoeing at carnegie lake', 
+    # 'category' : 'Off-campus', 'signup_number' : 0, 
+    # 'creator' : 'rauniyar'}
+
     # store_sign_up()
-    store_activity() 
+    # store_activity(res) 
     # fetch_activities()
     # get_activity_attendees()
     # student_details()
