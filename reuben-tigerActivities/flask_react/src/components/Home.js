@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import CreateEventDialog from "./CreateEventDialog";
+import DetailsModal from "./DetailsModal";
 import "./Home.css";
 import axios from 'axios';
 
@@ -12,19 +13,18 @@ export default function  Home() : React.ReactNode {
   const [clickedMyActivites, setClickedMyActivities] = useState(false)
   const [events, setEvents] = useState([])
   const [displayModal, setDisplayModal] = useState(false)
+  const [displayMoreDetails, setDisplayMoreDetails] = useState(false)
+  const [event, setEvent] = useState(null)
+
 const activitesClicked= ()=>{
   setClickedActivities(true)
   getEvents()
-  check()
 }
 const myActivitesClicked= ()=>{
   setClickedMyActivities(true)
   getEvents()
-  check()
 }
-const check= ()=>{
-  console.log(events)
-}
+
 const handleCreateEvent = ()=>{
   setDisplayModal(true);
 }
@@ -57,13 +57,17 @@ axios.get('/events').then(res =>{
 })
 
 }
+const handleMoreDetails = (event)=>{
+  setDisplayMoreDetails(true)
+  setEvent(event)
+}
 
   const title = <h1><i>TigerActivities </i></h1>
   const activities = <button className="button" onClick={activitesClicked}>Activities</button>
   const myActivities = <button className="button" onClick={myActivitesClicked}>My Activities</button>
   const createEventButton = <button onClick={handleCreateEvent}>Create Activity</button>
   const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal}/>) : null
-
+  const details = displayMoreDetails ? (<DetailsModal setOpenModal = {setDisplayMoreDetails} event = {event}/>):null
 
   const displayEvents = events.map((event)=> (
     <div className="content" key ={event.id + " " + event.category}>
@@ -78,18 +82,26 @@ axios.get('/events').then(res =>{
       <td>
         Category:{event.category}
       </td>
+      <td></td>
       <td className="location">
       Location : {event.location}
       </td>
     </tr>
     <tr>
    <td> Start time:{event.start_time}</td>
+   <td></td>
    <td>   Created By: {event.creator}</td>
     </tr>
     <tr>
       <td></td>
       <td></td>
       <td> Number Of Attendees:{event.signup_number}/{event.maxcap}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td> <button className="moredetails" onClick={()=>{
+        handleMoreDetails(event)
+      }}>More Details</button></td>
     </tr>
     </tbody>
   </table>
@@ -129,7 +141,7 @@ const showResults = clickedActivites? (
         </div>
         </div>  
         <div className="content">
-       <table class="center">
+       <table className="center">
         <tr>
        {showOwnerButton}
        </tr>
@@ -138,6 +150,7 @@ const showResults = clickedActivites? (
         
        </div>
        {modal}
+       {details}
       </div>
     
   );
