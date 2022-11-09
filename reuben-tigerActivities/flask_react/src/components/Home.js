@@ -51,7 +51,7 @@ axios.get('/events').then(res =>{
   
     <div className="content" key ={event.id + " " + event.category}>
   <table>
-    <tbody>
+    <tbody className="body">
     <tr>
       <td></td>
       <td><strong>{event.event_name}</strong> </td>
@@ -61,12 +61,18 @@ axios.get('/events').then(res =>{
       <td>
         Category:{event.category}
       </td>
-      <td>
+      <td className="location">
       Location : {event.location}
       </td>
-      <td>
-        {event.creator}
-      </td>
+    </tr>
+    <tr>
+      Start time: <td>{event.start_time}</td>
+      Created By: <td>{event.creator}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      Number Of Attendees: <td>{event.signup_number}/{event.maxcap}</td>
     </tr>
     </tbody>
   </table>

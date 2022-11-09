@@ -42,8 +42,14 @@
     margin-top: 1rem;
     margin-left: 0.2rem;
     border-radius: 10px;
-    height: 70px;
+    height: 100px;
     width: 80%;
+}
+.body{
+    flex-direction: row;
+}
+.location{
+    justify-content: flex-end;
 }
 
 
