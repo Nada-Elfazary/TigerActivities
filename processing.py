@@ -11,6 +11,7 @@ import datetime
 import pytz
 #-----------------------------------------------------------------------
 DATABASE_URL = 'postgres://hwwlwcbv:hyNZQS9_LH8CSD3yQoc5IpDHkBJeSlhF@peanut.db.elephantsql.com/hwwlwcbv'
+EVENT_ID = 100
 
 def get_current_date():
     currDate = datetime.datetime.now(pytz.timezone('US/Central'))
@@ -89,35 +90,45 @@ def fetch_activities():
         sys.exit(1)
 
 # this is workinggggggggggggggggg
-def store_activity():
-    title = "New Activity"
-    location = "New Location"
-    start_date = convert_date(2022, 11, 8)
-    end_date = convert_date(2022, 11, 9)
-    start_time = convert_time(15, 30)
-    end_time = convert_time(16, 30)
-    cap = 10
-    cost = 100
-    description = "Haha haha haha haha"
-    category = "Category7"
-    EVENT_ID = 100
+def store_activity(activity):
+    global EVENT_ID
+    title = activity['event_name']
+    location = activity['location']
 
-    #******
-    creator = 'choppercabras'
+    startDateTime = activity['start_time']
+    startDateTime = startDateTime.split("T")
+    startDate = startDateTime[0].split("-")
+    startTime = startDateTime[1].split(":")
+    start_date = convert_date(int(startDate[0]), int(startDate[1]), int(startDate[2]))
+    start_time = convert_time(int(startTime[0]), int(startTime[1]))
+
+    endDateTime = activity['end_time']
+    endDateTime = endDateTime.split("T")
+    endDate = endDateTime[0].split("-")
+    endTime = endDateTime[1].split(":")
+    end_date = convert_date(int(endDate[0]), int(endDate[1]), int(endDate[2]))
+    end_time = convert_time(int(endTime[0]), int(endTime[1]))
+
+    cap = activity['maxcap']
+    cost = activity['cost']
+    description = activity['description']
+    category = activity['category']
+    signedup_number = activity['signup_number']
+    creator = activity['creator']
 
     try:
         database_url = DATABASE_URL
         with psycopg2.connect(database_url) as connection:
             
             with connection.cursor() as cursor:
-                statement = "INSERT INTO events VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)" 
+                statement = "INSERT INTO events VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)" 
                 # how to actually check if the event id is unique and not duplicate
                 # statement += " ON CONFLICT (events.eventid) DO UPDATE SET events.title = %s, events.location = %s, events.startdate = %s, events.enddate = %s, events.starttime = %s, events.endtime = %s, events.capacity = %s, events.cost = %s, events.description = %s, events.category = %s, events.creator = %s"
                 cursor.execute(statement, [str(EVENT_ID), title, start_time,
                 end_time, str(cap), creator, category, location, description,
-                str(cost), start_date, end_date])  
-                print("done")
-        EVENT_ID += 1          
+                str(cost), start_date, end_date, signedup_number])  
+                EVENT_ID = EVENT_ID + 1 
+                print("EVENT ID: ", EVENT_ID)     
     except Exception as ex:
         print(ex, file=sys.stderr) 
         sys.exit(1)
