@@ -1,6 +1,6 @@
 from flask import Flask, request
 import processing as proc
-import json
+import parseargs
 
 api = Flask(__name__)
 
@@ -24,15 +24,16 @@ def index():
             "id": event[0],
             "event_name":event[1],
             "start_time":"event[2]",
-            "end_time":"sth",
+            "end_time":"event[3]",
             "maxcap":event[4],
             "creator":event[5],
             "category":event[6],
             "location":event[7],
             "description":event[8],
             "cost":event[9],
-            "day":event[10],
-            "signup_number":event[11]
+            "start_date":event[10],
+            "end_date":event[11],
+            "signup_number":event[12]
         }
         results.append(response_body)
     
@@ -46,3 +47,8 @@ def createEvent():
     print("Event Name", request.form.get("event_name"))
     print("Location", request.form.get("location"))
     return request
+    # @api.route('/create-event', methods = ["POST"])
+    # def createEvent():  
+    #     print("Recieved request: {}".format(request))
+
+

@@ -41,14 +41,15 @@ const getEvents =()=> {
   })
   */
 
-/*
+
 axios.get('/events').then(res =>{
   console.log(res)
   setEvents(res.data)
 }).catch(err =>{
   console.log(err)
+
 })
-*/
+
 }
 
   const title = <h1><i>TigerActivities </i></h1>
