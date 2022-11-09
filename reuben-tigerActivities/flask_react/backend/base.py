@@ -47,7 +47,7 @@ def createEvent():
     print("Body", request.form)
     print("Event Name", res["event_name"])
     print("Location", res["location"])
-    return res
+    # return {'name':res['event_name'], 'location': res['location']}
     # return request
     # @api.route('/create-event', methods = ["POST"])
     # def createEvent():  
