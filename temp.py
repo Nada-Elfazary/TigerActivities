@@ -1,7 +1,10 @@
 import datetime
+import pytz
 
-def get_day():
-    return datetime.datetime.now().weekday()
+def get_date():
+    currDay = datetime.datetime.now(pytz.timezone('US/Central'))
+    currDay = currDay.strftime("%Y/%m/%d")
+    return currDay
 
 if __name__ == '__main__':
-    print(get_day())
+    print(type(get_date()))
