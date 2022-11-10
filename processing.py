@@ -8,9 +8,9 @@ import sys
 import psycopg2
 import datetime
 import pytz
+import pickle
 #-----------------------------------------------------------------------
 DATABASE_URL = 'postgres://hwwlwcbv:hyNZQS9_LH8CSD3yQoc5IpDHkBJeSlhF@peanut.db.elephantsql.com/hwwlwcbv'
-EVENT_ID = 100
 
 def get_current_date():
     currDate = datetime.datetime.now(pytz.timezone('US/Central'))
@@ -90,7 +90,6 @@ def fetch_activities():
 
 # this is workinggggggggggggggggg
 def store_activity(activity):
-    global EVENT_ID
     title = activity['event_name']
     location = activity['location']
 
@@ -120,14 +119,23 @@ def store_activity(activity):
         with psycopg2.connect(database_url) as connection:
             
             with connection.cursor() as cursor:
+                stmtfetcheventid = "SELECT eventid FROM eventid"
+                cursor.execute(stmtfetcheventid)
+                EVENT_ID = cursor.fetchone()
+                EVENT_ID = EVENT_ID[0]
+
                 statement = "INSERT INTO events VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)" 
                 # how to actually check if the event id is unique and not duplicate
-                # statement += " ON CONFLICT (events.eventid) DO UPDATE SET events.title = %s, events.location = %s, events.startdate = %s, events.enddate = %s, events.starttime = %s, events.endtime = %s, events.capacity = %s, events.cost = %s, events.description = %s, events.category = %s, events.creator = %s"
+                # statement += " ON CONFLICT (events.eventid) DO UPDATE SET events.title = %s, 
+                # events.location = %s, events.startdate = %s, events.enddate = %s, events.starttime = %s, 
+                # events.endtime = %s, events.capacity = %s, events.cost = %s, events.description = %s, 
+                # events.category = %s, events.creator = %s"
                 cursor.execute(statement, [str(EVENT_ID), title, start_time,
                 end_time, str(cap), creator, category, location, description,
                 str(cost), start_date, end_date, signedup_number])  
-                EVENT_ID = EVENT_ID + 1 
-                print("EVENT ID: ", EVENT_ID)     
+
+                stmtputeventid = "UPDATE eventid SET eventid = eventid + 1"
+                cursor.execute(stmtputeventid)    
     except Exception as ex:
         print(ex, file=sys.stderr) 
         sys.exit(1)
@@ -251,17 +259,17 @@ def main():
     # 100, 'Canoeing at carnegie lake', 'Off-campus'])
 
 
-    # res = {'start_time' : '2021-11-09T14:30:00', 
-    # 'end_time' : '2021-11-09T15:30:00', 
-    # 'event_name' : 'Mass Canoeing', 
-    # 'location' : 'Carnegie Lake', 
-    # 'maxcap' : 20, 'cost' : 100, 
-    # 'description' : 'Mass Canoeing at carnegie lake', 
-    # 'category' : 'Off-campus', 'signup_number' : 0, 
-    # 'creator' : 'rauniyar'}
+    res = {'start_time' : '2021-11-10T19:32:00', 
+    'end_time' : '2021-11-11T20:32:00', 
+    'event_name' : 'Mass Cricket', 
+    'location' : 'Carnegie Lake', 
+    'maxcap' : 20, 'cost' : 100, 
+    'description' : 'Mass Canoeing at carnegie lake', 
+    'category' : 'Off-campus', 'signup_number' : 0, 
+    'creator' : 'rauniyar'}
 
     # store_sign_up()
-    # store_activity(res) 
+    store_activity(res) 
     # fetch_activities()
     # get_activity_attendees()
     # student_details()
