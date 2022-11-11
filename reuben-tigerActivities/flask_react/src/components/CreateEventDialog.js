@@ -11,6 +11,7 @@ function CreateEventDialog(props) {
     const DEFAULT_SIGNUP_NR = 0
     const[eventTitle, setEventTitle] = useState('')
     const[eventLocation, setEventLocation] = useState('')
+    const [eventCategory, setEventCategory] = useState('')
     const[maxAttendeeCount, setMaxAttendeeCount] = useState(5)
     const [disableSubmitForm, setDisableSubmitForm] = useState(false)
     const [startTime, setStartTime] = useState(new Date())
@@ -36,7 +37,7 @@ function CreateEventDialog(props) {
             end_time:      endTime,
             maxcap:        maxAttendeeCount,
             creator:       DEFAULT_CREATOR,
-            category:      DEFAULT_CATEGORY,
+            category:      eventCategory,
             location:      eventLocation,
             description:   description,
             cost:          cost,
@@ -99,6 +100,12 @@ function CreateEventDialog(props) {
                     <td >Location:</td>
                     <td><input type="text" name="Location" value ={eventLocation} onChange={(event)=>{
                         setEventLocation(event.target.value)
+                    }}/> </td>
+                    </tr>
+                    <tr>
+                    <td >Category:</td>
+                    <td><input type="text" name="Category" value ={eventCategory} onChange={(event)=>{
+                        setEventCategory(event.target.value)
                     }}/> </td>
                     </tr>
                     <tr>
