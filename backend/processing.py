@@ -141,12 +141,12 @@ def store_activity(activity):
         sys.exit(1)
 
 # this is workinnggggggggggggggggg
-def store_sign_up():
+def store_sign_up(activity):
     netid = 'checkcheck' #hardcoded for now
-    eventid = 10
-    name = "I am check"
-    phone_num = "1212141414"
-    email = "hahahaha@gmail.haha"
+    eventid = activity['event_id']
+    name = activity['name']
+    phone_num = activity['phone']
+    email = activity['email']
     classyear = "junior"
 
     try:
@@ -163,7 +163,7 @@ def store_sign_up():
                 cursor.execute(statement, [eventid])
 
                 # UPDATE SIGNUP TABLE  
-                store_sign_up(eventid, netid)
+                store_signup(eventid, netid)
                 
                 # UPDATE STUDENTS TABLE
                 store_student([netid, name, phone_num, email, classyear])   

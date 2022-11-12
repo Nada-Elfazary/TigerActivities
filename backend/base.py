@@ -56,3 +56,10 @@ def createEvent():
     #     print("Recieved request: {}".format(request))
 
 
+@api.route('/sign-up', methods = ['POST'])
+def signUp():
+    res = request.json
+    print("json")
+    print(res)
+    proc.store_sign_up(res)
+    return res
