@@ -185,7 +185,7 @@ const showResults = clickedActivites? (
   ): null
 
   return (
-    <div>
+    <div className = "pageContainer">
      <div className='HomeContainer-1'>
      <div className='title'>
           {title}
@@ -200,6 +200,7 @@ const showResults = clickedActivites? (
         {myActivities}
         </div>
         </div>  
+        
         <div className="content">
           <table className="center">
             <tr>
@@ -214,7 +215,7 @@ const showResults = clickedActivites? (
         </div>
        {modal}
        {details}
-      </div>
+    </div>
     
   );
 };
