@@ -7,33 +7,34 @@ function Modal(props) {
   const [name,setName] = useState("")
   const [phone,setPhone] = useState("")
   const [email,setEmail] = useState("")
-  const [disableSubmitForm, setDisableSubmitForm] = useState("")
-/*
-  const submitForm= () =>
-  {
+  const [disableSubmitForm, setDisableSubmitForm] = useState(false)
+
+  const submitForm = ()=>{
     setDisableSubmitForm(true)
+    console.log(disableSubmitForm)
     axios.post('/sign-up', {
-      name: name,
-      phone: phone,
-      email: email,
-      user_id:"rand_usr",
-      post_id:"rand_post"
-    })
-    .then((response) => {
-      console.log(response)
-    }, (error) => {
-      console.log(error)
-    })
-  }
-  */
+      // create_id
+        name:    name,
+        number: phone,
+        email : email,
+
+      }).then((response) =>{
+        console.log(response);
+      }, (error) => {
+        console.log(error)
+      })
+}
+
+const handleSignUp = ()=>{
+  submitForm()
+  props.setOpenModal(false)
+}
   return (
     <div className="modalBackground">
       <div className="modalContainer">
         <div className="titleCloseBtn">
           <button
-            onClick={() => {
-              {props.setOpenModal(false);}
-            }}
+            onClick={props.setOpenModal(false)}
           >
             x
           </button>
@@ -81,10 +82,7 @@ function Modal(props) {
           >
             Cancel
           </button>
-          <button disabled={disableSubmitForm} onClick={() =>
-          {
-            props.setOpenModal(false)
-          }}>Sign Up</button>
+          <button disabled={disableSubmitForm} onClick={handleSignUp}>Sign Up</button>
         </div>
       </div>
     </div>
