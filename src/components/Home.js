@@ -77,6 +77,7 @@ const handleMoreDetails = (event)=>{
       <tr className="eventName">
         <td></td>
         <td><strong>{event.event_name}</strong> </td>
+        <td>id : {event.id}</td>
       </tr>
       <tr key={event.category+" "+ event.id}>
         <td>
