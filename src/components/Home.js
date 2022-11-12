@@ -23,6 +23,8 @@ const activitesClicked= ()=>{
 }
 const myActivitesClicked= ()=>{
   setClickedMyActivities(true)
+  // setEvent([])
+  console.log(">>Clicked my activities<<, events:", events.length, events)
   getEvents()
 }
 
@@ -50,11 +52,12 @@ const getEvents =()=> {
 
 
 axios.get('/events').then(res =>{
-  console.log(res)
+  console.log("Events received from db:", res)
+  console.log("Setting events to:", events.data)
+  setEvents([])
   setEvents(res.data)
 }).catch(err =>{
-  console.log(err)
-
+  console.log("Error receiving event from db:", err)
 })
 
 }

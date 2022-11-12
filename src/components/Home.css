@@ -9,11 +9,8 @@
 .title {
     flex: 10;
     text-align: center;
-<<<<<<< HEAD
     border: blue 1px solid;
-=======
     /* border: 3px solid "orange"; */
->>>>>>> 7b2531ef4d3d81b3196badf55de093e966215cbd
   
 }
   .button{
@@ -46,12 +43,9 @@
 
 }
 .content div{
-<<<<<<< HEAD
     background-color: grey;
     border: rgb(209, 29, 200) 2px solid;
-=======
     background-color: rgb(211, 197, 152);
->>>>>>> 7b2531ef4d3d81b3196badf55de093e966215cbd
     margin-top: 1rem;
     margin-left: 0.2rem;
     border-radius: 10px;
@@ -60,13 +54,10 @@
 }
 .body{
     flex-direction: column;
-<<<<<<< HEAD
     border: rgb(23, 168, 105) 5px solid;
-=======
     /* flex: flex-shrink; */
     /* flex-wrap: multi-line; */
     /* background-color: rgb(160, 138, 97); */
->>>>>>> 7b2531ef4d3d81b3196badf55de093e966215cbd
 }
 .location{
     justify-content: flex-end;
