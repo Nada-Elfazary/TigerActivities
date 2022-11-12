@@ -1,4 +1,4 @@
-# Commands to start project: one time
+# Commands to start project
 pip install -r requirements.txt
 cd flask_react
 npm install
