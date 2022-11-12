@@ -61,18 +61,21 @@
 }
 
 table.center {
-  margin-left: auto; 
-  margin-right: auto;
-  display: flex;
-  flex-direction: column;
-  border: rgb(23, 168, 105) 3px solid;
-}
+    margin-left: auto; 
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    border: rgb(23, 168, 105) 3px solid;
+  }
+
+
 .moredetails{
     color: orange;
     height: 20px;
     text-align: center;
     border-radius: 5px;
 }
+
 
 
 
