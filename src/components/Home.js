@@ -18,11 +18,18 @@ export default function  Home() : React.ReactNode {
   const [event, setEvent] = useState(null)
 
 const activitesClicked= ()=>{
-  setClickedActivities(true)
-  setClickedMyActivities(false)
-  getEvents(false)
+  if(clickedActivites) {
+    setEvents([])
+  } 
+    setClickedActivities(true)
+    setClickedMyActivities(false)
+    getEvents(false)
+  
 }
 const myActivitesClicked= ()=>{
+  if(clickedMyActivites) {
+    setEvents([])
+  } 
   setClickedMyActivities(true)
   setClickedActivities(false)
   getEvents(true)
