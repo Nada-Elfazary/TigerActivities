@@ -13,7 +13,21 @@ export default function DetailsModal(props) {
     setEventId(props.event.id)
   
   }
-
+/*
+  const getAttendees = ()=> {
+  axios.get('/attendees').then(res =>{
+    console.log(res)
+    if (ownerView == true) {
+      setEvents(res.data.filter(event => event.creator == currLogin))
+    } else {
+      setEvents(res.data)
+    }
+  }).catch(err =>{
+    console.log(err)
+  
+  })
+  }
+*/
   const signUpModal = displaySignUp ? (<Modal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}/>): null
   return (
     <div className="modalBackground">
