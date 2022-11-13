@@ -17,7 +17,7 @@ def my_profile():
 @api.route("/events", methods = ['GET'])
 def index():
     events = proc.fetch_activities()
-    print(events)
+   # print(events)
     results =[]
     for event in events:
         response_body={
@@ -38,6 +38,13 @@ def index():
         results.append(response_body)
     
     return results
+
+@api.route("/attendees", methods = ['GET'])
+def get_attendees():
+    attendees = proc.get_activity_attendees()
+    print("attendees: ", attendees)
+    
+    return attendees
 
 @api.route('/create-event', methods = ['POST'])
 def createEvent():

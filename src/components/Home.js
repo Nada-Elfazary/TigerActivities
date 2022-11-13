@@ -210,7 +210,9 @@ const showResults = clickedActivites? (
           <td>
             {showResults}
             </td> </tr>
+            <tr><td>
             {showOwnerActivities}
+            </td></tr>
             </table> 
         </div>
        {modal}

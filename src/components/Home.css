@@ -29,6 +29,7 @@
 .LeftNavContainer-1 div{
     background-color: grey;
     width: 50%;
+    height:revert;
     height: 800px;
     display:block;
 }
@@ -42,11 +43,12 @@
     height: 100%;
    /* border: blue 5px solid;*/
     overflow:scroll;
+    
 
 }
 .content div{
     background-color: rgb(252, 222, 169);
-    margin-top: 2rem;
+    margin-top: 1rem;
     margin-left: 0.2rem;
     border: black 5px solid;
     border-radius: 10px;

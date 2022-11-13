@@ -53,6 +53,12 @@ export default function DetailsModal(props) {
                         <td>Description:</td>
                     </tr>
                     <tr><td>{props.event.description}</td></tr>
+
+                    <tr></tr>    
+                    <tr>
+                        <td>Attendees:</td>
+                    </tr>
+                    <tr><td>{props.event.description}</td></tr>
              </tbody>
                 </table>
 
