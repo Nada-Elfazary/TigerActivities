@@ -228,8 +228,8 @@ def student_details():
         print(ex, file=sys.stderr)
         sys.exit(1)
 
-def get_activity_attendees():
-    eventid = 100
+def get_activity_attendees(activity):
+    eventid = activity['event_id']
     print("in Attendees")
     try:
         database_url = DATABASE_URL
