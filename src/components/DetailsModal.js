@@ -5,13 +5,16 @@ import "./Modal.css";
 export default function DetailsModal(props) {
   const [displaySignUp, setDisplaySignUp] = useState(false)
   const [eventTitle, setEventTitle] = useState('')
+  const [id, setEventId] = useState('')
 
   const handleSignUp = ()=>{
     setDisplaySignUp(true)
     setEventTitle(props.event.event_name)
+    setEventId(props.event.id)
+  
   }
 
-  const signUpModal = displaySignUp ? (<Modal setOpenModal={setDisplaySignUp} title ={eventTitle}/>): null
+  const signUpModal = displaySignUp ? (<Modal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}/>): null
   return (
     <div className="modalBackground">
       <div className="modalContainer">

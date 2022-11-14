@@ -19,19 +19,21 @@ export default function  Home() : React.ReactNode {
 
 const activitesClicked= ()=>{
   setClickedActivities(true)
-  getEvents()
+  setClickedMyActivities(false)
+  getEvents(false)
 }
 const myActivitesClicked= ()=>{
   setClickedMyActivities(true)
   // setEvent([])
   console.log(">>Clicked my activities<<, events:", events.length, events)
-  getEvents()
+  setClickedActivities(false)
+  getEvents(true)
 }
 
 const handleCreateEvent = ()=>{
   setDisplayModal(true);
 }
-const getEvents =()=> {
+const getEvents =(ownerView)=> {
 /*
   axios({
     method: "GET",
@@ -53,9 +55,13 @@ const getEvents =()=> {
 
 axios.get('/events').then(res =>{
   console.log("Events received from db:", res)
-  console.log("Setting events to:", events.data)
+  console.log("Setting events to:", res.data)
   setEvents([])
-  setEvents(res.data)
+  if (ownerView == true) {
+    setEvents(res.data.filter(event => event.creator == currLogin))
+  } else {
+    setEvents(res.data)
+  }
 }).catch(err =>{
   console.log("Error receiving event from db:", err)
 })
@@ -69,7 +75,7 @@ const handleMoreDetails = (event)=>{
   const title = <h1><i>TigerActivities </i></h1>
   const activities = <button className="button" onClick={activitesClicked}>Activities</button>
   const myActivities = <button className="button" onClick={myActivitesClicked}>My Activities</button>
-  const createEventButton = <button onClick={handleCreateEvent}>Create Activity</button>
+  const createEventButton = <button className="buttonStyle" onClick={handleCreateEvent}>Create Activity</button>
   const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal}/>) : null
   const details = displayMoreDetails ? (<DetailsModal setOpenModal = {setDisplayMoreDetails} event = {event}/>):null
 
@@ -80,6 +86,7 @@ const handleMoreDetails = (event)=>{
       <tr className="eventName">
         <td></td>
         <td><strong>{event.event_name}</strong> </td>
+        <td>id : {event.id}</td>
       </tr>
       <tr key={event.category+" "+ event.id}>
         <td>
@@ -109,8 +116,49 @@ const handleMoreDetails = (event)=>{
     </tbody>
   </table>
   </div>
- 
   ) 
+)
+
+
+let currLogin = "hi"
+const displayOwnerEvents = events.filter(event => event.creator == currLogin).map((event)=> (
+  <div className="content" key ={event.id + " " + event.category}>
+<table>
+  <tbody className="body">
+    <tr className="eventName">
+      <td></td>
+      <td><strong>{event.event_name}</strong> </td>
+      <td>id : {event.id}</td>
+    </tr>
+    <tr key={event.category+" "+ event.id}>
+      <td>
+        Category:{event.category}
+      </td>
+      <td></td>
+      <td className="location">
+      Location : {event.location}
+      </td>
+    </tr>
+  <tr>
+ <td> Start time:{event.start_time}</td>
+ <td></td>
+ <td>   Created By: {event.creator}</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td> Number Of Attendees:{event.signup_number}/{event.maxcap}</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td> <button className="moredetails" onClick={()=>{
+      handleMoreDetails(event)
+    }}>More Details</button></td>
+  </tr>
+  </tbody>
+</table>
+</div>
+) 
 )
 
 const showResults = clickedActivites? (
@@ -120,10 +168,15 @@ const showResults = clickedActivites? (
 
   ): null
 
-  const showOwnerButton = clickedMyActivites? (
+  const showCreateEventButton = clickedMyActivites? (
 
     createEventButton
   
+
+  ): null
+
+  const showOwnerActivities = clickedMyActivites? (
+    displayOwnerEvents
 
   ): null
 
@@ -144,14 +197,17 @@ const showResults = clickedActivites? (
         </div>
         </div>  
         <div className="content">
-       <table className="center">
-        <tr>
-       {showOwnerButton}
-       </tr>
-        {showResults}
-        </table> 
-        
-       </div>
+          <table className="center">
+            <tr>
+          <td>{showCreateEventButton}</td>
+          </tr>
+          <tr>
+          <td>
+            {showResults}
+            </td> </tr>
+            {showOwnerActivities}
+            </table> 
+        </div>
        {modal}
        {details}
       </div>
