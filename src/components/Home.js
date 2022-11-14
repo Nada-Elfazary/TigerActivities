@@ -60,7 +60,7 @@ const getEvents =(ownerView)=> {
 
 axios.get('/events').then(res =>{
   console.log(res)
-  if (ownerView == true) {
+  if (ownerView === true) {
     setEvents(res.data.filter(event => event.creator == currLogin))
   } else {
     setEvents(res.data)
@@ -124,8 +124,8 @@ const handleMoreDetails = (event)=>{
 )
 
 
-let currLogin = "hi"
-const displayOwnerEvents = events.filter(event => event.creator == currLogin).map((event)=> (
+let currLogin = "DefaultCreator"
+const displayOwnerEvents = events.filter(event => event.creator === currLogin).map((event)=> (
   <div className="content" key ={event.id + " " + event.category}>
 <table>
   <tbody className="body">
