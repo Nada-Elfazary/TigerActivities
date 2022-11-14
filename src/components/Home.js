@@ -18,11 +18,18 @@ export default function  Home() : React.ReactNode {
   const [event, setEvent] = useState(null)
 
 const activitesClicked= ()=>{
-  setClickedActivities(true)
-  setClickedMyActivities(false)
-  getEvents(false)
+  if(clickedActivites) {
+    setEvents([])
+  } 
+    setClickedActivities(true)
+    setClickedMyActivities(false)
+    getEvents(false)
+  
 }
 const myActivitesClicked= ()=>{
+  if(clickedMyActivites) {
+    setEvents([])
+  } 
   setClickedMyActivities(true)
   // setEvent([])
   console.log(">>Clicked my activities<<, events:", events.length, events)
@@ -57,7 +64,7 @@ axios.get('/events').then(res =>{
   console.log("Events received from db:", res)
   console.log("Setting events to:", res.data)
   setEvents([])
-  if (ownerView == true) {
+  if (ownerView === true) {
     setEvents(res.data.filter(event => event.creator == currLogin))
   } else {
     setEvents(res.data)
@@ -120,8 +127,8 @@ const handleMoreDetails = (event)=>{
 )
 
 
-let currLogin = "hi"
-const displayOwnerEvents = events.filter(event => event.creator == currLogin).map((event)=> (
+let currLogin = "DefaultCreator"
+const displayOwnerEvents = events.filter(event => event.creator === currLogin).map((event)=> (
   <div className="content" key ={event.id + " " + event.category}>
 <table>
   <tbody className="body">
@@ -181,7 +188,7 @@ const showResults = clickedActivites? (
   ): null
 
   return (
-    <div>
+    <div className = "pageContainer">
      <div className='HomeContainer-1'>
      <div className='title'>
           {title}
@@ -196,6 +203,7 @@ const showResults = clickedActivites? (
         {myActivities}
         </div>
         </div>  
+        
         <div className="content">
           <table className="center">
             <tr>
@@ -205,12 +213,14 @@ const showResults = clickedActivites? (
           <td>
             {showResults}
             </td> </tr>
+            <tr><td>
             {showOwnerActivities}
+            </td></tr>
             </table> 
         </div>
        {modal}
        {details}
-      </div>
+    </div>
     
   );
 };

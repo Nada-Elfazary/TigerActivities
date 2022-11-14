@@ -78,7 +78,7 @@ def fetch_activities():
                     newEndDate = row[11].strftime("%Y/%m/%d")
                     copy_row = (row[0], row[1], newStartTime, newEndTime, row[4],
                     row[5], row[6], row[7], row[8], row[9], newStartDate, newEndDate, row[12])
-                    print(copy_row)
+                   # print(copy_row)
                     activities.append(copy_row)
                     row = cursor.fetchone()
 
@@ -223,13 +223,14 @@ def student_details():
                 statement = "SELECT * FROM students WHERE netid = %s"
                 cursor.execute(statement, [netid])
                 row = cursor.fetchone()
-                print(row)
+              #  print(row)
     except Exception as ex:
         print(ex, file=sys.stderr)
         sys.exit(1)
 
 def get_activity_attendees():
-    eventid = 1
+    eventid = 100
+    print("in Attendees")
     try:
         database_url = DATABASE_URL
         with psycopg2.connect(database_url) as connection:

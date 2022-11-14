@@ -7,6 +7,7 @@ function Modal(props) {
   const [name,setName] = useState("")
   const [phone,setPhone] = useState("")
   const [email,setEmail] = useState("")
+  
   const submitForm= () =>
   {
     axios.post('/sign-up', {
@@ -22,12 +23,7 @@ function Modal(props) {
       console.log(error)
     })
   }
-  
 
-  const handleSignUp = ()=>{
-   
-   
-  }
   return (
     <div className="modalBackground">
       <div className="modalContainer">

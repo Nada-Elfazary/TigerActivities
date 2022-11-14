@@ -29,7 +29,9 @@
 .LeftNavContainer-1 div{
     background-color: grey;
     width: 50%;
+    height:revert;
     height: 800px;
+    display:block;
 }
 .btn{
     justify-content: center;
@@ -38,19 +40,21 @@
 .content{
     display: flex;
     align-items: center;
-    border: blue 5px solid;
-  
+    height: 100%;
+   /* border: blue 5px solid;*/
+    overflow:scroll;
+    
 
 }
 .content div{
-    background-color: grey;
-    border: rgb(209, 29, 200) 2px solid;
-    background-color: rgb(211, 197, 152);
+    background-color: rgb(252, 222, 169);
     margin-top: 1rem;
     margin-left: 0.2rem;
+    border: black 5px solid;
     border-radius: 10px;
-    height: 150px;
+    height: 170px;
     width: 90%;
+    overflow:revert;
 }
 .body{
     flex-direction: column;
@@ -68,7 +72,7 @@ table.center {
     margin-right: auto;
     display: flex;
     flex-direction: column;
-    border: rgb(23, 168, 105) 3px solid;
+  /*  border: rgb(23, 168, 105) 3px solid;*/
   }
 
 
@@ -80,6 +84,18 @@ table.center {
 }
 
 
+.buttonStyle {
+    top:50%; 
+    left:50%;
+}
 
+
+div.pageContainer{
+    height: 800px;
+    display:block;
+    overflow:scroll;
+   
+    
+}
 
 
