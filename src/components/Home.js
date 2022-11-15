@@ -16,6 +16,7 @@ export default function  Home() : React.ReactNode {
   const [displayModal, setDisplayModal] = useState(false)
   const [displayMoreDetails, setDisplayMoreDetails] = useState(false)
   const [event, setEvent] = useState(null)
+  const [attendees, setAttendees] = useState([])
 
 const activitesClicked= ()=>{
   if(clickedActivites) {
@@ -58,7 +59,9 @@ const getEvents =(ownerView)=> {
       }
   })
   */
+  
 
+  
 
 axios.get('/events').then(res =>{
   console.log("Events received from db:", res)
@@ -74,9 +77,22 @@ axios.get('/events').then(res =>{
 })
 
 }
+const get_attendees = (event)=>{
+  console.log("inside get atte")
+  axios.post('/attendees', {
+    event_id : event.id,
+  }).then(res =>{
+    setAttendees(res.data)
+  }).catch(err =>{
+    console.log(err)
+  
+  })
+}
+
 const handleMoreDetails = (event)=>{
   setDisplayMoreDetails(true)
   setEvent(event)
+ get_attendees(event)
 }
 
   const title = <h1><i>TigerActivities </i></h1>
@@ -84,7 +100,7 @@ const handleMoreDetails = (event)=>{
   const myActivities = <button className="button" onClick={myActivitesClicked}>My Activities</button>
   const createEventButton = <button className="buttonStyle" onClick={handleCreateEvent}>Create Activity</button>
   const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal}/>) : null
-  const details = displayMoreDetails ? (<DetailsModal setOpenModal = {setDisplayMoreDetails} event = {event}/>):null
+  const details = displayMoreDetails ? (<DetailsModal setOpenModal = {setDisplayMoreDetails} event = {event} attendees ={attendees}/>):null
 
   const displayEvents = events.map((event)=> (
     <div className="content" key ={event.id + " " + event.category}>

@@ -142,7 +142,7 @@ def store_activity(activity):
 
 # this is workinnggggggggggggggggg
 def store_sign_up(activity):
-    netid = 'checkcheck' #hardcoded for now
+    netid = 'nada' #hardcoded for now
     eventid = activity['event_id']
     name = activity['name']
     phone_num = activity['phone']
@@ -228,9 +228,10 @@ def student_details():
         print(ex, file=sys.stderr)
         sys.exit(1)
 
-def get_activity_attendees(activity):
-    eventid = activity['event_id']
+def get_activity_attendees(eventid):
+    #eventid = activity['event_id']
     print("in Attendees")
+    attendees = []
     try:
         database_url = DATABASE_URL
         with psycopg2.connect(database_url) as connection:
@@ -241,7 +242,9 @@ def get_activity_attendees(activity):
                 row = cursor.fetchone()
                 while row is not None:
                     print(row[0])
+                    attendees.append(row[0])
                     row = cursor.fetchone()
+        return attendees
     except Exception as ex:
         print(ex, file=sys.stderr)
         sys.exit(1)    

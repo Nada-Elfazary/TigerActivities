@@ -39,11 +39,11 @@ def index():
     
     return results
 
-@api.route("/attendees", methods = ['GET'])
+@api.route('/attendees', methods=['POST'])
 def get_attendees():
-    attendees = proc.get_activity_attendees()
-    print("attendees: ", attendees)
-    
+    res = request.json
+    id = res['event_id']
+    attendees = proc.get_activity_attendees(id)
     return attendees
 
 @api.route('/create-event', methods = ['POST'])
@@ -70,3 +70,4 @@ def signUp():
     print(res)
     proc.store_sign_up(res)
     return res
+

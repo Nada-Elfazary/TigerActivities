@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
+
 import "./Modal.css";
 
 export default function DetailsModal(props) {
@@ -13,21 +14,19 @@ export default function DetailsModal(props) {
     setEventId(props.event.id)
   
   }
-/*
+
+  /*
   const getAttendees = ()=> {
   axios.get('/attendees').then(res =>{
-    console.log(res)
-    if (ownerView == true) {
-      setEvents(res.data.filter(event => event.creator == currLogin))
-    } else {
-      setEvents(res.data)
-    }
+    console.log(res)   
+    attendees = res.data
   }).catch(err =>{
     console.log(err)
   
   })
   }
 */
+
   const signUpModal = displaySignUp ? (<Modal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}/>): null
   return (
     <div className="modalBackground">
@@ -70,9 +69,10 @@ export default function DetailsModal(props) {
 
                     <tr></tr>    
                     <tr>
-                        <td>Attendees:</td>
+                        <td>Attendees: {props.attendees.map((attendee)=>(
+                          attendee + "\n"
+                        ))}</td>
                     </tr>
-                    <tr><td>{props.event.description}</td></tr>
              </tbody>
                 </table>
 
