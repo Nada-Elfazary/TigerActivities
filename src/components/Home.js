@@ -68,7 +68,14 @@ axios.get('/events').then(res =>{
   console.log("Setting events to:", res.data)
   setEvents([])
   if (ownerView === true) {
-    setEvents(res.data.filter(event => event.creator == currLogin))
+    let filtered = res.data.filter(event => event.creator == currLogin)
+    console.log("length: ", filtered.length)
+    if (filtered.length != 0) {
+    setEvents(filtered)
+    }
+    else {
+      console.log("No events created by owner")
+    }
   } else {
     setEvents(res.data)
   }
@@ -241,6 +248,7 @@ const showResults = clickedActivites? (
             {showResults}
             </td> </tr>
             <tr><td>
+            
             {showOwnerActivities}
             </td></tr>
             </table> 

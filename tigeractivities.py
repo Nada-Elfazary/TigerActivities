@@ -2,10 +2,10 @@ from flask import Flask, request
 import processing as proc
 import parseargs
 
-app = Flask(__name__)
+api = Flask(__name__)
 
-@app.route('/profile')
-@app.route('/')
+@api.route('/profile')
+@api.route('/')
 def my_profile():
     response_body = {
         "name": "Reuben",
@@ -14,7 +14,7 @@ def my_profile():
 
     return response_body
 
-@app.route("/events", methods = ['GET'])
+@api.route("/events", methods = ['GET'])
 def index():
     events = proc.fetch_activities()
    # print(events)
@@ -39,14 +39,14 @@ def index():
     
     return results
 
-@app.route('/attendees', methods=['POST'])
+@api.route('/attendees', methods=['POST'])
 def get_attendees():
     res = request.json
     id = res['event_id']
     attendees = proc.get_activity_attendees(id)
     return attendees
 
-@app.route('/create-event', methods = ['POST'])
+@api.route('/create-event', methods = ['POST'])
 def createEvent():
     res = request.json
     print("response", res['event_name'])
@@ -63,7 +63,7 @@ def createEvent():
     #     print("Recieved request: {}".format(request))
 
 
-@app.route('/sign-up', methods = ['POST'])
+@api.route('/sign-up', methods = ['POST'])
 def signUp():
     res = request.json
     print("json")
