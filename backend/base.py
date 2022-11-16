@@ -3,6 +3,7 @@ import processing as proc
 import parseargs
 
 api = Flask(__name__)
+print("api: {}, name: {}".format(api, __name__))
 
 @api.route('/profile')
 @api.route('/')

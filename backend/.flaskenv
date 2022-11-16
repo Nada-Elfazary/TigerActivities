@@ -1,2 +1,2 @@
-FLASK_APP=tigeractivities.py
+FLASK_APP=tigeractivities
 FLASK_ENV=development

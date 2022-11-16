@@ -78,7 +78,7 @@ axios.get('/events').then(res =>{
 
 }
 const get_attendees = (event)=>{
-  console.log("inside get atte")
+  console.log("inside get attendees")
   axios.post('/attendees', {
     event_id : event.id,
   }).then(res =>{
@@ -142,10 +142,21 @@ const handleMoreDetails = (event)=>{
   ) 
 )
 
+// const displayEvents = events.map((event)=> (
+// <div className="content" key ={event.id + " " + event.category}>
+//   <div className="event-title-conatiner">
+//     <p classname="event-title">{event.event_name}</p>
+//   </div>
+//   <div classname="category-location-container">
+//     <p classname= "event-category">Category : {event.category}</p>
+//     <p classname= "event-location">Location : {event.location}</p>
+//   </div>
+// </div>))
+
 
 let currLogin = "DefaultCreator"
 const displayOwnerEvents = events.filter(event => event.creator === currLogin).map((event)=> (
-  <div className="content" key ={event.id + " " + event.category}>
+  <div className="contents" key ={event.id + " " + event.category}>
 <table>
   <tbody className="body">
     <tr className="eventName">

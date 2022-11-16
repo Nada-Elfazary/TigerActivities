@@ -27,8 +27,7 @@ export default function Welcome(): React.ReactNode{
 
      }
    
-    const displayRules = logInClicked ? (<RulesModal setOpenModal={setLogInClicked}  setRedirect = {setRedirect}/>): null
-
+    const displayRules = logInClicked ? (<RulesModal setOpenModal={setLogInClicked}  setRedirect = {setRedirect}/>) : null
     // const red = redirect ? (navigate('/home')) : null
     const title = <h1>Welcome to TigerActivities </h1>
     const logInButton = <button disabled={logInClicked} className='button' onClick={()=>{
