@@ -2,7 +2,7 @@
 
 #-----------------------------------------------------------------------
 # prepopulate.py
-# Author: Sriyans Rauniyar
+# Author: Sriyans Rauniyar, Karim Elbarbary
 #-----------------------------------------------------------------------
 import sys
 import psycopg2

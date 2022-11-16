@@ -1,12 +1,22 @@
 from flask import Flask, request
 import processing as proc
 import parseargs
+import auth 
 
 app = Flask(__name__)
+@app.route('/logoutapp', methods=['GET'])
+def logoutapp():
+    return auth.logoutapp()
+
+@app.route('/logoutcas', methods=['GET'])
+def logoutcas():
+    return auth.logoutcas()
+
 
 @app.route('/profile')
 @app.route('/')
 def my_profile():
+    username = auth.authenticate()
     response_body = {
         "name": "Reuben",
         "about" :"Hello! I'm a full stack developer that loves python and javascript"
@@ -16,6 +26,7 @@ def my_profile():
 
 @app.route("/events", methods = ['GET'])
 def index():
+    username = auth.authenticate()
     events = proc.fetch_activities()
    # print(events)
     results =[]
@@ -41,6 +52,7 @@ def index():
 
 @app.route('/attendees', methods=['POST'])
 def get_attendees():
+    username = auth.authenticate()
     res = request.json
     id = res['event_id']
     attendees = proc.get_activity_attendees(id)
@@ -48,6 +60,7 @@ def get_attendees():
 
 @app.route('/create-event', methods = ['POST'])
 def createEvent():
+    username = auth.authenticate()
     res = request.json
     print("response", res['event_name'])
     print("Recieved request: {}".format(request.json))
@@ -65,9 +78,9 @@ def createEvent():
 
 @app.route('/sign-up', methods = ['POST'])
 def signUp():
+    username = auth.authenticate()
     res = request.json
     print("json")
     print(res)
     proc.store_sign_up(res)
     return res
-
