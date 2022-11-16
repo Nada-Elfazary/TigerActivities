@@ -8,7 +8,6 @@ Jinja2==3.1.2
 MarkupSafe==2.1.1
 npm==0.1.1
 npx==0.1.1
-numpy==1.23.4
 optional-django==0.1.0
 psycopg2-binary==2.9.5
 python-dotenv==0.21.0
