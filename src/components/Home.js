@@ -17,6 +17,7 @@ export default function  Home() : React.ReactNode {
   const [displayMoreDetails, setDisplayMoreDetails] = useState(false)
   const [event, setEvent] = useState(null)
   const [attendees, setAttendees] = useState([])
+  const [expand, setExpand] = useState(false)
 
 const activitesClicked= ()=>{
   if(clickedActivites) {
@@ -97,10 +98,19 @@ const get_attendees = (event)=>{
 }
 
 const handleMoreDetails = (event)=>{
-  setDisplayMoreDetails(true)
+  // setDisplayMoreDetails(true)
+  setExpand(true)
   setEvent(event)
  get_attendees(event)
 }
+
+const moredetails = expand ? (
+  <tr>
+    <td>
+
+    </td>
+  </tr>
+): null
 
   const title = <h1><i>TigerActivities </i></h1>
   const activities = <button className="button" onClick={activitesClicked}>Activities</button>
@@ -242,6 +252,11 @@ const showResults = clickedActivites? (
           <table className="center">
             <tr>
           <td>{showCreateEventButton}</td>
+          </tr>
+          <tr>
+          <td>
+            <input type = "text:" name = "title"></input>
+          </td>
           </tr>
           <tr>
           <td>

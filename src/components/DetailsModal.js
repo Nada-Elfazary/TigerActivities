@@ -69,9 +69,16 @@ export default function DetailsModal(props) {
 
                     <tr></tr>    
                     <tr>
-                        <td>Attendees: {props.attendees.map((attendee)=>(
-                          attendee + "\n"
-                        ))}</td>
+                        <td>
+                          <table>
+                            <tbody>
+                            <tr>
+                              Attendees: {props.attendees.map((attendee)=>(
+                          <tr>attendee</tr>))}
+                            </tr>
+                            </tbody>
+                          </table>
+                        </td>
                     </tr>
              </tbody>
                 </table>
