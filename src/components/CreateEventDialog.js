@@ -6,7 +6,7 @@ import axios from 'axios';
 
 function CreateEventDialog(props) {
     const MAX_NO_DAYS = 5
-    const DEFAULT_CREATOR = "DefaultCreator"
+    const DEFAULT_CREATOR = "Reuben"
     const DEFAULT_CATEGORY = "Sports"
     const DEFAULT_SIGNUP_NR = 0
     const[eventTitle, setEventTitle] = useState('')

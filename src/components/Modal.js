@@ -30,7 +30,7 @@ function Modal(props) {
         <div className="titleCloseBtn">
           <button
             onClick={() => {
-              {props.setOpenSignUpModal(false);}
+              props.setOpenSignUpModal(false);
             }}
           >
             x
@@ -72,7 +72,9 @@ function Modal(props) {
         </div>
         <div className="footer">
           <button
-            id="cancelBtn"
+            id="cancelBtn"  onClick={() => {
+              props.setOpenSignUpModal(false);
+            }}
           >
             Cancel
           </button>

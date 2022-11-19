@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import CreateEventDialog from "./CreateEventDialog";
 import DetailsModal from "./DetailsModal";
-// import Modal from "./Modal";
+import XDSCard from "./XDSCard"
 import "./Home.css";
 import axios from 'axios';
 
@@ -17,8 +17,7 @@ export default function  Home() : React.ReactNode {
   const [displayMoreDetails, setDisplayMoreDetails] = useState(false)
   const [event, setEvent] = useState(null)
   const [attendees, setAttendees] = useState([])
-  const [expand, setExpand] = useState(false)
-
+  let currLogin = "DefaultCreator"
 const activitesClicked= ()=>{
   if(clickedActivites) {
     setEvents([])
@@ -43,35 +42,14 @@ const handleCreateEvent = ()=>{
   setDisplayModal(true);
 }
 const getEvents =(ownerView)=> {
-/*
-  axios({
-    method: "GET",
-    url:"/events",
-  })
-  .then((response) => {
-    const res =response.data
-    console.log("inside get data")
-    setEvents(res)
-  }).catch((error) => {
-    if (error.response) {
-      console.log(error.response)
-      console.log(error.response.status)
-      console.log(error.response.headers)
-      }
-  })
-  */
-  
-
-  
-
 axios.get('/events').then(res =>{
   console.log("Events received from db:", res)
   console.log("Setting events to:", res.data)
   setEvents([])
   if (ownerView === true) {
-    let filtered = res.data.filter(event => event.creator == currLogin)
+    let filtered = res.data.filter(event => event.creator === currLogin)
     console.log("length: ", filtered.length)
-    if (filtered.length != 0) {
+    if (filtered.length !== 0) {
     setEvents(filtered)
     }
     else {
@@ -85,6 +63,8 @@ axios.get('/events').then(res =>{
 })
 
 }
+
+
 const get_attendees = (event)=>{
   console.log("inside get attendees")
   axios.post('/attendees', {
@@ -99,18 +79,12 @@ const get_attendees = (event)=>{
 
 const handleMoreDetails = (event)=>{
   setDisplayMoreDetails(true)
-  //setExpand(true)
   setEvent(event)
  get_attendees(event)
+ console.log("inside handle")
 }
 
-const moredetails = expand ? (
-  <tr>
-    <td>
 
-    </td>
-  </tr>
-): null
 
   const title = <h1><i>TigerActivities </i></h1>
   const activities = <button className="button" onClick={activitesClicked}>Activities</button>
@@ -119,6 +93,7 @@ const moredetails = expand ? (
   const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal}/>) : null
   const details = displayMoreDetails ? (<DetailsModal setOpenModal = {setDisplayMoreDetails} event = {event} attendees ={attendees}/>):null
 
+  /*
   const displayEvents = events.map((event)=> (
     <div className="content" key ={event.id + " " + event.category}>
   <table>
@@ -147,6 +122,7 @@ const moredetails = expand ? (
       <td></td>
       <td> Number Of Attendees:{event.signup_number}/{event.maxcap}</td>
     </tr>
+    {moredetails}
     <tr>
       <td></td>
       <td> <button className="moredetails" onClick={()=>{
@@ -158,6 +134,7 @@ const moredetails = expand ? (
   </div>
   ) 
 )
+*/
 
 // const displayEvents = events.map((event)=> (
 // <div className="content" key ={event.id + " " + event.category}>
@@ -170,9 +147,14 @@ const moredetails = expand ? (
 //   </div>
 // </div>))
 
+const displayEvents =  events.map((event, index)=>{
+  return (
+    <XDSCard key ={index} item ={event}/>
+  )
+})
 
-let currLogin = "DefaultCreator"
-const displayOwnerEvents = events.filter(event => event.creator === currLogin).map((event)=> (
+
+const displayOwnerEvents = events.map((event)=> (
   <div className="contents" key ={event.id + " " + event.category}>
 <table>
   <tbody className="body">
@@ -232,7 +214,6 @@ const showResults = clickedActivites? (
   ): null
 
   return (
-    <html>
     <div className = "pageContainer">
      <div className='HomeContainer-1'>
      <div className='title'>
@@ -250,33 +231,12 @@ const showResults = clickedActivites? (
         </div>  
         
         <div className="content">
-          <table className="center">
-          <tr>
-          <td>
-            <input type = "text:" name = "title"></input>
-          </td>
-          </tr>
-            <tr>
-          <td>{showCreateEventButton}</td>
-          </tr>
-          <tr>
-          <td>
-            {showResults}
-            </td> </tr>
-            <tr><td>
-            
-            {showOwnerActivities}
-            </td></tr>
-            </table> 
-        </div>
-       {modal}
-       {details}
-       
+          {showCreateEventButton}
+          {showResults}
+          {showOwnerActivities}
+          {modal}
+         </div>
     </div>
-
-    
-    </html>
-    
     
   );
 };
