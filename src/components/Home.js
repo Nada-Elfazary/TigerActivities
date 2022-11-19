@@ -98,8 +98,8 @@ const get_attendees = (event)=>{
 }
 
 const handleMoreDetails = (event)=>{
-  // setDisplayMoreDetails(true)
-  setExpand(true)
+  setDisplayMoreDetails(true)
+  //setExpand(true)
   setEvent(event)
  get_attendees(event)
 }
@@ -232,6 +232,7 @@ const showResults = clickedActivites? (
   ): null
 
   return (
+    <html>
     <div className = "pageContainer">
      <div className='HomeContainer-1'>
      <div className='title'>
@@ -250,13 +251,13 @@ const showResults = clickedActivites? (
         
         <div className="content">
           <table className="center">
-            <tr>
-          <td>{showCreateEventButton}</td>
-          </tr>
           <tr>
           <td>
             <input type = "text:" name = "title"></input>
           </td>
+          </tr>
+            <tr>
+          <td>{showCreateEventButton}</td>
           </tr>
           <tr>
           <td>
@@ -270,7 +271,12 @@ const showResults = clickedActivites? (
         </div>
        {modal}
        {details}
+       
     </div>
+
+    
+    </html>
+    
     
   );
 };
