@@ -25,8 +25,32 @@ function CreateEventDialog(props) {
     // console.log("Current time", curr_time.getTime())
     // const five_days_in_future = curr_time.setDate(curr_time.getDate() + MAX_NO_DAYS) 
     // console.log("Max time in future",five_days_in_future)
-   
-
+    /*
+    const currLogin = "Reuben"
+    const getEvents =(ownerView)=> {
+      axios.get('/events').then(res =>{
+        console.log("Events received from db:", res)
+        console.log("Setting events to:", res.data)
+        props.setEvents([])
+        if (ownerView === true) {
+          let filtered = res.data.filter(event => event.creator === currLogin)
+          console.log("length: ", filtered.length)
+          if (filtered.length !== 0) {
+          props.setEvents(filtered)
+          }
+          else {
+            console.log("No events created by owner")
+          }
+        } else {
+          props.setEvents(res.data)
+          console.log(res.data)
+        }
+      }).catch(err =>{
+        console.log("Error receiving event from db:", err)
+      })
+      
+      }
+      */
     const submitForm = ()=>{
         setDisableSubmitForm(true)
         console.log(disableSubmitForm)
@@ -48,6 +72,8 @@ function CreateEventDialog(props) {
             console.log(response);
           }, (error) => {
             console.log(error)
+            setErrorMsg("Can not create event")
+            setShowErrorMsg(true)
           })
     }
 
@@ -65,7 +91,9 @@ function CreateEventDialog(props) {
       console.log(description)
       console.log(eventLocation)
       submitForm()
+      // getEvents(true)
       props.setOpenModal(false)
+      // props.setClickMyActivities(true)
     }
     const errorM  = showErrorMsg? <strong className="error">{errorMsg}</strong> : null
 

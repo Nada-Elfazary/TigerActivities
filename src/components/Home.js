@@ -14,6 +14,7 @@ export default function  Home() : React.ReactNode {
   const [clickedMyActivites, setClickedMyActivities] = useState(false)
   const [events, setEvents] = useState([])
   const [displayModal, setDisplayModal] = useState(false)
+  // const [refresh, setRefresh] = useState(false)
   // const [displayMoreDetails, setDisplayMoreDetails] = useState(false)
   // const [event, setEvent] = useState(null)
   let currLogin = "Reuben"
@@ -77,7 +78,7 @@ const handleMoreDetails = (event)=>{
   const activities = <button className="button" onClick={activitesClicked}>Activities</button>
   const myActivities = <button className="button" onClick={myActivitesClicked}>My Activities</button>
   const createEventButton = <button className="buttonStyle" onClick={handleCreateEvent}>Create Activity</button>
-  const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal}/>) : null
+  const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal} />) : null
 
   // const details = displayMoreDetails ? (<DetailsModal setOpenModal = {setDisplayMoreDetails} event = {event} attendees ={attendees}/>):null
 
@@ -202,7 +203,7 @@ const showResults = clickedActivites? (
 
   ): null
 
-  const showOwnerActivities = clickedMyActivites? (
+  const showOwnerActivities = clickedMyActivites ? (
     displayOwnerEvents
 
   ): null
