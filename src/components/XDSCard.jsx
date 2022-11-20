@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import useCollapse from 'react-collapsed';
 import Modal from './Modal';
 import "./Home.css";
-const XDSCard = ({item}) => {
+const XDSCard = ({item, ownerView}) => {
     const [isExpanded, setExpanded] = useState(false)
     const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded })
     const [displaySignUp, setDisplaySignUp] = useState(false)
@@ -16,6 +16,7 @@ const XDSCard = ({item}) => {
   
   }
   const signUpModal = displaySignUp ? (<Modal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}/>): null
+
 
   return (
     <>
@@ -44,10 +45,9 @@ const XDSCard = ({item}) => {
                  
                            </p>     
                         </td>
-                        <td><p {...getCollapseProps()}>
-                        <button onClick={handleSignUp}>Sign Up</button>
-                 
-                           </p>     
+                        <td>{!ownerView ? (<p {...getCollapseProps()}>
+                        <button onClick={handleSignUp}>Sign Up</button>            
+                           </p>) : null }   
                         </td>
                     </tr>
                 </tbody>
