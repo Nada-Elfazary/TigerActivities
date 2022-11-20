@@ -65,7 +65,7 @@ axios.get('https://tigeractivities.onrender.com/events').then(res =>{
 
 }
 
-
+/*
 const get_attendees = (event)=>{
   console.log("inside get attendees")
   axios.post('https://tigeractivities.onrender.com/attendees', {
@@ -77,7 +77,7 @@ const get_attendees = (event)=>{
   
   })
 }
-/*
+
 const handleMoreDetails = (event)=>{
   setDisplayMoreDetails(true)
   setEvent(event)
