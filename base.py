@@ -1,9 +1,12 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import processing as proc
 import parseargs
 import auth 
+from flask_cors import CORS
 
 app = Flask(__name__)
+app.config['CORS_HEADERS'] = 'Content-Type'
+cors = CORS(app)
 
 # @app.route('/logoutapp', methods=['GET'])
 # def logoutapp():
@@ -13,9 +16,18 @@ app = Flask(__name__)
 # def logoutcas():
 #     return auth.logoutcas()
 
+@app.after_request
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+  return response
 
 @app.route("/https://tigeractivities.onrender.com/events", methods = ['GET'])
+#@cross_domain(origin='*')
+@app.after_request
 def index():
+    print("in index")
     # username = auth.authenticate()
     events = proc.fetch_activities()
    # print(events)
@@ -37,10 +49,14 @@ def index():
             "signup_number":event[12]
         }
         results.append(response_body)
-    
-    return results
+        response = jsonify(results)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        print(response)
+    return response
 
 @app.route('/https://tigeractivities.onrender.com/attendees', methods=['POST'])
+#@cross_origin()
+@app.after_request
 def get_attendees():
     # username = auth.authenticate()
     res = request.json
@@ -49,6 +65,8 @@ def get_attendees():
     return attendees
 
 @app.route('/https://tigeractivities.onrender.com/create-event', methods = ['POST'])
+#@cross_origin()
+@app.after_request
 def createEvent():
     # username = auth.authenticate()
     res = request.json
@@ -67,6 +85,8 @@ def createEvent():
 
 
 @app.route('/https://tigeractivities.onrender.com/sign-up', methods = ['POST'])
+#@cross_origin()
+@app.after_request
 def signUp():
     # username = auth.authenticate()
     res = request.json
