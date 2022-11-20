@@ -169,7 +169,7 @@ const handleMoreDetails = (event)=>{
 //   </div>
 // </div>))
 
-const displayEvents =  events.map((event, index)=>{
+const displayEvents =  events.filter((event)=>event.creator !== currLogin).map((event, index)=>{
   return (
     <XDSCard key ={index} item ={event} ownerView={false}/>
   )
