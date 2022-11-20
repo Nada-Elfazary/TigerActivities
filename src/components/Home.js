@@ -17,6 +17,7 @@ export default function  Home() : React.ReactNode {
   const [displayMoreDetails, setDisplayMoreDetails] = useState(false)
   const [event, setEvent] = useState(null)
   const [attendees, setAttendees] = useState([])
+  const [nameFilter, setNameFilter] = useState('')
   let currLogin = "DefaultCreator"
 const activitesClicked= ()=>{
   if(clickedActivites) {
@@ -42,7 +43,7 @@ const handleCreateEvent = ()=>{
   setDisplayModal(true);
 }
 const getEvents =(ownerView)=> {
-axios.get('/events').then(res =>{
+axios.get('https://tigeractivities.onrender.com/events').then(res =>{
   console.log("Events received from db:", res)
   console.log("Setting events to:", res.data)
   setEvents([])
@@ -67,7 +68,7 @@ axios.get('/events').then(res =>{
 
 const get_attendees = (event)=>{
   console.log("inside get attendees")
-  axios.post('/attendees', {
+  axios.post('https://tigeractivities.onrender.com/attendees', {
     event_id : event.id,
   }).then(res =>{
     setAttendees(res.data)
@@ -194,6 +195,13 @@ const displayOwnerEvents = events.map((event)=> (
 ) 
 )
 
+const handleFilter = (event) => {
+    setNameFilter(event.target.value)
+    console.log(event.target.value)
+
+
+}
+
 const showResults = clickedActivites? (
  
     displayEvents
@@ -229,7 +237,7 @@ const showResults = clickedActivites? (
         {myActivities}
         </div>
         </div>  
-        
+        <input value={nameFilter} name="title" onChange={handleFilter} />
         <div className="content">
           {showCreateEventButton}
           {showResults}

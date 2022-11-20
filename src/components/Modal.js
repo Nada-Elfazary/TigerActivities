@@ -10,7 +10,7 @@ function Modal(props) {
   
   const submitForm= () =>
   {
-    axios.post('/sign-up', {
+    axios.post('https://tigeractivities.onrender.com/sign-up', {
       name: name,
       phone: phone,
       email: email,
