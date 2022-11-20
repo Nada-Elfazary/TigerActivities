@@ -16,8 +16,7 @@ export default function  Home() : React.ReactNode {
   const [displayModal, setDisplayModal] = useState(false)
   // const [displayMoreDetails, setDisplayMoreDetails] = useState(false)
   // const [event, setEvent] = useState(null)
- //  const [attendees, setAttendees] = useState([])
-  let currLogin = "DefaultCreator"
+  let currLogin = "Reuben"
 const activitesClicked= ()=>{
   if(clickedActivites) {
     setEvents([])
@@ -64,19 +63,6 @@ axios.get('/events').then(res =>{
 
 }
 
-/*
-const get_attendees = (event)=>{
-  console.log("inside get attendees")
-  axios.post('/attendees', {
-    event_id : event.id,
-  }).then(res =>{
-    setAttendees(res.data)
-  }).catch(err =>{
-    console.log(err)
-  
-  })
-}
-*/
 /*
 const handleMoreDetails = (event)=>{
   setDisplayMoreDetails(true)
