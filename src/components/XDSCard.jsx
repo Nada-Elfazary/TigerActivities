@@ -2,12 +2,16 @@ import React, {useState} from 'react';
 import useCollapse from 'react-collapsed';
 import Modal from './Modal';
 import "./Home.css";
-const XDSCard = ({item}) => {
+import axios from 'axios';
+
+const XDSCard = ({item, ownerView}) => {
     const [isExpanded, setExpanded] = useState(false)
     const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded })
     const [displaySignUp, setDisplaySignUp] = useState(false)
     const [eventTitle, setEventTitle] = useState('')
     const [id, setEventId] = useState('')
+    const [attendees, setAttendees] = useState([])
+
 
   const handleSignUp = ()=>{
     setDisplaySignUp(true)
@@ -17,6 +21,22 @@ const XDSCard = ({item}) => {
   }
   const signUpModal = displaySignUp ? (<Modal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}/>): null
 
+  const get_attendees = (event)=>{
+    console.log("inside get attendees")
+    axios.post('/attendees', {
+      event_id : event.id,
+    }).then(res =>{
+        if(res.data.length === 0){
+            setAttendees("No sign ups yet")
+        }
+        else{
+            setAttendees(res.data)
+        }
+    }).catch(err =>{
+      console.log(err)
+    
+    })
+  }
   return (
     <>
      <div className='card'>
@@ -44,17 +64,24 @@ const XDSCard = ({item}) => {
                  
                            </p>     
                         </td>
-                        <td><p {...getCollapseProps()}>
-                        <button onClick={handleSignUp}>Sign Up</button>
-                 
-                           </p>     
+                        <td>{!ownerView ? (<p {...getCollapseProps()}>
+                        <button onClick={handleSignUp}>Sign Up</button>            
+                           </p>) : null }   
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{ownerView ? (
+                            <p {...getCollapseProps()}>
+                                Attendees : {attendees}
+                            </p>) : null }
                         </td>
                     </tr>
                 </tbody>
             </table>
             <button
         {...getToggleProps({
-          onClick: () => setExpanded((prevExpanded) => !prevExpanded),
+          onClick: () =>{ setExpanded((prevExpanded) => !prevExpanded)
+        get_attendees(item)},
         })}
       >
         {isExpanded ? 'Less Details' : 'More Details'}
