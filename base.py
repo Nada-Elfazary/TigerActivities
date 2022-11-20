@@ -15,7 +15,7 @@ app = Flask(__name__)
 #     return auth.logoutcas()
 
 
-@app.route("/https://tigeractivities.onrender.com/events", methods = ['GET'])
+@app.route("/events", methods = ['GET'])
 def index():
     # username = auth.authenticate()
     events = proc.fetch_activities()
@@ -41,7 +41,7 @@ def index():
     
     return results
 
-@app.route('/https://tigeractivities.onrender.com/attendees', methods=['POST'])
+@app.route('/attendees', methods=['POST'])
 def get_attendees():
     # username = auth.authenticate()
     res = request.json
@@ -49,7 +49,7 @@ def get_attendees():
     attendees = proc.get_activity_attendees(id)
     return attendees
 
-@app.route('/https://tigeractivities.onrender.com/create-event', methods = ['POST'])
+@app.route('/create-event', methods = ['POST'])
 def createEvent():
     # username = auth.authenticate()
     res = request.json
@@ -67,7 +67,7 @@ def createEvent():
     #     print("Recieved request: {}".format(request))
 
 
-@app.route('/https://tigeractivities.onrender.com/sign-up', methods = ['POST'])
+@app.route('/sign-up', methods = ['POST'])
 def signUp():
     # username = auth.authenticate()
     res = request.json

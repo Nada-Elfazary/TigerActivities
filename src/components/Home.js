@@ -62,28 +62,27 @@ const getEvents =(ownerView)=> {
   */
 
 // axios.get('https://tigeractivities.onrender.com/events').then(res =>{
-axios.get('/events').then(res =>{
-axios.get('https://tigeractivities.onrender.com/events').then(res =>{
-  console.log("Events received from db:", res)
-  console.log("Setting events to:", res.data)
-  setEvents([])
-  if (ownerView === true) {
-    let filtered = res.data.filter(event => event.creator === currLogin)
-    console.log("length: ", filtered.length)
-    if (filtered.length !== 0) {
-    setEvents(filtered)
+  axios.get('/events').then(res =>{
+    console.log("Events received from db:", res)
+    console.log("Setting events to:", res.data)
+    setEvents([])
+    if (ownerView === true) {
+      let filtered = res.data.filter(event => event.creator === currLogin)
+      console.log("length: ", filtered.length)
+      if (filtered.length !== 0) {
+      setEvents(filtered)
+      }
+      else {
+        console.log("No events created by owner")
+      }
+    } else {
+      setEvents(res.data)
     }
-    else {
-      console.log("No events created by owner")
-    }
-  } else {
-    setEvents(res.data)
-  }
-}).catch(err =>{
-  console.log("Error receiving event from db:", err)
-})
-
+  }).catch(err =>{
+    console.log("Error receiving event from db:", err)
+  })
 }
+
 
 /*
 const get_attendees = (event)=>{
@@ -275,5 +274,3 @@ const showResults = clickedActivites? (
     
   );
 };
-  
-// export default Home;
