@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import CreateEventDialog from "./CreateEventDialog";
-import DetailsModal from "./DetailsModal";
+// import DetailsModal from "./DetailsModal";
 import XDSCard from "./XDSCard"
 import "./Home.css";
 import axios from 'axios';
@@ -14,10 +14,11 @@ export default function  Home() : React.ReactNode {
   const [clickedMyActivites, setClickedMyActivities] = useState(false)
   const [events, setEvents] = useState([])
   const [displayModal, setDisplayModal] = useState(false)
-  const [displayMoreDetails, setDisplayMoreDetails] = useState(false)
-  const [event, setEvent] = useState(null)
-  const [attendees, setAttendees] = useState([])
-  let currLogin = "DefaultCreator"
+  // const [refresh, setRefresh] = useState(false)
+  // const [displayMoreDetails, setDisplayMoreDetails] = useState(false)
+  // const [event, setEvent] = useState(null)
+  const [nameFilter, setNameFilter] = useState('')
+  let currLogin = "Reuben"
 const activitesClicked= ()=>{
   if(clickedActivites) {
     setEvents([])
@@ -62,6 +63,7 @@ const getEvents =(ownerView)=> {
 
 // axios.get('https://tigeractivities.onrender.com/events').then(res =>{
 axios.get('/events').then(res =>{
+axios.get('https://tigeractivities.onrender.com/events').then(res =>{
   console.log("Events received from db:", res)
   console.log("Setting events to:", res.data)
   setEvents([])
@@ -83,10 +85,10 @@ axios.get('/events').then(res =>{
 
 }
 
-
+/*
 const get_attendees = (event)=>{
   console.log("inside get attendees")
-  axios.post('/attendees', {
+  axios.post('https://tigeractivities.onrender.com/attendees', {
     event_id : event.id,
   }).then(res =>{
     setAttendees(res.data)
@@ -103,14 +105,15 @@ const handleMoreDetails = (event)=>{
  console.log("inside handle")
 }
 
-
+*/
 
   const title = <h1><i>TigerActivities </i></h1>
   const activities = <button className="button" onClick={activitesClicked}>Activities</button>
   const myActivities = <button className="button" onClick={myActivitesClicked}>My Activities</button>
   const createEventButton = <button className="buttonStyle" onClick={handleCreateEvent}>Create Activity</button>
-  const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal}/>) : null
-  const details = displayMoreDetails ? (<DetailsModal setOpenModal = {setDisplayMoreDetails} event = {event} attendees ={attendees}/>):null
+  const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal} />) : null
+
+  // const details = displayMoreDetails ? (<DetailsModal setOpenModal = {setDisplayMoreDetails} event = {event} attendees ={attendees}/>):null
 
   /*
   const displayEvents = events.map((event)=> (
@@ -168,11 +171,16 @@ const handleMoreDetails = (event)=>{
 
 const displayEvents =  events.map((event, index)=>{
   return (
-    <XDSCard key ={index} item ={event}/>
+    <XDSCard key ={index} item ={event} ownerView={false}/>
+  )
+})
+const displayOwnerEvents = events.map((event, index)=>{
+  return (
+    <XDSCard key ={index} item={event} ownerView={true} />
   )
 })
 
-
+/*
 const displayOwnerEvents = events.map((event)=> (
   <div className="contents" key ={event.id + " " + event.category}>
 <table>
@@ -212,6 +220,14 @@ const displayOwnerEvents = events.map((event)=> (
 </div>
 ) 
 )
+*/
+
+const handleFilter = (event) => {
+    setNameFilter(event.target.value)
+    console.log(event.target.value)
+
+
+}
 
 const showResults = clickedActivites? (
  
@@ -227,7 +243,7 @@ const showResults = clickedActivites? (
 
   ): null
 
-  const showOwnerActivities = clickedMyActivites? (
+  const showOwnerActivities = clickedMyActivites ? (
     displayOwnerEvents
 
   ): null
@@ -248,7 +264,7 @@ const showResults = clickedActivites? (
         {myActivities}
         </div>
         </div>  
-        
+        <input value={nameFilter} name="title" onChange={handleFilter} />
         <div className="content">
           {showCreateEventButton}
           {showResults}
