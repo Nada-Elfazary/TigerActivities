@@ -43,7 +43,8 @@ def get_date_limit():
     currDay = convert_date(year, month, newDay)
     return currDay
 
-def fetch_activities():
+def fetch_activities(title):
+    title = '%' + title + '%'
     try:
         database_url = DATABASE_URL
         activities = []
@@ -53,7 +54,8 @@ def fetch_activities():
         with psycopg2.connect(database_url) as connection:            
             with connection.cursor() as cursor:
                 statementOne = "SELECT * FROM events WHERE startdate = %s AND starttime > %s"
-                cursor.execute(statementOne, [currDate, currTime])
+                statementOne += "AND eventname LIKE %s"
+                cursor.execute(statementOne, [currDate, currTime, title])
                 row = cursor.fetchone()
                 print("Date: ", get_current_date())
                 while row is not None:
@@ -67,8 +69,10 @@ def fetch_activities():
                     activities.append(copy_row)
                     row = cursor.fetchone()
 
-                statementTwo = "SELECT * FROM events WHERE %s < startdate AND startdate < %s ORDER BY RANDOM() LIMIT 1000"
-                cursor.execute(statementTwo, [currDate, dateLimit])
+                statementTwo = "SELECT * FROM events WHERE %s < startdate AND startdate < %s AND eventname LIKE %s"
+                statementOne += "ORDER BY RANDOM() LIMIT 1000"
+                cursor.execute(statementTwo, [currDate, dateLimit, title])
+                print ("after second execute")
                 row = cursor.fetchone()
                 print("Date: ", get_current_date(), "+ 5 days")
                 while row is not None:

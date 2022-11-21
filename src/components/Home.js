@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import CreateEventDialog from "./CreateEventDialog";
 // import DetailsModal from "./DetailsModal";
 import XDSCard from "./XDSCard"
+import Dropdown from "./dropdown2"
+
 import "./Home.css";
 import axios from 'axios';
 
@@ -170,7 +172,7 @@ const handleMoreDetails = (event)=>{
 //   </div>
 // </div>))
 
-const displayEvents =  events.filter((event)=>event.creator !== currLogin).map((event, index)=>{
+const displayEvents = events.filter((event)=>event.creator !== currLogin).map((event, index)=>{
   return (
     <XDSCard key ={index} item ={event} ownerView={false}/>
   )
@@ -248,6 +250,10 @@ const showResults = clickedActivites? (
 
   ): null
 
+  const showFilter = clickedActivites ? (
+    <input value={nameFilter} name="title" onChange={handleFilter} />
+
+  ): null
   return (
     <div className = "pageContainer">
      <div className='HomeContainer-1'>
@@ -264,7 +270,8 @@ const showResults = clickedActivites? (
         {myActivities}
         </div>
         </div>  
-        <input value={nameFilter} name="title" onChange={handleFilter} />
+        {showFilter}
+        <Dropdown></Dropdown>
         <div className="content">
           {showCreateEventButton}
           {showResults}
