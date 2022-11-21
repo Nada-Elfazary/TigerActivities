@@ -26,6 +26,8 @@ export default function Welcome(): React.ReactNode{
      const handleOnClickedCreateEvent=()=>{
 
      }
+  
+     
    
     const displayRules = logInClicked ? (<RulesModal setOpenModal={setLogInClicked}  setRedirect = {setRedirect}/>) : null
     // const red = redirect ? (navigate('/home')) : null
@@ -35,13 +37,9 @@ export default function Welcome(): React.ReactNode{
 
 
 
-    const displayEventsButton = <button onClick={handleOnClickedDisplayEvents} disabled={clickedDisplayEvents}> Display Events</button>
-    const createEventButton = <button onClick={handleOnClickedCreateEvent} disabled={clickedCreateEvent}>Create Event</button>
+    //const displayEventsButton = <button onClick={handleOnClickedDisplayEvents} disabled={clickedDisplayEvents}> Display Events</button>
+    //const createEventButton = <button onClick={handleOnClickedCreateEvent} disabled={clickedCreateEvent}>Create Event</button>
     
-
-
-
-
       const getEvents =()=> {
         axios({
           method: "GET",
@@ -58,6 +56,7 @@ export default function Welcome(): React.ReactNode{
             console.log(error.response.headers)
             }
         })}
+        
 
     const displayEvents = events.map((event)=> (
 
@@ -103,21 +102,19 @@ const modal = onSignUp ? (
 
 const createEventModal = clickedCreateEvent ? ( <CreateEventDialog setOpenModal ={setClickedCreateEvent} />): null
 
-    return (
-      /*
-      <div>
-    <div className='App'>
-   {title}
-  
-   </div>
-   {displayEventsButton}
-   {createEventButton}
-   {showResults}
-   {modal}
-   {createEventModal}
-   </div>
- */
-      <div>
+return (
+  <div> 
+    {/* <div> */}
+      <div className='App'>
+        {/* {title} */}
+      </div>
+      {/* {displayEventsButton} */}
+      {/* {createEventButton} */}
+      {/* {showResults} */}
+      {modal}
+      {/* {createEventModal} */}
+    {/* </div> */}
+    <div>
       <div className='AppContainer-1'>
         <div className='title'>
           {title}
@@ -127,6 +124,7 @@ const createEventModal = clickedCreateEvent ? ( <CreateEventDialog setOpenModal 
         </div>
       </div>
       {displayRules}
-      </div>
-    );
+    </div>
+  </div>
+  );
 }
