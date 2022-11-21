@@ -171,11 +171,12 @@ const handleMoreDetails = (event)=>{
 //   </div>
 // </div>))
 
-const displayEvents = events.filter((event)=>event.creator !== currLogin).map((event, index)=>{
+const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator !== currLogin).map((event, index)=>{
   return (
+
     <XDSCard key ={index} item ={event} ownerView={false}/>
   )
-})
+}): "No events created yet"
 const displayOwnerEvents = events.map((event, index)=>{
   return (
     <XDSCard key ={index} item={event} ownerView={true} />
