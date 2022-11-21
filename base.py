@@ -15,10 +15,16 @@ app = Flask(__name__)
 #     return auth.logoutcas()
 
 
-@app.route("/events", methods = ['GET'])
+@app.route("/events", methods = ['POST'])
 def index():
-    # username = auth.authenticate()
-    events = proc.fetch_activities()
+   # username = auth.authenticate()
+    res = request.json
+    print("request: ", res)
+    print("before title")
+    title = res['title']
+    print("after title")
+    print(title)
+    events = proc.fetch_activities(title)
    # print(events)
     results =[]
     for event in events:
