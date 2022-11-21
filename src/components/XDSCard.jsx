@@ -23,7 +23,7 @@ const XDSCard = ({item, ownerView}) => {
 
   const get_attendees = (event)=>{
     console.log("inside get attendees")
-    axios.post('/attendees', {
+    axios.post('https://tigeractivities.onrender.com/attendees', {
       event_id : event.id,
     }).then(res =>{
         if(res.data.length === 0){

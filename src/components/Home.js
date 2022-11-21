@@ -47,7 +47,7 @@ const handleCreateEvent = ()=>{
 const getEvents =(ownerView, name)=> {
   axios({
     method: "POST",
-    url:"/events",
+    url:"https://tigeractivities.onrender.com/events",
   })
   .then((response) => {
     const res =response.data
@@ -63,7 +63,7 @@ const getEvents =(ownerView, name)=> {
   
 
 // axios.get('https://tigeractivities.onrender.com/events').then(res =>{
-  axios.post('/events', {
+  axios.post('https://tigeractivities.onrender.com/events', {
     'title': name,
   }).then(res =>{
     console.log("Events received from db:", res)
@@ -177,11 +177,11 @@ const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator
     <XDSCard key ={index} item ={event} ownerView={false}/>
   )
 }): "No events created yet"
-const displayOwnerEvents = events.map((event, index)=>{
+const displayOwnerEvents = events.length !== 0 ? events.map((event, index)=>{
   return (
     <XDSCard key ={index} item={event} ownerView={true} />
   )
-})
+}): "No events created yet"
 
 /*
 const displayOwnerEvents = events.map((event)=> (
