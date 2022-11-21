@@ -25,7 +25,7 @@ def index():
     print("after title")
     print(title)
     events = proc.fetch_activities(title)
-   # print(events)
+    print("events route has been called. Fetching events: {}".format(events))
     results =[]
     for event in events:
         response_body={
