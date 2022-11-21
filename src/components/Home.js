@@ -27,7 +27,22 @@ const activitesClicked= ()=>{
   } 
     setClickedActivities(true)
     setClickedMyActivities(false)
-    getEvents(false, '')
+    axios({
+      method: "GET",
+      url:"https://tigeractivities.onrender.com/dummy",
+    })
+    .then((response) => {
+      const res =response.data
+      console.log("inside get data")
+      setEvents(res)
+    }).catch((error) => {
+      if (error.response) {
+        console.log(error.response)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+        }
+    })
+    // getEvents(false, '')
   
 }
 const myActivitesClicked= ()=>{
