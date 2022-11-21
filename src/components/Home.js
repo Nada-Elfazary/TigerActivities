@@ -45,9 +45,8 @@ const handleCreateEvent = ()=>{
   setDisplayModal(true);
 }
 const getEvents =(ownerView, name)=> {
-/*
   axios({
-    method: "GET",
+    method: "POST",
     url:"/events",
   })
   .then((response) => {
@@ -61,7 +60,7 @@ const getEvents =(ownerView, name)=> {
       console.log(error.response.headers)
       }
   })
-  */
+  
 
 // axios.get('https://tigeractivities.onrender.com/events').then(res =>{
   axios.post('/events', {
