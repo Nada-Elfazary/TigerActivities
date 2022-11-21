@@ -24,8 +24,14 @@ def after_request(response):
   response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
   return response
 
+
+@app.route("/dummy", methods = ['GET'])
+# cross_origin()
+def dummy_route():
+    return("Hello World!")
+
 @app.route("/events", methods = ['POST'])
-@cross_origin()
+# cross_origin()
 def index():
    # username = auth.authenticate()
     res = request.json
@@ -58,7 +64,7 @@ def index():
     return results
 
 @app.route('/attendees', methods=['POST'])
-@cross_origin()
+# cross_origin()
 def get_attendees():
     # username = auth.authenticate()
     res = request.json
@@ -67,7 +73,7 @@ def get_attendees():
     return attendees
 
 @app.route('/create-event', methods = ['POST'])
-@cross_origin()
+# cross_origin()
 def createEvent():
     # username = auth.authenticate()
     res = request.json
@@ -86,7 +92,7 @@ def createEvent():
 
 
 @app.route('/sign-up', methods = ['POST'])
-@cross_origin()
+# cross_origin()
 def signUp():
     # username = auth.authenticate()
     res = request.json
