@@ -39,8 +39,8 @@ const XDSCard = ({item, ownerView}) => {
   }
   return (
     <>
-     <div className='card'>
-        <div className='card-body'>
+     <div className='customized-card'>
+        <div className='customized-card-body'>
             <h2>{item.event_name}</h2>
             <table>
                 <tbody>

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import CreateEventDialog from "./CreateEventDialog";
 // import DetailsModal from "./DetailsModal";
 import XDSCard from "./XDSCard"
-import Dropdown from "./dropdown2"
+import Dropdown from "./dropdown"
 
 import "./Home.css";
 import axios from 'axios';
@@ -270,7 +270,7 @@ const showResults = clickedActivites? (
         </div>
         </div>  
         {showFilter}
-        <Dropdown></Dropdown>
+        <Dropdown items = {"hi"}></Dropdown>
         <div className="content">
           {showCreateEventButton}
           {showResults}

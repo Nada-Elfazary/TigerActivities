@@ -105,7 +105,7 @@ div.pageContainer{
     
 }
 
-.card{
+.customized-card{
     margin: 8px 10px;
     width: 35rem;
     background: rgb(252, 222, 169);
@@ -114,21 +114,21 @@ div.pageContainer{
     height: max-content;
 }
 
-.card-body{
+.customized-card-body{
    padding: 10px 20px;
 }
-.card-body h2{
+.customized-card-body h2{
     text-align: center;
 }
-.card-body td{
+.customized-card-body td{
   width: 300px;
   text-align: center;
 
 }
-.card-body p{
+.customized-card-body p{
     font-weight: bold;
 }
-.card-body button{
+.customized-card-body button{
     color: orange;
     height: 25px;
     font-size: 15px;

@@ -1,11 +1,12 @@
 import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-//import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import "./Home.css";
-
-
-export default function test() {
+ 
+export default function Dropdown1 (items){
+	console.log("items:"+ items);
 return (
+	
 	<div>
 	<Dropdown>
 		<Dropdown.Toggle>
