@@ -19,7 +19,7 @@ app = Flask(__name__)
 def index():
     # username = auth.authenticate()
     events = proc.fetch_activities()
-   # print(events)
+    print("events route has been called. Fetching events: {}".format(events))
     results =[]
     for event in events:
         response_body={
