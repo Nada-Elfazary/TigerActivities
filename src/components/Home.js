@@ -24,26 +24,27 @@ export default function  Home() : React.ReactNode {
 const activitesClicked= ()=>{
   if(clickedActivites) {
     setEvents([])
-  } 
+  
     setClickedActivities(true)
     setClickedMyActivities(false)
+    console.log("Requesting Dummy Data")
     axios({
       method: "GET",
       url:"https://tigeractivities.onrender.com/dummy",
     })
     .then((response) => {
-      const res =response.data
-      console.log("inside get data")
-      setEvents(res)
+      const res = response.data
+      console.log("Recieved Dummy Response:", res)
     }).catch((error) => {
       if (error.response) {
-        console.log(error.response)
+        console.log("Recevived dummy Error:", error.response)
         console.log(error.response.status)
         console.log(error.response.headers)
         }
     })
     // getEvents(false, '')
   
+  }
 }
 const myActivitesClicked= ()=>{
   if(clickedMyActivites) {
@@ -60,6 +61,7 @@ const handleCreateEvent = ()=>{
   setDisplayModal(true);
 }
 const getEvents =(ownerView, name)=> {
+  /*
   axios({
     method: "POST",
     url:"https://tigeractivities.onrender.com/events",
@@ -75,7 +77,7 @@ const getEvents =(ownerView, name)=> {
       console.log(error.response.headers)
       }
   })
-  
+  */
 
 // axios.get('https://tigeractivities.onrender.com/events').then(res =>{
   axios.post('https://tigeractivities.onrender.com/events', {
