@@ -27,6 +27,7 @@ const activitesClicked= ()=>{
   
     setClickedActivities(true)
     setClickedMyActivities(false)
+    /*
     console.log("Requesting Dummy Data")
     axios({
       method: "GET",
@@ -42,7 +43,8 @@ const activitesClicked= ()=>{
         console.log(error.response.headers)
         }
     })
-    // getEvents(false, '')
+    */
+    getEvents(false, '')
   
   }
 }
