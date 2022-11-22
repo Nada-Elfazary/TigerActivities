@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import CreateEventDialog from "./CreateEventDialog";
 // import DetailsModal from "./DetailsModal";
 import XDSCard from "./XDSCard"
+import Dropdown from "./Dropdown"
+
 import "./Home.css";
 import axios from 'axios';
 
@@ -22,10 +24,28 @@ export default function  Home() : React.ReactNode {
 const activitesClicked= ()=>{
   if(clickedActivites) {
     setEvents([])
-  } 
-    setClickedActivities(true)
-    setClickedMyActivities(false)
-    getEvents(false)
+  }
+  setClickedActivities(true)
+  setClickedMyActivities(false)
+  console.log("Requesting Dummy Data")
+  /*
+  axios({
+    method: "GET",
+    url:"https://tigeractivities.onrender.com/dummy",
+  })
+  .then((response) => {
+    const res = response.data
+    console.log("Recieved Dummy Response:", res)
+  }).catch((error) => {
+    if (error.response) {
+      console.log("Recevived dummy Error:", error.response)
+      console.log(error.response.status)
+      console.log(error.response.headers)
+      }
+  })
+  */
+  getEvents(false, '')
+  
   
 }
 const myActivitesClicked= ()=>{
@@ -34,36 +54,57 @@ const myActivitesClicked= ()=>{
   } 
   setClickedMyActivities(true)
   // setEvent([])
-  console.log(">>Clicked my activities<<, events:", events.length, events)
+  console.log("Clicked 'My Activities'. Events:", events.length, events)
   setClickedActivities(false)
-  getEvents(true)
+  getEvents(true, '')
 }
 
 const handleCreateEvent = ()=>{
   setDisplayModal(true);
 }
-const getEvents =(ownerView)=> {
-axios.get('https://tigeractivities.onrender.com/events').then(res =>{
-  console.log("Events received from db:", res)
-  console.log("Setting events to:", res.data)
-  setEvents([])
-  if (ownerView === true) {
-    let filtered = res.data.filter(event => event.creator === currLogin)
-    console.log("length: ", filtered.length)
-    if (filtered.length !== 0) {
-    setEvents(filtered)
-    }
-    else {
-      console.log("No events created by owner")
-    }
-  } else {
-    setEvents(res.data)
-  }
-}).catch(err =>{
-  console.log("Error receiving event from db:", err)
-})
+const getEvents =(ownerView, name)=> {
+  /*
+  axios({
+    method: "POST",
+    url:"https://tigeractivities.onrender.com/events",
+  })
+  .then((response) => {
+    const res =response.data
+    console.log("inside get data")
+    setEvents(res)
+  }).catch((error) => {
+    if (error.response) {
+      console.log(error.response)
+      console.log(error.response.status)
+      console.log(error.response.headers)
+      }
+  })
+  */
 
+// axios.get('https://tigeractivities.onrender.com/events').then(res =>{
+  axios.post('https://tigeractivities.onrender.com/events', {
+    'title': name,
+  }).then(res =>{
+    console.log("Events received from db:", res)
+    console.log("Setting events to:", res.data)
+    setEvents([])
+    if (ownerView === true) {
+      let filtered = res.data.filter(event => event.creator === currLogin)
+      console.log("length: ", filtered.length)
+      if (filtered.length !== 0) {
+      setEvents(filtered)
+      }
+      else {
+        console.log("No events created by owner")
+      }
+    } else {
+      setEvents(res.data)
+    }
+  }).catch(err =>{
+    console.log("Error receiving event from db:", err)
+  })
 }
+
 
 /*
 const get_attendees = (event)=>{
@@ -149,16 +190,17 @@ const handleMoreDetails = (event)=>{
 //   </div>
 // </div>))
 
-const displayEvents =  events.map((event, index)=>{
+const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator !== currLogin).map((event, index)=>{
   return (
+
     <XDSCard key ={index} item ={event} ownerView={false}/>
   )
-})
-const displayOwnerEvents = events.map((event, index)=>{
+}): "No events created yet"
+const displayOwnerEvents = events.length !== 0 ? events.map((event, index)=>{
   return (
     <XDSCard key ={index} item={event} ownerView={true} />
   )
-})
+}): "No events created yet"
 
 /*
 const displayOwnerEvents = events.map((event)=> (
@@ -205,8 +247,7 @@ const displayOwnerEvents = events.map((event)=> (
 const handleFilter = (event) => {
     setNameFilter(event.target.value)
     console.log(event.target.value)
-
-
+    getEvents(false, event.target.value)
 }
 
 const showResults = clickedActivites? (
@@ -228,6 +269,10 @@ const showResults = clickedActivites? (
 
   ): null
 
+  const showFilter = clickedActivites ? (
+    <input value={nameFilter} name="title" onChange={handleFilter} />
+
+  ): null
   return (
     <div className = "pageContainer">
      <div className='HomeContainer-1'>
@@ -244,7 +289,8 @@ const showResults = clickedActivites? (
         {myActivities}
         </div>
         </div>  
-        <input value={nameFilter} name="title" onChange={handleFilter} />
+        {showFilter}
+
         <div className="content">
           {showCreateEventButton}
           {showResults}
@@ -255,5 +301,3 @@ const showResults = clickedActivites? (
     
   );
 };
-  
-// export default Home;

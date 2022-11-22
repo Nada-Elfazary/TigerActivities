@@ -1,21 +1,23 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, render_template
 import processing as proc
 import parseargs
+import os
 import auth 
 from flask_cors import CORS
 
+
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
-cors = CORS(app)
+CORS(app)
 
-# @app.route('/logoutapp', methods=['GET'])
-# def logoutapp():
-#     return auth.logoutapp()
+@app.route('/logoutapp', methods=['GET'])
+def logoutapp():
+    return auth.logoutapp()
 
-# @app.route('/logoutcas', methods=['GET'])
-# def logoutcas():
-#     return auth.logoutcas()
-
+@app.route('/logoutcas', methods=['GET'])
+def logoutcas():
+    return auth.logoutcas()
+    
 @app.after_request
 def after_request(response):
   response.headers.add('Access-Control-Allow-Origin', '*')
@@ -23,14 +25,23 @@ def after_request(response):
   response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
   return response
 
-@app.route("/https://tigeractivities.onrender.com/events", methods = ['GET'])
-#@cross_domain(origin='*')
-@app.after_request
+@app.route("/dummy", methods = ['GET'])
+# cross_origin()
+def dummy_route():
+    return("Hello World!")
+
+@app.route("/events", methods = ['POST'])
+# cross_origin()
 def index():
-    print("in index")
-    # username = auth.authenticate()
-    events = proc.fetch_activities()
-   # print(events)
+    username = auth.authenticate()
+    res = request.json
+    print("request: ", res)
+    print("before title")
+    title = res['title']
+    print("after title")
+    print(title)
+    events = proc.fetch_activities(title)
+    print("events route has been called. Fetching events: {}".format(events))
     results =[]
     for event in events:
         response_body={
@@ -54,21 +65,19 @@ def index():
         print(response)
     return response
 
-@app.route('/https://tigeractivities.onrender.com/attendees', methods=['POST'])
-#@cross_origin()
-@app.after_request
+@app.route('/attendees', methods=['POST'])
+# cross_origin()
 def get_attendees():
-    # username = auth.authenticate()
+    username = auth.authenticate()
     res = request.json
     id = res['event_id']
     attendees = proc.get_activity_attendees(id)
     return attendees
 
-@app.route('/https://tigeractivities.onrender.com/create-event', methods = ['POST'])
-#@cross_origin()
-@app.after_request
+@app.route('/create-event', methods = ['POST'])
+# cross_origin()
 def createEvent():
-    # username = auth.authenticate()
+    username = auth.authenticate()
     res = request.json
     print("response", res['event_name'])
     print("Recieved request: {}".format(request.json))
@@ -84,11 +93,10 @@ def createEvent():
     #     print("Recieved request: {}".format(request))
 
 
-@app.route('/https://tigeractivities.onrender.com/sign-up', methods = ['POST'])
-#@cross_origin()
-@app.after_request
+@app.route('/sign-up', methods = ['POST'])
+# cross_origin()
 def signUp():
-    # username = auth.authenticate()
+    username = auth.authenticate()
     res = request.json
     print("json")
     print(res)

@@ -1,12 +1,12 @@
 from flask import Flask, request
 import processing as proc
 import parseargs
-import au
+import os
+import auth
 
 app = Flask(__name__)
 
 @app.route('/profile')
-@app.route('/')
 def my_profile():
     response_body = {
         "name": "Reuben",
@@ -14,6 +14,11 @@ def my_profile():
     }
 
     return response_body
+
+# @app.route('/a')
+# def home():
+#     current_dir = os.curdir
+#     request.sendFile(os.path.join(current_dir, 'build', 'index.html'));
 
 @app.route("/events", methods = ['GET'])
 def index():
