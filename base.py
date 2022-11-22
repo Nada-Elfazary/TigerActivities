@@ -8,6 +8,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
+app.secret_key = os.environ['APP_SECRET_KEY']
 CORS(app)
 
 @app.route('/logoutapp', methods=['GET'])
@@ -34,7 +35,7 @@ def dummy_route():
 @app.route("/events", methods = ['POST'])
 # cross_origin()
 def index():
-    #username = auth.authenticate()
+    username = auth.authenticate()
     res = request.json
     print("request: ", res)
     print("before title")
