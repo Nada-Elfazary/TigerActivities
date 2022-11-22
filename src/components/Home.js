@@ -24,29 +24,29 @@ export default function  Home() : React.ReactNode {
 const activitesClicked= ()=>{
   if(clickedActivites) {
     setEvents([])
-  
-    setClickedActivities(true)
-    setClickedMyActivities(false)
-    /*
-    console.log("Requesting Dummy Data")
-    axios({
-      method: "GET",
-      url:"https://tigeractivities.onrender.com/dummy",
-    })
-    .then((response) => {
-      const res = response.data
-      console.log("Recieved Dummy Response:", res)
-    }).catch((error) => {
-      if (error.response) {
-        console.log("Recevived dummy Error:", error.response)
-        console.log(error.response.status)
-        console.log(error.response.headers)
-        }
-    })
-    */
-    getEvents(false, '')
-  
   }
+  setClickedActivities(true)
+  setClickedMyActivities(false)
+  console.log("Requesting Dummy Data")
+  /*
+  axios({
+    method: "GET",
+    url:"https://tigeractivities.onrender.com/dummy",
+  })
+  .then((response) => {
+    const res = response.data
+    console.log("Recieved Dummy Response:", res)
+  }).catch((error) => {
+    if (error.response) {
+      console.log("Recevived dummy Error:", error.response)
+      console.log(error.response.status)
+      console.log(error.response.headers)
+      }
+  })
+  */
+  getEvents(false, '')
+  
+  
 }
 const myActivitesClicked= ()=>{
   if(clickedMyActivites) {
@@ -82,7 +82,7 @@ const getEvents =(ownerView, name)=> {
   */
 
 // axios.get('https://tigeractivities.onrender.com/events').then(res =>{
-  axios.post('/events', {
+  axios.post('https://tigeractivities.onrender.com/events', {
     'title': name,
   }).then(res =>{
     console.log("Events received from db:", res)
