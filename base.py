@@ -14,6 +14,7 @@ CORS(app)
 def logoutapp():
     return auth.logoutapp()
 
+
 @app.route('/logoutcas', methods=['GET'])
 def logoutcas():
     return auth.logoutcas()
@@ -33,7 +34,7 @@ def dummy_route():
 @app.route("/events", methods = ['POST'])
 # cross_origin()
 def index():
-    username = auth.authenticate()
+    #username = auth.authenticate()
     res = request.json
     print("request: ", res)
     print("before title")
@@ -60,10 +61,10 @@ def index():
             "signup_number":event[12]
         }
         results.append(response_body)
-        response = jsonify(results)
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        print(response)
-    return response
+       # response = jsonify(results)
+     #  response.headers.add('Access-Control-Allow-Origin', '*')
+     #   print(response)
+    return results
 
 @app.route('/attendees', methods=['POST'])
 # cross_origin()
