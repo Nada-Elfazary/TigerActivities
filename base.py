@@ -8,16 +8,21 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
+app.secret_key = os.environ['APP_SECRET_KEY']
 CORS(app)
 
-@app.route('/logoutapp', methods=['GET'])
-def logoutapp():
-    return auth.logoutapp()
+@app.route('/login', methods=['GET'])
+def login():
+    return auth.login()
 
-@app.route('/logoutcas', methods=['GET'])
-def logoutcas():
-    return auth.logoutcas()
-    
+@app.route('/handlelogin', methods=['POST'])
+def handle_login():
+    return auth.handle_login()
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    return auth.logout()
+
 @app.after_request
 def after_request(response):
   response.headers.add('Access-Control-Allow-Origin', '*')
@@ -29,12 +34,13 @@ def after_request(response):
 @app.route("/dummy", methods = ['GET'])
 # cross_origin()
 def dummy_route():
-    return("Hello World!")
+    username = auth.authenticate()
+    return("Hello " + username)
 
 @app.route("/events", methods = ['POST'])
 # cross_origin()
 def index():
-   # username = auth.authenticate()
+    auth.authenticate()
     res = request.json
     print("request: ", res)
     print("before title")
@@ -76,7 +82,7 @@ def get_attendees():
 @app.route('/create-event', methods = ['POST'])
 # cross_origin()
 def createEvent():
-   # username = auth.authenticate()
+    username = auth.authenticate()
     res = request.json
     print("response", res['event_name'])
     print("Recieved request: {}".format(request.json))
@@ -95,7 +101,7 @@ def createEvent():
 @app.route('/sign-up', methods = ['POST'])
 # cross_origin()
 def signUp():
-   # username = auth.authenticate()
+    username = auth.authenticate()
     res = request.json
     print("json")
     print(res)
