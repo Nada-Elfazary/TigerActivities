@@ -11,17 +11,10 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 app.secret_key = os.environ['APP_SECRET_KEY']
 CORS(app)
 
-@app.route('/login', methods=['GET'])
-def login():
-    return auth.login()
-
-@app.route('/handlelogin', methods=['POST'])
-def handle_login():
-    return auth.handle_login()
-
-@app.route('/logout', methods=['GET'])
+@app.route('/logoutapp', methods=['GET'])
+@app.route('/logoutcas', methods=['GET'])
 def logout():
-    return auth.logout()
+    return auth.logoutapp()
 
 @app.after_request
 def after_request(response):
