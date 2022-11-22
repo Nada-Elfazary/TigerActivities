@@ -34,7 +34,7 @@ def dummy_route():
 @app.route("/events", methods = ['POST'])
 # cross_origin()
 def index():
-    username = auth.authenticate()
+   # username = auth.authenticate()
     res = request.json
     print("request: ", res)
     print("before title")
@@ -76,7 +76,7 @@ def get_attendees():
 @app.route('/create-event', methods = ['POST'])
 # cross_origin()
 def createEvent():
-    username = auth.authenticate()
+   # username = auth.authenticate()
     res = request.json
     print("response", res['event_name'])
     print("Recieved request: {}".format(request.json))
@@ -95,7 +95,7 @@ def createEvent():
 @app.route('/sign-up', methods = ['POST'])
 # cross_origin()
 def signUp():
-    username = auth.authenticate()
+   # username = auth.authenticate()
     res = request.json
     print("json")
     print(res)

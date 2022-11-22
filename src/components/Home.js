@@ -80,7 +80,7 @@ const getEvents =(ownerView, name)=> {
   */
 
 // axios.get('https://tigeractivities.onrender.com/events').then(res =>{
-  axios.post('https://tigeractivities.onrender.com/events', {
+  axios.post('/events', {
     'title': name,
   }).then(res =>{
     console.log("Events received from db:", res)
