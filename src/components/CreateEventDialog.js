@@ -54,7 +54,7 @@ function CreateEventDialog(props) {
     const submitForm = ()=>{
         setDisableSubmitForm(true)
         console.log(disableSubmitForm)
-        axios.post('https://tigeractivities.onrender.com/create-event', {
+        axios.post('/create-event', {
           // create_id
             event_name:    eventTitle,
             start_time:    startTime,

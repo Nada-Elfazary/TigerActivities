@@ -43,7 +43,7 @@ export default function Welcome(): React.ReactNode{
       const getEvents =()=> {
         axios({
           method: "GET",
-          url:"https://tigeractivities.onrender.com/events",
+          url:"/events",
         })
         .then((response) => {
           const res =response.data
