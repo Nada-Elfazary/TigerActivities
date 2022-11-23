@@ -16,17 +16,39 @@ export default function  Home() : React.ReactNode {
   const [clickedMyActivites, setClickedMyActivities] = useState(false)
   const [events, setEvents] = useState([])
   const [displayModal, setDisplayModal] = useState(false)
+  const [clickedMySignUps, setClickedMySignUps] = useState(false)
+
+
   // const [refresh, setRefresh] = useState(false)
   // const [displayMoreDetails, setDisplayMoreDetails] = useState(false)
   // const [event, setEvent] = useState(null)
   const [nameFilter, setNameFilter] = useState('')
-  let currLogin = "Nada"
+  let currLogin = "Reuben"
+
+const mySignUpsClicked= ()=>{
+  if(clickedMySignUps) {
+    setEvents([])
+  }
+  setClickedMySignUps(true)
+  setClickedActivities(false)
+  setClickedMyActivities(false)
+  console.log("Requesting user signups")
+
+  axios.get('/user-sign-ups').then((res) =>{
+    console.log("in sign-up")
+    setEvents(res.data)
+  }).catch(err =>{
+    console.log("Error receiving event from db:", err)
+  })
+}
+
 const activitesClicked= ()=>{
   if(clickedActivites) {
     setEvents([])
   }
   setClickedActivities(true)
   setClickedMyActivities(false)
+  setClickedMySignUps(false)
   console.log("Requesting Dummy Data")
   /*
   axios({
@@ -46,7 +68,6 @@ const activitesClicked= ()=>{
   */
   getEvents(false, "")
   
-  
 }
 const myActivitesClicked= ()=>{
   if(clickedMyActivites) {
@@ -56,6 +77,8 @@ const myActivitesClicked= ()=>{
   // setEvent([])
   console.log("Clicked 'My Activities'. Events:", events.length, events)
   setClickedActivities(false)
+  setClickedMySignUps(false)
+
   getEvents(true, "")
 }
 
@@ -129,6 +152,7 @@ const handleMoreDetails = (event)=>{
   const title = <h1><i>TigerActivities </i></h1>
   const activities = <button className="button" onClick={activitesClicked}>Activities</button>
   const myActivities = <button className="button" onClick={myActivitesClicked}>My Activities</button>
+  const mySignUps = <button className="button" onClick={mySignUpsClicked}>My Sign-Ups</button>
   const createEventButton = <button className="buttonStyle" onClick={handleCreateEvent}>Create Activity</button>
   const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal} />) : null
 
@@ -199,6 +223,11 @@ const displayOwnerEvents = events.length !== 0 ? events.map((event, index)=>{
     <XDSCard key ={index} item={event} ownerView={true} />
   )
 }): "No events created yet"
+const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
+  return (
+    <XDSCard key ={index} item={event} ownerView={false} />
+  )
+}): "No sign-ups yet"
 
 /*
 const displayOwnerEvents = events.map((event)=> (
@@ -267,6 +296,10 @@ const showResults = clickedActivites? (
 
   ): null
 
+  const showSignUps = clickedMySignUps ? (
+    displaySignUps
+  ): null
+
   const showFilter = clickedActivites ? (
     <input value={nameFilter} name="title" onChange={handleFilter} />
 
@@ -285,6 +318,7 @@ const showResults = clickedActivites? (
         <div className="btn">
         {activities}
         {myActivities}
+        {mySignUps}
         </div>
         </div>  
         {showFilter}
@@ -293,6 +327,7 @@ const showResults = clickedActivites? (
           {showCreateEventButton}
           {showResults}
           {showOwnerActivities}
+          {showSignUps}
           {modal}
          </div>
     </div>

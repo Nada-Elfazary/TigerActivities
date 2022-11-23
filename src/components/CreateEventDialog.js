@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_orange.css";
 import axios from 'axios';
+import "./CreateEventDialog.css"
 
 
 function CreateEventDialog(props) {
@@ -81,8 +82,9 @@ function CreateEventDialog(props) {
     }
 
     const failureCallBack = (error)=>{
-      setErrorMsg(error)
-      setShowErrorMsg(true)
+    //  setErrorMsg(error)
+     // setShowErrorMsg(true)
+     console.log("error")
     }
     const successCallBack = ()=>{
       console.log("success")
@@ -121,14 +123,14 @@ function CreateEventDialog(props) {
               <tbody>
                     <tr>
                     <td >Title:</td>
-                    <td><input type="text" name="title"  value={eventTitle} onChange={(event)=>{
+                    <td><input id = "title" type="text" name="title" value={eventTitle} onChange={(event)=>{
                         setEventTitle(event.target.value)
                         console.log(eventTitle)
                     }}/> </td>
                     </tr>
                     <tr>
                     <td >Location:</td>
-                    <td><input type="text" name="Location" value ={eventLocation} onChange={(event)=>{
+                    <td><input id = "location" type="text" name="Location" value ={eventLocation} onChange={(event)=>{
                         setEventLocation(event.target.value)
                     }}/> </td>
                     </tr>
@@ -163,21 +165,21 @@ function CreateEventDialog(props) {
                     </tr>
                     <tr>
                     <td >Max Attendee Count:</td>
-                    <td><input type="text" name="Attendee Count" value={maxAttendeeCount} onChange={(event) =>
+                    <td><input id = "cap" type="text" name="Attendee Count" value={maxAttendeeCount} onChange={(event) =>
                         {
                             setMaxAttendeeCount(event.target.value)
                         }} /> </td>
                     </tr>
                     <tr>
                       <td>Approximate Cost Involved (in $)</td>
-                      <td><input type="text" name="Cost" value={cost} onChange={(event) =>
+                      <td><input id= "cost" type="text" name="Cost" value={cost} onChange={(event) =>
                         {
                         setCost(event.target.value)
                         }} /></td>
                     </tr>
                     <tr>
                       <td>Description: </td>
-                      <td><textarea name ="description" value={description} onChange={(event) =>
+                      <td><textarea id = "descrip" name ="description" value={description} onChange={(event) =>
                       {
                       setDescription(event.target.value)
                       }}></textarea></td>
@@ -198,31 +200,58 @@ function CreateEventDialog(props) {
             Cancel
           </button>
           <button disabled={disableSubmitForm} onClick={()=>{
-              let error = []
+              let error = 0;
+              let errorMsg = []
             console.log(endTime.getTime())
             console.log(startTime.getTime())
             if(eventTitle.length === 0 ){
-              error.push("Title field cannot be empty")
+//              error.push("Title field cannot be empty")
               // setShowErrorMsg(true)
+              document.getElementById('title').classList.add("error");
+              document.getElementById('title').placeholder = "title cannot be empty";
+    
+              error = 1;
             }
             if(eventLocation.length === 0){
-              error.push("Location field cannot be empty")
+         //     error.push("Location field cannot be empty \n")
+              document.getElementById('location').classList.add("error");
+              document.getElementById('location').placeholder = "location cannot be empty";
+
+              error = 1;
             }
            if( endTime.getTime() <= startTime.getTime()){
               console.log("wrong dates")
-              error.push("End Date before or equal to start date. Please fix this")
+              errorMsg.push("End Date before or equal to start date. Please fix this \n")
               // setShowErrorMsg(true)
               // failureCallBack("End Date before start date. Please fix this")
+              
             }
              if(cost < 0){
-              error.push("Cost involved cannot be negative")
+            //  errorMsg.push("Cost involved cannot be negative")
               // setShowErrorMsg(true)
+              document.getElementById('cost').classList.add("error");
+              document.getElementById('cost').value = "Cost involved cannot be negative";
+    
+              error = 1;
             }
             if(maxAttendeeCount < 0){
-              error.push("Max Attendee Count cannot be negative")
+          //    error.push("Max Attendee Count cannot be negative")
               // setShowErrorMsg(true)
+              document.getElementById('cap').classList.add("error");
+              document.getElementById('cap').value = "Max Attendee Count cannot be negative";
+    
+              error = 1;
             }
-           error.length !==0 ? failureCallBack(error) : successCallBack()
+
+            if(description.length == 0){
+              //    error.push("Max Attendee Count cannot be negative")
+                  // setShowErrorMsg(true)
+                  document.getElementById('descrip').classList.add("error");
+                  document.getElementById('descrip').value = "Description cannot be empty";
+        
+                  error = 1;
+                }
+           error !== 0 ? failureCallBack(error) : successCallBack()
 
           }}>Create</button>
    

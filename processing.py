@@ -93,6 +93,45 @@ def fetch_activities(title):
         print(ex, file=sys.stderr)
         sys.exit(1)
 
+def fetch_user_sign_ups():
+    netid = "nada" #hardcoded for now
+
+    eventids = []
+    activities = []
+    print ("hi")
+    try:
+        database_url = DATABASE_URL
+        with psycopg2.connect(database_url) as connection:
+            
+            with connection.cursor() as cursor:
+                statement = "SELECT eventid FROM signup WHERE signup_netid = %s"
+                cursor.execute(statement, [netid])
+                row = cursor.fetchone()
+                while row is not None:
+                    print("event id :" , row[0])
+                    eventids.append(row[0])
+                    row = cursor.fetchone()
+
+                statement = "SELECT * FROM events WHERE eventid = ANY(%s)"
+                cursor.execute(statement, [eventids])
+                row = cursor.fetchone()
+                while row is not None:
+                    newStartTime = row[2].strftime("%H:%M")
+                    newEndTime = row[3].strftime("%H:%M")
+                    newStartDate = row[10].strftime("%Y/%m/%d")
+                    newEndDate = row[11].strftime("%Y/%m/%d")
+                    copy_row = (row[0], row[1], newStartTime, newEndTime, row[4],
+                    row[5], row[6], row[7], row[8], row[9], newStartDate, newEndDate, row[12])
+                   # print(copy_row)
+                    activities.append(copy_row)
+                    row = cursor.fetchone()
+
+        return activities
+    except Exception as ex:
+        print(ex, file=sys.stderr)
+        sys.exit(1)  
+
+    
 # this is workinggggggggggggggggg
 def store_activity(activity):
     title = activity['event_name']
@@ -144,10 +183,10 @@ def store_activity(activity):
     except Exception as ex:
         print(ex, file=sys.stderr) 
         sys.exit(1)
-
+    
 # this is workinnggggggggggggggggg
 def store_sign_up(activity):
-    netid = 'anca' #hardcoded for now
+    netid = 'fifth' #hardcoded for now
     eventid = activity['event_id']
     name = activity['name']
     phone_num = activity['phone']
