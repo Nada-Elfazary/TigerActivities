@@ -11,7 +11,7 @@ const XDSCard = ({item, ownerView}) => {
     const [eventTitle, setEventTitle] = useState('')
     const [id, setEventId] = useState('')
     const [attendees, setAttendees] = useState([])
-
+    const closedText = "(CLOSED)"
 
   const handleSignUp = ()=>{
     setDisplaySignUp(true)
@@ -37,11 +37,12 @@ const XDSCard = ({item, ownerView}) => {
     
     })
   }
+  const closed = item.signup_number === item.maxcap ? (<p>{closedText}</p>) : null
   return (
     <>
      <div className='customized-card'>
         <div className='customized-card-body'>
-            <h2>{item.event_name}</h2>
+            <h2>{item.event_name}{closed} </h2>
             <table>
                 <tbody>
                     <tr>
@@ -65,7 +66,7 @@ const XDSCard = ({item, ownerView}) => {
                            </p>     
                         </td>
                         <td>{!ownerView ? (<p {...getCollapseProps()}>
-                        <button onClick={handleSignUp}>Sign Up</button>            
+                        <button onClick={handleSignUp} disabled={item.signup_number === item.maxcap}>Sign Up</button>            
                            </p>) : null }   
                         </td>
                     </tr>

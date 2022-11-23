@@ -18,7 +18,7 @@ function CreateEventDialog(props) {
     const [endTime, setEndTime] = useState(new Date())
     const [cost, setCost] = useState(0)
     const [description, setDescription] = useState("")
-    const [saving, setSaving] = useState(false)
+    const [saving, setSaving] = useState(true)
     const [errorMsg, setErrorMsg] = useState([])
     const [showErrorMsg, setShowErrorMsg] = useState(false)
     // const curr_time = new Date()
@@ -70,15 +70,17 @@ function CreateEventDialog(props) {
           })
           .then((response) =>{
             console.log(response);
+            setSaving(true)
+            props.setOpenModal(false)
           }, (error) => {
             console.log(error)
-            setErrorMsg("Can not create event")
-            setShowErrorMsg(true)
+            setErrorMsg(error)
+            setSaving(false)
+            // setShowErrorMsg(true)
           })
     }
 
     const failureCallBack = (error)=>{
-      setSaving(false)
       setErrorMsg(error)
       setShowErrorMsg(true)
     }
@@ -86,16 +88,16 @@ function CreateEventDialog(props) {
       console.log("success")
      setShowErrorMsg(false) 
      setErrorMsg(null)
-      setSaving(true)
+      // setSaving(true)
       console.log(eventTitle)
       console.log(description)
       console.log(eventLocation)
       submitForm()
       // getEvents(true)
-      props.setOpenModal(false)
+      
       // props.setClickMyActivities(true)
     }
-    const errorM  = showErrorMsg? <strong className="error">{errorMsg}</strong> : null
+    const errorM  = showErrorMsg? errorMsg.map(error => <li key={error}><strong  className="error">{error}</strong></li>) : null
 
   return (
     <div className="modalBackground">
@@ -183,6 +185,8 @@ function CreateEventDialog(props) {
                     </tbody>
                 </table>
                 </form>
+                {errorM}
+                {!saving ? (errorMsg): null}
         </div>
         <div className="footer">
           <button
@@ -194,17 +198,35 @@ function CreateEventDialog(props) {
             Cancel
           </button>
           <button disabled={disableSubmitForm} onClick={()=>{
+              let error = []
             console.log(endTime.getTime())
             console.log(startTime.getTime())
-            if( endTime.getTime() < startTime.getTime()){
+            if(eventTitle.length === 0 ){
+              error.push("Title field cannot be empty")
+              // setShowErrorMsg(true)
+            }
+            if(eventLocation.length === 0){
+              error.push("Location field cannot be empty")
+            }
+           if( endTime.getTime() <= startTime.getTime()){
               console.log("wrong dates")
-              failureCallBack("End Date before start date. Please fix this")
+              error.push("End Date before or equal to start date. Please fix this")
+              // setShowErrorMsg(true)
+              // failureCallBack("End Date before start date. Please fix this")
             }
-            else {
-             successCallBack()
+             if(cost < 0){
+              error.push("Cost involved cannot be negative")
+              // setShowErrorMsg(true)
             }
+            if(maxAttendeeCount < 0){
+              error.push("Max Attendee Count cannot be negative")
+              // setShowErrorMsg(true)
+            }
+           error.length !==0 ? failureCallBack(error) : successCallBack()
 
-          }}>Create</button>{errorM}
+          }}>Create</button>
+   
+          
         </div>
       </div>
     </div>

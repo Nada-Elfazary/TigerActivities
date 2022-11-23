@@ -147,7 +147,7 @@ def store_activity(activity):
 
 # this is workinnggggggggggggggggg
 def store_sign_up(activity):
-    netid = 'nada' #hardcoded for now
+    netid = 'anca' #hardcoded for now
     eventid = activity['event_id']
     name = activity['name']
     phone_num = activity['phone']
@@ -278,7 +278,7 @@ def main():
     'creator' : 'rauniyar'}
 
     # store_sign_up()
-    store_activity(res) 
+    #store_activity(res) 
     # fetch_activities()
     # get_activity_attendees()
     # student_details()
