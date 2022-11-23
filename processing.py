@@ -71,6 +71,7 @@ def fetch_activities(title):
 
                 statementTwo = "SELECT * FROM events WHERE %s < startdate AND startdate < %s AND eventname LIKE %s"
                 statementOne += "ORDER BY RANDOM() LIMIT 1000"
+               # AND eventname LIKE %s
                 cursor.execute(statementTwo, [currDate, dateLimit, title])
                 print ("after second execute")
                 row = cursor.fetchone()
@@ -146,7 +147,7 @@ def store_activity(activity):
 
 # this is workinnggggggggggggggggg
 def store_sign_up(activity):
-    netid = 'anca' #hardcoded for now
+    netid = 'nada' #hardcoded for now
     eventid = activity['event_id']
     name = activity['name']
     phone_num = activity['phone']

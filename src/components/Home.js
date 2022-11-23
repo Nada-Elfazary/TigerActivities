@@ -44,7 +44,7 @@ const activitesClicked= ()=>{
       }
   })
   */
-  getEvents(false, '')
+  getEvents(false, "")
   
   
 }
@@ -56,7 +56,7 @@ const myActivitesClicked= ()=>{
   // setEvent([])
   console.log("Clicked 'My Activities'. Events:", events.length, events)
   setClickedActivities(false)
-  getEvents(true, '')
+  getEvents(true, "")
 }
 
 const handleCreateEvent = ()=>{
@@ -82,9 +82,7 @@ const getEvents =(ownerView, name)=> {
   */
 
 // axios.get('https://tigeractivities.onrender.com/events').then(res =>{
-  axios.post('https://tigeractivities.onrender.com/events', {
-    'title': name,
-  }).then(res =>{
+  axios.get('/events', {params: {title: name}}).then(res =>{
     console.log("Events received from db:", res)
     console.log("Setting events to:", res.data)
     setEvents([])

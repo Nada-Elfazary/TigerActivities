@@ -23,9 +23,9 @@ const XDSCard = ({item, ownerView}) => {
 
   const get_attendees = (event)=>{
     console.log("inside get attendees")
-    axios.post('https://tigeractivities.onrender.com/attendees', {
+    axios.get('/attendees', {params: {
       event_id : event.id,
-    }).then(res =>{
+    }}).then(res =>{
         if(res.data.length === 0){
             setAttendees("No sign ups yet")
         }

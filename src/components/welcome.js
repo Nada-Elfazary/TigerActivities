@@ -1,6 +1,5 @@
 import './App.css';
 import React, { useState } from 'react'
-import axios from 'axios';
 
 import Modal from './Modal'
 import CreateEventDialog  from './CreateEventDialog';
@@ -21,7 +20,7 @@ export default function Welcome(): React.ReactNode{
     const handleOnClickedDisplayEvents =()=>{
         setClickedDisplayEvents(true)
         // setDisabledDisplayEvents(true)
-        getEvents()
+    //    getEvents()
      }
      const handleOnClickedCreateEvent=()=>{
 
@@ -39,7 +38,7 @@ export default function Welcome(): React.ReactNode{
 
     //const displayEventsButton = <button onClick={handleOnClickedDisplayEvents} disabled={clickedDisplayEvents}> Display Events</button>
     //const createEventButton = <button onClick={handleOnClickedCreateEvent} disabled={clickedCreateEvent}>Create Event</button>
-    
+    /*
       const getEvents =()=> {
         axios({
           method: "GET",
@@ -56,6 +55,8 @@ export default function Welcome(): React.ReactNode{
             console.log(error.response.headers)
             }
         })}
+        
+      */
         
 
     const displayEvents = events.map((event)=> (
