@@ -219,6 +219,18 @@ def store_sign_up(activity):
         print(ex, file=sys.stderr)
         sys.exit(1)
 
+def delete_signup(eventid, netid):
+    try:
+        database_url = DATABASE_URL
+        with psycopg2.connect(database_url) as connection:
+            
+            with connection.cursor() as cursor:
+                statement = "DELETE FROM signup WHERE eventid = %s AND signup_netid = %s"
+                cursor.execute(statement, [eventid, netid])
+    except Exception as ex:
+        print(ex, file=sys.stderr)
+        sys.exit(1)
+        
 def store_signup(event_id, net_id):
 
     eventid = event_id

@@ -150,6 +150,7 @@ const handleMoreDetails = (event)=>{
 */
 
   const title = <h1><i>TigerActivities </i></h1>
+ 
   const activities = <Button onClick={activitesClicked}>Activities</Button>
   const myActivities = <Button onClick={myActivitesClicked}>My Activities</Button>
   const mySignUps = <Button onClick={mySignUpsClicked}>My Sign-Ups</Button>
@@ -323,7 +324,7 @@ const showResults = clickedActivites? (
         </div>
         </div>  
         {showFilter}
-
+        <Dropdown items = {[1, 2]}></Dropdown>
         <div className="content">
           {showCreateEventButton}
           {showResults}

@@ -4,9 +4,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import "./Home.css";
  
 export default function Dropdown1 (items){
-	console.log("items:"+ items);
+	console.log(items)
 return (
-	
 	<div>
 	<Dropdown>
 		<Dropdown.Toggle>
