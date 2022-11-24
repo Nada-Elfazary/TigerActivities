@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import {Button, Modal, Form, Row, Col, InputGroup, Container} from 'react-bootstrap';
+import CreateEventModalDraggable from "./CreateEventModalDraggable";
+import "bootstrap/dist/css/bootstrap.css";
 import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_orange.css";
 import axios from 'axios';
@@ -20,7 +23,7 @@ function CreateEventDialog(props) {
     const [cost, setCost] = useState(0)
     const [description, setDescription] = useState("")
     const [saving, setSaving] = useState(true)
-    const [errorMsg, setErrorMsg] = useState([])
+    const [errorMsg, setErrorMsg] = useState("")
     const [showErrorMsg, setShowErrorMsg] = useState(false)
     // const curr_time = new Date()
     // console.log("Current time", curr_time.getTime())
@@ -82,8 +85,8 @@ function CreateEventDialog(props) {
     }
 
     const failureCallBack = (error)=>{
-    //  setErrorMsg(error)
-     // setShowErrorMsg(true)
+    setErrorMsg(error)
+     setShowErrorMsg(true)
      console.log("error")
     }
     const successCallBack = ()=>{
@@ -99,165 +102,186 @@ function CreateEventDialog(props) {
       
       // props.setClickMyActivities(true)
     }
-    const errorM  = showErrorMsg? errorMsg.map(error => <li key={error}><strong  className="error">{error}</strong></li>) : null
-
-  return (
-    <div className="modalBackground">
-      <div className="modalContainer">
-        <div className="titleCloseBtn">
-          <button
-            onClick={() => {
-              props.setOpenModal(false)
-            }}
-          >
-            x
-          </button>
-        </div>
-        <div className="title">
-          <h2>Create A TigerActivity </h2>
-        </div>
-        <div className="body">
-
-            <form action='/createEvent' method = "get">
-            <table>
-              <tbody>
-                    <tr>
-                    <td >Title:</td>
-                    <td><input id = "title" type="text" name="title" value={eventTitle} onChange={(event)=>{
+    const errorM  = showErrorMsg? <strong className="error">{errorMsg}</strong> : null
+    
+    const createEventModal =<Container fluid> <Modal show={props.setOpenModal} dialogAs={CreateEventModalDraggable} onHide={()=>{
+      props.setOpenModal(false)
+    }} size="sm-5"
+    aria-labelledby="contained-modal-title-center"
+    centered>
+      <Modal.Header closeButton  style={{
+         display: "flex",
+         justifyContent: "center",
+        }}>
+        <Modal.Title>Create a TigerActivity</Modal.Title>
+          </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <Form.Group>
+            <Row>
+              <Col><Form.Label>Title:</Form.Label></Col>
+              <Col><Form.Control type="text" id = "title" type="text" name="title" value={eventTitle} onChange={(event)=>{
                         setEventTitle(event.target.value)
+                        document.getElementById('title').classList.remove("error");
                         console.log(eventTitle)
-                    }}/> </td>
-                    </tr>
-                    <tr>
-                    <td >Location:</td>
-                    <td><input id = "location" type="text" name="Location" value ={eventLocation} onChange={(event)=>{
+                    }}></Form.Control>
+</Col>
+            </Row>
+            
+          </Form.Group>
+          <Form.Group>
+            <Row>
+              <Col><Form.Label>Location:</Form.Label></Col>
+              <Col><Form.Control type="text" id = "location" type="text" name="Location" value ={eventLocation} onChange={(event)=>{
                         setEventLocation(event.target.value)
-                    }}/> </td>
-                    </tr>
-                    <tr>
-                    <td >Category:</td>
-                    <td><input type="text" name="Category" value ={eventCategory} onChange={(event)=>{
+                        document.getElementById('location').classList.remove("error");
+                    }}></Form.Control></Col>
+            </Row>
+            
+          </Form.Group><Form.Group>
+            <Row>
+              <Col><Form.Label>Category:</Form.Label>
+              </Col>
+              <Col><Form.Control type="text" name="Category" value ={eventCategory} onChange={(event)=>{
                         setEventCategory(event.target.value)
-                    }}/> </td>
-                    </tr>
-                    <tr>
-                      <td>Start Time</td>
-                     <td><Flatpickr
+                    }}></Form.Control></Col>
+            </Row>
+            
+          </Form.Group><Form.Group>
+            <Row>
+              <Col><Form.Label>Start Time:</Form.Label> </Col>
+              <Col><Flatpickr 
                      data-enable-time 
+                     id = "start-time"
                      value={startTime} 
                      onChange={(event) => 
                      {
                         console.log("date:" +  startTime)
+                        document.getElementById('start-time').classList.remove("error");
                         setStartTime(new Date(event))
                         console.log("date after:", event)
-                     }} /> </td>
-                    </tr>
-                    <tr>
-                    <td> End Time</td>
-                    <td><Flatpickr
+                     }} /></Col>
+            </Row>
+          </Form.Group><Form.Group>
+            <Row>
+              <Col><Form.Label>End Time:</Form.Label></Col>
+              <Col><Flatpickr
                      data-enable-time 
+                      id = "end-time"
                      value={endTime} 
                      onChange={(event) => 
                      {
                         setEndTime(new Date(event))
+                        document.getElementById('end-time').classList.remove("error");
                         console.log("date:", event)
-                     }} /> </td>     
-                    </tr>
-                    <tr>
-                    <td >Max Attendee Count:</td>
-                    <td><input id = "cap" type="text" name="Attendee Count" value={maxAttendeeCount} onChange={(event) =>
+                     }} /> </Col>
+            </Row>
+          </Form.Group><Form.Group>
+            <Row>
+              <Col><Form.Label>Max Attendee Count:</Form.Label></Col>
+              <Col><Form.Control type="text" id = "cap" name="Attendee Count" value={maxAttendeeCount} onChange={(event) =>
                         {
+                          document.getElementById('cap').classList.remove("error");
                             setMaxAttendeeCount(event.target.value)
-                        }} /> </td>
-                    </tr>
-                    <tr>
-                      <td>Approximate Cost Involved (in $)</td>
-                      <td><input id= "cost" type="text" name="Cost" value={cost} onChange={(event) =>
+                        }}></Form.Control></Col>
+            </Row>
+          </Form.Group>
+          <Form.Group>
+            <Row>
+              <Col><Form.Label>Cost:</Form.Label></Col>
+              <Col><InputGroup className="mb-3">
+        <InputGroup.Text>$</InputGroup.Text>
+        <Form.Control aria-label="Amount (to the nearest dollar)" id= "cost" name="Cost" value={cost} onChange={(event) =>
                         {
+                          document.getElementById('cost').classList.remove("error");
                         setCost(event.target.value)
-                        }} /></td>
-                    </tr>
-                    <tr>
-                      <td>Description: </td>
-                      <td><textarea id = "descrip" name ="description" value={description} onChange={(event) =>
+                        }}/>
+        <InputGroup.Text>.00</InputGroup.Text>
+      </InputGroup></Col>
+            </Row>
+          </Form.Group><Form.Group>
+            <Row>
+              <Col><Form.Label>Description:</Form.Label></Col>
+              <Col><Form.Control as="textarea" id = "descrip" name ="description" value={description} onChange={(event) =>
                       {
                       setDescription(event.target.value)
-                      }}></textarea></td>
-                    </tr>
-                    </tbody>
-                </table>
-                </form>
-                {errorM}
-                {!saving ? (errorMsg): null}
-        </div>
-        <div className="footer">
-          <button
-            onClick={() => {
-              props.setOpenModal(false);
-            }}
-            id="cancelBtn"
-          >
-            Cancel
-          </button>
-          <button disabled={disableSubmitForm} onClick={()=>{
-              let error = 0;
-              let errorMsg = []
-            console.log(endTime.getTime())
-            console.log(startTime.getTime())
-            if(eventTitle.length === 0 ){
+                      document.getElementById('descrip').classList.remove("error");
+                      }}></Form.Control></Col>
+            </Row>
+          </Form.Group>
+          <Form.Group>{errorM}</Form.Group>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer  style={{
+          display: "flex",
+          justifyContent: "center",
+        }}>
+        <Button   id="cancelBtn" variant="secondary" onClick={()=>{props.setOpenModal(false)}}>Close</Button>
+        <Button variant="primary" onClick={()=>{
+          let error = 0;
+          let errorMsg = []
+        console.log(endTime.getTime())
+        console.log(startTime.getTime())
+        if(eventTitle.length === 0 ){
 //              error.push("Title field cannot be empty")
-              // setShowErrorMsg(true)
-              document.getElementById('title').classList.add("error");
-              document.getElementById('title').placeholder = "title cannot be empty";
-    
-              error = 1;
-            }
-            if(eventLocation.length === 0){
-         //     error.push("Location field cannot be empty \n")
-              document.getElementById('location').classList.add("error");
-              document.getElementById('location').placeholder = "location cannot be empty";
+          // setShowErrorMsg(true)
+          document.getElementById('title').classList.add("error");
+          document.getElementById('title').placeholder = "title cannot be empty";
 
-              error = 1;
-            }
-           if( endTime.getTime() <= startTime.getTime()){
-              console.log("wrong dates")
-              errorMsg.push("End Date before or equal to start date. Please fix this \n")
-              // setShowErrorMsg(true)
-              // failureCallBack("End Date before start date. Please fix this")
-              
-            }
-             if(cost < 0){
-            //  errorMsg.push("Cost involved cannot be negative")
-              // setShowErrorMsg(true)
-              document.getElementById('cost').classList.add("error");
-              document.getElementById('cost').value = "Cost involved cannot be negative";
-    
-              error = 1;
-            }
-            if(maxAttendeeCount < 0){
+          error = 1;
+        }
+        if(eventLocation.length === 0){
+     //     error.push("Location field cannot be empty \n")
+          document.getElementById('location').classList.add("error");
+          document.getElementById('location').placeholder = "location cannot be empty";
+
+          error = 1;
+        }
+       if( endTime.getTime() <= startTime.getTime()){
+          console.log("wrong dates")
+          errorMsg.push("End Date before or equal to start date. Please fix this \n")
+          document.getElementById('start-time').classList.add("error")
+          document.getElementById('start-time').value = "Start date after or equal to end date"
+          document.getElementById('end-time').classList.add("error")
+          document.getElementById('end-time').value = "End date before or equal to start date"
+          // setShowErrorMsg(true)
+          // failureCallBack("End Date before start date. Please fix this")
+          
+        }
+         if(cost < 0){
+        //  errorMsg.push("Cost involved cannot be negative")
+          // setShowErrorMsg(true)
+          document.getElementById('cost').classList.add("error");
+          document.getElementById('cost').value = "Cost involved cannot be negative";
+
+          error = 1;
+        }
+        if(maxAttendeeCount < 0){
+      //    error.push("Max Attendee Count cannot be negative")
+          // setShowErrorMsg(true)
+          document.getElementById('cap').classList.add("error");
+          document.getElementById('cap').value = "Max Attendee Count cannot be negative";
+
+          error = 1;
+        }
+
+        if(description.length == 0){
           //    error.push("Max Attendee Count cannot be negative")
               // setShowErrorMsg(true)
-              document.getElementById('cap').classList.add("error");
-              document.getElementById('cap').value = "Max Attendee Count cannot be negative";
+              document.getElementById('descrip').classList.add("error");
+              document.getElementById('descrip').value = "Description cannot be empty";
     
               error = 1;
             }
+       error !== 0 ? failureCallBack("Please fix errors above") : successCallBack()
 
-            if(description.length == 0){
-              //    error.push("Max Attendee Count cannot be negative")
-                  // setShowErrorMsg(true)
-                  document.getElementById('descrip').classList.add("error");
-                  document.getElementById('descrip').value = "Description cannot be empty";
-        
-                  error = 1;
-                }
-           error !== 0 ? failureCallBack(error) : successCallBack()
-
-          }}>Create</button>
-   
-          
-        </div>
-      </div>
+        }} >Create</Button>
+      </Modal.Footer>
+    </Modal>
+    </Container>
+  return (
+    <div>
+  {createEventModal}
     </div>
   );
 }

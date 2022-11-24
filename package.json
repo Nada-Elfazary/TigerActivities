@@ -16,6 +16,7 @@
     "react-bootstrap": "^2.6.0",
     "react-collapsed": "^3.5.0",
     "react-dom": "^18.2.0",
+    "react-draggable": "^4.4.5",
     "react-flatpickr": "^3.10.13",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",

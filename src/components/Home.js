@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import CreateEventDialog from "./CreateEventDialog";
-// import DetailsModal from "./DetailsModal";
-import XDSCard from "./XDSCard"
-import Dropdown from "./Dropdown"
-
+import {Button, Container, Navbar} from 'react-bootstrap'
+import XDSCard from "./XDSCard";
+import Dropdown from "./Dropdown";
+import tiger from './tiger.jpeg';
 import "./Home.css";
 import axios from 'axios';
 
@@ -150,10 +150,10 @@ const handleMoreDetails = (event)=>{
 */
 
   const title = <h1><i>TigerActivities </i></h1>
-  const activities = <button className="button" onClick={activitesClicked}>Activities</button>
-  const myActivities = <button className="button" onClick={myActivitesClicked}>My Activities</button>
-  const mySignUps = <button className="button" onClick={mySignUpsClicked}>My Sign-Ups</button>
-  const createEventButton = <button className="buttonStyle" onClick={handleCreateEvent}>Create Activity</button>
+  const activities = <Button onClick={activitesClicked}>Activities</Button>
+  const myActivities = <Button onClick={myActivitesClicked}>My Activities</Button>
+  const mySignUps = <Button onClick={mySignUpsClicked}>My Sign-Ups</Button>
+  const createEventButton = <Button className="buttonStyle" onClick={handleCreateEvent}>Create Activity</Button>
   const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal} />) : null
 
   // const details = displayMoreDetails ? (<DetailsModal setOpenModal = {setDisplayMoreDetails} event = {event} attendees ={attendees}/>):null
@@ -229,6 +229,13 @@ const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
   )
 }): "No sign-ups yet"
 
+const topNav = 
+ <Navbar className="Navbar">
+  <Navbar.Brand><img alt="" src={tiger} width="60" height="60"
+                className="d-inline-block align-top"
+                /> {' '}</Navbar.Brand>
+  <Navbar.Brand>{title}</Navbar.Brand>
+</Navbar>
 /*
 const displayOwnerEvents = events.map((event)=> (
   <div className="contents" key ={event.id + " " + event.category}>
@@ -306,14 +313,8 @@ const showResults = clickedActivites? (
   ): null
   return (
     <div className = "pageContainer">
-     <div className='HomeContainer-1'>
-     <div className='title'>
-          {title}
-        
-        </div>
-
-      </div>   
-
+    
+    {topNav}
       <div className = "LeftNavContainer-1">
         <div className="btn">
         {activities}
