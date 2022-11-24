@@ -17,6 +17,11 @@ CORS(app)
 def logout():
     return auth.logoutapp()
 
+@app.route('/' , methods=['GET'])
+def nishan():
+    print('I am here')
+    return ('Hello Nishan!')
+
 @app.after_request
 def after_request(response):
   response.headers.add('Access-Control-Allow-Origin', '*')
@@ -35,7 +40,7 @@ def after_request(response):
 # cross_origin()
 #
 def index():
-    #auth.authenticate()
+   auth.authenticate()
    # res = request.json
   # print("request: ")
    # print("before title")
