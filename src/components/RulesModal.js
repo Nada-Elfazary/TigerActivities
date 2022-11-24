@@ -40,7 +40,7 @@ export default function RulesModal(props) : React.ReactNode {
     let error = ""
 
     const handleContinue = ()=>{
-      console.log("insidne here")
+      console.log("inside here")
         // errorMsg = !saving ? <h3>Sth</h3> : null 
     }
     
