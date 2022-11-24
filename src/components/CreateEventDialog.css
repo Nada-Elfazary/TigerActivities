@@ -1,9 +1,16 @@
 input.error {
     border-color: red;
+    color: red;
 }
 input.error::placeholder {
     color: red;
 }
 textarea.error {
     border-color: red;
+}
+textarea.error::placeholder {
+    color: red;
+}
+.customFlatpickr {
+    width: 100%;
 }

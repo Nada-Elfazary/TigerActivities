@@ -94,11 +94,13 @@ def fetch_activities(title):
         sys.exit(1)
 
 def fetch_user_sign_ups():
-    netid = "nada" #hardcoded for now
+    netid = "fifth" #hardcoded for now
 
     eventids = []
     activities = []
-    print ("hi")
+    currDate = get_current_date()
+    currTime = get_current_time()
+
     try:
         database_url = DATABASE_URL
         with psycopg2.connect(database_url) as connection:
@@ -112,8 +114,9 @@ def fetch_user_sign_ups():
                     eventids.append(row[0])
                     row = cursor.fetchone()
 
-                statement = "SELECT * FROM events WHERE eventid = ANY(%s)"
-                cursor.execute(statement, [eventids])
+                statement = "SELECT * FROM events WHERE eventid = ANY(%s) AND ((startdate = %s AND starttime > %s)"
+                statement += "OR %s < startdate)"
+                cursor.execute(statement, [eventids, currDate, currTime, currDate])
                 row = cursor.fetchone()
                 while row is not None:
                     newStartTime = row[2].strftime("%H:%M")

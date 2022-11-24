@@ -227,7 +227,7 @@ const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
   return (
     <XDSCard key ={index} item={event} ownerView={false} />
   )
-}): "No sign-ups yet"
+}): "No current sign-ups"
 
 const topNav = 
  <Navbar className="Navbar">

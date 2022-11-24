@@ -120,7 +120,7 @@ function CreateEventDialog(props) {
           <Form.Group>
             <Row>
               <Col><Form.Label>Title:</Form.Label></Col>
-              <Col><Form.Control type="text" id = "title" type="text" name="title" value={eventTitle} onChange={(event)=>{
+              <Col><Form.Control type="text" id = "title" name="title" value={eventTitle} onChange={(event)=>{
                         setEventTitle(event.target.value)
                         document.getElementById('title').classList.remove("error");
                         console.log(eventTitle)
@@ -132,7 +132,7 @@ function CreateEventDialog(props) {
           <Form.Group>
             <Row>
               <Col><Form.Label>Location:</Form.Label></Col>
-              <Col><Form.Control type="text" id = "location" type="text" name="Location" value ={eventLocation} onChange={(event)=>{
+              <Col><Form.Control type="text" id = "location" name="Location" value ={eventLocation} onChange={(event)=>{
                         setEventLocation(event.target.value)
                         document.getElementById('location').classList.remove("error");
                     }}></Form.Control></Col>
@@ -153,6 +153,7 @@ function CreateEventDialog(props) {
               <Col><Flatpickr 
                      data-enable-time 
                      id = "start-time"
+                     class = "customFlatpickr"
                      value={startTime} 
                      onChange={(event) => 
                      {
@@ -168,6 +169,7 @@ function CreateEventDialog(props) {
               <Col><Flatpickr
                      data-enable-time 
                       id = "end-time"
+                      class = "customFlatpickr"
                      value={endTime} 
                      onChange={(event) => 
                      {
@@ -269,7 +271,7 @@ function CreateEventDialog(props) {
           //    error.push("Max Attendee Count cannot be negative")
               // setShowErrorMsg(true)
               document.getElementById('descrip').classList.add("error");
-              document.getElementById('descrip').value = "Description cannot be empty";
+              document.getElementById('descrip').placeholder = "Description cannot be empty";
     
               error = 1;
             }
