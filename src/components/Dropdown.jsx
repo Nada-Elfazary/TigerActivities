@@ -2,9 +2,10 @@ import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.css';
 import "./Home.css";
+import { isArray } from 'lodash';
  
-export default function Dropdown1 (items){
-	console.log(items)
+export default function Dropdown1 ({items}){
+	console.log("Array:", items, isArray(items))
 return (
 	<div>
 	<Dropdown>

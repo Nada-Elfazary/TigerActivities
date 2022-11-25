@@ -25,7 +25,7 @@ export default function  Home() : React.ReactNode {
   const [nameFilter, setNameFilter] = useState('')
   let currLogin = "Reuben"
 
-const mySignUpsClicked= ()=>{
+const mySignUpsClicked= () => {
   if(clickedMySignUps) {
     setEvents([])
   }
@@ -42,7 +42,7 @@ const mySignUpsClicked= ()=>{
   })
 }
 
-const activitesClicked= ()=>{
+const activitesClicked= () => {
   if(clickedActivites) {
     setEvents([])
   }
@@ -69,6 +69,7 @@ const activitesClicked= ()=>{
   getEvents(false, "")
   
 }
+
 const myActivitesClicked= ()=>{
   if(clickedMyActivites) {
     setEvents([])
@@ -312,6 +313,7 @@ const showResults = clickedActivites? (
     <input value={nameFilter} name="title" onChange={handleFilter} />
 
   ): null
+
   return (
     <div className = "pageContainer">
     
@@ -324,7 +326,7 @@ const showResults = clickedActivites? (
         </div>
         </div>  
         {showFilter}
-        <Dropdown items = {[1, 2]}></Dropdown>
+        <Dropdown items = {[1,2]}></Dropdown>
         <div className="content">
           {showCreateEventButton}
           {showResults}
