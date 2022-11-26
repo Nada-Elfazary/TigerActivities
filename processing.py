@@ -33,32 +33,67 @@ def convert_time(hour, minute):
     return time
 
 def get_date_limit():
+    
     currDay = datetime.datetime.now(pytz.timezone('US/Central'))
     year = currDay.year
     month = currDay.month
     newDay = currDay.day + 6
-    if newDay > 31:
+
+    month_numDays = {1: 31, 
+                    2:(29 if year % 4 == 0 else 28),
+                    3: 31, 
+                    4: 30,
+                    5: 31,
+                    6: 30,
+                    7: 31,
+                    8: 31,
+                    9: 30,
+                    10: 31,
+                    11: 30,
+                    12: 31
+                    }
+    # day overflow
+    if newDay > month_numDays[month]:
+        newDay = newDay - month_numDays[month]
         month += 1
-        newDay = newDay - 31
+        # month overflow
+        if(month > 12):
+            month = 1
+            year += 1
+       
+    print("Inside get_date: year: {}, month: {}, \
+    day: {}".format(year, month, newDay))
     currDay = convert_date(year, month, newDay)
+   
+ 
     return currDay
 
-def fetch_activities(title):
+def fetch_activities(title, day, category):
     title = '%' + title + '%'
+    day = '%' + day + '%'
+    category = '%' + category + '%'
+    
     try:
         database_url = DATABASE_URL
         activities = []
         currDate = get_current_date()
         currTime = get_current_time()
+        print("Date: {}, time: {}".format(currDate, currTime) )
         dateLimit = get_date_limit()
+        print("Datelimit", dateLimit)
         with psycopg2.connect(database_url) as connection:            
             with connection.cursor() as cursor:
-                statementOne = "SELECT * FROM events WHERE startdate = %s AND starttime > %s"
-                statementOne += "AND eventname LIKE %s"
-                cursor.execute(statementOne, [currDate, currTime, title])
+                statementOne = "SELECT * FROM events WHERE startdate = %s AND starttime > %s "
+                statementOne += "AND eventname LIKE %s AND category LIKE %s"
+                cursor.execute(statementOne, [currDate, currTime, title, category])
                 row = cursor.fetchone()
-                print("Date: ", get_current_date())
+                print("row is", row)
                 while row is not None:
+                    # weekday = row[10].weekday()
+                    # print("The day of the week for event {}  \n is {} \n \n \n".format(row[0:5], weekday))
+                    # if weekday != day:
+                    #     row = cursor.fetchone()
+                    #     continue
                     newStartTime = row[2].strftime("%H:%M")
                     newEndTime = row[3].strftime("%H:%M")
                     newStartDate = row[10].strftime("%Y/%m/%d")
@@ -69,10 +104,11 @@ def fetch_activities(title):
                     activities.append(copy_row)
                     row = cursor.fetchone()
 
-                statementTwo = "SELECT * FROM events WHERE %s < startdate AND startdate < %s AND eventname LIKE %s"
+                statementTwo = "SELECT * FROM events WHERE %s < startdate AND startdate < %s"
+                statementTwo += "AND eventname LIKE %s AND category LIKE %s"
                 statementOne += "ORDER BY RANDOM() LIMIT 1000"
                # AND eventname LIKE %s
-                cursor.execute(statementTwo, [currDate, dateLimit, title])
+                cursor.execute(statementTwo, [currDate, dateLimit, title, category])
                 print ("after second execute")
                 row = cursor.fetchone()
                 print("Date: ", get_current_date(), "+ 5 days")
@@ -219,6 +255,18 @@ def store_sign_up(activity):
         print(ex, file=sys.stderr)
         sys.exit(1)
 
+def delete_signup(eventid, netid):
+    try:
+        database_url = DATABASE_URL
+        with psycopg2.connect(database_url) as connection:
+            
+            with connection.cursor() as cursor:
+                statement = "DELETE FROM signup WHERE eventid = %s AND signup_netid = %s"
+                cursor.execute(statement, [eventid, netid])
+    except Exception as ex:
+        print(ex, file=sys.stderr)
+        sys.exit(1)
+        
 def store_signup(event_id, net_id):
 
     eventid = event_id

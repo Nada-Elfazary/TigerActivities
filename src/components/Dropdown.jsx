@@ -1,27 +1,22 @@
 import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-import 'bootstrap/dist/css/bootstrap.css';
+//import 'boo/Search/Gettstrap/dist/css/bootstrap.css';
 import "./Home.css";
+import { isArray } from 'lodash';
+import DropdownItem from 'react-bootstrap/esm/DropdownItem';
  
-export default function Dropdown1 (items){
-	console.log("items:"+ items);
+export default function Dropdown1 ({filter,items}){
 return (
-	
 	<div>
 	<Dropdown>
-		<Dropdown.Toggle>
-		Open Menu
-		</Dropdown.Toggle>
+	<Dropdown.Toggle>
+		{filter}
+	</Dropdown.Toggle>
 		<Dropdown.Menu>
-		<Dropdown.Item href="#">
-			Home Page
-		</Dropdown.Item>
-		<Dropdown.Item href="#">
-			Settings
-		</Dropdown.Item>
-		<Dropdown.Item href="#">
-			Logout
-		</Dropdown.Item>
+		{items.map(item => <Dropdown.Item>
+			{item}
+		</Dropdown.Item>)}
+		
 		</Dropdown.Menu>
 	</Dropdown>
 	</div>
