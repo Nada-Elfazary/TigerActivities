@@ -22,3 +22,7 @@ return (
 	</div>
 );
 }
+
+function display(item) {
+	console.log("hi", item)
+}
