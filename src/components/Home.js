@@ -314,6 +314,10 @@ const showResults = clickedActivites? (
 
   ): null
 
+  const dropDowns = (filter, items) => (
+    <Dropdown filter = {filter} items = {items}></Dropdown>
+  )
+
   return (
     <div className = "pageContainer">
     
@@ -326,7 +330,8 @@ const showResults = clickedActivites? (
         </div>
         </div>  
         {showFilter}
-        <Dropdown items = {[1,2]}></Dropdown>
+        {dropDowns("Category", Array("Sports", "Academic", "Off-campus", "Outdoors",
+        "Entertainment", "Meals/Coffee Chats", "Nassau Street"))}
         <div className="content">
           {showCreateEventButton}
           {showResults}
