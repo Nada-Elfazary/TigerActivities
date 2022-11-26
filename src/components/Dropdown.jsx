@@ -5,7 +5,7 @@ import "./Home.css";
 import { isArray } from 'lodash';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
  
-export default function Dropdown1 ({filter, items}){
+export default function Dropdown1 ({filter,items}){
 return (
 	<div>
 	<Dropdown>
