@@ -4,6 +4,7 @@ import {Button, Container, Navbar} from 'react-bootstrap'
 import XDSCard from "./XDSCard";
 import Dropdown from "./Dropdown";
 import tiger from './tiger.jpeg';
+import Filter from './Filter';
 import "./Home.css";
 import axios from 'axios';
 
@@ -23,7 +24,7 @@ export default function  Home() : React.ReactNode {
   // const [displayMoreDetails, setDisplayMoreDetails] = useState(false)
   // const [event, setEvent] = useState(null)
   const [nameFilter, setNameFilter] = useState('')
-  let currLogin = "Reuben"
+  let currLogin = "Anca"
 
 const mySignUpsClicked= () => {
   if(clickedMySignUps) {
@@ -86,7 +87,7 @@ const myActivitesClicked= ()=>{
 const handleCreateEvent = ()=>{
   setDisplayModal(true);
 }
-const getEvents =(ownerView, name)=> {
+const getEvents =(ownerView, name, day, category)=> {
   /*
   axios({
     method: "POST",
@@ -106,7 +107,7 @@ const getEvents =(ownerView, name)=> {
   */
 
 // axios.get('https://tigeractivities.onrender.com/events').then(res =>{
-  axios.get('/events', {params: {title: name}}).then(res =>{
+  axios.get('/events', {params: {title: name, day: day, category: category}}).then(res =>{
     console.log("Events received from db:", res)
     console.log("Setting events to:", res.data)
     setEvents([])
@@ -310,7 +311,8 @@ const showResults = clickedActivites? (
   ): null
 
   const showFilter = clickedActivites ? (
-    <input value={nameFilter} name="title" onChange={handleFilter} />
+    // <input value={nameFilter} name="title" onChange={handleFilter} />
+    <Filter getEvents={getEvents} />
 
   ): null
 

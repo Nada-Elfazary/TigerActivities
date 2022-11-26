@@ -43,24 +43,27 @@ def index():
     #print("after title")
     #print(title)
    title = flask.request.args.get("title") or ''
-   events = proc.fetch_activities(title)
+   day = flask.request.args.get("day") or ''
+   category = flask.request.args.get("category") or ''
+   print("Received arguments: title={} day={} category={}".format(title,day,category))
+   events = proc.fetch_activities(title, day, category)
    print("events route has been called. Fetching events: {}".format(events))
    results =[]
    for event in events:
-        response_body={
-            "id": event[0],
-            "event_name":event[1],
-            "start_time":event[2],
-            "end_time":event[3],
-            "maxcap":event[4],
-            "creator":event[5],
-            "category":event[6],
-            "location":event[7],
-            "description":event[8],
-            "cost":event[9],
-            "start_date":event[10],
-            "end_date":event[11],
-            "signup_number":event[12]
+        response_body= {
+          "id": event[0],
+          "event_name": event[1],
+          "start_time": event[2],
+          "end_time": event[3],
+          "maxcap": event[4],
+          "creator": event[5],
+          "category": event[6],
+          "location": event[7],
+          "description": event[8],
+          "cost": event[9],
+          "start_date": event[10],
+          "end_date": event[11],
+          "signup_number": event[12]
         }
         results.append(response_body)
    return results
