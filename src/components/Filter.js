@@ -32,54 +32,57 @@ export default function Filter(props) : React.ReactNode {
     // console.log("handle select day:", handleSelectDay)
 
     return (
-        <div className="filterContainer">
-            <div className="titleFilter">
-              <label>Event Title</label>
-              <br/>
+        <div className="filterSurround">
+            <h2>Searchbox</h2>
+            <div className="filterContainer">
+                <div className="titleFilter">
+                    <label>Event Title</label>
+                    <br/>
+                </div>
+                <div>
+                    <input value={title} name="title" onChange={(event) => {
+                        setTitle(event.target.value)
+                        console.log("Title value:", event, event.target.value, title)
+                        props.getEvents(false, event.target.value, dayToNumber[day], category)
+                    }}></input>
+                    <br/>
+                </div>
+                <div className="dayFilter">
+                    <label>Day</label>
+                    <DropdownButton 
+                        title= {day == "" || null ? "Day" : day}
+                        variant="warning"
+                        onSelect={(key, event) => 
+                            handleSelect(key, event, "dayFilter")}
+                    >
+                        <Dropdown.Item>Monday</Dropdown.Item>
+                        <Dropdown.Item>Tuesday</Dropdown.Item>
+                        <Dropdown.Item>Wednesday</Dropdown.Item>
+                        <Dropdown.Item>Thursday</Dropdown.Item>
+                        <Dropdown.Item>Friday</Dropdown.Item>
+                        <Dropdown.Item>Saturday</Dropdown.Item>
+                        <Dropdown.Item>Sunday</Dropdown.Item>
+                    </DropdownButton> 
+                </div>
+
+                <div className="categoryFilter">
+                        <label>Category</label>
+                    <DropdownButton 
+                        title= {category == "" || null ? "Category" : category} 
+                        variant="warning"
+                        onSelect={(key,event) => 
+                            handleSelect(key, event, "categoryFilter")}
+                    >
+                        <Dropdown.Item>Sports</Dropdown.Item>
+                        <Dropdown.Item>Entertainment</Dropdown.Item>
+                        <Dropdown.Item>Academic</Dropdown.Item>
+                        <Dropdown.Item>Off-campus</Dropdown.Item>
+                        <Dropdown.Item>Outdoors</Dropdown.Item>
+                    </DropdownButton>
+
+
+                </div>
             </div>
-           <div>
-            <input value={title} name="title" onChange={(event) => {
-                setTitle(event.target.value)
-                console.log("Title value:", event, event.target.value, title)
-                props.getEvents(false, event.target.value, dayToNumber[day], category)
-            }}></input>
-            <br/>
-            </div>
-            <div className="dayFilter">
-                <label>Day</label>
-                <DropdownButton 
-                    title= {day == "" || null ? "Day" : day}
-                    variant="warning"
-                    onSelect={(key, event) => 
-                        handleSelect(key, event, "dayFilter")}
-                >
-                    <Dropdown.Item>Monday</Dropdown.Item>
-                    <Dropdown.Item>Tuesday</Dropdown.Item>
-                    <Dropdown.Item>Wednesday</Dropdown.Item>
-                    <Dropdown.Item>Thursday</Dropdown.Item>
-                    <Dropdown.Item>Friday</Dropdown.Item>
-                    <Dropdown.Item>Saturday</Dropdown.Item>
-                    <Dropdown.Item>Sunday</Dropdown.Item>
-                </DropdownButton> 
-           </div>
-
-           <div className="categoryFilter">
-                <label>Category</label>
-            <DropdownButton 
-                title= {category == "" || null ? "Category" : category} 
-                variant="warning"
-                onSelect={(key,event) => 
-                    handleSelect(key, event, "categoryFilter")}
-            >
-                <Dropdown.Item>Sports</Dropdown.Item>
-                <Dropdown.Item>Entertainment</Dropdown.Item>
-                <Dropdown.Item>Academic</Dropdown.Item>
-                <Dropdown.Item>Off-campus</Dropdown.Item>
-                <Dropdown.Item>Outdoors</Dropdown.Item>
-            </DropdownButton>
-
-
-           </div>
         </div>
         
     );
