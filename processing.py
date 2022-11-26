@@ -68,9 +68,12 @@ def get_date_limit():
  
     return currDay
 
-def fetch_activities(title):
+def fetch_activities(title, day, category):
     print("Hello")
     title = '%' + title + '%'
+    day = '%' + day + '%'
+    category = '%' + category + '%'
+    
     try:
         database_url = DATABASE_URL
         activities = []
@@ -81,12 +84,17 @@ def fetch_activities(title):
         print("Datelimit", dateLimit)
         with psycopg2.connect(database_url) as connection:            
             with connection.cursor() as cursor:
-                statementOne = "SELECT * FROM events WHERE startdate = %s AND starttime > %s"
-                statementOne += "AND eventname LIKE %s"
-                cursor.execute(statementOne, [currDate, currTime, title])
+                statementOne = "SELECT * FROM events WHERE startdate = %s AND starttime > %s "
+                statementOne += "AND eventname LIKE %s AND category LIKE %s"
+                cursor.execute(statementOne, [currDate, currTime, title, category])
                 row = cursor.fetchone()
-                print("Date: ", get_current_date())
+                print("row is", row)
                 while row is not None:
+                    # weekday = row[10].weekday()
+                    # print("The day of the week for event {}  \n is {} \n \n \n".format(row[0:5], weekday))
+                    # if weekday != day:
+                    #     row = cursor.fetchone()
+                    #     continue
                     newStartTime = row[2].strftime("%H:%M")
                     newEndTime = row[3].strftime("%H:%M")
                     newStartDate = row[10].strftime("%Y/%m/%d")
@@ -97,10 +105,11 @@ def fetch_activities(title):
                     activities.append(copy_row)
                     row = cursor.fetchone()
 
-                statementTwo = "SELECT * FROM events WHERE %s < startdate AND startdate < %s AND eventname LIKE %s"
+                statementTwo = "SELECT * FROM events WHERE %s < startdate AND startdate < %s"
+                statementTwo += "AND eventname LIKE %s AND category LIKE %s"
                 statementOne += "ORDER BY RANDOM() LIMIT 1000"
                # AND eventname LIKE %s
-                cursor.execute(statementTwo, [currDate, dateLimit, title])
+                cursor.execute(statementTwo, [currDate, dateLimit, title, category])
                 print ("after second execute")
                 row = cursor.fetchone()
                 print("Date: ", get_current_date(), "+ 5 days")
