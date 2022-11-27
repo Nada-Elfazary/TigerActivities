@@ -70,7 +70,6 @@ def get_date_limit():
 
 def fetch_activities(title, day, category):
     title = '%' + title + '%'
-    day = '%' + day + '%'
     category = '%' + category + '%'
     
     try:
@@ -88,11 +87,12 @@ def fetch_activities(title, day, category):
                 row = cursor.fetchone()
                 print("row is", row)
                 while row is not None:
-                    # weekday = row[10].weekday()
-                    # print("The day of the week for event {}  \n is {} \n \n \n".format(row[0:5], weekday))
-                    # if weekday != day:
-                    #     row = cursor.fetchone()
-                    #     continue
+                    weekday = row[10].weekday()
+                    print("The day of the week for date {} is {}\n. Current day: {}".format(row[10], weekday, day))
+                    if day != "" and weekday != int(day):
+                        row = cursor.fetchone()
+                        continue
+                    print("Appending row")
                     newStartTime = row[2].strftime("%H:%M")
                     newEndTime = row[3].strftime("%H:%M")
                     newStartDate = row[10].strftime("%Y/%m/%d")
@@ -112,6 +112,12 @@ def fetch_activities(title, day, category):
                 row = cursor.fetchone()
                 print("Date: ", get_current_date(), "+ 5 days")
                 while row is not None:
+                    weekday = row[10].weekday()
+                    print("The day of the week for date {} is {}. Current day: {}\n".format(row[10], weekday, day))
+                    if day != "" and weekday != int(day):
+                        row = cursor.fetchone()
+                        continue
+                    print("Appending row")
                     newStartTime = row[2].strftime("%H:%M")
                     newEndTime = row[3].strftime("%H:%M")
                     newStartDate = row[10].strftime("%Y/%m/%d")
