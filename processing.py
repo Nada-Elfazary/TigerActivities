@@ -246,7 +246,7 @@ def store_sign_up(activity):
                # statement = "SELECT "
 
                # UPDATE EVENTS TABLE
-                statement = "UPDATE events SET signedup_number = signedup_number + 1 WHERE eventid = %s"
+                statement = "UPDATE events SET signedup_nu`mber = signedup_number + 1 WHERE eventid = %s"
 
                 cursor.execute(statement, [eventid])
 
