@@ -14,10 +14,12 @@ export default function RulesModal(props) : React.ReactNode {
 
 
 
-    const cas = ()=>{axios.get('/dummy').then(
-      console.log("logout")
+    const cas = ()=>{
+      axios.get('/dummy').then(res=>{
+      console.log(res)
+    }   
     ).catch(err=>{
-      console.log("error")
+      console.log(err)
     })
   }
 

@@ -25,7 +25,8 @@ def after_request(response):
 @app.route("/dummy", methods = ['GET'])
 # cross_origin()
 def dummy_route():
-    return auth.login()
+    username = auth.authenticate()
+    return username
     #return("Hello ")
 
 @app.route("/events", methods = ['POST'])
