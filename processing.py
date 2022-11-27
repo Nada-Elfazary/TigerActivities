@@ -89,6 +89,7 @@ def fetch_activities(title, day, category):
                 while row is not None:
                     weekday = row[10].weekday()
                     print("The day of the week for date {} is {}\n. Current day: {}".format(row[10], weekday, day))
+                    print("**********weekday: ", weekday)
                     if day != "" and weekday != int(day):
                         row = cursor.fetchone()
                         continue
@@ -97,9 +98,10 @@ def fetch_activities(title, day, category):
                     newEndTime = row[3].strftime("%H:%M")
                     newStartDate = row[10].strftime("%Y/%m/%d")
                     newEndDate = row[11].strftime("%Y/%m/%d")
+                  
                     copy_row = (row[0], row[1], newStartTime, newEndTime, row[4],
-                    row[5], row[6], row[7], row[8], row[9], newStartDate, newEndTime, row[12])
-                    print(copy_row)
+                    row[5], row[6], row[7], row[8], row[9], newStartDate, weekday, newEndTime, row[12])
+                    print("copy rowwwww: ", copy_row)
                     activities.append(copy_row)
                     row = cursor.fetchone()
 
@@ -123,7 +125,7 @@ def fetch_activities(title, day, category):
                     newStartDate = row[10].strftime("%Y/%m/%d")
                     newEndDate = row[11].strftime("%Y/%m/%d")
                     copy_row = (row[0], row[1], newStartTime, newEndTime, row[4],
-                    row[5], row[6], row[7], row[8], row[9], newStartDate, newEndDate, row[12])
+                    row[5], row[6], row[7], row[8], row[9], newStartDate, weekday, newEndDate, row[12])
                    # print(copy_row)
                     activities.append(copy_row)
                     row = cursor.fetchone()
@@ -268,6 +270,10 @@ def delete_signup(event_id):
         with psycopg2.connect(database_url) as connection:
             
             with connection.cursor() as cursor:
+                 # UPDATE EVENTS TABLE
+                statement = "UPDATE events SET signedup_number = signedup_number - 1 WHERE eventid = %s"
+                cursor.execute(statement, [eventid])
+
                 statement = "DELETE FROM signup WHERE eventid = %s AND signup_netid = %s"
                 cursor.execute(statement, [eventid, netid])
     except Exception as ex:

@@ -13,6 +13,13 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
     const [attendees, setAttendees] = useState([])
     const closedText = "(CLOSED)"
 
+    const numToDay = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 
+    3: "Thursday", 4: "Friday", 5: "Saturday", 6: "Sunday"}
+
+    const numToMonth = {1: "Jan.", 2: "Feb.", 3: "Mar.", 4: "Apr.", 5: "May",  
+    6: "June", 7: "July", 8: "Aug.", 9: "Sept.", 10: "Oct.", 11: "Nov.", 12: "Dec.",  
+  }
+    
   const handleSignUp = ()=>{
     setDisplaySignUp(true)
     setEventTitle(item.event_name)
@@ -69,11 +76,11 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
                         <td>Location : {item.location}</td>
                     </tr>
                     <tr>
-                        <td>Start time : {item.start_time}</td>
+                    <td> Start date : {numToDay[item.week_day]} {numToMonth[item.start_date.split("/")[1]]} {item.start_date.split("/")[2]}</td>
                         <td>Created by : {item.creator}</td>
                     </tr>
                     <tr>
-                        <td></td>
+                    <td>Start time : {item.start_time}</td>
                         <td>Number of attendees : {item.signup_number}/{item.maxcap}</td>
                     </tr>
                     <tr>
