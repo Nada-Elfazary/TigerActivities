@@ -232,7 +232,7 @@ def store_activity(activity):
     
 # this is workinnggggggggggggggggg
 def store_sign_up(activity):
-    netid = 'fifth' #hardcoded for now
+    netid = 'last' #hardcoded for now
     eventid = activity['event_id']
     name = activity['name']
     phone_num = activity['phone']
