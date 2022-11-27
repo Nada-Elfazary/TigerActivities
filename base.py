@@ -133,3 +133,15 @@ def signUp():
     print(res)
     proc.store_sign_up(res)
     return res
+
+@app.route('/cancel-sign-up', methods = ['POST'])
+# cross_origin()
+def cancelSignUp():
+  #  username = auth.authenticate()
+    res = flask.request.json
+    print("json")
+    print(res)
+    id = res["event_id"]
+    print(id)
+    proc.delete_signup(id)
+    return res

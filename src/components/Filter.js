@@ -27,6 +27,7 @@ export default function Filter(props) : React.ReactNode {
             props.getEvents(false, title, dayToNumber[day],
                 event.nativeEvent.target.firstChild.data,)
         }
+        
 
     }
     // console.log("handle select day:", handleSelectDay)

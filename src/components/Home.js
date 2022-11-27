@@ -24,7 +24,7 @@ export default function  Home() : React.ReactNode {
   // const [displayMoreDetails, setDisplayMoreDetails] = useState(false)
   // const [event, setEvent] = useState(null)
   const [nameFilter, setNameFilter] = useState('')
-  let currLogin = "Anca"
+  let currLogin = "fifth"
 
 const mySignUpsClicked= () => {
   if(clickedMySignUps) {
@@ -218,17 +218,17 @@ const handleMoreDetails = (event)=>{
 const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator !== currLogin).map((event, index)=>{
   return (
 
-    <XDSCard key ={index} item ={event} ownerView={false}/>
+    <XDSCard key ={index} item ={event} ownerView={false} signUpsView = {false}/>
   )
 }): "No events created yet"
 const displayOwnerEvents = events.length !== 0 ? events.map((event, index)=>{
   return (
-    <XDSCard key ={index} item={event} ownerView={true} />
+    <XDSCard key ={index} item={event} ownerView={true} signUpsView = {false}/>
   )
 }): "No events created yet"
 const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
   return (
-    <XDSCard key ={index} item={event} ownerView={false} />
+    <XDSCard key ={index} item={event} ownerView={false} signUpsView = {true}/>
   )
 }): "No current sign-ups"
 
@@ -332,8 +332,6 @@ const showResults = clickedActivites? (
         </div>
         </div>  
         {showFilter}
-        {dropDowns("Category", Array("Sports", "Academic", "Off-campus", "Outdoors",
-        "Entertainment", "Meals/Coffee Chats", "Nassau Street"))}
         <div className="content">
           {showCreateEventButton}
           {showResults}

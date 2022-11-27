@@ -4,7 +4,7 @@ import Modal from './Modal';
 import "./Home.css";
 import axios from 'axios';
 
-const XDSCard = ({item, ownerView}) => {
+const XDSCard = ({item, ownerView, signUpsView}) => {
     const [isExpanded, setExpanded] = useState(false)
     const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded })
     const [displaySignUp, setDisplaySignUp] = useState(false)
@@ -19,6 +19,23 @@ const XDSCard = ({item, ownerView}) => {
     setEventId(item.id)
   
   }
+
+  const handleCancellation = ()=>{
+    console.log("canceling sign-up")
+    console.log(item.id)
+    console.log(item.event_name)
+
+     axios.post('/cancel-sign-up', {
+      event_id : item.id,
+    }).then(res =>{
+      console.log(res)
+    }).catch(err =>{
+      console.log(err)
+    
+    })
+  }
+  
+
   const signUpModal = displaySignUp ? (<Modal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}/>): null
 
   const get_attendees = (event)=>{
@@ -65,9 +82,11 @@ const XDSCard = ({item, ownerView}) => {
                  
                            </p>     
                         </td>
-                        <td>{!ownerView ? (<p {...getCollapseProps()}>
+                        <td>{(!ownerView && !signUpsView) ? (<p {...getCollapseProps()}>
                         <button onClick={handleSignUp} disabled={item.signup_number === item.maxcap}>Sign Up</button>            
-                           </p>) : null }   
+                           </p>) : null }   {(!ownerView && signUpsView) ? (<p {...getCollapseProps()}>
+                        <button onClick={handleCancellation} disabled={item.signup_number === item.maxcap}>Cancel</button>            
+                           </p>) : null }
                         </td>
                     </tr>
                     <tr>
