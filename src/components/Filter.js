@@ -11,7 +11,7 @@ export default function Filter(props) : React.ReactNode {
 
 
     const dayToNumber = {"Monday": 0, "Tuesday":1, "Wednesday":2, 
-    "Thurday":3, "Friday":4, "Saturday":5, "Sunday":6}
+    "Thursday":3, "Friday":4, "Saturday":5, "Sunday":6}
 
     // getEvents takes in query parameters and returns event respecting
     // all params
