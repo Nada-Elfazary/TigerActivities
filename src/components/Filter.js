@@ -45,7 +45,7 @@ export default function Filter(props) : React.ReactNode {
     className= "FilterX" 
     onClick={() => {
         setCategory("")
-        props.getEvents(false, title, day, "")
+        props.getEvents(false, title, dayToNumber[day], "")
         }}>
         X
 </button> 
