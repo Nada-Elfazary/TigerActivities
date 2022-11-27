@@ -7,11 +7,21 @@ display: flex;
   height: 100px;
 }
 
+.center-screen {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  padding-top: 5%;
+  padding-right: 5%;
+  padding-left: 5%;
+  padding-bottom: 5%;
+  transform: translate(-50%, -50%);
+  background-color: orange;
+}
 
 .title {
-  flex: 10;
-  text-align: center;
-
+  align-items: center;
 }
 .button{
   width: 80px;
@@ -23,6 +33,7 @@ display: flex;
 
 .logIn{
  flex: 2;
+ align-self: center;
 }
 .App .background{
   background-color: green;

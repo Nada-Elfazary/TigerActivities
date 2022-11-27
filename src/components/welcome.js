@@ -5,6 +5,7 @@ import Modal from './Modal'
 import CreateEventDialog  from './CreateEventDialog';
 import RulesModal from './RulesModal';
 import {useNavigate } from 'react-router-dom';
+import logo from './princeton_tigers_logo.png';
 
 export default function Welcome(): React.ReactNode{
     const [clickedDisplayEvents, setClickedDisplayEvents] = useState(false)
@@ -116,12 +117,13 @@ return (
       {/* {createEventModal} */}
     {/* </div> */}
     <div>
-      <div className='AppContainer-1'>
+      <div className='center-screen'>
         <div className='title'>
+        <img alt="" src={logo} width="150" height="150"></img>
           {title}
-        </div>
         <div className='logIn'>
           {logInButton}
+        </div>
         </div>
       </div>
       {displayRules}
