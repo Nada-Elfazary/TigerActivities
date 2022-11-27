@@ -92,7 +92,7 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
                         <td>{(!ownerView && !signUpsView) ? (<p {...getCollapseProps()}>
                         <button onClick={handleSignUp} disabled={item.signup_number === item.maxcap}>Sign Up</button>            
                            </p>) : null }   {(!ownerView && signUpsView) ? (<p {...getCollapseProps()}>
-                        <button class = "buttonShift" onClick={handleCancellation} disabled={item.signup_number === item.maxcap}>Cancel</button>            
+                        <button class = "buttonShift" onClick={handleCancellation}>Cancel</button>            
                            </p>) : null }
                         </td>
                     </tr>
