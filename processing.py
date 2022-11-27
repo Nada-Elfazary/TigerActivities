@@ -262,6 +262,10 @@ def delete_signup(event_id):
         with psycopg2.connect(database_url) as connection:
             
             with connection.cursor() as cursor:
+                 # UPDATE EVENTS TABLE
+                statement = "UPDATE events SET signedup_number = signedup_number - 1 WHERE eventid = %s"
+                cursor.execute(statement, [eventid])
+
                 statement = "DELETE FROM signup WHERE eventid = %s AND signup_netid = %s"
                 cursor.execute(statement, [eventid, netid])
     except Exception as ex:
