@@ -67,8 +67,10 @@ def index():
             "description":event[8],
             "cost":event[9],
             "start_date":event[10],
-            "end_date":event[11],
-            "signup_number":event[12]
+            "week_day": event[11],
+            "end_date":event[12],
+            "signup_number":event[13],
+            
         }
         results.append(response_body)
    return results
