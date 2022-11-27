@@ -24,7 +24,7 @@ export default function  Home() : React.ReactNode {
   // const [displayMoreDetails, setDisplayMoreDetails] = useState(false)
   // const [event, setEvent] = useState(null)
   const [nameFilter, setNameFilter] = useState('')
-  let currLogin = "Nada"
+  let currLogin = "fourth"
 
 const mySignUpsClicked= () => {
   if(clickedMySignUps) {
