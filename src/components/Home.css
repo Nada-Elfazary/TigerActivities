@@ -102,6 +102,10 @@ table.center {
     left:50%;
     background-color: grey;
 }
+.buttonShift:hover {
+    background-color:red;
+    transition: 0.7s;
+}
 
 
 div.pageContainer{
@@ -139,4 +143,8 @@ div.pageContainer{
     height: 25px;
     font-size: 15px;
     width:120px;
+}
+
+.button {
+    background-color: orange;
 }

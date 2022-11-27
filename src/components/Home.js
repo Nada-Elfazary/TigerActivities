@@ -24,7 +24,7 @@ export default function  Home() : React.ReactNode {
   // const [displayMoreDetails, setDisplayMoreDetails] = useState(false)
   // const [event, setEvent] = useState(null)
   const [nameFilter, setNameFilter] = useState('')
-  let currLogin = "Reuben"
+  let currLogin = "Nada"
 
 const mySignUpsClicked= () => {
   if(clickedMySignUps) {
@@ -153,7 +153,7 @@ const handleMoreDetails = (event)=>{
 
   const title = <h1><i>TigerActivities </i></h1>
  
-  const activities = <Button onClick={activitesClicked}>Activities</Button>
+  const activities = <Button class = 'button' onClick={activitesClicked}>Activities</Button>
   const myActivities = <Button onClick={myActivitesClicked}>My Activities</Button>
   const mySignUps = <Button onClick={mySignUpsClicked}>My Sign-Ups</Button>
   const createEventButton = <Button className="buttonStyle" onClick={handleCreateEvent}>Create Activity</Button>
