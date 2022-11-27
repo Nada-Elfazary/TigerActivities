@@ -9,7 +9,9 @@ from flask_cors import CORS
 
 app = flask.Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
-#app.secret_key = os.environ['APP_SECRET_KEY']
+os.environ['APP_SECRET_KEY'] = 'hsjfhasjkdfjahsdkfahskdf'
+
+app.secret_key = os.environ['APP_SECRET_KEY']
 CORS(app)
 
 @app.route('/logoutapp', methods=['GET'])
@@ -40,7 +42,7 @@ def after_request(response):
 # cross_origin()
 #
 def index():
-  #  auth.authenticate()
+   auth.authenticate()
    # res = request.json
   # print("request: ")
    # print("before title")

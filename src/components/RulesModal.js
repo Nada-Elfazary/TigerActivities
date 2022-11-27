@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import  {useNavigate} from "react-router-dom";
-
+import axios from "axios";
 
 import "./Modal.css";
 
@@ -12,8 +12,12 @@ export default function RulesModal(props) : React.ReactNode {
     const [errorMsg, setErrorMsg] = useState("")
     const navigate = useNavigate()
 
-
-
+    const cas = ()=>{axios.get('/events').then(
+      console.log("logout")
+    ).catch(err=>{
+      console.log("error")
+    })
+  }
 
     const failureCallBack = (error)=>{
       // errorMsg = <strong className="error">error</strong>
@@ -28,7 +32,8 @@ export default function RulesModal(props) : React.ReactNode {
       setErrorMsg(null)
       props.setOpenModal(false)
       props.setRedirect(true)
-      navigate('/home')
+      cas()
+      // navigate('/home')
 
     }
     const handleChecked = (event)=>{
