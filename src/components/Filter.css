@@ -5,6 +5,10 @@
     border: solid red 3px;
 }
 
+.filterSurround {
+    margin: 10px 30px 20px 10px;
+}
+
 .alignFilter {
     display:flex;
     flex-direction:row;

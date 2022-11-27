@@ -31,6 +31,24 @@ export default function Filter(props) : React.ReactNode {
         
 
     }
+
+    const dayFilterButton = day === "" ? null : <button 
+    className= "FilterX" 
+    onClick={() => {
+        setDay("")
+        props.getEvents(false, title, "", category)
+        }}>
+        X
+    </button>
+
+    const categoryFilterButton = category === "" ? null : <button 
+    className= "FilterX" 
+    onClick={() => {
+        setCategory("")
+        props.getEvents(false, title, dayToNumber[day], "")
+        }}>
+        X
+</button> 
     // console.log("handle select day:", handleSelectDay)
 
     return (
@@ -66,14 +84,7 @@ export default function Filter(props) : React.ReactNode {
                             <Dropdown.Item>Saturday</Dropdown.Item>
                             <Dropdown.Item>Sunday</Dropdown.Item>
                         </DropdownButton>
-                        <button 
-                        className= "FilterX" 
-                        onClick={() => {
-                            setDay("")
-                            props.getEvents(false, title, "", category)
-                            }}>
-                            X
-                        </button>
+                        {dayFilterButton}
                     </div>
                 </div>
 
@@ -94,14 +105,7 @@ export default function Filter(props) : React.ReactNode {
                             <Dropdown.Item>Meals/Cofee Chats</Dropdown.Item>
                             <Dropdown.Item>Nassau Street</Dropdown.Item>
                         </DropdownButton>
-                        <button 
-                            className= "FilterX" 
-                            onClick={() => {
-                                setCategory("")
-                                props.getEvents(false, title, day, "")
-                                }}>
-                                X
-                        </button> 
+                        {categoryFilterButton}
                     </div>
                 </div>
             </div>

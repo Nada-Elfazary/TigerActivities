@@ -7,6 +7,12 @@
       height: 100px;
 }
 */
+
+html {
+    overflow: hidden;
+    /* display:flex; */
+    /* flex-direction:col; */
+}
 .Navbar{
     background-color: orange;
     justify-content: center;
