@@ -80,7 +80,6 @@ def fetch_activities(title, day, category):
         currTime = get_current_time()
         print("Date: {}, time: {}".format(currDate, currTime) )
         dateLimit = get_date_limit()
-        print("Datelimit", dateLimit)
         with psycopg2.connect(database_url) as connection:            
             with connection.cursor() as cursor:
                 statementOne = "SELECT * FROM events WHERE startdate = %s AND starttime > %s "
@@ -255,17 +254,17 @@ def store_sign_up(activity):
         print(ex, file=sys.stderr)
         sys.exit(1)
 
-def delete_signup(eventid, netid):
-    try:
-        database_url = DATABASE_URL
-        with psycopg2.connect(database_url) as connection:
+# def delete_signup(eventid, netid):
+#     try:
+#         database_url = DATABASE_URL
+#         with psycopg2.connect(database_url) as connection:
             
-            with connection.cursor() as cursor:
-                statement = "DELETE FROM signup WHERE eventid = %s AND signup_netid = %s"
-                cursor.execute(statement, [eventid, netid])
-    except Exception as ex:
-        print(ex, file=sys.stderr)
-        sys.exit(1)
+#             with connection.cursor() as cursor:
+#                 statement = "DELETE FROM signup WHERE eventid = %s AND signup_netid = %s"
+#                 cursor.execute(statement, [eventid, netid])
+#     except Exception as ex:
+#         print(ex, file=sys.stderr)
+#         sys.exit(1)
         
 def store_signup(event_id, net_id):
 
