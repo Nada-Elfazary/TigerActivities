@@ -70,18 +70,23 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
             <table>
                 <tbody>
                     <tr>
+                      
                         <td>
-                        Category: {item.category}
+                        <strong>Category: </strong>{item.category}
                         </td>
-                        <td>Location : {item.location}</td>
+                        <td><strong>Location : </strong>{item.location}</td>
                     </tr>
                     <tr>
-                    <td> Start date : {numToDay[item.week_day]} {numToMonth[item.start_date.split("/")[1]]} {item.start_date.split("/")[2]}</td>
-                        <td>Created by : {item.creator}</td>
+                    <td><strong>Start date : </strong>{numToDay[item.week_day]} {numToMonth[item.start_date.split("/")[1]]} {item.start_date.split("/")[2]}</td>
+                        <td><strong>Created by :</strong> {item.creator}</td>
                     </tr>
                     <tr>
-                    <td>Start time : {item.start_time}</td>
-                        <td>Number of attendees : {item.signup_number}/{item.maxcap}</td>
+                    <td><strong>Start time : </strong>{item.start_time}</td>
+                        <td><strong>Number of attendees :</strong> {item.signup_number}/{item.maxcap}</td>
+                    </tr>
+                    <tr>
+                      
+                      <td><strong>Cost : </strong>{item.cost}</td>
                     </tr>
                     <tr>
                         <td><p {...getCollapseProps()}>

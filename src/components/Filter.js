@@ -4,11 +4,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Button from 'react-bootstrap/Button';
+
 import "./Filter.css";
 export default function Filter(props) : React.ReactNode {
     const [title, setTitle] = useState("")
     const [day, setDay] = useState("")
     const [category, setCategory] = useState("")
+    const [cost, setCost] = useState("")
 
 
     const dayToNumber = {"Monday": 0, "Tuesday":1, "Wednesday":2, 
@@ -21,12 +23,12 @@ export default function Filter(props) : React.ReactNode {
         if (filterTitle == "dayFilter") {
             setDay(event.nativeEvent.target.firstChild.data)
             props.getEvents(false, title, 
-            dayToNumber[event.nativeEvent.target.firstChild.data], category)
+            dayToNumber[event.nativeEvent.target.firstChild.data], category, cost)
         }
         else if (filterTitle == "categoryFilter"){
             setCategory(event.nativeEvent.target.firstChild.data)
             props.getEvents(false, title, dayToNumber[day],
-                event.nativeEvent.target.firstChild.data,)
+                event.nativeEvent.target.firstChild.data, cost)
         }
         
 
@@ -36,7 +38,7 @@ export default function Filter(props) : React.ReactNode {
     className= "FilterX" 
     onClick={() => {
         setDay("")
-        props.getEvents(false, title, "", category)
+        props.getEvents(false, title, "", category, cost)
         }}>
         X
     </button>
@@ -45,7 +47,7 @@ export default function Filter(props) : React.ReactNode {
     className= "FilterX" 
     onClick={() => {
         setCategory("")
-        props.getEvents(false, title, dayToNumber[day], "")
+        props.getEvents(false, title, dayToNumber[day], "", cost)
         }}>
         X
 </button> 
@@ -63,7 +65,7 @@ export default function Filter(props) : React.ReactNode {
                     <input value={title} name="title" onChange={(event) => {
                         setTitle(event.target.value)
                         console.log("Title value:", event, event.target.value, title)
-                        props.getEvents(false, event.target.value, dayToNumber[day], category)
+                        props.getEvents(false, event.target.value, dayToNumber[day], category, cost)
                     }}></input>
                     <br/>
                 </div>
@@ -106,6 +108,21 @@ export default function Filter(props) : React.ReactNode {
                             <Dropdown.Item>Nassau Street</Dropdown.Item>
                         </DropdownButton>
                         {categoryFilterButton}
+                    </div>
+                </div>
+
+                <div className="costFilter">
+                    <label>Cost less than or equal to</label>
+                    <div className="alignFilter">
+                    
+                    <div>
+                    <input value={cost} name="cost" onChange={(event) => {
+                        setCost(event.target.value)
+                        console.log("Cost value:", event, event.target.value, cost)
+                        props.getEvents(false, title, dayToNumber[day], category, event.target.value)
+                    }}></input>
+                    <br/>
+                </div>
                     </div>
                 </div>
             </div>
