@@ -15,7 +15,7 @@ export default function RulesModal(props) : React.ReactNode {
 
 
     const cas = ()=>{
-      axios.get('https://tigeractivities.onrender.com/dummy').then(res=>{
+      axios.get('https://fed.princeton.edu/cas/login?service=https%3A//tigeractivities-iqwe.onrender.com/').then(res=>{
       console.log(res)
     }   
     ).catch(err=>{
