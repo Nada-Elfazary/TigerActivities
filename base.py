@@ -9,6 +9,7 @@ from flask_cors import CORS
 
 app = flask.Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
+os.environ['APP_SECRET_KEY'] = 'asoidfhaslkdfjhaljdfal'
 app.secret_key = os.environ['APP_SECRET_KEY']
 CORS(app)
 
@@ -40,7 +41,7 @@ def after_request(response):
 # cross_origin()
 #
 def index():
-   auth.authenticate()
+   #auth.authenticate()
    # res = request.json
   # print("request: ")
    # print("before title")
@@ -50,8 +51,9 @@ def index():
    title = flask.request.args.get("title") or ''
    day = flask.request.args.get("day") or ''
    category = flask.request.args.get("category") or ''
-   print("Received arguments: title={} day={} category={}".format(title,day,category))
-   events = proc.fetch_activities(title, day, category)
+   cost = flask.request.args.get("cost") or 'all'
+   print("Received arguments: title={} day={} category={} cost={}".format(title,day,category, cost))
+   events = proc.fetch_activities(title, day, category, cost)
    print("events route has been called. Fetching events: {}".format(events))
    results =[]
    for event in events:
