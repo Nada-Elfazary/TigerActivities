@@ -196,6 +196,7 @@ function CreateEventDialog(props) {
         <Form.Control aria-label="Amount (to the nearest dollar)" id= "cost" name="Cost" value={cost} onChange={(event) =>
                         {
                           document.getElementById('cost').classList.remove("error");
+                          console.log("cost: ", event.target.value)
                         setCost(event.target.value)
                         }}/>
         <InputGroup.Text>.00</InputGroup.Text>
@@ -258,6 +259,15 @@ function CreateEventDialog(props) {
 
           error = 1;
         }
+        else if(!/^[0-9]+$/.test(cost)){
+          //  errorMsg.push("Cost involved cannot be negative")
+            // setShowErrorMsg(true)
+            document.getElementById('cost').classList.add("error");
+            document.getElementById('cost').value = "Cost involved must be an integer";
+  
+            error = 1;
+          }
+
         if(maxAttendeeCount < 0){
       //    error.push("Max Attendee Count cannot be negative")
           // setShowErrorMsg(true)

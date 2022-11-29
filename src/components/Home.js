@@ -24,7 +24,7 @@ export default function  Home() : React.ReactNode {
   // const [displayMoreDetails, setDisplayMoreDetails] = useState(false)
   // const [event, setEvent] = useState(null)
   const [nameFilter, setNameFilter] = useState('')
-  let currLogin = "Nada"
+  let currLogin = "Reuben"
 
 const mySignUpsClicked= () => {
   if(clickedMySignUps) {
@@ -87,7 +87,7 @@ const myActivitesClicked= ()=>{
 const handleCreateEvent = ()=>{
   setDisplayModal(true);
 }
-const getEvents =(ownerView, name, day, category, cost, capCond)=> {
+const getEvents =(ownerView, name, day, category, cost, capCond, cap)=> {
   /*
   axios({
     method: "POST",
@@ -108,7 +108,7 @@ const getEvents =(ownerView, name, day, category, cost, capCond)=> {
 
 // axios.get('https://tigeractivities.onrender.com/events').then(res =>{
   axios.get('/events', {params: {title: name, day: day, 
-    category: category, cost: cost, capCond: capCond}}).then(res =>{
+    category: category, cost: cost, capCond: capCond, cap: cap}}).then(res =>{
     console.log("Events received from db:", res)
     console.log("Setting events to:", res.data)
     setEvents([])

@@ -142,7 +142,7 @@ export default function Filter(props) : React.ReactNode {
                    <td> <input type = "radio" id= "leq" value= "<=" name="condition" onChange={(event) => {
                         setCapCondition(event.target.value)
                         console.log("Cap value:", event, event.target.value, title)
-                        props.getEvents(false, event.target.value, dayToNumber[day], category, cost, event.target.value)
+                        props.getEvents(false, title, dayToNumber[day], category, cost, event.target.value)
                     }}></input></td>
                     </tr>
                     <tr>
@@ -150,12 +150,12 @@ export default function Filter(props) : React.ReactNode {
                     <td><input type = "radio" value= ">=" name="condition" onChange={(event) => {
                         setCapCondition(event.target.value)
                         console.log("Cap value:", event, event.target.value, title)
-                        props.getEvents(false, event.target.value, dayToNumber[day], category, cost, event.target.value, cap)
+                        props.getEvents(false, title, dayToNumber[day], category, cost, event.target.value, cap)
                     }}></input></td>
                     <td><input id= "cap" placeholder= "Enter a positive integer" name="leq" onChange={(event) => {
                         setCap(event.target.value)
                         console.log("Cap value:", event, event.target.value, title)
-                        props.getEvents(false, event.target.value, dayToNumber[day], category, cost, capCondition, event.target.value)
+                        props.getEvents(false, title, dayToNumber[day], category, cost, capCondition, event.target.value)
                     }}></input></td>
                     </tr>
                     </tbody>
