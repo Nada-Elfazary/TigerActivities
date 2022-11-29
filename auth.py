@@ -72,7 +72,7 @@ def authenticate():
     username = validate(ticket)
     if username is None:
         login_url = (_CAS_URL + 'login?service='
-            + urllib.parse.quote(strip_ticket(flask.request.url)))
+            + urllib.parse.quote(strip_ticket('https%3A//tigeractivities-iqwe.onrender.com/')))
         flask.abort(flask.redirect(login_url))
 
     # The user is authenticated, so store the username in
