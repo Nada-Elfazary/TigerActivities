@@ -3,15 +3,12 @@ import flask
 import processing as proc
 import parseargs
 import os
-# import auth 
+import auth 
 from flask_cors import CORS
 
 
 app = flask.Flask(__name__)
-'''
 app.config['CORS_HEADERS'] = 'Content-Type'
-os.environ['APP_SECRET_KEY'] = 'hsjfhasjkdfjahsdkfahskdf'
-
 app.secret_key = os.environ['APP_SECRET_KEY']
 CORS(app)
 
@@ -25,7 +22,6 @@ def nishan():
     print('I am here')
     return ('Hello Nishan!')
 
-
 @app.after_request
 def after_request(response):
   response.headers.add('Access-Control-Allow-Origin', '*')
@@ -33,7 +29,7 @@ def after_request(response):
   response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
   return response
 
-'''
+
 #@app.route("/dummy", methods = ['GET'])
 # cross_origin()
 #def dummy_route():
@@ -44,7 +40,7 @@ def after_request(response):
 # cross_origin()
 #
 def index():
-   # auth.authenticate()
+   auth.authenticate()
    # res = request.json
   # print("request: ")
    # print("before title")
@@ -54,9 +50,8 @@ def index():
    title = flask.request.args.get("title") or ''
    day = flask.request.args.get("day") or ''
    category = flask.request.args.get("category") or ''
-   cost = flask.request.args.get("cost") or 'all'
-   print("Received arguments: title={} day={} category={} cost={}".format(title,day,category, cost))
-   events = proc.fetch_activities(title, day, category, cost)
+   print("Received arguments: title={} day={} category={}".format(title,day,category))
+   events = proc.fetch_activities(title, day, category)
    print("events route has been called. Fetching events: {}".format(events))
    results =[]
    for event in events:
@@ -82,6 +77,7 @@ def index():
 
 @app.route("/user-sign-ups", methods = ['GET'])
 def sign_ups():
+  username = auth.authenticate()
   events = proc.fetch_user_sign_ups()
   results = []
   for event in events:
@@ -106,7 +102,7 @@ def sign_ups():
 @app.route('/attendees', methods=['GET'])
 # cross_origin()
 def get_attendees():
-   # username = auth.authenticate()
+    username = auth.authenticate()
     #res = request.json
     id = flask.request.args.get("event_id")
     attendees = proc.get_activity_attendees(id)
@@ -115,7 +111,7 @@ def get_attendees():
 @app.route('/create-event', methods = ['POST'])
 # cross_origin()
 def createEvent():
-  #  username = auth.authenticate()
+    username = auth.authenticate()
     res = flask.request.json
     print("response", res['event_name'])
     print("Recieved request: {}".format(flask.request.json))
@@ -134,7 +130,7 @@ def createEvent():
 @app.route('/sign-up', methods = ['POST'])
 # cross_origin()
 def signUp():
-  #  username = auth.authenticate()
+    username = auth.authenticate()
     res = flask.request.json
     print("json")
     print(res)
@@ -144,7 +140,7 @@ def signUp():
 @app.route('/cancel-sign-up', methods = ['POST'])
 # cross_origin()
 def cancelSignUp():
-  #  username = auth.authenticate()
+    username = auth.authenticate()
     res = flask.request.json
     print("json")
     print(res)
