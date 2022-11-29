@@ -4,14 +4,14 @@ import processing as proc
 import parseargs
 import os
 import auth 
-from flask_cors import CORS
+#from flask_cors import CORS
 
 
 app = flask.Flask(__name__)
-app.config['CORS_HEADERS'] = 'Content-Type'
-os.environ['APP_SECRET_KEY'] = 'asoidfhaslkdfjhaljdfal'
-app.secret_key = os.environ['APP_SECRET_KEY']
-CORS(app)
+#app.config['CORS_HEADERS'] = 'Content-Type'
+#os.environ['APP_SECRET_KEY'] = 'asoidfhaslkdfjhaljdfal'
+#app.secret_key = os.environ['APP_SECRET_KEY']
+#CORS(app)
 
 @app.route('/logoutapp', methods=['GET'])
 @app.route('/logoutcas', methods=['GET'])
@@ -23,12 +23,12 @@ def nishan():
     print('I am here')
     return ('Hello Nishan!')
 
-@app.after_request
-def after_request(response):
-  response.headers.add('Access-Control-Allow-Origin', '*')
-  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-  return response
+#@app.after_request
+#def after_request(response):
+#  response.headers.add('Access-Control-Allow-Origin', '*')
+#  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+#  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+#  return response
 
 
 #@app.route("/dummy", methods = ['GET'])
@@ -55,10 +55,10 @@ def index():
    condition = flask.request.args.get("capCond") or 'LIKE'
    cap = flask.request.args.get("cap") or '1'
   
-
-   print("Received arguments: title={} day={} category={} cost={} capCond={} cap={}".format(title, day, category, cost, condition, cap))
-   events = proc.fetch_activities(title, day, category, cost, condition, cap)
-   print("events route has been called. Fetching events: {}".format(events))
+   print("Received arguments: title={} day={} category={} cost={}".format(title, day, category, cost))
+   #print("Received arguments: title={} day={} category={} cost={} capCond={} cap={}".format(title, day, category, cost, condition, cap))
+   events = proc.fetch_activities(title, day, category, cost)
+   #events = proc.fetch_activities(title, day, category, cost, condition, cap)   print("events route has been called. Fetching events: {}".format(events))
    results =[]
    for event in events:
         response_body={
@@ -83,8 +83,8 @@ def index():
 
 @app.route("/user-sign-ups", methods = ['GET'])
 def sign_ups():
-  username = auth.authenticate()
-  events = proc.fetch_user_sign_ups(username)
+  #username = auth.authenticate()
+  events = proc.fetch_user_sign_ups()
   results = []
   for event in events:
         response_body={
@@ -108,7 +108,7 @@ def sign_ups():
 @app.route('/attendees', methods=['GET'])
 # cross_origin()
 def get_attendees():
-    username = auth.authenticate()
+    #username = auth.authenticate()
     #res = request.json
     id = flask.request.args.get("event_id")
     attendees = proc.get_activity_attendees(id)
@@ -117,7 +117,7 @@ def get_attendees():
 @app.route('/create-event', methods = ['POST'])
 # cross_origin()
 def createEvent():
-    username = auth.authenticate()
+    #username = auth.authenticate()
     res = flask.request.json
     print("response", res['event_name'])
     print("Recieved request: {}".format(flask.request.json))
@@ -136,21 +136,21 @@ def createEvent():
 @app.route('/sign-up', methods = ['POST'])
 # cross_origin()
 def signUp():
-    username = auth.authenticate()
+   # username = auth.authenticate()
     res = flask.request.json
     print("json")
     print(res)
-    proc.store_sign_up(res, username)
+    proc.store_sign_up(res)
     return res
 
 @app.route('/cancel-sign-up', methods = ['POST'])
 # cross_origin()
 def cancelSignUp():
-    username = auth.authenticate()
+   # username = auth.authenticate()
     res = flask.request.json
     print("json")
     print(res)
     id = res["event_id"]
     print(id)
-    proc.delete_signup(id, username)
+    proc.delete_signup(id)
     return res

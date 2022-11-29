@@ -21,7 +21,7 @@ export default function  Home() : React.ReactNode {
   const [refresh, setRefresh] = useState(false)
   const [loading, setLoading] = useState(false)
   const [nameFilter, setNameFilter] = useState('')
-  let currLogin = "Reuben"
+  let currLogin = "Nada"
 
   useEffect(()=>{
     getEvents(false, "")
