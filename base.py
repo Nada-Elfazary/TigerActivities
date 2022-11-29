@@ -80,7 +80,7 @@ def index():
 @app.route("/user-sign-ups", methods = ['GET'])
 def sign_ups():
   username = auth.authenticate()
-  events = proc.fetch_user_sign_ups()
+  events = proc.fetch_user_sign_ups(username)
   results = []
   for event in events:
         response_body={
@@ -136,7 +136,7 @@ def signUp():
     res = flask.request.json
     print("json")
     print(res)
-    proc.store_sign_up(res)
+    proc.store_sign_up(res, username)
     return res
 
 @app.route('/cancel-sign-up', methods = ['POST'])
@@ -148,5 +148,5 @@ def cancelSignUp():
     print(res)
     id = res["event_id"]
     print(id)
-    proc.delete_signup(id)
+    proc.delete_signup(id, username)
     return res

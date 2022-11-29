@@ -147,8 +147,8 @@ def fetch_activities(title, day, category, cost):
         print(ex, file=sys.stderr)
         sys.exit(1)
 
-def fetch_user_sign_ups():
-    netid = "fifth" #hardcoded for now
+def fetch_user_sign_ups(netid):
+    # netid = "fifth" #hardcoded for now
 
     eventids = []
     activities = []
@@ -242,8 +242,8 @@ def store_activity(activity):
         sys.exit(1)
     
 # this is workinnggggggggggggggggg
-def store_sign_up(activity):
-    netid = 'last' #hardcoded for now
+def store_sign_up(activity, netid):
+    # netid = 'last' #hardcoded for now
     eventid = activity['event_id']
     name = activity['name']
     phone_num = activity['phone']
@@ -273,9 +273,9 @@ def store_sign_up(activity):
         print(ex, file=sys.stderr)
         sys.exit(1)
 
-def delete_signup(event_id):
+def delete_signup(event_id, netid):
     eventid = event_id
-    netid = "fifth"
+    # netid = "fifth"
     try:
         database_url = DATABASE_URL
         with psycopg2.connect(database_url) as connection:
