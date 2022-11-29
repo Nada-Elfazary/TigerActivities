@@ -122,7 +122,7 @@ function CreateEventDialog(props) {
         <Form>
           <Form.Group>
             <Row>
-              <Col><Form.Label>Title:</Form.Label></Col>
+              <Col><Form.Label>Title: </Form.Label></Col>
               <Col><Form.Control type="text" id = "title" name="title" value={eventTitle} onChange={(event)=>{
                         setEventTitle(event.target.value)
                         document.getElementById('title').classList.remove("error");

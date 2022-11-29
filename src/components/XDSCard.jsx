@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Button, Form, Row, Col, Card} from 'react-bootstrap';
 import useCollapse from 'react-collapsed';
 import Modal from './Modal';
 import "./Home.css";
@@ -64,65 +65,11 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
   const closed = item.signup_number === item.maxcap ? (<p>{closedText}</p>) : null
   return (
     <>
-     <div className='customized-card'>
-        <div className='customized-card-body'>
-            <h2>{item.event_name}{closed} </h2>
-            <table>
-                <tbody>
-                    <tr>
-                      
-                        <td>
-                        <strong>Category: </strong>{item.category}
-                        </td>
-                        <td><strong>Location : </strong>{item.location}</td>
-                    </tr>
-                    <tr>
-                    <td><strong>Start date : </strong>{numToDay[item.week_day]} {numToMonth[item.start_date.split("/")[1]]} {item.start_date.split("/")[2]}</td>
-                        <td><strong>Created by :</strong> {item.creator}</td>
-                    </tr>
-                    <tr>
-                    <td><strong>Start time : </strong>{item.start_time}</td>
-                        <td><strong>Number of attendees :</strong> {item.signup_number}/{item.maxcap}</td>
-                    </tr>
-                    <tr>
-                      
-                      <td><strong>Cost : </strong>{item.cost}</td>
-                    </tr>
-                    <tr>
-                        <td><p {...getCollapseProps()}>
-                        Description: {item.description}
-                 
-                           </p>     
-                        </td>
-                        <td>{(!ownerView && !signUpsView) ? (<p {...getCollapseProps()}>
-                        <button onClick={handleSignUp} disabled={item.signup_number === item.maxcap}>Sign Up</button>            
-                           </p>) : null }   {(!ownerView && signUpsView) ? (<p {...getCollapseProps()}>
-                        <button class = "buttonShift" onClick={handleCancellation}>Cancel</button>            
-                           </p>) : null }
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{ownerView ? (
-                            <p {...getCollapseProps()}>
-                                Attendees : {attendees}
-                            </p>) : null }
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <button
-        {...getToggleProps({
-          onClick: () =>{ setExpanded((prevExpanded) => !prevExpanded)
-        get_attendees(item)},
-        })}
-      >
-        {isExpanded ? 'Less Details' : 'More Details'}
-      </button>
-     
-     </div>
-        {signUpModal}
-      
-</div>
+    <Card className='customized-card'>
+      <Card.Body>
+        <Card.Title> <h2>{item.event_name}{closed} </h2></Card.Title>
+      </Card.Body>
+    </Card>
     </>
   )
 }
