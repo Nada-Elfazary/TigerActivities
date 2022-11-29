@@ -21,7 +21,7 @@ export default function  Home() : React.ReactNode {
   const [refresh, setRefresh] = useState(false)
   const [loading, setLoading] = useState(false)
   const [nameFilter, setNameFilter] = useState('')
-  let currLogin = "Nada"
+  let currLogin = "Reuben"
 
   useEffect(()=>{
     getEvents(false, "")
@@ -93,6 +93,7 @@ const myActivitesClicked= ()=>{
 const handleCreateEvent = ()=>{
   setDisplayModal(true);
 }
+
 const getEvents =  (ownerView, name, day, category, cost)=> {
   /*
   axios({
