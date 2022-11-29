@@ -30,6 +30,12 @@ def nishan():
  # response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
  # return response
 
+#@app.after_request
+#def after_request(response):
+#  response.headers.add('Access-Control-Allow-Origin', '*')
+#  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+#  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+#  return response
 
 @app.route("/dummy", methods = ['GET'])
 #cross_origin()
@@ -41,7 +47,7 @@ def dummy_route():
 # cross_origin()
 #
 def index():
-   auth.authenticate()
+  # auth.authenticate()
    # res = request.json
   # print("request: ")
    # print("before title")
@@ -52,10 +58,13 @@ def index():
    day = flask.request.args.get("day") or ''
    category = flask.request.args.get("category") or ''
    cost = flask.request.args.get("cost") or 'all'
-   cost = flask.request.args.get("capCond") or 'all'
-
-   print("Received arguments: title={} day={} category={} cost={} capCond={}".format(title,day,category, cost, capCond))
+   #condition = flask.request.args.get("capCond") or 'LIKE'
+   #cap = flask.request.args.get("cap") or '1'
+  
+   print("Received arguments: title={} day={} category={} cost={}".format(title, day, category, cost))
+   #print("Received arguments: title={} day={} category={} cost={} capCond={} cap={}".format(title, day, category, cost, condition, cap))
    events = proc.fetch_activities(title, day, category, cost)
+   #events = proc.fetch_activities(title, day, category, cost, condition, cap)
    print("events route has been called. Fetching events: {}".format(events))
    results =[]
    for event in events:
@@ -82,7 +91,7 @@ def index():
 @app.route("/user-sign-ups", methods = ['GET'])
 def sign_ups():
   username = auth.authenticate()
-  events = proc.fetch_user_sign_ups()
+  events = proc.fetch_user_sign_ups(username)
   results = []
   for event in events:
         response_body={
@@ -138,7 +147,7 @@ def signUp():
     res = flask.request.json
     print("json")
     print(res)
-    proc.store_sign_up(res)
+    proc.store_sign_up(res, username)
     return res
 
 @app.route('/cancel-sign-up', methods = ['POST'])
@@ -150,5 +159,5 @@ def cancelSignUp():
     print(res)
     id = res["event_id"]
     print(id)
-    proc.delete_signup(id)
+    proc.delete_signup(id, username)
     return res

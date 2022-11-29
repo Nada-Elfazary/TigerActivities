@@ -1,11 +1,11 @@
 import './App.css';
 import React, { useState } from 'react'
-import axios from 'axios';
 
 import Modal from './Modal'
 import CreateEventDialog  from './CreateEventDialog';
 import RulesModal from './RulesModal';
 import {useNavigate } from 'react-router-dom';
+import logo from './princeton_tigers_logo.png';
 
 export default function Welcome(): React.ReactNode{
     const [clickedDisplayEvents, setClickedDisplayEvents] = useState(false)
@@ -21,7 +21,7 @@ export default function Welcome(): React.ReactNode{
     const handleOnClickedDisplayEvents =()=>{
         setClickedDisplayEvents(true)
         // setDisabledDisplayEvents(true)
-        getEvents()
+    //    getEvents()
      }
      const handleOnClickedCreateEvent=()=>{
 
@@ -39,11 +39,11 @@ export default function Welcome(): React.ReactNode{
 
     //const displayEventsButton = <button onClick={handleOnClickedDisplayEvents} disabled={clickedDisplayEvents}> Display Events</button>
     //const createEventButton = <button onClick={handleOnClickedCreateEvent} disabled={clickedCreateEvent}>Create Event</button>
-    
+    /*
       const getEvents =()=> {
         axios({
           method: "GET",
-          url:"https://tigeractivities.onrender.com/events",
+          url:"/events",
         })
         .then((response) => {
           const res =response.data
@@ -56,6 +56,8 @@ export default function Welcome(): React.ReactNode{
             console.log(error.response.headers)
             }
         })}
+        
+      */
         
 
     const displayEvents = events.map((event)=> (
@@ -115,12 +117,13 @@ return (
       {/* {createEventModal} */}
     {/* </div> */}
     <div>
-      <div className='AppContainer-1'>
+      <div className='center-screen'>
         <div className='title'>
+        <img alt="" src={logo} width="150" height="150"></img>
           {title}
-        </div>
         <div className='logIn'>
           {logInButton}
+        </div>
         </div>
       </div>
       {displayRules}

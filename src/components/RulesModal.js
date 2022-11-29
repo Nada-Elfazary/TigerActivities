@@ -23,6 +23,7 @@ export default function RulesModal(props) : React.ReactNode {
     })
   }
 
+
     const failureCallBack = (error)=>{
       // errorMsg = <strong className="error">error</strong>
       console.log(checked)
@@ -37,7 +38,7 @@ export default function RulesModal(props) : React.ReactNode {
       props.setOpenModal(false)
       props.setRedirect(true)
       cas()
-      // navigate('/home')
+      //navigate('/home')
 
     }
     const handleChecked = (event)=>{

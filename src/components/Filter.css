@@ -1,0 +1,106 @@
+/* @import "compass/css3"; */
+
+.day-filter {
+    display: inline-block;
+    border: solid red 3px;
+}
+
+.filterSurround {
+    margin: 10px 30px 20px 10px;
+}
+
+.alignFilter {
+    display:flex;
+    flex-direction:row;
+}
+.filterContainer{
+    background-color: rgba(186, 124, 62, 0.212);
+    display: inline-block;
+    margin:  0px 0px 20px 0px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.FilterX {
+    color: red;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    margin-left: 10px;
+
+}
+/* CSS for rotating button @https://codepen.io/woovils/pen/nVzLvO */ 
+
+
+.FilterX:hover {
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    transform: rotate(270deg);
+        opacity:1;
+}
+
+
+/* CSS for rotating button @https://codepen.io/woovils/pen/nVzLvO
+.wrap{
+	margin:5em auto;
+	width:500px;
+}
+.box{
+	height:300px;
+	width:500px;
+	background-color:#bdc3c7;
+	box-sizing:border-box;
+	position:relative;
+	overflow:hidden;
+	border:2px solid #ecf0f1;
+}
+
+	
+.box > object{
+    margin: 30px 0 0 -70px;
+}
+
+.box > img{
+    top:5px;
+    right:5px;
+    width:25px;
+    height:25px;
+    position:absolute;
+    -webkit-transition:-webkit-transform .25s, opacity .25s;
+        -moz-transition:-moz-transform .25s, opacity .25s;
+                transition: transform .25s, opacity .25s;
+    opacity:.25;
+}
+.box > img:hover{
+    -webkit-transform: rotate(270deg);
+-moz-transform: rotate(270deg);
+transform: rotate(270deg);
+    opacity:1;
+} */
+
+:root {
+    --main-color: rgb(104, 117, 217);
+    --main-color-hover: rgb(104, 117, 217, 0.2);
+    --track-color: #ddd;
+}
+
+.customSlider {
+/* max width of your slider */
+max-width: 300px;
+/* Optional: Only If you want to center your slider in the page */
+margin: auto;
+}
+
+.customSlider-track {
+/* Top value to align your track to the center of your thumb */
+top: 8px;
+/* thickness of the track */
+height: 4px;
+/* default color of your track */
+background: var(--track-color);
+}
+
+.customSlider-track.customSlider-track-0 {
+/* color of the track before the thumb */
+background: var(--main-color);
+}
