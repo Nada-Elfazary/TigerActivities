@@ -32,8 +32,8 @@ export default function RulesModal(props) : React.ReactNode {
       setErrorMsg(null)
       props.setOpenModal(false)
       props.setRedirect(true)
-      cas()
-      // navigate('/home')
+      // cas()
+      navigate('/home')
 
     }
     const handleChecked = (event)=>{

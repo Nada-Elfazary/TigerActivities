@@ -3,11 +3,12 @@ import flask
 import processing as proc
 import parseargs
 import os
-import auth 
+# import auth 
 from flask_cors import CORS
 
 
 app = flask.Flask(__name__)
+'''
 app.config['CORS_HEADERS'] = 'Content-Type'
 os.environ['APP_SECRET_KEY'] = 'hsjfhasjkdfjahsdkfahskdf'
 
@@ -24,6 +25,7 @@ def nishan():
     print('I am here')
     return ('Hello Nishan!')
 
+
 @app.after_request
 def after_request(response):
   response.headers.add('Access-Control-Allow-Origin', '*')
@@ -31,7 +33,7 @@ def after_request(response):
   response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
   return response
 
-
+'''
 #@app.route("/dummy", methods = ['GET'])
 # cross_origin()
 #def dummy_route():
@@ -42,7 +44,7 @@ def after_request(response):
 # cross_origin()
 #
 def index():
-   auth.authenticate()
+   # auth.authenticate()
    # res = request.json
   # print("request: ")
    # print("before title")
