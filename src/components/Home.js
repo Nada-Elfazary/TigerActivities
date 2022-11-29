@@ -87,7 +87,7 @@ const myActivitesClicked= ()=>{
 const handleCreateEvent = ()=>{
   setDisplayModal(true);
 }
-const getEvents =(ownerView, name, day, category, cost)=> {
+const getEvents =(ownerView, name, day, category, cost, capCond)=> {
   /*
   axios({
     method: "POST",
@@ -107,7 +107,8 @@ const getEvents =(ownerView, name, day, category, cost)=> {
   */
 
 // axios.get('https://tigeractivities.onrender.com/events').then(res =>{
-  axios.get('/events', {params: {title: name, day: day, category: category, cost: cost}}).then(res =>{
+  axios.get('/events', {params: {title: name, day: day, 
+    category: category, cost: cost, capCond: capCond}}).then(res =>{
     console.log("Events received from db:", res)
     console.log("Setting events to:", res.data)
     setEvents([])

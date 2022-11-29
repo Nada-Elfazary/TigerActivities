@@ -11,6 +11,7 @@ export default function Filter(props) : React.ReactNode {
     const [day, setDay] = useState("")
     const [category, setCategory] = useState("")
     const [cost, setCost] = useState("")
+    const [capCondition, setCapCondition] = useState("")
     const [cap, setCap] = useState("")
 
 
@@ -24,12 +25,12 @@ export default function Filter(props) : React.ReactNode {
         if (filterTitle == "dayFilter") {
             setDay(event.nativeEvent.target.firstChild.data)
             props.getEvents(false, title, 
-            dayToNumber[event.nativeEvent.target.firstChild.data], category, cost)
+            dayToNumber[event.nativeEvent.target.firstChild.data], category, cost, capCondition)
         }
         else if (filterTitle == "categoryFilter"){
             setCategory(event.nativeEvent.target.firstChild.data)
             props.getEvents(false, title, dayToNumber[day],
-                event.nativeEvent.target.firstChild.data, cost)
+                event.nativeEvent.target.firstChild.data, cost, capCondition)
         }
         
 
@@ -39,7 +40,7 @@ export default function Filter(props) : React.ReactNode {
     className= "FilterX" 
     onClick={() => {
         setDay("")
-        props.getEvents(false, title, "", category, cost)
+        props.getEvents(false, title, "", category, cost, capCondition)
         }}>
         X
     </button>
@@ -48,7 +49,7 @@ export default function Filter(props) : React.ReactNode {
     className= "FilterX" 
     onClick={() => {
         setCategory("")
-        props.getEvents(false, title, dayToNumber[day], "", cost)
+        props.getEvents(false, title, dayToNumber[day], "", cost, capCondition)
         }}>
         X
 </button> 
@@ -117,7 +118,7 @@ export default function Filter(props) : React.ReactNode {
                     <div className="alignFilter">
                     
                     <div>
-                    <input value={cost} name="cost" onChange={(event) => {
+                    <input value={cost} name="cost" placeholder= "Enter a positive integer" onChange={(event) => {
                         setCost(event.target.value)
                         console.log("Cost value:", event, event.target.value, cost)
                         props.getEvents(false, title, dayToNumber[day], category, event.target.value)
@@ -139,24 +140,22 @@ export default function Filter(props) : React.ReactNode {
                                 <td>
                 <label for="leq"> Less than or equal to </label></td>
                    <td> <input type = "radio" id= "leq" value= "<=" name="condition" onChange={(event) => {
-                        
-                        
+                        setCapCondition(event.target.value)
                         console.log("Cap value:", event, event.target.value, title)
-                        props.getEvents(false, event.target.value, dayToNumber[day], category, cost)
+                        props.getEvents(false, event.target.value, dayToNumber[day], category, cost, event.target.value)
                     }}></input></td>
                     </tr>
                     <tr>
                     <td><label for="leq">Greater than or equal to</label></td>
                     <td><input type = "radio" value= ">=" name="condition" onChange={(event) => {
-                       
+                        setCapCondition(event.target.value)
                         console.log("Cap value:", event, event.target.value, title)
-                        props.getEvents(false, event.target.value, dayToNumber[day], category, cost)
+                        props.getEvents(false, event.target.value, dayToNumber[day], category, cost, event.target.value, cap)
                     }}></input></td>
-                    <td><input id= "cap" value= "<=" name="leq" onChange={(event) => {
-                        
-                        
+                    <td><input id= "cap" placeholder= "Enter a positive integer" name="leq" onChange={(event) => {
+                        setCap(event.target.value)
                         console.log("Cap value:", event, event.target.value, title)
-                        props.getEvents(false, event.target.value, dayToNumber[day], category, cost)
+                        props.getEvents(false, event.target.value, dayToNumber[day], category, cost, capCondition, event.target.value)
                     }}></input></td>
                     </tr>
                     </tbody>
