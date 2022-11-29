@@ -10,7 +10,7 @@ import "./CreateEventDialog.css"
 
 function CreateEventDialog(props) {
     const MAX_NO_DAYS = 5
-    const DEFAULT_CREATOR = "Reuben"
+    const DEFAULT_CREATOR = "Nada"
     const DEFAULT_CATEGORY = "Sports"
     const DEFAULT_SIGNUP_NR = 0
     const[eventTitle, setEventTitle] = useState('')
@@ -29,32 +29,35 @@ function CreateEventDialog(props) {
     // console.log("Current time", curr_time.getTime())
     // const five_days_in_future = curr_time.setDate(curr_time.getDate() + MAX_NO_DAYS) 
     // console.log("Max time in future",five_days_in_future)
-    /*
-    const currLogin = "Reuben"
-    const getEvents =(ownerView)=> {
-      axios.get('/events').then(res =>{
-        console.log("Events received from db:", res)
-        console.log("Setting events to:", res.data)
-        props.setEvents([])
-        if (ownerView === true) {
-          let filtered = res.data.filter(event => event.creator === currLogin)
-          console.log("length: ", filtered.length)
-          if (filtered.length !== 0) {
-          props.setEvents(filtered)
-          }
-          else {
-            console.log("No events created by owner")
-          }
-        } else {
-          props.setEvents(res.data)
-          console.log(res.data)
-        }
-      }).catch(err =>{
-        console.log("Error receiving event from db:", err)
-      })
-      
+    
+    const currLogin = "Nada"
+  const getEvents =  (ownerView, name, day, category, cost)=> {
+    props.setLoading(true)
+
+// axios.get('https://tigeractivities.onrender.com/events').then(res =>{
+  axios.get('/events', {params: {title: name, day: day, category: category, cost: cost}}).then(res =>{
+    console.log("Events received from db:", res)
+    console.log("Setting events to:", res.data)
+    props.setEvents([])
+    if (ownerView === true) {
+      let filtered = res.data.filter(event => event.creator === currLogin)
+      console.log("length: ", filtered.length)
+      if (filtered.length !== 0) {
+      props.setEvents(filtered)
       }
-      */
+      else {
+        console.log("No events created by owner")
+      }
+    } else {
+      props.setEvents(res.data)
+    }
+    props.setLoading(false)
+
+  }).catch(err =>{
+    console.log("Error receiving event from db:", err)
+  })
+}
+   
     const submitForm = ()=>{
         setDisableSubmitForm(true)
         console.log(disableSubmitForm)
@@ -75,6 +78,7 @@ function CreateEventDialog(props) {
           .then((response) =>{
             console.log(response);
             setSaving(true)
+            getEvents(true, "")
             props.setOpenModal(false)
           }, (error) => {
             console.log(error)
@@ -98,7 +102,6 @@ function CreateEventDialog(props) {
       console.log(description)
       console.log(eventLocation)
       submitForm()
-      // getEvents(true)
       
       // props.setClickMyActivities(true)
     }

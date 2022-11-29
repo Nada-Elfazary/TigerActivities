@@ -9,7 +9,8 @@ from flask_cors import CORS
 
 app = flask.Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
-#app.secret_key = os.environ['APP_SECRET_KEY']
+os.environ['APP_SECRET_KEY'] = 'asoidfhaslkdfjhaljdfal'
+app.secret_key = os.environ['APP_SECRET_KEY']
 CORS(app)
 
 @app.route('/logoutapp', methods=['GET'])
@@ -40,7 +41,7 @@ def after_request(response):
 # cross_origin()
 #
 def index():
-  #  auth.authenticate()
+   #auth.authenticate()
    # res = request.json
   # print("request: ")
    # print("before title")
@@ -82,6 +83,7 @@ def index():
 
 @app.route("/user-sign-ups", methods = ['GET'])
 def sign_ups():
+  username = auth.authenticate()
   events = proc.fetch_user_sign_ups()
   results = []
   for event in events:
@@ -106,7 +108,7 @@ def sign_ups():
 @app.route('/attendees', methods=['GET'])
 # cross_origin()
 def get_attendees():
-   # username = auth.authenticate()
+    username = auth.authenticate()
     #res = request.json
     id = flask.request.args.get("event_id")
     attendees = proc.get_activity_attendees(id)
@@ -115,7 +117,7 @@ def get_attendees():
 @app.route('/create-event', methods = ['POST'])
 # cross_origin()
 def createEvent():
-  #  username = auth.authenticate()
+    username = auth.authenticate()
     res = flask.request.json
     print("response", res['event_name'])
     print("Recieved request: {}".format(flask.request.json))
@@ -134,7 +136,7 @@ def createEvent():
 @app.route('/sign-up', methods = ['POST'])
 # cross_origin()
 def signUp():
-  #  username = auth.authenticate()
+    username = auth.authenticate()
     res = flask.request.json
     print("json")
     print(res)
@@ -144,7 +146,7 @@ def signUp():
 @app.route('/cancel-sign-up', methods = ['POST'])
 # cross_origin()
 def cancelSignUp():
-  #  username = auth.authenticate()
+    username = auth.authenticate()
     res = flask.request.json
     print("json")
     print(res)
