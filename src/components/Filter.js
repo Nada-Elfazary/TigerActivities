@@ -11,6 +11,7 @@ export default function Filter(props) : React.ReactNode {
     const [day, setDay] = useState("")
     const [category, setCategory] = useState("")
     const [cost, setCost] = useState("")
+    const [cap, setCap] = useState("")
 
 
     const dayToNumber = {"Monday": 0, "Tuesday":1, "Wednesday":2, 
@@ -125,8 +126,48 @@ export default function Filter(props) : React.ReactNode {
                 </div>
                     </div>
                 </div>
+
+                <div className="capFilter">
+                    <label>Number of Attendees:</label>
+                    <br/>
+                </div>
+               
+                <div>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                <label for="leq"> Less than or equal to </label></td>
+                   <td> <input type = "radio" id= "leq" value= "<=" name="condition" onChange={(event) => {
+                        
+                        
+                        console.log("Cap value:", event, event.target.value, title)
+                        props.getEvents(false, event.target.value, dayToNumber[day], category, cost)
+                    }}></input></td>
+                    </tr>
+                    <tr>
+                    <td><label for="leq">Greater than or equal to</label></td>
+                    <td><input type = "radio" value= ">=" name="condition" onChange={(event) => {
+                       
+                        console.log("Cap value:", event, event.target.value, title)
+                        props.getEvents(false, event.target.value, dayToNumber[day], category, cost)
+                    }}></input></td>
+                    <td><input id= "cap" value= "<=" name="leq" onChange={(event) => {
+                        
+                        
+                        console.log("Cap value:", event, event.target.value, title)
+                        props.getEvents(false, event.target.value, dayToNumber[day], category, cost)
+                    }}></input></td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    
+                    <br/>
+                </div>
+
             </div>
         </div>
         
     );
 };
+
