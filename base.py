@@ -8,27 +8,27 @@ from flask_cors import CORS
 
 
 app = flask.Flask(__name__)
-app.config['CORS_HEADERS'] = 'Content-Type'
-os.environ['APP_SECRET_KEY'] = 'asoidfhaslkdfjhaljdfal'
-app.secret_key = os.environ['APP_SECRET_KEY']
-CORS(app)
+#app.config['CORS_HEADERS'] = 'Content-Type'
+#os.environ['APP_SECRET_KEY'] = 'asoidfhaslkdfjhaljdfal'
+#app.secret_key = os.environ['APP_SECRET_KEY']
+#CORS(app)
 
-@app.route('/logoutapp', methods=['GET'])
-@app.route('/logoutcas', methods=['GET'])
-def logout():
-    return auth.logoutapp()
+#@app.route('/logoutapp', methods=['GET'])
+#@app.route('/logoutcas', methods=['GET'])
+#def logout():
+ #   return auth.logoutapp()
 
-@app.route('/' , methods=['GET'])
-def nishan():
-    print('I am here')
-    return ('Hello Nishan!')
+#@app.route('/' , methods=['GET'])
+#def nishan():
+#    print('I am here')
+#    return ('Hello Nishan!')
 
-@app.after_request
-def after_request(response):
-  response.headers.add('Access-Control-Allow-Origin', '*')
-  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-  return response
+#@app.after_request
+#def after_request(response):
+#  response.headers.add('Access-Control-Allow-Origin', '*')
+#  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+#  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+#  return response
 
 
 #@app.route("/dummy", methods = ['GET'])
@@ -52,12 +52,13 @@ def index():
    day = flask.request.args.get("day") or ''
    category = flask.request.args.get("category") or ''
    cost = flask.request.args.get("cost") or 'all'
-   condition = flask.request.args.get("capCond") or 'LIKE'
-   cap = flask.request.args.get("cap") or '1'
+   #condition = flask.request.args.get("capCond") or 'LIKE'
+   #cap = flask.request.args.get("cap") or '1'
   
-
-   print("Received arguments: title={} day={} category={} cost={} capCond={} cap={}".format(title, day, category, cost, condition, cap))
-   events = proc.fetch_activities(title, day, category, cost, condition, cap)
+   print("Received arguments: title={} day={} category={} cost={}".format(title, day, category, cost))
+   #print("Received arguments: title={} day={} category={} cost={} capCond={} cap={}".format(title, day, category, cost, condition, cap))
+   events = proc.fetch_activities(title, day, category, cost)
+   #events = proc.fetch_activities(title, day, category, cost, condition, cap)
    print("events route has been called. Fetching events: {}".format(events))
    results =[]
    for event in events:
