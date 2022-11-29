@@ -7,7 +7,7 @@ import tiger from './tiger.jpeg';
 import Filter from './Filter';
 import "./Home.css";
 import axios from 'axios';
-
+import ClipLoader from 'react-spinners/ClipLoader'
 
 // importing Link from react-router-dom to navigate to 
 // different end points.
@@ -211,7 +211,7 @@ const showResults = clickedActivites? (
     <Dropdown filter = {filter} items = {items}></Dropdown>
   )
 
-  const showLoading = <p>...Loading</p>
+  const showLoading = <ClipLoader loading={loading} size={200}/>
   return (
     <div className = "pageContainer">
     
