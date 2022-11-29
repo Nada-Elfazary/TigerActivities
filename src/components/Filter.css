@@ -5,6 +5,10 @@
     border: solid red 3px;
 }
 
+.filterSurround {
+    margin: 10px 30px 20px 10px;
+}
+
 .alignFilter {
     display:flex;
     flex-direction:row;
@@ -73,3 +77,30 @@
 transform: rotate(270deg);
     opacity:1;
 } */
+
+:root {
+    --main-color: rgb(104, 117, 217);
+    --main-color-hover: rgb(104, 117, 217, 0.2);
+    --track-color: #ddd;
+}
+
+.customSlider {
+/* max width of your slider */
+max-width: 300px;
+/* Optional: Only If you want to center your slider in the page */
+margin: auto;
+}
+
+.customSlider-track {
+/* Top value to align your track to the center of your thumb */
+top: 8px;
+/* thickness of the track */
+height: 4px;
+/* default color of your track */
+background: var(--track-color);
+}
+
+.customSlider-track.customSlider-track-0 {
+/* color of the track before the thumb */
+background: var(--main-color);
+}

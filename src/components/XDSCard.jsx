@@ -13,11 +13,12 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
     const [attendees, setAttendees] = useState([])
     const closedText = "(CLOSED)"
 
-    const dayToNumber = {"Monday": 0, "Tuesday":1, "Wednesday":2, 
-    "Thursday":3, "Friday":4, "Saturday":5, "Sunday":6}
-
-    const numberToDay = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 
+    const numToDay = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 
     3: "Thursday", 4: "Friday", 5: "Saturday", 6: "Sunday"}
+
+    const numToMonth = {1: "Jan.", 2: "Feb.", 3: "Mar.", 4: "Apr.", 5: "May",  
+    6: "June", 7: "July", 8: "Aug.", 9: "Sept.", 10: "Oct.", 11: "Nov.", 12: "Dec.",  
+  }
     
   const handleSignUp = ()=>{
     setDisplaySignUp(true)
@@ -69,18 +70,23 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
             <table>
                 <tbody>
                     <tr>
+                      
                         <td>
-                        Category: {item.category}
+                        <strong>Category: </strong>{item.category}
                         </td>
-                        <td>Location : {item.location}</td>
+                        <td><strong>Location : </strong>{item.location}</td>
                     </tr>
                     <tr>
-                    <td> Start date : {numberToDay[item.week_day]} {item.start_date}</td>
-                        <td>Created by : {item.creator}</td>
+                    <td><strong>Start date : </strong>{numToDay[item.week_day]} {numToMonth[item.start_date.split("/")[1]]} {item.start_date.split("/")[2]}</td>
+                        <td><strong>Created by :</strong> {item.creator}</td>
                     </tr>
                     <tr>
-                    <td>Start time : {item.start_time}</td>
-                        <td>Number of attendees : {item.signup_number}/{item.maxcap}</td>
+                    <td><strong>Start time : </strong>{item.start_time}</td>
+                        <td><strong>Number of attendees :</strong> {item.signup_number}/{item.maxcap}</td>
+                    </tr>
+                    <tr>
+                      
+                      <td><strong>Cost : </strong>{item.cost}</td>
                     </tr>
                     <tr>
                         <td><p {...getCollapseProps()}>
@@ -91,7 +97,7 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
                         <td>{(!ownerView && !signUpsView) ? (<p {...getCollapseProps()}>
                         <button onClick={handleSignUp} disabled={item.signup_number === item.maxcap}>Sign Up</button>            
                            </p>) : null }   {(!ownerView && signUpsView) ? (<p {...getCollapseProps()}>
-                        <button onClick={handleCancellation} disabled={item.signup_number === item.maxcap}>Cancel</button>            
+                        <button class = "buttonShift" onClick={handleCancellation}>Cancel</button>            
                            </p>) : null }
                         </td>
                     </tr>

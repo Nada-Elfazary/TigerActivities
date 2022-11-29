@@ -68,7 +68,7 @@ def get_date_limit():
  
     return currDay
 
-def fetch_activities(title, day, category):
+def fetch_activities(title, day, category, cost):
     title = '%' + title + '%'
     category = '%' + category + '%'
     
@@ -83,7 +83,13 @@ def fetch_activities(title, day, category):
             with connection.cursor() as cursor:
                 statementOne = "SELECT * FROM events WHERE startdate = %s AND starttime > %s "
                 statementOne += "AND eventname LIKE %s AND category LIKE %s"
-                cursor.execute(statementOne, [currDate, currTime, title, category])
+                if cost != "all":
+                    statementOne += "AND COST <= %s"
+                    cursor.execute(statementOne, [currDate, currTime, title, category, cost])
+                
+                else:
+                    cursor.execute(statementOne, [currDate, currTime, title, category])  
+
                 row = cursor.fetchone()
                 print("row is", row)
                 while row is not None:
@@ -109,7 +115,12 @@ def fetch_activities(title, day, category):
                 statementTwo += "AND eventname LIKE %s AND category LIKE %s"
                 statementOne += "ORDER BY RANDOM() LIMIT 1000"
                # AND eventname LIKE %s
-                cursor.execute(statementTwo, [currDate, dateLimit, title, category])
+                if cost != "all":
+                    statementTwo += "AND COST <= %s"
+                    cursor.execute(statementTwo, [currDate, dateLimit, title, category, cost])
+                
+                else:
+                    cursor.execute(statementTwo, [currDate, dateLimit, title, category]) 
                 print ("after second execute")
                 row = cursor.fetchone()
                 print("Date: ", get_current_date(), "+ 5 days")
@@ -232,7 +243,7 @@ def store_activity(activity):
     
 # this is workinnggggggggggggggggg
 def store_sign_up(activity):
-    netid = 'fifth' #hardcoded for now
+    netid = 'last' #hardcoded for now
     eventid = activity['event_id']
     name = activity['name']
     phone_num = activity['phone']
