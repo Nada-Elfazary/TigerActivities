@@ -10,7 +10,8 @@ from flask_cors import CORS
 app = flask.Flask(__name__)
 #app.config['CORS_HEADERS'] = 'Content-Type'
 #app.secret_key = os.environ['APP_SECRET_KEY']
-CORS(app)
+#CORS(app)
+cors = CORS(app, resources={r"/*": {"origins": "tigeractivities-iqwe.onrender.com"}})
 
 @app.route('/logoutapp', methods=['GET'])
 @app.route('/logoutcas', methods=['GET'])
