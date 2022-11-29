@@ -8,7 +8,7 @@ from flask_cors import CORS
 
 
 app = flask.Flask(__name__)
-app.config['CORS_HEADERS'] = 'Content-Type'
+#app.config['CORS_HEADERS'] = 'Content-Type'
 #app.secret_key = os.environ['APP_SECRET_KEY']
 CORS(app)
 
@@ -22,19 +22,19 @@ def nishan():
     print('I am here')
     return ('Hello Nishan!')
 
-@app.after_request
-def after_request(response):
-  response.headers.set('Access-Control-Allow-Origin', '*')
+#@app.after_request
+#def after_request(response):
+ # response.headers.set('Access-Control-Allow-Origin', '*')
  # response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
  # response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-  return response
+ # return response
 
 
 @app.route("/dummy", methods = ['GET'])
 #cross_origin()
 def dummy_route():
-  username = auth.authenticate()
-  return("Hello " + username)
+  #username = auth.authenticate()
+  return("Hello")
 
 @app.route("/events", methods = ['GET'])
 # cross_origin()
