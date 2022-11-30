@@ -47,7 +47,7 @@ def dummy_route():
 # cross_origin()
 #
 def index():
-   username = auth.authenticate()
+   #username = auth.authenticate()
    # res = request.json
   # print("request: ")
    # print("before title")
