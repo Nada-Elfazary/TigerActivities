@@ -9,7 +9,7 @@ from flask_cors import CORS
 
 app = flask.Flask(__name__)
 #app.config['CORS_HEADERS'] = 'Content-Type'
-#app.secret_key = os.environ['APP_SECRET_KEY']
+app.secret_key = os.environ['APP_SECRET_KEY']
 #CORS(app)
 cors = CORS(app, resources={r"/*": {"origins": "https://tigeractivities-iqwe.onrender.com"}})
 
@@ -47,7 +47,7 @@ def dummy_route():
 # cross_origin()
 #
 def index():
-  # auth.authenticate()
+   username = auth.authenticate()
    # res = request.json
   # print("request: ")
    # print("before title")
