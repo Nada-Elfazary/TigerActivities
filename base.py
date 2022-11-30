@@ -23,6 +23,8 @@ def nishan():
     print('I am here')
     return ('Hello Nishan!')
 
+
+
 #@app.after_request
 #def after_request(response):
  # response.headers.set('Access-Control-Allow-Origin', '*')
@@ -38,7 +40,7 @@ def nishan():
 #  return response
 
 @app.route("/dummy", methods = ['GET'])
-#cross_origin()
+@cross_origin()
 def dummy_route():
   print("inside dummy")
   username = auth.authenticate()

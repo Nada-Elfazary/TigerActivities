@@ -12,7 +12,11 @@ export default function RulesModal(props) : React.ReactNode {
     const [errorMsg, setErrorMsg] = useState("")
     const navigate = useNavigate()
 
-
+    const config = {
+      headers:{
+        header1: 'https://tigeractivities-iqwe.onrender.com',
+      }
+    };
 
     const cas = ()=>{
       axios.get('https://tigeractivities.onrender.com/dummy').then(res=>{
