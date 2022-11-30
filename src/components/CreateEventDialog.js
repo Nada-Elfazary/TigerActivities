@@ -145,9 +145,25 @@ function CreateEventDialog(props) {
             <Row>
               <Col><Form.Label>Category:</Form.Label>
               </Col>
-              <Col><Form.Control type="text" name="Category" value ={eventCategory} onChange={(event)=>{
-                        setEventCategory(event.target.value)
-                    }}></Form.Control></Col>
+              <Col><Form.Select type="text" id = "category" name="Category" value ={eventCategory} onChange={(event)=>{
+                        document.getElementById('category').classList.remove("error");
+                        if (event.target.value === "Select a Category"){
+                          setEventCategory("")
+                        }
+                        else {
+                          setEventCategory(event.target.value)
+                        }
+                    }}>
+                      <option>Select a Category</option>
+                      <option>Sports</option>
+                      <option>Entertainment</option>
+                      <option>Academic</option>
+                      <option>Off-campus</option>
+                      <option>Outdoors</option>
+                      <option>Meals/Coffee Chats</option>
+                      <option>Nassau Street</option>
+                    </Form.Select>
+                </Col>
             </Row>
             
           </Form.Group><Form.Group>
@@ -241,6 +257,10 @@ function CreateEventDialog(props) {
           document.getElementById('location').classList.add("error");
           document.getElementById('location').placeholder = "location cannot be empty";
 
+          error = 1;
+        }
+        if(eventCategory.length === 0){
+          document.getElementById('category').classList.add("error");
           error = 1;
         }
        if( endTime.getTime() <= startTime.getTime()){
