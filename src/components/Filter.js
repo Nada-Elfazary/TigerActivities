@@ -52,7 +52,7 @@ export default function Filter(props) : React.ReactNode {
     className= "FilterX" 
     onClick={() => {
         setCategory("")
-
+        props.getEvents(false, title, dayToNumber[day], "", cost)
        // props.getEvents(false, title, dayToNumber[day], "", cost, capCondition)
         }}>
         X
@@ -125,7 +125,7 @@ export default function Filter(props) : React.ReactNode {
                     <input value={cost} name="cost" placeholder= "Enter a positive integer" onChange={(event) => {
                         setCost(event.target.value)
                         console.log("Cost value:", event, event.target.value, cost)
-                        props.getEvents(false, title, dayToNumber[day], category, event.target.value)
+                    //    props.getEvents(false, title, dayToNumber[day], category, event.target.value)
                     }}></input>
                     <br/>
                 </div>
@@ -146,7 +146,7 @@ export default function Filter(props) : React.ReactNode {
                    <td> <input type = "radio" id= "leq" value= "<=" name="condition" onChange={(event) => {
                       //  setCapCondition(event.target.value)
                         console.log("Cap value:", event, event.target.value, title)
-                        props.getEvents(false, title, dayToNumber[day], category, cost, event.target.value)
+                   //     props.getEvents(false, title, dayToNumber[day], category, cost, event.target.value)
                     }}></input></td>
                     </tr>
                     <tr>
@@ -160,7 +160,6 @@ export default function Filter(props) : React.ReactNode {
                     <td><input id= "cap" placeholder= "Enter a positive integer" name="leq" onChange={(event) => {
                         //setCap(event.target.value)
                         console.log("Cap value:", event, event.target.value, title)
-                        props.getEvents(false, title, dayToNumber[day], category, cost)
                         //props.getEvents(false, title, dayToNumber[day], category, cost, capCondition, event.target.value)
                     }}></input></td>
                     </tr>
