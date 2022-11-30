@@ -12,7 +12,7 @@ import ClipLoader from 'react-spinners/ClipLoader'
 // importing Link from react-router-dom to navigate to 
 // different end points.
   
-export default function  Home() : React.ReactNode {
+export default function Home() : React.ReactNode {
   const [clickedActivites, setClickedActivities] = useState(false)
   const [clickedMyActivites, setClickedMyActivities] = useState(false)
   const [events, setEvents] = useState([])

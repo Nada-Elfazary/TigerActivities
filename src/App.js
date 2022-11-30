@@ -11,6 +11,9 @@ function App(): React.ReactNode {
    <div>
       <Routes>
       <Route path ="/" element={<Welcome/>}/>
+      <Route path = '/login' component={()=>{
+        window.location.href = 'https://fed.princeton.edu/cas/login?service=https%3A//tigeractivities-iqwe.onrender.com/'
+      } }/>
       <Route path="/home" element={<Home/>}/>
     </Routes>
    </div>

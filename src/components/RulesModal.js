@@ -16,7 +16,10 @@ export default function RulesModal(props) : React.ReactNode {
 
     const cas = ()=>{
       axios.get('https://tigeractivities.onrender.com/dummy').then(res=>{
-      console.log(res)
+      let username = res
+      if(username.lenth === 0){
+        navigate('/home')
+      }
     }   
     ).catch(err=>{
       console.log(err)
@@ -39,7 +42,9 @@ export default function RulesModal(props) : React.ReactNode {
       props.setRedirect(true)
       //cas()
       //navigate('https://fed.princeton.edu/cas/login?service=https%3A//tigeractivities.onrender.com/dummy')
-
+      // navigate('https://fed.princeton.edu/cas/login?service=https%3A//tigeractivities-iqwe.onrender.com/')
+     navigate('/login')
+      navigate('/home')
     }
     const handleChecked = (event)=>{
         setChecked(event.target.checked)
