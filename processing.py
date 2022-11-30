@@ -359,17 +359,17 @@ def get_activity_attendees(eventid):
         with psycopg2.connect(database_url) as connection:
             
             with connection.cursor() as cursor:
-                statement = "SELECT signup_netid FROM signup WHERE eventid = %s"
+                statement = "SELECT signup_netid, name, email, number FROM signup, students WHERE eventid = %s AND signup_netid = netid"
                 cursor.execute(statement, [eventid])
                 row = cursor.fetchone()
                 while row is not None:
-                    print(row[0])
-                    attendees.append(row[0])
+                    attendees.append([row[0], row[1], row[2], row[3]])
                     row = cursor.fetchone()
         return attendees
     except Exception as ex:
         print(ex, file=sys.stderr)
-        sys.exit(1)    
+        sys.exit(1)   
+
 
 def main():
 

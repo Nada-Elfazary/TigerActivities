@@ -11,7 +11,7 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
     const [displaySignUp, setDisplaySignUp] = useState(false)
     const [eventTitle, setEventTitle] = useState('')
     const [id, setEventId] = useState('')
-    const [attendees, setAttendees] = useState([])
+    const [attendees, setAttendees] = useState([[]])
     const closedText = "(CLOSED)"
 
     const numToDay = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 
@@ -112,7 +112,7 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
               <Col>
               {ownerView ? (
                             <p {...getCollapseProps()}>
-                                Attendees : {attendees}
+                                Attendees : {attendees[0][0]}, {attendees[0][1]}, {attendees[0][2]}, {attendees[0][3]}
                             </p>) : null }
               </Col>
             </Row>
