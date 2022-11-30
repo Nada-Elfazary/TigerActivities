@@ -112,7 +112,31 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
               <Col>
               {ownerView ? (
                             <p {...getCollapseProps()}>
-                                Attendees : {attendees[0][1]}, {attendees[0][0]}, {attendees[0][2]}, {attendees[0][3]}
+                                <strong>Attendees</strong> :                               <table>
+                                <tbody>
+                                  
+                                  <tr>
+                                  <td><strong>Name</strong></td>
+                                  <td><strong>NetID</strong></td>
+                                  <td><strong>Email</strong></td>
+                                  <td><strong>Number</strong></td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      {attendees[0][0]}
+                                    </td>
+                                    <td>
+                                      {attendees[0][1]}
+                                    </td>
+                                    <td>
+                                      {attendees[0][2]}
+                                    </td>
+                                    <td>
+                                      {attendees[0][3]}
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
                             </p>) : null }
               </Col>
             </Row>
