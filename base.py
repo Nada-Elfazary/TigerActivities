@@ -40,7 +40,7 @@ def nishan():
 @app.route("/dummy", methods = ['GET'])
 #cross_origin()
 def dummy_route():
-    console.log("inside dummy")
+  print("inside dummy")
   username = auth.authenticate()
   return username
 
