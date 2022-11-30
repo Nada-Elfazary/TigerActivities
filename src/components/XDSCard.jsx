@@ -71,7 +71,7 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
         <Card.Text> 
                 <Row>
                   <Col><strong>Category: </strong> {item.category}</Col>
-                  <Col><strong>Location : </strong>{item.location}{item.location}</Col>
+                  <Col><strong>Location : </strong>{item.location}</Col>
                 </Row>
         </Card.Text>
         <Card.Text>
