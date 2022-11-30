@@ -19,7 +19,7 @@ export default function RulesModal(props) : React.ReactNode {
     };
 
     const cas = ()=>{
-      axios.get('https://tigeractivities.onrender.com/dummy').then(res=>{
+      axios.get('https://tigeractivities.onrender.com/dummy', config).then(res=>{
       let username = res
       console.log("username", username)
         navigate('/homeTo')
