@@ -72,7 +72,7 @@ export default function RulesModal(props) : React.ReactNode {
     let footer = null
     footer = (<div className="footer">
     {cancelBtn}
-    <a href="https://fed.princeton.edu/cas/login?service=https%3A//tigeractivities.onrender.com"><button onClick={()=>{
+    <a href="https://fed.princeton.edu/cas/login?service=https%3A//tigeractivities-iqwe.onrender.com"><button onClick={()=>{
       setSaving(checked)
       setShowErrorMsg(!checked)
       if(!saving){
