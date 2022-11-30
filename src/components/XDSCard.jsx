@@ -123,10 +123,10 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
                                   </tr>
                                   <tr>
                                     <td>
-                                      {attendees[0][0]}
+                                      {attendees[0][1]}
                                     </td>
                                     <td>
-                                      {attendees[0][1]}
+                                      {attendees[0][0]}
                                     </td>
                                     <td>
                                       {attendees[0][2]}
