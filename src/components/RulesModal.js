@@ -38,7 +38,7 @@ export default function RulesModal(props) : React.ReactNode {
       props.setOpenModal(false)
       props.setRedirect(true)
       //cas()
-      navigate('https://fed.princeton.edu/cas/login?service=https%3A//tigeractivities.onrender.com/dummy')
+      //navigate('https://fed.princeton.edu/cas/login?service=https%3A//tigeractivities.onrender.com/dummy')
 
     }
     const handleChecked = (event)=>{
@@ -58,7 +58,7 @@ export default function RulesModal(props) : React.ReactNode {
     
     
 
-    const cancelBtn =  (<button
+    const cancelBtn =  (<button 
       onClick={() => {
         props.setOpenModal(false);
       }}
@@ -72,7 +72,7 @@ export default function RulesModal(props) : React.ReactNode {
     let footer = null
     footer = (<div className="footer">
     {cancelBtn}
-    <button onClick={()=>{
+    <a href="https://fed.princeton.edu/cas/login?service=https%3A//tigeractivities.onrender.com/dummy"><button onClick={()=>{
       setSaving(checked)
       setShowErrorMsg(!checked)
       if(!saving){
@@ -85,7 +85,7 @@ export default function RulesModal(props) : React.ReactNode {
         successCallback()
       }
       handleContinue()
-    }}>Continue</button>
+    }}>Continue</button></a>
       {errorM}
 
   </div>)
