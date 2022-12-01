@@ -13,7 +13,8 @@ import ClipLoader from 'react-spinners/ClipLoader'
 // different end points.
   
 export default function  Home() : React.ReactNode {
-  const [clickedActivites, setClickedActivities] = useState(true)
+  const [initialState, setInitialState] = useState(true)
+  const [clickedActivites, setClickedActivities] = useState(false)
   const [clickedMyActivites, setClickedMyActivities] = useState(false)
   const [events, setEvents] = useState([])
   const [displayModal, setDisplayModal] = useState(false)
@@ -32,11 +33,30 @@ export default function  Home() : React.ReactNode {
 }, [])
 
 
+const mySignUpsClicked= () => {
+  if(clickedMySignUps) {
+    setEvents([])
+  }
+  setInitialState(false)
+  setClickedMySignUps(true)
+  setClickedActivities(false)
+  setClickedMyActivities(false)
+  setRefresh(false)
+  console.log("Requesting user signups")
+
+  axios.get('/user-sign-ups').then((res) =>{
+    console.log("in sign-up")
+    setEvents(res.data)
+  }).catch(err =>{
+    console.log("Error receiving event from db:", err)
+  })
+}
 
 const activitesClicked= () => {
   if(clickedActivites) {
     setEvents([])
   }
+  setInitialState(false)
   setClickedActivities(true)
   setClickedMyActivities(false)
   setClickedMySignUps(false)
@@ -61,28 +81,11 @@ const activitesClicked= () => {
   
 }
 
-const mySignUpsClicked= () => {
-  if(clickedMySignUps) {
-    setEvents([])
-  }
-  setClickedMySignUps(true)
-  setClickedActivities(false)
-  setClickedMyActivities(false)
-  setRefresh(false)
-  console.log("Requesting user signups")
-
-  axios.get('/user-sign-ups').then((res) =>{
-    setEvents(res.data)
-  }).catch(err =>{
-    console.log("Error receiving event from db:", err)
-  })
-}
-
-
 const myActivitesClicked= ()=>{
   if(clickedMyActivites) {
     setEvents([])
   } 
+  setInitialState(false)
   setClickedMyActivities(true)
   console.log("Clicked 'My Activities'. Events:", events.length, events)
   setClickedActivities(false)
@@ -210,7 +213,7 @@ const showResults = clickedActivites? (
     displaySignUps
   ): null
 
-  const showFilter = clickedActivites ? (
+  const showFilter = clickedActivites || initialState ? (
     // <input value={nameFilter} name="title" onChange={handleFilter} />
     
     <Filter getEvents={getEvents} />
