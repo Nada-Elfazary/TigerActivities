@@ -83,13 +83,14 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
         </Card.Text>
         <Card.Text>
           <Row>
+            <Col><strong>End time : </strong>{item.end_time}</Col>
             <Col><strong>Cost : </strong>{item.cost}</Col>
           </Row>
         </Card.Text>
         <Card.Text>
           <Row>
             <Col><p {...getCollapseProps()}>
-                        Description: {item.description}
+                        <strong>Description: </strong>{item.description}
                  
                            </p> </Col>
 
