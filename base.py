@@ -43,7 +43,7 @@ def after_request(response):
 #  return response
 
 @app.route("/dummy", methods = ['GET'])
-@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
+#@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def dummy_route():
   print("inside dummy")
   username = auth.authenticate()
