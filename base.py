@@ -44,7 +44,7 @@ def nishan():
 #  return response
 
 @app.route("/dummy", methods = ['GET'])
-@cross_origin(allow_headers = 'https://tigeractivities-iqwe.onrender.com')
+@cross_origin(allow_headers = '*')
 def dummy_route():
   print("inside dummy")
   username = auth.authenticate()
