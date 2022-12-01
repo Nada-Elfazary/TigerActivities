@@ -21,7 +21,7 @@ def logout():
     return auth.logoutapp()
 
 @app.route('/' , methods=['GET'])
-@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
+#@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def nishan():
     print('I am here')
     return ('Hello Nishan!')
