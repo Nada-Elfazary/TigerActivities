@@ -9,6 +9,7 @@ import psycopg2
 import datetime
 import pytz
 import pickle
+import attendee as attendeemod
 #-----------------------------------------------------------------------
 DATABASE_URL = 'postgres://hwwlwcbv:hyNZQS9_LH8CSD3yQoc5IpDHkBJeSlhF@peanut.db.elephantsql.com/hwwlwcbv'
 
@@ -68,11 +69,11 @@ def get_date_limit():
  
     return currDay
 
-#def fetch_activities(title, day, category, cost, capCondition, cap):
-def fetch_activities(title, day, category, cost):
+def fetch_activities(title, day, category, cost, capCondition, cap):
     title = '%' + title + '%'
     category = '%' + category + '%'
-    
+    if cap == '':
+        cap = '%'
     try:
         database_url = DATABASE_URL
         activities = []
@@ -176,12 +177,13 @@ def fetch_user_sign_ups():
                 cursor.execute(statement, [eventids, currDate, currTime, currDate])
                 row = cursor.fetchone()
                 while row is not None:
+                    weekday = row[10].weekday()
                     newStartTime = row[2].strftime("%H:%M")
                     newEndTime = row[3].strftime("%H:%M")
                     newStartDate = row[10].strftime("%Y/%m/%d")
                     newEndDate = row[11].strftime("%Y/%m/%d")
                     copy_row = (row[0], row[1], newStartTime, newEndTime, row[4],
-                    row[5], row[6], row[7], row[8], row[9], newStartDate, newEndDate, row[12])
+                    row[5], row[6], row[7], row[8], row[9], newStartDate, weekday, newEndDate, row[12])
                    # print(copy_row)
                     activities.append(copy_row)
                     row = cursor.fetchone()
@@ -363,8 +365,13 @@ def get_activity_attendees(eventid):
                 cursor.execute(statement, [eventid])
                 row = cursor.fetchone()
                 while row is not None:
-                    attendees.append([row[0], row[1], row[2], row[3]])
+                    attendee = attendeemod.Attendee(row[0], row[1], row[2], row[3])
+                    attendees.append(attendee)
                     row = cursor.fetchone()
+                if len(attendees) == 0:
+                    text = "No Sign Ups Yet"
+                    attendee = attendeemod.Attendee(text, text, text, text)
+                    attendees.append(attendee)
         return attendees
     except Exception as ex:
         print(ex, file=sys.stderr)

@@ -10,6 +10,8 @@ function SignUpModal(props) {
   const [name,setName] = useState("")
   const [phone,setPhone] = useState("")
   const [email,setEmail] = useState("")
+  const [errorMsg, setErrorMsg] = useState("")
+  const [showErrorMsg, setShowErrorMsg] = useState(false)
   
   const submitForm= () =>
   {
@@ -27,6 +29,25 @@ function SignUpModal(props) {
     })
   }
 
+  const failureCallBack = (error)=>{
+    setErrorMsg(error)
+     setShowErrorMsg(true)
+     console.log("error")
+    }
+    const successCallBack = ()=>{
+      console.log("success")
+     setShowErrorMsg(false) 
+     setErrorMsg(null)
+      // setSaving(true)
+   //   console.log(eventTitle)
+   //   console.log(description)
+   //   console.log(eventLocation)
+      submitForm()
+      props.setOpenSignUpModal(false)
+      // props.setClickMyActivities(true)
+    }
+
+    const errorM  = showErrorMsg? <strong className="error">{errorMsg}</strong> : null
   const signUpModal = <Container fluid> <Modal show={props.setOpenSignUpModal} dialogAs={CreateEventModalDraggable} onHide={()=>{
     props.setOpenSignUpModal(false)
   }} size="sm-5"
@@ -43,8 +64,9 @@ function SignUpModal(props) {
             <Form.Group>
             <Row>
               <Col><Form.Label>Name: </Form.Label></Col>
-              <Col><Form.Control type="text"  name="name" value={name} onChange={(event) =>
-                    {
+              <Col><Form.Control type="text"  id = "name" name="name" placeholder = "Full Name" value={name} onChange={(event) =>
+          
+                    { document.getElementById('name').classList.remove("error");
                       setName(event.target.value)
                     }}
             ></Form.Control>
@@ -54,8 +76,9 @@ function SignUpModal(props) {
             <Form.Group>
             <Row>
               <Col><Form.Label>Phone Number: </Form.Label></Col>
-              <Col><Form.Control type="text" name="Number" value={phone} onChange={(event) =>
+              <Col><Form.Control type="text" id = "num" name="Number" placeholder = "Only digits allowed" value={phone} onChange={(event) =>
                     {
+                      document.getElementById('num').classList.remove("error");
                       setPhone(event.target.value)
                     }}
             ></Form.Control>
@@ -65,14 +88,16 @@ function SignUpModal(props) {
             <Form.Group>
             <Row>
               <Col><Form.Label>Email: </Form.Label></Col>
-              <Col><Form.Control type="text" name="Email" value={email} onChange={(event) =>
+              <Col><Form.Control type="text" id = "email" name="Email" placeholder = "Email Address" value={email} onChange={(event) =>
                     {
+                      document.getElementById('email').classList.remove("error");
                       setEmail(event.target.value)
                     }}
             ></Form.Control>
 </Col>
             </Row>
             </Form.Group>
+            <Form.Group>{errorM}</Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer  style={{
@@ -83,8 +108,89 @@ function SignUpModal(props) {
               props.setOpenSignUpModal(false);
             }}>Cancel</Button>
         <Button variant="primary" onClick={()=>{
-             submitForm()
-             props.setOpenSignUpModal(false)
+             let error = 0;
+             let errorMsg = []
+          // console.log(endTime.getTime())
+          // console.log(startTime.getTime())
+           if(name.length === 0 ){
+   //              error.push("Title field cannot be empty")
+             // setShowErrorMsg(true)
+             document.getElementById('name').classList.add("error");
+             document.getElementById('name').placeholder = "Name field cannot be empty";
+   
+             error = 1;
+           }
+           if(phone.length === 0){
+        //     error.push("Location field cannot be empty \n")
+             document.getElementById('num').classList.add("error");
+             document.getElementById('num').placeholder = "Phone number field cannot be empty";
+   
+             error = 1;
+           }
+           if(!/^[0-9]{10}$/.test(phone)){
+            document.getElementById('num').classList.add("error");
+            document.getElementById('num').value="Phone number is invalid";
+            error = 1;
+          }
+           if(email.length === 0){
+             document.getElementById('email').classList.add("error");
+             document.getElementById('email').placeholder = "Email field cannot be empty";
+             error = 1;
+           }
+           
+           if(!/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/.test(email)){
+            console.log("email state:", email)
+            document.getElementById('email').classList.add("error");
+            document.getElementById('email').value="Email address is invalid";
+            error = 1;
+          }
+           /*
+          if( endTime.getTime() <= startTime.getTime()){
+             console.log("wrong dates")
+             errorMsg.push("End Date before or equal to start date. Please fix this \n")
+             document.getElementById('start-time').classList.add("error")
+             document.getElementById('start-time').value = "Start date after or equal to end date"
+             document.getElementById('end-time').classList.add("error")
+             document.getElementById('end-time').value = "End date before or equal to start date"
+             // setShowErrorMsg(true)
+             // failureCallBack("End Date before start date. Please fix this")
+             
+           }
+            if(cost < 0){
+           //  errorMsg.push("Cost involved cannot be negative")
+             // setShowErrorMsg(true)
+             document.getElementById('cost').classList.add("error");
+             document.getElementById('cost').value = "Cost involved cannot be negative";
+   
+             error = 1;
+           }
+           else if(!/^[0-9]+$/.test(cost)){
+             //  errorMsg.push("Cost involved cannot be negative")
+               // setShowErrorMsg(true)
+              // document.getElementById('cost').classList.add("error");
+               document.getElementById('cost').value = "Cost involved must be an integer";
+     
+               error = 1;
+             }
+   
+           if(maxAttendeeCount < 0){
+         //    error.push("Max Attendee Count cannot be negative")
+             // setShowErrorMsg(true)
+             document.getElementById('cap').classList.add("error");
+             document.getElementById('cap').value = "Max Attendee Count cannot be negative";
+   
+             error = 1;
+           }
+   
+           if(description.length == 0){
+             //    error.push("Max Attendee Count cannot be negative")
+                 // setShowErrorMsg(true)
+                // document.getElementById('descrip').classList.add("error");
+                 document.getElementById('descrip').placeholder = "Description cannot be empty";
+       
+                 error = 1;
+               }*/
+          error !== 0 ? failureCallBack("Please fix errors above") : successCallBack()             
           }}>Sign Up</Button>
 
         </Modal.Footer>

@@ -52,12 +52,12 @@ def index():
    day = flask.request.args.get("day") or ''
    category = flask.request.args.get("category") or ''
    cost = flask.request.args.get("cost") or 'all'
-   condition = flask.request.args.get("capCond") or 'LIKE'
-   cap = flask.request.args.get("cap") or '1'
+   condition = flask.request.args.get("capCond")
+   cap = flask.request.args.get("cap") or ''
   
-   print("Received arguments: title={} day={} category={} cost={}".format(title, day, category, cost))
+   print("Received arguments: title={} day={} category={} cost={} condition={} cap={}".format(title, day, category, cost, condition, cap))
    #print("Received arguments: title={} day={} category={} cost={} capCond={} cap={}".format(title, day, category, cost, condition, cap))
-   events = proc.fetch_activities(title, day, category, cost)
+   events = proc.fetch_activities(title, day, category, cost, condition, cap)
    #events = proc.fetch_activities(title, day, category, cost, condition, cap)   print("events route has been called. Fetching events: {}".format(events))
    results =[]
    for event in events:
@@ -99,8 +99,9 @@ def sign_ups():
             "description":event[8],
             "cost":event[9],
             "start_date":event[10],
-            "end_date":event[11],
-            "signup_number":event[12]
+            "week_day": event[11],
+            "end_date":event[12],
+            "signup_number":event[13]
         }
         results.append(response_body)
   return results
@@ -111,8 +112,17 @@ def get_attendees():
     #username = auth.authenticate()
     #res = request.json
     id = flask.request.args.get("event_id")
+    attendees_response = []
     attendees = proc.get_activity_attendees(id)
-    return attendees
+    for attendee in attendees:
+        response_body = {
+            "name": attendee.get_name(),
+            "netid": attendee.get_netid(),
+            "email": attendee.get_email(),
+            "number": attendee.get_number()
+        }
+        attendees_response.append(response_body)
+    return attendees_response
 
 @app.route('/create-event', methods = ['POST'])
 # cross_origin()

@@ -6,16 +6,16 @@ class Attendee:
         self._email = email
         self._number = number
 
-    def _getname_(self):
+    def get_name(self):
         return self._name
 
-    def _getnetid_(self):
+    def get_netid(self):
         return self._netid
 
-    def _getemail_(self):
+    def get_email(self):
         return self._email
 
-    def _getnumber_(self):
+    def get_number(self):
         return self._number
     
      
