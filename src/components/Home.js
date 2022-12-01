@@ -20,32 +20,18 @@ export default function  Home() : React.ReactNode {
   const [clickedMySignUps, setClickedMySignUps] = useState(false)
   const [refresh, setRefresh] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [nameFilter, setNameFilter] = useState('')
   let currLogin = "Reuben"
 
   useEffect(()=>{
-    getEvents(false, "")
     setRefresh(true)
+    activitesClicked()
+    setEvents([])
+    // getEvents(false, "")
+    
+    
 }, [])
 
 
-const mySignUpsClicked= () => {
-  if(clickedMySignUps) {
-    setEvents([])
-  }
-  setClickedMySignUps(true)
-  setClickedActivities(false)
-  setClickedMyActivities(false)
-  setRefresh(false)
-  console.log("Requesting user signups")
-
-  axios.get('/user-sign-ups').then((res) =>{
-    console.log("in sign-up")
-    setEvents(res.data)
-  }).catch(err =>{
-    console.log("Error receiving event from db:", err)
-  })
-}
 
 const activitesClicked= () => {
   if(clickedActivites) {
@@ -55,8 +41,6 @@ const activitesClicked= () => {
   setClickedMyActivities(false)
   setClickedMySignUps(false)
   setRefresh(false)
-
-  console.log("Requesting Dummy Data")
   /*
   axios({
     method: "GET",
@@ -76,6 +60,24 @@ const activitesClicked= () => {
   getEvents(false, "")
   
 }
+
+const mySignUpsClicked= () => {
+  if(clickedMySignUps) {
+    setEvents([])
+  }
+  setClickedMySignUps(true)
+  setClickedActivities(false)
+  setClickedMyActivities(false)
+  setRefresh(false)
+  console.log("Requesting user signups")
+
+  axios.get('/user-sign-ups').then((res) =>{
+    setEvents(res.data)
+  }).catch(err =>{
+    console.log("Error receiving event from db:", err)
+  })
+}
+
 
 const myActivitesClicked= ()=>{
   if(clickedMyActivites) {
@@ -117,18 +119,19 @@ const getEvents =  (ownerView, name, day, category, cost, capCond, cap)=> {
   setLoading(true)
   axios.get('/events', {params: {title: name, day: day, category: category, cost: cost, capCond: capCond, cap: cap}}).then(res =>{
     console.log("Events received from db:", res)
-    console.log("Setting events to:", res.data)
     setEvents([])
     if (ownerView === true) {
       let filtered = res.data.filter(event => event.creator === currLogin)
       console.log("length: ", filtered.length)
       if (filtered.length !== 0) {
-      setEvents(filtered)
+        console.log("Setting events to:", filtered)
+        setEvents(filtered)
       }
       else {
         console.log("No events created by owner")
       }
     } else {
+      console.log("Setting events to:", res.data)
       setEvents(res.data)
     }
     setLoading(false)
@@ -183,11 +186,6 @@ const topNav =
   <Navbar.Brand>{title}</Navbar.Brand>
 </Navbar>
 
-const handleFilter = (event) => {
-    setNameFilter(event.target.value)
-    console.log(event.target.value)
-    getEvents(false, event.target.value)
-}
 const results = refresh ? (displayEvents) : null
 
 const showResults = clickedActivites? (
@@ -214,6 +212,7 @@ const showResults = clickedActivites? (
 
   const showFilter = clickedActivites ? (
     // <input value={nameFilter} name="title" onChange={handleFilter} />
+    
     <Filter getEvents={getEvents} />
 
   ): null
