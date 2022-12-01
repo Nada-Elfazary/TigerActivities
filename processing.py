@@ -69,11 +69,11 @@ def get_date_limit():
  
     return currDay
 
-#def fetch_activities(title, day, category, cost, capCondition, cap):
-def fetch_activities(title, day, category, cost):
+def fetch_activities(title, day, category, cost, capCondition, cap):
     title = '%' + title + '%'
     category = '%' + category + '%'
-    
+    if cap == '':
+        cap = '%'
     try:
         database_url = DATABASE_URL
         activities = []

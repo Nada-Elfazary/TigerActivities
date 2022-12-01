@@ -13,7 +13,7 @@ import ClipLoader from 'react-spinners/ClipLoader'
 // different end points.
   
 export default function  Home() : React.ReactNode {
-  const [clickedActivites, setClickedActivities] = useState(false)
+  const [clickedActivites, setClickedActivities] = useState(true)
   const [clickedMyActivites, setClickedMyActivities] = useState(false)
   const [events, setEvents] = useState([])
   const [displayModal, setDisplayModal] = useState(false)
@@ -94,7 +94,7 @@ const handleCreateEvent = ()=>{
   setDisplayModal(true);
 }
 
-const getEvents =  (ownerView, name, day, category, cost)=> {
+const getEvents =  (ownerView, name, day, category, cost, capCond, cap)=> {
   /*
   axios({
     method: "POST",
@@ -115,7 +115,7 @@ const getEvents =  (ownerView, name, day, category, cost)=> {
 
 // axios.get('https://tigeractivities.onrender.com/events').then(res =>{
   setLoading(true)
-  axios.get('/events', {params: {title: name, day: day, category: category, cost: cost}}).then(res =>{
+  axios.get('/events', {params: {title: name, day: day, category: category, cost: cost, capCond: capCond, cap: cap}}).then(res =>{
     console.log("Events received from db:", res)
     console.log("Setting events to:", res.data)
     setEvents([])
@@ -140,7 +140,7 @@ const getEvents =  (ownerView, name, day, category, cost)=> {
 
   const title = <h1><i>TigerActivities </i></h1>
  
-  const activities = <Button class = 'button' onClick={activitesClicked}>Activities</Button>
+  const activities = <Button class = 'button'id = "act" onClick={activitesClicked}>Activities</Button>
   const myActivities = <Button onClick={myActivitesClicked}>My Activities</Button>
   const mySignUps = <Button onClick={mySignUpsClicked}>My Sign-Ups</Button>
   const createEventButton = <Button className="buttonStyle" onClick={handleCreateEvent}>Create Activity</Button>
