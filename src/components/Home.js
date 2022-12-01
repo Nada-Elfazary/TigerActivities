@@ -95,11 +95,11 @@ const myActivitesClicked= ()=>{
   getEvents(true, "")
 }
 
-const handleCreateEvent = ()=>{
+const handleCreateEvent = () =>{
   setDisplayModal(true);
 }
 
-const getEvents =  (ownerView, name, day, category, cost, capCond, cap)=> {
+const getEvents = (ownerView, name, day, category, cost, capCond, cap)=> {
   /*
   axios({
     method: "POST",
@@ -240,12 +240,14 @@ const showResults = clickedActivites? (
         <div className="content">
           {showCreateEventButton}
           {showFilter}
-          {!loading ? results : showLoading}
-          {showResults}
-          {!loading ? showOwnerActivities : showLoading}
-          {showSignUps}
-          {modal}
-         </div>
+            <div className="events">
+            {!loading ? results : showLoading}
+            {showResults}
+            {!loading ? showOwnerActivities : showLoading}
+            {showSignUps}
+            {modal}
+          </div>
+        </div>
     </div>
     
   );
