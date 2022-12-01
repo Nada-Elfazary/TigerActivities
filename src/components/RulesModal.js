@@ -40,11 +40,11 @@ export default function RulesModal(props) : React.ReactNode {
       setErrorMsg(null)
       props.setOpenModal(false)
       props.setRedirect(true)
-     // cas()
+      cas()
       //navigate('https://fed.princeton.edu/cas/login?service=https%3A//tigeractivities.onrender.com/dummy')
       // navigate('https://fed.princeton.edu/cas/login?service=https%3A//tigeractivities-iqwe.onrender.com/')
      //navigate('/login')
-      navigate('/home')
+     // navigate('/home')
     }
     const handleChecked = (event)=>{
         setChecked(event.target.checked)
