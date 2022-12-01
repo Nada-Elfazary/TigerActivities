@@ -5,6 +5,7 @@ import parseargs
 import os
 import auth 
 from flask_cors import CORS
+from flask_cors import cross_origin
 
 
 
@@ -12,7 +13,7 @@ app = flask.Flask(__name__)
 #app.config['CORS_HEADERS'] = 'Content-Type'
 app.secret_key = os.environ['APP_SECRET_KEY']
 #CORS(app)
-cors = CORS(app, resources={r"/*": {'origins': "http://tigeractivities-iqwe.onrender.com"}})
+#cors = CORS(app, resources={r"/*": {'origins': "http://tigeractivities-iqwe.onrender.com"}})
 
 @app.route('/logoutapp', methods=['GET'])
 @app.route('/logoutcas', methods=['GET'])
@@ -20,6 +21,7 @@ def logout():
     return auth.logoutapp()
 
 @app.route('/' , methods=['GET'])
+@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def nishan():
     print('I am here')
     return ('Hello Nishan!')
