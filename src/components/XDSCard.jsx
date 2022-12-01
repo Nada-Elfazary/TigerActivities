@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Form, Row, Col, Card} from 'react-bootstrap';
+import {Button, Row, Col, Card, Table} from 'react-bootstrap';
 import useCollapse from 'react-collapsed';
 import SignUpModal from './SignUpModal';
 import "./Home.css";
@@ -11,7 +11,7 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
     const [displaySignUp, setDisplaySignUp] = useState(false)
     const [eventTitle, setEventTitle] = useState('')
     const [id, setEventId] = useState('')
-    const [attendees, setAttendees] = useState([[]])
+    const [attendees, setAttendees] = useState([])
     const closedText = "(CLOSED)"
 
     const numToDay = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 
@@ -50,13 +50,8 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
     console.log("inside get attendees")
     axios.get('/attendees', {params: {
       event_id : event.id,
-    }}).then(res =>{
-        if(res.data.length === 0){
-            setAttendees("No sign ups yet")
-        }
-        else{
+    }}).then(res =>{ 
             setAttendees(res.data)
-        }
     }).catch(err =>{
       console.log(err)
     
@@ -100,9 +95,9 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
 
           <Col>
           {(!ownerView && !signUpsView) ? (<p {...getCollapseProps()}>
-                        <button onClick={handleSignUp} disabled={item.signup_number === item.maxcap}>Sign Up</button>            
+                        <Button onClick={handleSignUp} disabled={item.signup_number === item.maxcap}>Sign Up</Button>            
                            </p>) : null }   {(!ownerView && signUpsView) ? (<p {...getCollapseProps()}>
-                        <button class = "buttonShift" onClick={handleCancellation}>Cancel</button>            
+                        <Button class = "buttonShift" onClick={handleCancellation}>Cancel</Button>            
                            </p>) : null }
             </Col>
           </Row>
@@ -112,44 +107,40 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
               <Col>
               {ownerView ? (
                             <p {...getCollapseProps()}>
-                                <strong>Attendees</strong> :                               <table>
-                                <tbody>
-                                  
+                                <strong>Attendees</strong> :
+                                <Table  responsive="sm" striped bordered hover variant="light">
+                                  <thead>
                                   <tr>
-                                  <td><strong>Name</strong></td>
-                                  <td><strong>NetID</strong></td>
-                                  <td><strong>Email</strong></td>
-                                  <td><strong>Number</strong></td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      {attendees[0][1]}
-                                    </td>
-                                    <td>
-                                      {attendees[0][0]}
-                                    </td>
-                                    <td>
-                                      {attendees[0][2]}
-                                    </td>
-                                    <td>
-                                      {attendees[0][3]}
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
+                                  <th> Name</th>
+                                  <th>NetId</th>
+                                  <th>Email</th>
+                                  <th>Phone Number</th>
+                                </tr>
+                                  {attendees.map((attendee)=>{
+                                    return (
+                                      <tr key ={attendee.netid}>
+                                        <td>{attendee.name}</td>
+                                        <td>{attendee.netid}</td>
+                                        <td>{attendee.email}</td>
+                                        <td>{attendee.number}</td>
+                                      </tr>
+                                    )
+                                  })}
+                                  </thead>
+                                </Table>
                             </p>) : null }
               </Col>
             </Row>
           </Card.Text>
           <Card.Text>
-          <button
+          <Button
         {...getToggleProps({
           onClick: () =>{ setExpanded((prevExpanded) => !prevExpanded)
         get_attendees(item)},
         })}
       >
         {isExpanded ? 'Less Details' : 'More Details'}
-      </button>
+      </Button>
       </Card.Text>
       </Card.Body>
     

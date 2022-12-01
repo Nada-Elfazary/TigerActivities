@@ -33,7 +33,7 @@ html {
     
   }
 .LeftNavContainer-1{
-    display:flex;
+    display: flex;
     float: left;
 }
 
@@ -41,7 +41,7 @@ html {
     background-color: grey; 
     width: 50%;
     height:revert;
-    height: 800px;
+    height: 100vh;
     display:block;
 }
 

@@ -9,6 +9,7 @@ import psycopg2
 import datetime
 import pytz
 import pickle
+import attendee as attendeemod
 #-----------------------------------------------------------------------
 DATABASE_URL = 'postgres://hwwlwcbv:hyNZQS9_LH8CSD3yQoc5IpDHkBJeSlhF@peanut.db.elephantsql.com/hwwlwcbv'
 
@@ -364,8 +365,13 @@ def get_activity_attendees(eventid):
                 cursor.execute(statement, [eventid])
                 row = cursor.fetchone()
                 while row is not None:
-                    attendees.append([row[0], row[1], row[2], row[3]])
+                    attendee = attendeemod.Attendee(row[0], row[1], row[2], row[3])
+                    attendees.append(attendee)
                     row = cursor.fetchone()
+                if len(attendees) == 0:
+                    text = "No Sign Ups Yet"
+                    attendee = attendeemod.Attendee(text, text, text, text)
+                    attendees.append(attendee)
         return attendees
     except Exception as ex:
         print(ex, file=sys.stderr)

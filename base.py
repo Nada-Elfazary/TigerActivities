@@ -112,8 +112,17 @@ def get_attendees():
     #username = auth.authenticate()
     #res = request.json
     id = flask.request.args.get("event_id")
+    attendees_response = []
     attendees = proc.get_activity_attendees(id)
-    return attendees
+    for attendee in attendees:
+        response_body = {
+            "name": attendee.get_name(),
+            "netid": attendee.get_netid(),
+            "email": attendee.get_email(),
+            "number": attendee.get_number()
+        }
+        attendees_response.append(response_body)
+    return attendees_response
 
 @app.route('/create-event', methods = ['POST'])
 # cross_origin()

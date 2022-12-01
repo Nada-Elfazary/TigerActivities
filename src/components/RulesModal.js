@@ -3,10 +3,9 @@ import  {useNavigate} from "react-router-dom";
 import axios from "axios";
 import CreateEventModalDraggable from "./CreateEventModalDraggable";
 import "./Modal.css";
-import { Container, Modal, Button, Row, Form, ListGroup } from "react-bootstrap";
+import { Container, Modal, Button, Form, ListGroup } from "react-bootstrap";
 
 export default function RulesModal(props) : React.ReactNode {
-    // let checked = useRef(false)
     const [saving, setSaving] = useState(false)
     const [checked, setChecked] = useState(false)
     const [showErrorMsg, setShowErrorMsg] = useState(false)
