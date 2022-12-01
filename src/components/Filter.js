@@ -63,7 +63,6 @@ export default function Filter(props) : React.ReactNode {
 
     return (
         <div className="filterSurround">
-            <h2>Searchbox</h2>
             <div className="filterContainer">
                 <div className="titleFilter">
                     <label>Event Title</label>
