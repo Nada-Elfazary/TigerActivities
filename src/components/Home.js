@@ -140,8 +140,18 @@ const getEvents =  (ownerView, name, day, category, cost, capCond, cap)=> {
 
   const title = <h1><i>TigerActivities </i></h1>
  
-  const activities = <Button class = 'button'id = "act" onClick={activitesClicked}>Activities</Button>
-  const myActivities = <Button onClick={myActivitesClicked}>My Activities</Button>
+  const activities = (
+    <>
+    <Button class = 'button'id = "act" onClick={activitesClicked}>Activities</Button>
+    <br/>
+  </>
+  )
+  const myActivities = (
+    <>
+  <Button onClick={myActivitesClicked}>My Activities</Button>
+  <br/>
+  </>
+  )
   const mySignUps = <Button onClick={mySignUpsClicked}>My Sign-Ups</Button>
   const createEventButton = <Button className="buttonStyle" onClick={handleCreateEvent}>Create Activity</Button>
   const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents}
