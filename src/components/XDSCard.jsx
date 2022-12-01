@@ -84,7 +84,7 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
         <Card.Text>
           <Row>
             <Col><strong>End time : </strong>{item.end_time}</Col>
-            <Col><strong>Cost : </strong>{item.cost}</Col>
+            <Col><strong>Estimated Cost : </strong>$ {item.cost} </Col>
           </Row>
         </Card.Text>
         <Card.Text>
@@ -96,9 +96,13 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
 
           <Col>
           {(!ownerView && !signUpsView) ? (<p {...getCollapseProps()}>
-                        <Button onClick={handleSignUp} disabled={item.signup_number === item.maxcap}>Sign Up</Button>            
+                        <Button  
+                        variant="warning"
+                        onClick={handleSignUp} disabled={item.signup_number === item.maxcap}>Sign Up</Button>            
                            </p>) : null }   {(!ownerView && signUpsView) ? (<p {...getCollapseProps()}>
-                        <Button class = "buttonShift" onClick={handleCancellation}>Cancel</Button>            
+                        <Button 
+                        variant="warning"
+                        class = "buttonShift" onClick={handleCancellation}>Cancel</Button>            
                            </p>) : null }
             </Col>
           </Row>
@@ -135,6 +139,7 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
           </Card.Text>
           <Card.Text>
           <Button
+          variant="warning"
         {...getToggleProps({
           onClick: () =>{ setExpanded((prevExpanded) => !prevExpanded)
         get_attendees(item)},

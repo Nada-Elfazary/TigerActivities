@@ -100,25 +100,6 @@ const handleCreateEvent = () =>{
 }
 
 const getEvents = (ownerView, name, day, category, cost, capCond, cap)=> {
-  /*
-  axios({
-    method: "POST",
-    url:"https://tigeractivities.onrender.com/events",
-  })
-  .then((response) => {
-    const res =response.data
-    console.log("inside get data")
-    setEvents(res)
-  }).catch((error) => {
-    if (error.response) {
-      console.log(error.response)
-      console.log(error.response.status)
-      console.log(error.response.headers)
-      }
-  })
-  */
-
-// axios.get('https://tigeractivities.onrender.com/events').then(res =>{
   setLoading(true)
   axios.get('/events', {params: {title: name, day: day, category: category, cost: cost, capCond: capCond, cap: cap}}).then(res =>{
     console.log("Events received from db:", res)
@@ -148,17 +129,34 @@ const getEvents = (ownerView, name, day, category, cost, capCond, cap)=> {
  
   const activities = (
     <>
-    <Button class = 'button'id = "act" onClick={activitesClicked}>Activities</Button>
-    <br/>
-  </>
+      <Button 
+      class = 'button'
+      id = "act"
+      variant="warning" 
+      onClick={activitesClicked}
+      >
+        Activities
+      </Button>
+      <br/>
+    </>
   )
   const myActivities = (
     <>
-  <Button onClick={myActivitesClicked}>My Activities</Button>
+      <Button 
+        variant="warning"
+        onClick={myActivitesClicked}
+      >
+        My Activities
+      </Button>
   <br/>
   </>
   )
-  const mySignUps = <Button onClick={mySignUpsClicked}>My Sign-Ups</Button>
+  const mySignUps = <Button     
+                      variant="warning" 
+                      onClick={mySignUpsClicked}
+                      >
+                        My Sign-Ups
+                    </Button>
   const createEventButton = <Button className="buttonStyle" onClick={handleCreateEvent}>Create Activity</Button>
   const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents}
   />) : null 
@@ -236,7 +234,6 @@ const showResults = clickedActivites? (
         {mySignUps}
         </div>
         </div>  
-      
         <div className="content">
           {showCreateEventButton}
           {showFilter}
