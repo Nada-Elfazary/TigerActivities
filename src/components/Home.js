@@ -13,7 +13,8 @@ import ClipLoader from 'react-spinners/ClipLoader'
 // different end points.
   
 export default function  Home() : React.ReactNode {
-  const [clickedActivites, setClickedActivities] = useState(true)
+  const [initialState, setInitialState] = useState(true)
+  const [clickedActivites, setClickedActivities] = useState(false)
   const [clickedMyActivites, setClickedMyActivities] = useState(false)
   const [events, setEvents] = useState([])
   const [displayModal, setDisplayModal] = useState(false)
@@ -33,6 +34,7 @@ const mySignUpsClicked= () => {
   if(clickedMySignUps) {
     setEvents([])
   }
+  setInitialState(false)
   setClickedMySignUps(true)
   setClickedActivities(false)
   setClickedMyActivities(false)
@@ -51,6 +53,7 @@ const activitesClicked= () => {
   if(clickedActivites) {
     setEvents([])
   }
+  setInitialState(false)
   setClickedActivities(true)
   setClickedMyActivities(false)
   setClickedMySignUps(false)
@@ -81,6 +84,7 @@ const myActivitesClicked= ()=>{
   if(clickedMyActivites) {
     setEvents([])
   } 
+  setInitialState(false)
   setClickedMyActivities(true)
   console.log("Clicked 'My Activities'. Events:", events.length, events)
   setClickedActivities(false)
@@ -202,7 +206,7 @@ const showResults = clickedActivites? (
     displaySignUps
   ): null
 
-  const showFilter = clickedActivites ? (
+  const showFilter = clickedActivites || initialState ? (
     // <input value={nameFilter} name="title" onChange={handleFilter} />
     <Filter getEvents={getEvents} />
 
