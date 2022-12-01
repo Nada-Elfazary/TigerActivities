@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import  {useNavigate} from "react-router-dom";
 import axios from "axios";
-
+import CreateEventModalDraggable from "./CreateEventModalDraggable";
 import "./Modal.css";
+import { Container, Modal, Button, Row, Form, ListGroup } from "react-bootstrap";
 
 export default function RulesModal(props) : React.ReactNode {
     // let checked = useRef(false)
@@ -44,30 +45,41 @@ export default function RulesModal(props) : React.ReactNode {
 
     let error = ""
 
-    const handleContinue = ()=>{
-      console.log("inside here")
-        // errorMsg = !saving ? <h3>Sth</h3> : null 
-    }
-    
+ 
 
-    
-    
+  const errorM  = showErrorMsg ? <strong className="error">{errorMsg}</strong> : null
 
-    const cancelBtn =  (<button
-      onClick={() => {
+  
+  const rulesModal = (<Container fluid>
+    <Modal show={true} dialogAs={CreateEventModalDraggable} onHide={()=>{
+    props.setOpenModal(false)
+  }} >
+      <Modal.Header closeButton style={{
+         display: "flex",
+         justifyContent: "center",
+        }}>
+        <Modal.Title><h2>Carefully Read Our Community Guidelines Below:</h2></Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <ListGroup as = "ol" numbered>
+          <ListGroup.Item>  Use appropriate language when creating activities. Inappropriate activities or behavior could result 
+            in banning from this platform</ListGroup.Item>
+          <ListGroup.Item>Be respectful of your peer's time</ListGroup.Item>
+          <ListGroup.Item>Keep your attendees updated on changes in activities</ListGroup.Item>
+          <ListGroup.Item>Keep safe. Enjour our platform. Cheers!</ListGroup.Item>
+          </ListGroup>
+        <Form.Check type="checkbox" label = "Agree with terms and conditions" onChange={handleChecked}/>
+      </Modal.Body>
+      <Modal.Footer style={{
+          display: "flex",
+          justifyContent: "center",
+        }}>
+          {errorM}
+        <Button variant="secondary"  onClick={() => {
         props.setOpenModal(false);
       }}
-      id="cancelBtn"
-    >
-      Cancel
-    </button>)
-
-    // errorMsg = showErrorMsg ? <strong className="error">Read Our Terms and Agreements before proceeding</strong> : null
-    const errorM  = showErrorMsg!= null ? <strong className="error">{errorMsg}</strong> : null
-    let footer = null
-    footer = (<div className="footer">
-    {cancelBtn}
-    <button onClick={()=>{
+      id="cancelBtn" >Cancel</Button>
+        <Button variant="primary" onClick={()=>{
       setSaving(checked)
       setShowErrorMsg(!checked)
       if(!saving){
@@ -79,52 +91,15 @@ export default function RulesModal(props) : React.ReactNode {
         setSaving(true)
         successCallback()
       }
-      handleContinue()
-    }}>Continue</button>
-      {errorM}
-
-  </div>)
+    }}>Contine</Button>
+      </Modal.Footer>
+    </Modal>
+  </Container>)
 
   return (
-    <div className="modalBackground">
-      <div className="modalContainer">
-        <div className="titleCloseBtn">
-          <button
-            onClick={() => {
-              props.setOpenModal(false);
-            }}
-          >
-            x
-          </button>
-        </div>
-        <div className="title">
-          <h2>  Carefully Read Our Community Guidelines Below:</h2>
-        </div>
-        <div className="body">
-      
-           <ol type= "1">
-            <li>
-            Use appropriate language when creating activities. Inappropriate activities or behavior could result 
-            in banning from this platform
-           </li>
-           <li>
-            Be respectful of your peer's time
-           </li>
-           <li>
-            Keep your attendees updated on changes in activities
-           </li>
-           <li>
-            Keep safe. Enjour our platform. Cheers!
-            </li>
-           </ol>
-        </div>
-        <div>
-        <input type="checkbox"  onChange={handleChecked}/>
-           <span>Agree with terms and conditions</span>
-        </div>
-        {footer}
-      </div>
-    </div>
+    <>
+       {rulesModal}
+    </>
   );
 }
 
