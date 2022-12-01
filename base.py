@@ -21,16 +21,16 @@ def logout():
     return auth.logoutapp()
 
 @app.route('/' , methods=['GET'])
-#@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
+@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def nishan():
     print('I am here')
     return ('Hello Nishan!')
 
 
 
-@app.after_request
-def after_request(response):
-    response.headers.set('Access-Control-Allow-Origin', '*')
+#@app.after_request
+#def after_request(response):
+#    response.headers.set('Access-Control-Allow-Origin', '*')
  #response.headers.set('Access-Control-Allow-Origin', 'https://tigeractivities-iqwe.onrender.com')
  #response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
  # response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
