@@ -47,8 +47,8 @@ def nishan():
 #@cross_origin(origins = '*')
 def dummy_route():
   print("inside dummy")
- # username = auth.authenticate()
-  return ('')
+  url = auth.authenticate()
+  return (url)
 
 @app.route("/events", methods = ['GET'])
 # cross_origin()

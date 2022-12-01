@@ -16,8 +16,8 @@ export default function RulesModal(props) : React.ReactNode {
 
     const cas = ()=>{
       axios.get('https://tigeractivities.onrender.com/dummy').then(res=>{
-      let username = res
-      console.log("username", username)
+      let url = res
+      console.log("url", url)
         navigate('/homeTo')
       
     }   
@@ -41,7 +41,7 @@ export default function RulesModal(props) : React.ReactNode {
       props.setOpenModal(false)
       props.setRedirect(true)
       
-     // cas()
+      cas()
       //navigate('https://fed.princeton.edu/cas/login?service=https%3A//tigeractivities.onrender.com/dummy')
       // navigate('https://fed.princeton.edu/cas/login?service=https%3A//tigeractivities-iqwe.onrender.com/')
      //navigate('/login')
@@ -87,6 +87,7 @@ export default function RulesModal(props) : React.ReactNode {
         failureCallBack(error)
       }
       else{
+       // navigate("https://fed.princeton.edu/cas/login?service=https%3A//tigeractivities-iqwe.onrender.com/")
         setSaving(true)
         successCallback()
       }
