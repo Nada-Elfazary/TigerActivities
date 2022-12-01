@@ -176,12 +176,13 @@ def fetch_user_sign_ups():
                 cursor.execute(statement, [eventids, currDate, currTime, currDate])
                 row = cursor.fetchone()
                 while row is not None:
+                    weekday = row[10].weekday()
                     newStartTime = row[2].strftime("%H:%M")
                     newEndTime = row[3].strftime("%H:%M")
                     newStartDate = row[10].strftime("%Y/%m/%d")
                     newEndDate = row[11].strftime("%Y/%m/%d")
                     copy_row = (row[0], row[1], newStartTime, newEndTime, row[4],
-                    row[5], row[6], row[7], row[8], row[9], newStartDate, newEndDate, row[12])
+                    row[5], row[6], row[7], row[8], row[9], newStartDate, weekday, newEndDate, row[12])
                    # print(copy_row)
                     activities.append(copy_row)
                     row = cursor.fetchone()
