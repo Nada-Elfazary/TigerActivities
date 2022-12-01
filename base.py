@@ -13,7 +13,7 @@ app = flask.Flask(__name__)
 #app.config['CORS_HEADERS'] = 'Content-Type'
 app.secret_key = os.environ['APP_SECRET_KEY']
 #CORS(app)
-#cors = CORS(app, resources={r"/*": {'origins': "http://tigeractivities-iqwe.onrender.com"}})
+cors = CORS(app, resources={r"/*": {'origins': "http://tigeractivities-iqwe.onrender.com"}})
 
 @app.route('/logoutapp', methods=['GET'])
 @app.route('/logoutcas', methods=['GET'])
@@ -28,10 +28,10 @@ def nishan():
 
 
 
-#@app.after_request
-#def after_request(response):
- # response.headers.set('Access-Control-Allow-Origin', '*')
- # response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+@app.after_request
+def after_request(response):
+ response.headers.set('Access-Control-Allow-Origin')
+  #response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
  # response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
  # return response
 
