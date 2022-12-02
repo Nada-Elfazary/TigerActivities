@@ -13,7 +13,7 @@ function App(): React.ReactNode {
    <div>
       <Routes>
       <Route path ="/" element={<Welcome/>}/>
-      <Route path = '/login' component={<CasPage />}/>
+      <Route path = '/login' element={<CasPage />}/>
       <Route path="/home" element={<Home/>}/>
       <Route path="/homeTo" element={<HomeTo />}/>
     </Routes>
