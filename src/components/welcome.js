@@ -1,5 +1,6 @@
 import './App.css';
 import React, { useState } from 'react'
+import { useEffect } from 'react';
 
 import Modal from './Modal'
 import CreateEventDialog  from './CreateEventDialog';
@@ -18,6 +19,13 @@ export default function Welcome(): React.ReactNode{
     const [redirect, setRedirect] = useState(false)
   const navigate = useNavigate()
 
+  useEffect(() => {
+    console.log("broswer url: ", window.location.href)
+    if (window.location.href.includes('ticket=')) {
+     navigate("/home")
+    }
+    
+   }, [])
     const handleOnClickedDisplayEvents =()=>{
         setClickedDisplayEvents(true)
         // setDisabledDisplayEvents(true)
