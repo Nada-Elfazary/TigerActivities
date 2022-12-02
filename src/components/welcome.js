@@ -22,7 +22,7 @@ export default function Welcome(): React.ReactNode{
 
  
   const validate = (ticket) => {
-    const url = 'https%3A//tigeractivities-iqwe.onrender.com'
+    const url = 'https://tigeractivities-iqwe.onrender.com'
     let valUrl = 'https://fed.princeton.edu/cas/validate?service='
     valUrl += encodeURI(url)+'&ticket=' +  encodeURI(ticket)
     axios.get('https://tigeractivities.onrender.com/validate', {params:{url: valUrl}}).then(
