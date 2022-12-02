@@ -14,6 +14,8 @@ export default function Filter(props) : React.ReactNode {
     const [capCondition, setCapCondition] = useState("")
     const [cap, setCap] = useState("")
     const [attendeesNum, setAttendeesNum] = useState(0)
+    const [capMin, setCapMin] = useState("")
+    const [capMax, setCapMax] = useState("")
 
     // const leqAttendeeFilter
 
@@ -27,14 +29,13 @@ export default function Filter(props) : React.ReactNode {
         if (filterTitle == "dayFilter") {
             setDay(event.nativeEvent.target.firstChild.data)
             props.getEvents(false, title, 
-                //dayToNumber[event.nativeEvent.target.firstChild.data], category, cost)  
-                 dayToNumber[event.nativeEvent.target.firstChild.data], category, cost, capCondition)
+                 dayToNumber[event.nativeEvent.target.firstChild.data], category, cost, capMin, capMax)
         }
         else if (filterTitle == "categoryFilter"){
             setCategory(event.nativeEvent.target.firstChild.data)
             props.getEvents(false, title, dayToNumber[day],
                 //event.nativeEvent.target.firstChild.data, cost)
-               event.nativeEvent.target.firstChild.data, cost, capCondition, cap)
+               event.nativeEvent.target.firstChild.data, cost, capCondition, capMin, capMax)
         }
         
 
@@ -45,7 +46,7 @@ export default function Filter(props) : React.ReactNode {
     onClick={() => {
         setDay("")
        // props.getEvents(false, title, "", category, cost)
-         props.getEvents(false, title, "", category, cost, capCondition)
+         props.getEvents(false, title, "", category, cost, capMin, capMax)
         }}>
         X
     </button>
@@ -55,7 +56,7 @@ export default function Filter(props) : React.ReactNode {
     onClick={() => {
         setCategory("")
       //  props.getEvents(false, title, dayToNumber[day], "", cost)
-         props.getEvents(false, title, dayToNumber[day], "", cost, capCondition)
+         props.getEvents(false, title, dayToNumber[day], "", cost, capMin, capMax)
         }}>
         X
 </button> 
@@ -126,7 +127,7 @@ export default function Filter(props) : React.ReactNode {
                     <input value={cost} name="cost" placeholder= "Enter a positive integer" onChange={(event) => {
                         setCost(event.target.value)
                         console.log("Cost value:", event, event.target.value, cost)
-                        props.getEvents(false, title, dayToNumber[day], category, event.target.value)
+                        props.getEvents(false, title, dayToNumber[day], category, event.target.value, capMin, capMax)
                     }}></input>
                     <br/>
                 </div>
@@ -163,9 +164,18 @@ export default function Filter(props) : React.ReactNode {
                 <div className="alignFilter">
                 
                 <label>From: </label>
-                    <input class = "inputBox"></input>
+                    <input class = "inputBox" value = {capMin} onChange={(event) => {
+                        setCapMin(event.target.value)
+                        console.log("capMin value:", event, event.target.value, capMin)
+                        props.getEvents(false, title, dayToNumber[day], category, cost, event.target.value, capMax)
+                    }}></input>
+
                     <label>To: </label>
-                    <input class = "inputBox"></input>
+                    <input class = "inputBox" value = {capMax} onChange={(event) => {
+                        setCapMax(event.target.value)
+                        console.log("capMax value:", event, event.target.value, capMax)
+                        props.getEvents(false, setTitle, dayToNumber[day], category, cost, capMin, event.target.value)
+                    }}></input>
                       
                     <br/>
                     </div>

@@ -52,12 +52,12 @@ def index():
    day = flask.request.args.get("day") or ''
    category = flask.request.args.get("category") or ''
    cost = flask.request.args.get("cost") or 'all'
-   condition = flask.request.args.get("capCond")
-   cap = flask.request.args.get("cap") or ''
+   capMin = flask.request.args.get("capMin") or '5'
+   capMax = flask.request.args.get("capMax") or '20'
   
-   print("Received arguments: title={} day={} category={} cost={} condition={} cap={}".format(title, day, category, cost, condition, cap))
+   print("Received arguments: title={} day={} category={} cost={} capMin={} capMax={}".format(title, day, category, cost, capMin, capMax))
    #print("Received arguments: title={} day={} category={} cost={} capCond={} cap={}".format(title, day, category, cost, condition, cap))
-   events = proc.fetch_activities(title, day, category, cost, condition, cap)
+   events = proc.fetch_activities(title, day, category, cost, capMin, capMax)
    #events = proc.fetch_activities(title, day, category, cost, condition, cap)   print("events route has been called. Fetching events: {}".format(events))
    results =[]
    for event in events:

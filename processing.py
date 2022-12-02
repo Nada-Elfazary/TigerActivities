@@ -69,11 +69,11 @@ def get_date_limit():
  
     return currDay
 
-def fetch_activities(title, day, category, cost, capCondition, cap):
+def fetch_activities(title, day, category, cost, capMin, capMax):
     title = '%' + title + '%'
     category = '%' + category + '%'
-    if cap == '':
-        cap = '%'
+    print("min: ", capMin)
+    print("max: ", capMax)
     try:
         database_url = DATABASE_URL
         activities = []
@@ -84,14 +84,13 @@ def fetch_activities(title, day, category, cost, capCondition, cap):
         with psycopg2.connect(database_url) as connection:            
             with connection.cursor() as cursor:
                 statementOne = "SELECT * FROM events WHERE startdate = %s AND starttime > %s "
-                statementOne += "AND eventname LIKE %s AND category LIKE %s"
-                # AND maxcap %s %s"
+                statementOne += "AND eventname LIKE %s AND category LIKE %s AND %s <= maxcap AND maxcap <= %s"
                 if cost != "all":
-                    statementOne += "AND COST <= %s"
-                    cursor.execute(statementOne, [currDate, currTime, title, category, cost])
+                    statementOne += "AND cost <= %s"
+                    cursor.execute(statementOne, [currDate, currTime, title, category, capMin, capMax, cost])
                 
                 else:
-                    cursor.execute(statementOne, [currDate, currTime, title, category])  
+                    cursor.execute(statementOne, [currDate, currTime, title, category, capMin, capMax])  
 
                 row = cursor.fetchone()
                 print("row is", row)
@@ -115,16 +114,16 @@ def fetch_activities(title, day, category, cost, capCondition, cap):
                     row = cursor.fetchone()
 
                 statementTwo = "SELECT * FROM events WHERE %s < startdate AND startdate < %s"
-                statementTwo += "AND eventname LIKE %s AND category LIKE %s" 
+                statementTwo += "AND eventname LIKE %s AND category LIKE %s AND %s <= maxcap AND maxcap <= %s" 
                 #AND maxcap %s %s"
-                statementOne += "ORDER BY RANDOM() LIMIT 1000"
+              #  statementOne += "ORDER BY RANDOM() LIMIT 1000"
                # AND eventname LIKE %s
                 if cost != "all":
-                    statementTwo += "AND COST <= %s"
-                    cursor.execute(statementTwo, [currDate, dateLimit, title, category, cost])
+                    statementTwo += "AND cost <= %s"
+                    cursor.execute(statementTwo, [currDate, dateLimit, title, category, capMin, capMax, cost])
                 
                 else:
-                    cursor.execute(statementTwo, [currDate, dateLimit, title, category]) 
+                    cursor.execute(statementTwo, [currDate, dateLimit, title, category, capMin, capMax]) 
                 print ("after second execute")
                 row = cursor.fetchone()
                 print("Date: ", get_current_date(), "+ 5 days")
