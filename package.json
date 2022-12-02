@@ -2,7 +2,7 @@
   "name": "flask_react",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001",
+  "proxy": "https://tigeractivities.onrender.com/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -31,7 +31,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "node server/index.js",
+    "start": "react-scripts start --ignore client",
     "start-backend": "flask run --no-debugger",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -67,6 +67,5 @@
   "bugs": {
     "url": "https://github.com/Nada-Elfazary/TigerActivities/issues"
   },
-  "homepage": "https://github.com/Nada-Elfazary/TigerActivities#readme",
-  "devDependencies": {}
+  "homepage": "https://github.com/Nada-Elfazary/TigerActivities#readme"
 }
