@@ -47,6 +47,7 @@ export default function Welcome(): React.ReactNode{
     // let ticket = window.location.href('ticket=')[1]
     const ticket = new URL(window.location.href).searchParams.get('ticket')
     console.log('ticket', ticket)
+    navigate('/home')
     //validate(ticket)
   }
    }, [])
