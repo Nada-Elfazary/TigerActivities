@@ -162,11 +162,11 @@ def authenticate():
     # If the request does not contain a login ticket, then redirect
     # the browser to the login page to get one.
     ticket = flask.request.args.get('ticket')
-    print(ticket)
+    print("Ticket: ", ticket)
     if ticket is None:
         login_url = (_CAS_URL + 'login?service=' +
            # urllib.parse.quote(flask.request.url))
-           'https://tigeractivities-iqwe.onrender.com/')
+           'https://tigeractivities.onrender.com/')
         print(login_url)
         flask.abort(flask.redirect(login_url))
 
