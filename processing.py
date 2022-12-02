@@ -69,11 +69,11 @@ def get_date_limit():
  
     return currDay
 
-def fetch_activities(title, day, category, cost, capCondition, cap):
+def fetch_activities(title, day, category, cost, capMin, capMax):
     title = '%' + title + '%'
     category = '%' + category + '%'
-    if cap == '':
-        cap = '%'
+    print("min: ", capMin)
+    print("max: ", capMax)
     try:
         database_url = DATABASE_URL
         activities = []
@@ -84,14 +84,13 @@ def fetch_activities(title, day, category, cost, capCondition, cap):
         with psycopg2.connect(database_url) as connection:            
             with connection.cursor() as cursor:
                 statementOne = "SELECT * FROM events WHERE startdate = %s AND starttime > %s "
-                statementOne += "AND eventname LIKE %s AND category LIKE %s"
-                # AND maxcap %s %s"
+                statementOne += "AND eventname LIKE %s AND category LIKE %s AND %s <= maxcap AND maxcap <= %s"
                 if cost != "all":
-                    statementOne += "AND COST <= %s"
-                    cursor.execute(statementOne, [currDate, currTime, title, category, cost])
+                    statementOne += "AND cost <= %s"
+                    cursor.execute(statementOne, [currDate, currTime, title, category, capMin, capMax, cost])
                 
                 else:
-                    cursor.execute(statementOne, [currDate, currTime, title, category])  
+                    cursor.execute(statementOne, [currDate, currTime, title, category, capMin, capMax])  
 
                 row = cursor.fetchone()
                 print("row is", row)
@@ -115,16 +114,16 @@ def fetch_activities(title, day, category, cost, capCondition, cap):
                     row = cursor.fetchone()
 
                 statementTwo = "SELECT * FROM events WHERE %s < startdate AND startdate < %s"
-                statementTwo += "AND eventname LIKE %s AND category LIKE %s" 
+                statementTwo += "AND eventname LIKE %s AND category LIKE %s AND %s <= maxcap AND maxcap <= %s" 
                 #AND maxcap %s %s"
-                statementOne += "ORDER BY RANDOM() LIMIT 1000"
+              #  statementOne += "ORDER BY RANDOM() LIMIT 1000"
                # AND eventname LIKE %s
                 if cost != "all":
-                    statementTwo += "AND COST <= %s"
-                    cursor.execute(statementTwo, [currDate, dateLimit, title, category, cost])
+                    statementTwo += "AND cost <= %s"
+                    cursor.execute(statementTwo, [currDate, dateLimit, title, category, capMin, capMax, cost])
                 
                 else:
-                    cursor.execute(statementTwo, [currDate, dateLimit, title, category]) 
+                    cursor.execute(statementTwo, [currDate, dateLimit, title, category, capMin, capMax]) 
                 print ("after second execute")
                 row = cursor.fetchone()
                 print("Date: ", get_current_date(), "+ 5 days")
@@ -314,6 +313,25 @@ def store_signup(event_id, net_id):
         print(ex, file=sys.stderr)
         sys.exit(1)
 
+# def upsertStudent(netid,name, phone, email):
+#     print("Inside upsertStudent()")
+#     try: 
+#         DATABASE_URL = DATABASE_URL
+#         with psycopg2.connect(database_url) as connection:
+            
+#             with connection.cursor() as cursor:
+#                 statement = "SELECT netid,number,name,email FROM students WHERE netid=%s"
+#                 cursor.execute(statement, [netid])
+#                 row = cursor.fetchone()
+#                 if row is None:
+#                     insertStatement = "INSERT INTO students"
+#     except Exception as ex:
+#         print(ex, file=sys.stderr)
+#         sys.exit(1) 
+#     #query student table for netid
+#     #if netid in db, update fields
+#     #if not, create new row in student
+
 def store_student(student_info):
     netid = student_info[0]
     name = student_info[1]
@@ -329,16 +347,16 @@ def store_student(student_info):
                 
                 # UPDATE STUDENTS TABLE
                 statement = "INSERT INTO students VALUES(%s, %s, %s, %s, %s) "
-                # statement += "ON CONFLICT (netid) DO UPDATE SET students.name = %s, "
-                # statement += "students.phone_num = %s, students.email = %s, students.classyear = %s"  
-                cursor.execute(statement, (netid, name, phone_num, email, classyear))    
+                statement += "ON CONFLICT (netid) DO UPDATE SET name = %s, "
+                statement += "number = %s, email = %s, classyear = %s"  
+                cursor.execute(statement, (netid, name, phone_num, email, classyear, name,phone_num, email, classyear))    
 
     except Exception as ex:
         print(ex, file=sys.stderr)
         sys.exit(1)
         
-def student_details():
-    netid = 'rauniyar'
+def student_details(netid):
+    # netid = 'rauniyar'
     try:
         database_url = DATABASE_URL
         with psycopg2.connect(database_url) as connection:
@@ -348,6 +366,7 @@ def student_details():
                 cursor.execute(statement, [netid])
                 row = cursor.fetchone()
               #  print(row)
+                return row
     except Exception as ex:
         print(ex, file=sys.stderr)
         sys.exit(1)
@@ -376,6 +395,7 @@ def get_activity_attendees(eventid):
     except Exception as ex:
         print(ex, file=sys.stderr)
         sys.exit(1)   
+
 
 
 def main():

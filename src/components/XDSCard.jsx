@@ -4,8 +4,9 @@ import useCollapse from 'react-collapsed';
 import SignUpModal from './SignUpModal';
 import "./Home.css";
 import axios from 'axios';
+import { propTypes } from 'react-bootstrap/esm/Image';
 
-const XDSCard = ({item, ownerView, signUpsView}) => {
+const XDSCard = ({item, ownerView, signUpsView,name,netid,phone,email}) => {
     const [isExpanded, setExpanded] = useState(false)
     const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded })
     const [displaySignUp, setDisplaySignUp] = useState(false)
@@ -44,7 +45,11 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
   }
   
 
-  const signUpModal = displaySignUp ? (<SignUpModal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}/>): null
+  const signUpModal = displaySignUp ? (<SignUpModal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}
+    name={name}
+    phone={phone}
+    email={email}
+    />): null
 
   const get_attendees = (event)=>{
     console.log("inside get attendees")

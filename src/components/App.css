@@ -18,6 +18,7 @@ display: flex;
   padding-bottom: 5%;
   transform: translate(-50%, -50%);
   background-color: orange;
+  border-radius: 10px;
 }
 
 .title {

@@ -1,6 +1,6 @@
 /* @import "compass/css3"; */
 
-.dayFilter, .categoryFilter {
+.dayFilter, .categoryFilter, .titleFilter, .capFilter {
     display: inline-block;
     /* border: solid red 3px; */
     height: 88px;
@@ -26,7 +26,7 @@
 }
 
 .filterContainer{
-    background-color: rgba(186, 124, 62, 0.212);
+    background-color: #f5b52b51;
     display: inline-block;
     margin:  0px 0px 0px 0px;
     padding: 10px 10px 15px 10px;
@@ -80,11 +80,11 @@ background: var(--track-color);
 /* color of the track before the thumb */
 background: var(--main-color);
 }
-
+/* 
 .capFilter {
-    height: 105px;
+    height: 60px;
     width: 243px;
-}
+} */
 
 .capFilter > table{
     margin-top:5px;
@@ -100,4 +100,11 @@ background: var(--main-color);
 
 .filterDropdown {
     background: var(--bs-card-color);
+}
+
+.inputBox {
+    width:50px;
+    margin-left: 5px;
+    margin-right: 5px;
+
 }
