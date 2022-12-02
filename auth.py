@@ -166,7 +166,7 @@ def authenticate():
     if ticket is None:
         login_url = (_CAS_URL + 'login?service=' +
            # urllib.parse.quote(flask.request.url))
-           'https://tigeractivities.onrender.com/')
+           'https://tigeractivities-iqwe.onrender.com/')
         print(login_url)
         flask.abort(flask.redirect(login_url))
 
