@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useState } from 'react'
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import Modal from './Modal'
 import CreateEventDialog  from './CreateEventDialog';
@@ -19,6 +20,7 @@ export default function Welcome(): React.ReactNode{
     const [logInClicked, setLogInClicked] = useState(false)
     const [redirect, setRedirect] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
   // const { request } = require('urllib');
 
   /*
@@ -39,11 +41,14 @@ export default function Welcome(): React.ReactNode{
   useEffect(() => {
     console.log("broswer url: ", window.location.href)
     if (window.location.href.includes('ticket=')) {
-    let ticket = window.location.href('ticket=')[1]
+    // let ticket = window.location.href('ticket=')[1]
+    const ticket = new URL(location.href).searchParams.get('ticket')
+
     axios.post('/validate', {
       url: window.location.href,
       ticket : ticket,
     }).then(res=>{
+      console.log("res", res)
       let val_res = res
       if (val_res !== "Not valid"){
         navigate('/home')
