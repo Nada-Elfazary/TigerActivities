@@ -42,7 +42,7 @@ export default function Welcome(): React.ReactNode{
     console.log("broswer url: ", window.location.href)
     if (window.location.href.includes('ticket=')) {
     // let ticket = window.location.href('ticket=')[1]
-    const ticket = new URL(location.href).searchParams.get('ticket')
+    const ticket = new URL(window.location.href).searchParams.get('ticket')
 
     axios.post('/validate', {
       url: window.location.href,
