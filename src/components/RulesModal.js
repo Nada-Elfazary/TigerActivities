@@ -20,20 +20,17 @@ export default function RulesModal(props) : React.ReactNode {
       //let url = res
       // console.log("url", url)
         navigate('/login')
-      // const config = {
-      //   headers: {
-      //     "Access-Control-Allow-Origin" : "true"
-      //   }
-      // }
+      /* const config = {
+        headers: {
+         "Access-Control-Allow-Origin" : "true"
+        }
+      /* }
       // axios.get('https://tigeractivities.onrender.com/dummy').then(res=>{
       //let url = res
       //console.log("url", url)
         //navigate('/homeTo')
       
-    }.catch(err=>{
-      console.log(err)
-    })
-  }
+    }
 
 
     const failureCallBack = (error)=>{
