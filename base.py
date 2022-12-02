@@ -10,7 +10,7 @@ import urllib.request
 
 
 
-app = flask.Flask(__name__)
+app = flask.Flask(__name__, static_folder="build/static", template_folder="build")
 #app.config['CORS_HEADERS'] = 'Content-Type'
 app.secret_key = os.environ['APP_SECRET_KEY']
 #CORS(app)
@@ -24,8 +24,9 @@ def logout():
 @app.route('/' , methods=['GET'])
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def nishan():
+
     print('I am here')
-    return ('Hello Nishan!')
+    return render_template('index.html')
 
 
 
@@ -154,7 +155,7 @@ def validate():
     #res = flask.request.json
     #ticket = flask.request.args.get('ticket')
     url = flask.request.args.get('url')
-    with urllib.request.urlopen(val_url) as flo:
+    with urllib.request.urlopen(url) as flo:
         lines = flo.readlines()
     return lines[0].decode('utf-8')
 
