@@ -150,9 +150,9 @@ def createEvent():
 @app.route('/validate', methods=['GET'])
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def validate():
-    res = flask.request.json
-    ticket = res['ticket']
-    url = res['url']
+    #res = flask.request.json
+    ticket = flask.request.args.get('ticket')
+    url = flask.request.args.get('url')
     response = auth.validate(ticket, url)
     return response.strip()
 

@@ -44,10 +44,10 @@ export default function Welcome(): React.ReactNode{
     // let ticket = window.location.href('ticket=')[1]
     const ticket = new URL(window.location.href).searchParams.get('ticket')
 
-    axios.get('https://tigeractivities.onrender.com/validate', {
+    axios.get('https://tigeractivities.onrender.com/validate', {params:{
       url: window.location.href,
       ticket : ticket,
-    }).then(res=>{
+    }}).then(res=>{
       console.log("res", res)
       let val_res = res
       if (val_res !== "Not valid"){
