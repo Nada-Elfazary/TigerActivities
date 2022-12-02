@@ -30,8 +30,7 @@ export default function RulesModal(props) : React.ReactNode {
       //console.log("url", url)
         //navigate('/homeTo')
       
-    }   
-    ).catch(err=>{
+    }.catch(err=>{
       console.log(err)
     })
   }
