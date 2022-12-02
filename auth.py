@@ -9,7 +9,7 @@ import urllib.request
 import urllib.parse
 import re
 import flask
-
+from flask_cors import cross_origin
 #-----------------------------------------------------------------------
 
 _CAS_URL = 'https://fed.princeton.edu/cas/'
@@ -119,7 +119,7 @@ _CAS_URL = 'https://fed.princeton.edu/cas/'
 
 # Return url after stripping out the "ticket" parameter that was
 # added by the CAS server.
-
+@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def strip_ticket(url):
     if url is None:
         return "something is badly wrong"
@@ -131,7 +131,7 @@ def strip_ticket(url):
 
 # Validate a login ticket by contacting the CAS server. If
 # valid, return the user's username; otherwise, return None.
-
+@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def validate(ticket, url):
     val_url = (_CAS_URL + "validate" + '?service='
         + urllib.parse.quote(strip_ticket(url))
