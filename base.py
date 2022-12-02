@@ -54,7 +54,7 @@ def dummy_route():
 # cross_origin()
 #
 def index():
-   username = auth.authenticate()
+  # username = auth.authenticate()
    # res = request.json
   # print("request: ")
    # print("before title")
@@ -122,7 +122,8 @@ def sign_ups():
 @app.route('/attendees', methods=['GET'])
 # cross_origin()
 def get_attendees():
-    username = auth.authenticate()
+    #username = auth.authenticate()
+    username = 'ragogoe'
     #res = request.json
     id = flask.request.args.get("event_id")
     attendees = proc.get_activity_attendees(id)
