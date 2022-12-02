@@ -66,13 +66,15 @@ export default function Filter(props) : React.ReactNode {
             <div className="filterContainer">
                 <div className="titleFilter">
                     <label>Event Title</label>
-                    <br/>
+                    <div className="alignFilter">
+                   
                     <input value={title} name="title" onChange={(event) => {
                         setTitle(event.target.value)
                         console.log("Title value:", event, event.target.value, title)
                         props.getEvents(false, event.target.value, dayToNumber[day], category, cost)
                     }}></input>
                     <br/>
+                    </div>
                 </div>
                 <div className="dayFilter">
                     <label>Day</label>
@@ -156,47 +158,17 @@ export default function Filter(props) : React.ReactNode {
                     <br/>
                 </div> */}
                 <div className="capFilter">
-                    <label>Number of Attendees</label>
+                
+                <label>Number of Attendees Range</label>
+                <div className="alignFilter">
+                
+                <label>From: </label>
+                    <input class = "inputBox"></input>
+                    <label>To: </label>
+                    <input class = "inputBox"></input>
+                      
                     <br/>
-                    <table>
-                        <tbody>
-                            <tr>
-                                
-                    <td> <input type = "radio" id= "leq" value= "<=" name="condition" onChange={(event) => {
-                  //      setCapCondition(event.target.value)
-                            document.getElementById("capLeqInput").style.visibility = "visible";
-                            document.getElementById("capGeqInput").style.setProperty('visibility', 'hidden');
-                            document.getElementById("capLeqInput").
-                            console.log("Cap value:", event, event.target.value, title)
-                    //    props.getEvents(false, title, dayToNumber[day], category, cost, event.target.value)
-                    }}></input></td>
-                    <td ><label > {String.fromCharCode(8804)}</label></td>
-                    <td><input id="capLeqInput" placeholder= "Enter a positive integer" value={attendeesNum} name="leq" onChange={(event) => {
-                     //   setCap(event.target.value)
-                        setAttendeesNum(event.target.value)
-                        console.log("Cap value:", event, event.target.value, title)
-                     //   props.getEvents(false, title, dayToNumber[day], category, cost, capCondition, event.target.value)
-                    }}></input></td>
-                    </tr>
-                    <tr>
-                    <td><input type = "radio" value= ">=" name="condition" onChange={(event) => {
-                    //    setCapCondition(event.target.value)
-                            document.getElementById("capGeqInput").style.visibility = "visible";
-                            document.getElementById("capLeqInput").style.setProperty('visibility', 'hidden');
-                            console.log("Cap value:", event, event.target.value, title)
-                    //    props.getEvents(false, title, dayToNumber[day], category, cost, event.target.value, cap)
-                    }}></input></td>
-                    <td><label>{String.fromCharCode(8805)}</label></td>
-                    <td><input id="capGeqInput" placeholder= "Enter a positive integer" name="leq" value={attendeesNum} onChange={(event) => {
-                     //   setCap(event.target.value)
-                            setAttendeesNum(event.target.value)
-                            console.log("Cap value:", event, event.target.value, title)
-                     //   props.getEvents(false, title, dayToNumber[day], category, cost, capCondition, event.target.value)
-                    }}></input></td>
-                    </tr>
-                    </tbody>
-                    </table> 
-                    <br/>
+                    </div>
                 </div>
 
             </div>

@@ -1,6 +1,6 @@
 /* @import "compass/css3"; */
 
-.dayFilter, .categoryFilter {
+.dayFilter, .categoryFilter, .titleFilter, .capFilter {
     display: inline-block;
     /* border: solid red 3px; */
     height: 88px;
@@ -100,4 +100,11 @@ background: var(--main-color);
 
 .filterDropdown {
     background: var(--bs-card-color);
+}
+
+.inputBox {
+    width:50px;
+    margin-left: 5px;
+    margin-right: 5px;
+
 }

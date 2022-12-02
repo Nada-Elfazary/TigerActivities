@@ -15,7 +15,8 @@ html {
 }
 .Navbar{
     background-color: orange;
-    justify-content: center;
+    justify-content: left;
+    padding-left: 5%;
  
 }
 .title {
@@ -24,6 +25,10 @@ html {
     /* border: 3px solid "orange"; */
   
 }
+.buttonsSec {
+    padding-left: 12%;
+}
+
 .button{
     width: 80px;
     height: 40px;
@@ -169,8 +174,8 @@ div.pageContainer{
 
 
 
-table {
-    /*left: 50%;*/
+.tableStyle {
+    left: 50%;
     top: 70%;
     width: 70%;
     border-spacing: 5;
@@ -180,6 +185,7 @@ table {
     background: rgba(243, 156, 18);
     text-align: center;
 }
+
 th, td{
     padding: 12px, 15px;
 }

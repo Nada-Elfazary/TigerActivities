@@ -8,7 +8,7 @@ import Filter from './Filter';
 import "./Home.css";
 import axios from 'axios';
 import ClipLoader from 'react-spinners/ClipLoader'
-
+import "./App.css"
 // importing Link from react-router-dom to navigate to 
 // different end points.
   
@@ -169,17 +169,17 @@ const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator
 
     <XDSCard key ={index} item ={event} ownerView={false} signUpsView = {false}/>
   )
-}): "No events created yet"
+}): <h1 className = "center-screen">"No events created yet"</h1>
 const displayOwnerEvents = events.length !== 0 ? events.map((event, index)=>{
   return (
     <XDSCard key ={index} item={event} ownerView={true} signUpsView = {false}/>
   )
-}): "No events created yet"
+}): <h1 className = "center-screen">"No events created yet"</h1>
 const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
   return (
     <XDSCard key ={index} item={event} ownerView={false} signUpsView = {true}/>
   )
-}): "No current sign-ups"
+}): <h1 className = "center-screen">No current sign-ups</h1>
 
 const topNav = 
  <Navbar className="Navbar">
@@ -187,6 +187,12 @@ const topNav =
                 className="d-inline-block align-top"
                 /> {' '}</Navbar.Brand>
   <Navbar.Brand>{title}</Navbar.Brand>
+
+  <div className = "buttonsSec">
+  <Navbar.Brand><Button onClick={activitesClicked}>Activities</Button></Navbar.Brand>
+  <Navbar.Brand><Button onClick={myActivitesClicked}>My Activities</Button></Navbar.Brand>
+  <Navbar.Brand><Button onClick={mySignUpsClicked}>My Sign-Ups</Button></Navbar.Brand>
+  </div>
 </Navbar>
 
 const results = refresh ? (displayEvents) : null
@@ -229,13 +235,7 @@ const showResults = clickedActivites? (
     <div className = "pageContainer">
     
     {topNav}
-      <div className = "LeftNavContainer-1">
-        <div className="btn">
-        {activities}
-        {myActivities}
-        {mySignUps}
-        </div>
-        </div>  
+   
       
         <div className="content">
           {showCreateEventButton}
