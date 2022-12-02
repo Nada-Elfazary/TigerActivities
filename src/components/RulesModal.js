@@ -20,7 +20,7 @@ export default function RulesModal(props) : React.ReactNode {
           "Access-Control-Allow-Origin" : "true"
         }
       }
-      axios.get('https://tigeractivities.onrender.com/dummy', config=config).then(res=>{
+      axios.get('https://tigeractivities.onrender.com/dummy', config).then(res=>{
       let url = res
       console.log("url", url)
         navigate('/homeTo')
