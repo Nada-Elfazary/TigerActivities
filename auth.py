@@ -168,7 +168,7 @@ def authenticate():
            # urllib.parse.quote(flask.request.url))
            'https://tigeractivities-iqwe.onrender.com/')
         print(login_url)
-        flask.abort(flask.redirect(login_url))
+        #flask.abort(flask.redirect(login_url))
 
     # If the login ticket is invalid, then redirect the browser
     # to the login page to get a new one.

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import  {useNavigate} from "react-router-dom";
 import axios from "axios";
+import CasPage from "./CasPage";
 
 import "./Modal.css";
 
@@ -18,7 +19,7 @@ export default function RulesModal(props) : React.ReactNode {
       axios.get('https://tigeractivities.onrender.com/dummy').then(res=>{
       let url = res
       console.log("url", url)
-        navigate('/homeTo')
+        navigate('/login')
       
     }   
     ).catch(err=>{
