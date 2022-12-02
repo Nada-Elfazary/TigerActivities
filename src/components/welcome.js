@@ -44,7 +44,7 @@ export default function Welcome(): React.ReactNode{
     // let ticket = window.location.href('ticket=')[1]
     const ticket = new URL(window.location.href).searchParams.get('ticket')
 
-    axios.post('/validate', {
+    axios.get('/validate', {
       url: window.location.href,
       ticket : ticket,
     }).then(res=>{
