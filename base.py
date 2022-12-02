@@ -147,6 +147,14 @@ def createEvent():
     # def createEvent():  
     #     print("Recieved request: {}".format(request))
 
+@app.route('/validate', methods=['POST'])
+@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
+def validate():
+    res = flask.request.json
+    ticket = res['ticket']
+    url = res['url']
+    response = auth.validate(ticket, url)
+    return response
 
 @app.route('/sign-up', methods = ['POST'])
 # cross_origin()

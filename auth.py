@@ -132,19 +132,19 @@ def strip_ticket(url):
 # Validate a login ticket by contacting the CAS server. If
 # valid, return the user's username; otherwise, return None.
 
-def validate(ticket):
+def validate(ticket, url):
     val_url = (_CAS_URL + "validate" + '?service='
-        + urllib.parse.quote(strip_ticket(flask.request.url))
+        + urllib.parse.quote(strip_ticket(url))
         + '&ticket=' + urllib.parse.quote(ticket))
     lines = []
     with urllib.request.urlopen(val_url) as flo:
         lines = flo.readlines()   # Should return 2 lines.
     if len(lines) != 2:
-        return None
+        return "Not valid"
     first_line = lines[0].decode('utf-8')
     second_line = lines[1].decode('utf-8')
     if not first_line.startswith('yes'):
-        return None
+        return "Not valid"
     return second_line
 
 #-----------------------------------------------------------------------

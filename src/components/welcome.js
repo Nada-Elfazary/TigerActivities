@@ -7,6 +7,7 @@ import CreateEventDialog  from './CreateEventDialog';
 import RulesModal from './RulesModal';
 import {useNavigate } from 'react-router-dom';
 import logo from './princeton_tigers_logo.png';
+import axios from 'axios';
 
 export default function Welcome(): React.ReactNode{
     const [clickedDisplayEvents, setClickedDisplayEvents] = useState(false)
@@ -18,11 +19,40 @@ export default function Welcome(): React.ReactNode{
     const [logInClicked, setLogInClicked] = useState(false)
     const [redirect, setRedirect] = useState(false)
   const navigate = useNavigate()
+  // const { request } = require('urllib');
 
+  /*
+  const validate = (ticket) => {
+    valUrl = 'https://fed.princeton.edu/cas/validate?service='
+    valUrl += 'https%3A//tigeractivities-iqwe.onrender.com&ticket=' + ticket
+
+  
+   const { data, res } = {(async () => {
+      await request(valUrl);
+   })(); 
+  
+// result: { data: Buffer, res: Response }
+    console.log('status: %s, body size: %d, headers: %j', res.statusCode, data.length, res.headers);
+  console.log("data: ", decodeURI(data))
+  }
+*/
   useEffect(() => {
     console.log("broswer url: ", window.location.href)
     if (window.location.href.includes('ticket=')) {
-     navigate("/home")
+    let ticket = window.location.href('ticket=')[1]
+    axios.post('/validate', {
+      url: window.location.href,
+      ticket : ticket,
+    }).then(res=>{
+      let val_res = res
+      if (val_res !== "Not valid"){
+        navigate('/home')
+
+      }
+    }).catch(err=>{
+      console.log("validation error", err)
+      navigate('/login')
+    })
     }
     
    }, [])
