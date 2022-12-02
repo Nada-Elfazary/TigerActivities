@@ -39,7 +39,7 @@ const mySignUpsClicked= () => {
   setRefresh(false)
   console.log("Requesting user signups")
 
-  axios.get('/user-sign-ups').then((res) =>{
+  axios.get('https://tigeractivities.onrender.com/user-sign-ups').then((res) =>{
     console.log("in sign-up")
     setEvents(res.data)
   }).catch(err =>{
@@ -116,7 +116,7 @@ const getEvents =  (ownerView, name, day, category, cost)=> {
 
 // axios.get('https://tigeractivities.onrender.com/events').then(res =>{
   setLoading(true)
-  axios.get('/events', {params: {title: name, day: day, category: category, cost: cost}}).then(res =>{
+  axios.get('https://tigeractivities.onrender.com/events', {params: {title: name, day: day, category: category, cost: cost}}).then(res =>{
     console.log("Events received from db:", res)
     console.log("Setting events to:", res.data)
     setEvents([])

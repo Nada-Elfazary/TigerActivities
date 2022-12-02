@@ -35,7 +35,7 @@ function CreateEventDialog(props) {
     props.setLoading(true)
 
 // axios.get('https://tigeractivities.onrender.com/events').then(res =>{
-  axios.get('/events', {params: {title: name, day: day, category: category, cost: cost}}).then(res =>{
+  axios.get('https://tigeractivities.onrender.com/events', {params: {title: name, day: day, category: category, cost: cost}}).then(res =>{
     console.log("Events received from db:", res)
     console.log("Setting events to:", res.data)
     props.setEvents([])
@@ -61,7 +61,7 @@ function CreateEventDialog(props) {
     const submitForm = ()=>{
         setDisableSubmitForm(true)
         console.log(disableSubmitForm)
-        axios.post('/create-event', {
+        axios.post('https://tigeractivities.onrender.com/create-event', {
           // create_id
             event_name:    eventTitle,
             start_time:    startTime,

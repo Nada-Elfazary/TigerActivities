@@ -15,18 +15,6 @@ export default function DetailsModal(props) {
   
   }
 
-  /*
-  const getAttendees = ()=> {
-  axios.get('/attendees').then(res =>{
-    console.log(res)   
-    attendees = res.data
-  }).catch(err =>{
-    console.log(err)
-  
-  })
-  }
-*/
-
   const signUpModal = displaySignUp ? (<Modal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}/>): null
   return (
     <div className="modalBackground">
