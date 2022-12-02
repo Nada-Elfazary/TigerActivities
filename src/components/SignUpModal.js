@@ -8,18 +8,19 @@ import "./Modal.css";
 function SignUpModal(props) {
 
   const [name,setName] = useState(props.name)
-  const [phone,setPhone] = useState(props.phone)
+  const [phone,setPhone] = useState("")
   const [email,setEmail] = useState(props.email)
   const [errorMsg, setErrorMsg] = useState("")
   const [showErrorMsg, setShowErrorMsg] = useState(false)
 
+  /*
   React.useEffect(() => {
     setName(props.name)
     setEmail(props.email)
     setPhone(props.phone)
   }, [])
 
-  
+  */
   const submitForm= () =>
   {
     axios.post('/sign-up', {
@@ -117,26 +118,26 @@ function SignUpModal(props) {
         <Button variant="primary" onClick={()=>{
              let error = 0;
              let errorMsg = []
-          // console.log(endTime.getTime())
-          // console.log(startTime.getTime())
+ 
            if(name.length === 0 ){
-   //              error.push("Title field cannot be empty")
-             // setShowErrorMsg(true)
+   
              document.getElementById('name').classList.add("error");
              document.getElementById('name').placeholder = "Name field cannot be empty";
    
              error = 1;
            }
            if(phone.length === 0){
-        //     error.push("Location field cannot be empty \n")
+            console.log("inside phone === 0")
              document.getElementById('num').classList.add("error");
-             document.getElementById('num').placeholder = "Phone number field cannot be empty";
+             document.getElementById('num').value = "Phone number field cannot be empty";
    
              error = 1;
            }
-           if(!/^[0-9]{10}$/.test(phone)){
+           else if(!/^[0-9]{10}$/.test(phone)){
+            console.log("inside invalid phone")
             document.getElementById('num').classList.add("error");
-            document.getElementById('num').value="Phone number is invalid";
+            document.getElementById('num').setAttribute("value", 'Invalid phone number')
+            setShowErrorMsg(true)
             error = 1;
           }
            if(email.length === 0){
@@ -145,7 +146,7 @@ function SignUpModal(props) {
              error = 1;
            }
            
-           if(!/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/.test(email)){
+           else if(!/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/.test(email)){
             console.log("email state:", email)
             document.getElementById('email').classList.add("error");
             document.getElementById('email').value="Email address is invalid";
