@@ -137,6 +137,7 @@ def validate(ticket, url):
         + urllib.parse.quote(strip_ticket(url))
         + '&ticket=' + urllib.parse.quote(ticket))
     lines = []
+    '''
     with urllib.request.urlopen(val_url) as flo:
         lines = flo.readlines()   # Should return 2 lines.
     if len(lines) != 2:
@@ -146,7 +147,8 @@ def validate(ticket, url):
     if not first_line.startswith('yes'):
         return "Not valid"
     return second_line
-
+'''
+    return val_url
 #-----------------------------------------------------------------------
 
 # Authenticate the remote user, and return the user's username.
