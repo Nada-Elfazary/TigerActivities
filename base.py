@@ -51,7 +51,7 @@ def dummy_route():
   return (url)
 
 @app.route("/events", methods = ['GET'])
-# cross_origin()
+@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 #
 def index():
   # username = auth.authenticate()
