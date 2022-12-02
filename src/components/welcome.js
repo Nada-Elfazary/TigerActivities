@@ -1,7 +1,6 @@
 import './App.css';
 import React, { useState } from 'react'
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import Modal from './Modal'
 import CreateEventDialog  from './CreateEventDialog';
@@ -20,46 +19,35 @@ export default function Welcome(): React.ReactNode{
     const [logInClicked, setLogInClicked] = useState(false)
     const [redirect, setRedirect] = useState(false)
   const navigate = useNavigate()
-  const location = useLocation()
-  // const { request } = require('urllib');
 
-  /*
+ 
   const validate = (ticket) => {
-    valUrl = 'https://fed.princeton.edu/cas/validate?service='
-    valUrl += 'https%3A//tigeractivities-iqwe.onrender.com&ticket=' + ticket
-
-  
-   const { data, res } = {(async () => {
-      await request(valUrl);
-   })(); 
+    const url = 'https%3A//tigeractivities-iqwe.onrender.com'
+    let valUrl = 'https://fed.princeton.edu/cas/validate?service='
+    valUrl += encodeURI(url)+'&ticket=' +  encodeURI(ticket)
+    axios.get('https://tigeractivities.onrender.com/validate', {params:{url: url}}).then(
+      resp =>{
+        console.log("resp", resp)
+      }
+    ).catch(
+      err=>{
+        console.log("err", err)
+        navigate('/')
+      }
+    )
   
 // result: { data: Buffer, res: Response }
-    console.log('status: %s, body size: %d, headers: %j', res.statusCode, data.length, res.headers);
-  console.log("data: ", decodeURI(data))
+    // console.log('status: %s, body size: %d, headers: %j', res.statusCode, data.length, res.headers);
+  // console.log("data: ", decodeURI(data))
   }
-*/
+
   useEffect(() => {
     console.log("broswer url: ", window.location.href)
     if (window.location.href.includes('ticket=')) {
     // let ticket = window.location.href('ticket=')[1]
     const ticket = new URL(window.location.href).searchParams.get('ticket')
-
-    axios.get('https://tigeractivities.onrender.com/validate', {params:{
-      url: window.location.href,
-      ticket : ticket,
-    }}).then(res=>{
-      console.log("res", res)
-      let val_res = res
-      if (val_res !== "Not valid"){
-        navigate('/home')
-
-      }
-    }).catch(err=>{
-      console.log("validation error", err)
-      navigate('/')
-    })
-    }
-    
+    validate(ticket)
+  }
    }, [])
     const handleOnClickedDisplayEvents =()=>{
         setClickedDisplayEvents(true)

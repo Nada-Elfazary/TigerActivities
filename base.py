@@ -6,6 +6,7 @@ import os
 import auth 
 from flask_cors import CORS
 from flask_cors import cross_origin
+import urllib.request
 
 
 
@@ -151,10 +152,11 @@ def createEvent():
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def validate():
     #res = flask.request.json
-    ticket = flask.request.args.get('ticket')
+    #ticket = flask.request.args.get('ticket')
     url = flask.request.args.get('url')
-    response = auth.validate(ticket, url)
-    return response.strip()
+    with urllib.request.urlopen(val_url) as flo:
+        lines = flo.readlines()
+    return lines[0].decode('utf-8')
 
 @app.route('/sign-up', methods = ['POST'])
 # cross_origin()

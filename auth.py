@@ -131,25 +131,24 @@ def strip_ticket(url):
 
 # Validate a login ticket by contacting the CAS server. If
 # valid, return the user's username; otherwise, return None.
-@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
-def validate(ticket, url):
+def validate(ticket):
     val_url = (_CAS_URL + "validate" + '?service='
-        + urllib.parse.quote(strip_ticket(url))
+        + urllib.parse.quote(strip_ticket(flask.request.url))
         + '&ticket=' + urllib.parse.quote(ticket))
     lines = []
     
     with urllib.request.urlopen(val_url) as flo:
         lines = flo.readlines()   # Should return 2 lines.
     if len(lines) != 2:
-        return "Not valid"
-    '''
+        return None
+    
     first_line = lines[0].decode('utf-8')
     second_line = lines[1].decode('utf-8')
     if not first_line.startswith('yes'):
-        return "Not valid"
+        return None
     return second_line
-'''
-    return lines
+
+  
 #-----------------------------------------------------------------------
 
 # Authenticate the remote user, and return the user's username.
