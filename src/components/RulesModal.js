@@ -16,20 +16,22 @@ export default function RulesModal(props) : React.ReactNode {
   
 
     const cas = ()=>{
-    // #axios.get('https://tigeractivities.onrender.com/dummy').then(res=>{
-      //let url = res
-      // console.log("url", url)
+      navigate('/login')
+
+   /* axios.get('https://tigeractivities.onrender.com/dummy').then(res=>{
+      let url = res
+       console.log("url", url)
         navigate('/login')
-      /* const config = {
+       const config = {
         headers: {
          "Access-Control-Allow-Origin" : "true"
         }
-      /* }
-      // axios.get('https://tigeractivities.onrender.com/dummy').then(res=>{
-      //let url = res
-      //console.log("url", url)
-        //navigate('/homeTo')
-      
+       }
+       axios.get('https://tigeractivities.onrender.com/dummy').then(res=>{
+      let url = res
+      console.log("url", url)
+        navigate('/homeTo')
+      */
     }
 
 
