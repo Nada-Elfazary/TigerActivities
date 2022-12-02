@@ -42,23 +42,15 @@ def nishan():
 #
 def index():
    #auth.authenticate()
-   # res = request.json
-  # print("request: ")
-   # print("before title")
-    #title = res['title']
-    #print("after title")
-    #print(title)
    title = flask.request.args.get("title") or ''
    day = flask.request.args.get("day") or ''
    category = flask.request.args.get("category") or ''
    cost = flask.request.args.get("cost") or 'all'
-   capMin = flask.request.args.get("capMin") or '5'
-   capMax = flask.request.args.get("capMax") or '20'
+   capMin = flask.request.args.get("capMin") or '1'
+   capMax = flask.request.args.get("capMax") or '99999'
   
    print("Received arguments: title={} day={} category={} cost={} capMin={} capMax={}".format(title, day, category, cost, capMin, capMax))
-   #print("Received arguments: title={} day={} category={} cost={} capCond={} cap={}".format(title, day, category, cost, condition, cap))
    events = proc.fetch_activities(title, day, category, cost, capMin, capMax)
-   #events = proc.fetch_activities(title, day, category, cost, condition, cap)   print("events route has been called. Fetching events: {}".format(events))
    results =[]
    for event in events:
         response_body={
@@ -76,8 +68,8 @@ def index():
             "week_day": event[11],
             "end_date":event[12],
             "signup_number":event[13],
-            
         }
+        print("This is response from proc: " + str(response_body))
         results.append(response_body)
    return results
 
