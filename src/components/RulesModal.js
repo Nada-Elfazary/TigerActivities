@@ -39,7 +39,6 @@ export default function RulesModal(props) : React.ReactNode {
 
 
     const failureCallBack = (error)=>{
-      // errorMsg = <strong className="error">error</strong>
       console.log(checked)
       setErrorMsg(error)
       setShowErrorMsg(true)
@@ -66,7 +65,6 @@ export default function RulesModal(props) : React.ReactNode {
 
     let error = ""
    
-    // errorMsg = showErrorMsg ? <strong className="error">Read Our Terms and Agreements before proceeding</strong> : null
     const errorM  = showErrorMsg!= null ? <strong className="error">{errorMsg}</strong> : null    
 
     const rulesModal = (<Container fluid>
