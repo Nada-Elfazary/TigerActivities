@@ -44,7 +44,7 @@ export default function Welcome(): React.ReactNode{
     // let ticket = window.location.href('ticket=')[1]
     const ticket = new URL(window.location.href).searchParams.get('ticket')
 
-    axios.get('/validate', {
+    axios.get('https://tigeractivities.onrender.com/validate', {
       url: window.location.href,
       ticket : ticket,
     }).then(res=>{
@@ -56,7 +56,7 @@ export default function Welcome(): React.ReactNode{
       }
     }).catch(err=>{
       console.log("validation error", err)
-      navigate('/login')
+      navigate('/')
     })
     }
     
