@@ -27,7 +27,7 @@ export default function  Home() : React.ReactNode {
   const [nameFilter, setNameFilter] = useState('')
   let currLogin = "Nada"
   const [profileData, setProfileData] = useState(["","","",""])
-  let currLogin = "Reuben"
+
   let currNetid = "ragogoe"
 
   useEffect(()=>{
