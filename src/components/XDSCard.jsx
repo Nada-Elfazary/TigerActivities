@@ -53,7 +53,7 @@ const XDSCard = ({item, ownerView, signUpsView,name,netid,phone,email}) => {
 
   const get_attendees = (event)=>{
     console.log("inside get attendees")
-    axios.get('/attendees', {params: {
+    axios.get('https://tigeractivities.onrender.com/attendees', {params: {
       event_id : event.id,
     }}).then(res =>{ 
             setAttendees(res.data)
