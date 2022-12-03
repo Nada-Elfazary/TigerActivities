@@ -219,7 +219,7 @@ const topNav =
   <Navbar.Brand>{title}</Navbar.Brand>
 
   <div className = "buttonsSec">
-  <Navbar.Brand><Button onClick={activitesClicked}>Activities</Button></Navbar.Brand>
+  <Navbar.Brand><Button onClick={activitesClicked}>Explore Activities</Button></Navbar.Brand>
   <Navbar.Brand><Button onClick={myActivitesClicked}>My Activities</Button></Navbar.Brand>
   <Navbar.Brand><Button onClick={mySignUpsClicked}>My Sign-Ups</Button></Navbar.Brand>
   <Navbar.Brand><Button onClick={profileClicked}>Profile</Button></Navbar.Brand>
@@ -257,6 +257,10 @@ const showResults = clickedActivites? (
 
   ): null
 
+  const showNote = (
+    <h3><text className = 'note'>Note: The activities shown are the ones within the next 5 days</text></h3>
+  )
+
   const showProfile = clickedProfile ? <Profile 
     name={profileData[0]}
     netid={currNetid}
@@ -273,11 +277,13 @@ const showResults = clickedActivites? (
   return (
     <div className = "pageContainer">   
     {topNav}
+    
         <div className="content">
           {showCreateEventButton}
           {showFilter}
           {showProfile}
             <div className="events">
+            {showNote}
             {!loading ? results : showLoading}
             {showResults}
             {!loading ? showOwnerActivities : showLoading}
