@@ -135,7 +135,7 @@ def fetch_activities(title, day, category, cost, capMin, capMax):
         sys.exit(1)
 
 def fetch_user_sign_ups():
-    netid = "fifth" #hardcoded for now
+    netid = "last" #hardcoded for now
 
     eventids = []
     activities = []

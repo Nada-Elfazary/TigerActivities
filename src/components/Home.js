@@ -28,6 +28,9 @@ export default function  Home() : React.ReactNode {
   let currLogin = "Reuben"
   let currNetid = "ragogoe"
 
+  const categoryToColor = {'Sports': "cyan", 'Entertainment': "purple", 'Academic': "yellow", 'Off-campus': "olive", 'Outdoors': "navy",  
+  'Meals/Coffee Chats': "maroon", 'Nassau Street': "green"} 
+
   useEffect(()=>{
     setRefresh(true)
     activitesClicked()
@@ -49,10 +52,11 @@ const mySignUpsClicked= () => {
   setClickedProfile(false)
   setRefresh(false)
   console.log("Requesting user signups")
-
+  setLoading(true)
   axios.get('/user-sign-ups').then((res) =>{
     console.log("in sign-up")
     setEvents(res.data)
+    setLoading(false)
   }).catch(err =>{
     console.log("Error receiving event from db:", err)
   })
@@ -118,6 +122,7 @@ const handleCreateEvent = () =>{
 }
 
 const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
+  setLoading(true)
   axios.get('/events', {params: {title: name, day: day, category: category, cost: cost, capMin: capMin, capMax: capMax}}).then(res =>{
     console.log("Events received from db:", res)
     setEvents([])
@@ -189,17 +194,20 @@ const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator
     <XDSCard key ={index} item ={event} ownerView={false} signUpsView = {false} 
     name={profileData[0]}
     phone={profileData[1]}
-    email={profileData[2]}/>
+    email={profileData[2]}
+    tagColor = {categoryToColor[event.category]}/>
   )
 }): <h1 className = "center-screen">"No events created yet"</h1>
 const displayOwnerEvents = events.length !== 0 ? events.map((event, index)=>{
   return (
-    <XDSCard key ={index} item={event} ownerView={true} signUpsView = {false}/>
+    <XDSCard key ={index} item={event} ownerView={true} signUpsView = {false} 
+    tagColor = {categoryToColor[event.category]}/>
   )
 }): <h1 className = "center-screen">"No events created yet"</h1>
 const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
   return (
-    <XDSCard key ={index} item={event} ownerView={false} signUpsView = {true}/>
+    <XDSCard key ={index} item={event} ownerView={false} signUpsView = {true}
+    tagColor = {categoryToColor[event.category]}/>
   )
 }): <h1 className = "center-screen">No current sign-ups</h1>
 
