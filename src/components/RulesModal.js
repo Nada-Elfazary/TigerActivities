@@ -12,10 +12,20 @@ export default function RulesModal(props) : React.ReactNode {
     const [errorMsg, setErrorMsg] = useState("")
     const navigate = useNavigate()
 
-    const cas = ()=>{axios.get('https://tigeractivities.onrender.com/events').then(
-      console.log("logout")
+    const cas = ()=>{axios.get('/authenticate').then(
+     res=>{
+      let response = res.data
+      if(response.username === ''){
+        console.log("redirect to cas")
+        window.location.replace(response.redirect);
+      }
+      else{
+        console.log("insinde nav to home")
+        navigate('/home')
+      }
+     }
     ).catch(err=>{
-      console.log("error")
+      console.log("error", err)
     })
   }
 
@@ -32,8 +42,8 @@ export default function RulesModal(props) : React.ReactNode {
       setErrorMsg(null)
       props.setOpenModal(false)
       props.setRedirect(true)
-      // cas()
-      navigate('/home')
+       cas()
+      // navigate('/home')
 
     }
     const handleChecked = (event)=>{

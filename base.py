@@ -7,7 +7,7 @@ import auth
 from flask_cors import CORS
 from flask_cors import cross_origin
 import urllib.request
-
+import CASClient
 
 app = flask.Flask(__name__, static_folder="build/static", template_folder="build")
 #app.config['CORS_HEADERS'] = 'Content-Type'
@@ -35,12 +35,15 @@ def shree():
  # response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
  # return response
 
-#@app.after_request
-#def after_request(response):
-#  response.headers.add('Access-Control-Allow-Origin', '*')
-#  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-#  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-#  return response
+@app.route('/authenticate', methods=['GET'])
+def authenticate(){
+   authResult = CASClient().authenticate()
+   response_body={
+        "username"=authResult['username'],
+        "redirect"=authResult['redirect']
+   } 
+   return response_body
+}
 
 @app.route("/dummy", methods = ['GET'])
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
