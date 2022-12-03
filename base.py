@@ -27,8 +27,6 @@ def shree():
     print('I am here')
     return flask.render_template('index.html')
 
-
-
 #@app.after_request
 #def after_request(response):
 #    response.headers.set('Access-Control-Allow-Origin', '*')

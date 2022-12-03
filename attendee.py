@@ -17,9 +17,4 @@ class Attendee:
 
     def get_number(self):
         return self._number
-<<<<<<< HEAD
-=======
-    
-     
->>>>>>> mainDup
     

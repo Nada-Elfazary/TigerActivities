@@ -1,9 +1,5 @@
 ags
-<<<<<<< HEAD
-#static
-=======
 # static
->>>>>>> mainDup
 # Created by https://www.gitignore.io/api/node
 
 ### Node ###
@@ -83,11 +79,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-<<<<<<< HEAD
-#build/
-=======
 # build/
->>>>>>> mainDup
 develop-eggs/
 dist/
 downloads/
