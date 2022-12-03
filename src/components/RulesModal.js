@@ -1,44 +1,26 @@
 import React, { useState } from "react";
 import  {useNavigate} from "react-router-dom";
-import { Container, Modal, Button, Form, ListGroup } from "react-bootstrap";
-import CreateEventModalDraggable from "./CreateEventModalDraggable";
-
 import axios from "axios";
-import CasPage from "./CasPage";
-
+import CreateEventModalDraggable from "./CreateEventModalDraggable";
 import "./Modal.css";
+import { Container, Modal, Button, Form, ListGroup } from "react-bootstrap";
 
 export default function RulesModal(props) : React.ReactNode {
-    // let checked = useRef(false)
     const [saving, setSaving] = useState(false)
     const [checked, setChecked] = useState(false)
     const [showErrorMsg, setShowErrorMsg] = useState(false)
     const [errorMsg, setErrorMsg] = useState("")
     const navigate = useNavigate()
 
-  
-
-    const cas = ()=>{
-      navigate('/login')
-
-   /* axios.get('https://tigeractivities.onrender.com/dummy').then(res=>{
-      let url = res
-       console.log("url", url)
-        navigate('/login')
-       const config = {
-        headers: {
-         "Access-Control-Allow-Origin" : "true"
-        }
-       }
-       axios.get('https://tigeractivities.onrender.com/dummy').then(res=>{
-      let url = res
-      console.log("url", url)
-        navigate('/homeTo')
-      */
-    }
-
+    const cas = ()=>{axios.get('/events').then(
+      console.log("logout")
+    ).catch(err=>{
+      console.log("error")
+    })
+  }
 
     const failureCallBack = (error)=>{
+      // errorMsg = <strong className="error">error</strong>
       console.log(checked)
       setErrorMsg(error)
       setShowErrorMsg(true)
@@ -50,12 +32,9 @@ export default function RulesModal(props) : React.ReactNode {
       setErrorMsg(null)
       props.setOpenModal(false)
       props.setRedirect(true)
-      
-      cas()
-      //navigate('https://fed.princeton.edu/cas/login?service=https%3A//tigeractivities.onrender.com/dummy')
-      // navigate('https://fed.princeton.edu/cas/login?service=https%3A//tigeractivities-iqwe.onrender.com/')
-     //navigate('/login')
-     // navigate('/home')
+      // cas()
+      navigate('/home')
+
     }
     const handleChecked = (event)=>{
         setChecked(event.target.checked)
@@ -64,10 +43,13 @@ export default function RulesModal(props) : React.ReactNode {
     }
 
     let error = ""
-   
-    const errorM  = showErrorMsg!= null ? <strong className="error">{errorMsg}</strong> : null    
 
-    const rulesModal = (<Container fluid>
+ 
+
+  const errorM  = showErrorMsg ? <strong className="error">{errorMsg}</strong> : null
+
+  
+  const rulesModal = (<Container fluid>
     <Modal show={true} dialogAs={CreateEventModalDraggable} onHide={()=>{
     props.setOpenModal(false)
   }} >
@@ -112,12 +94,11 @@ export default function RulesModal(props) : React.ReactNode {
       </Modal.Footer>
     </Modal>
   </Container>)
-  
 
   return (
     <>
-    {rulesModal}
- </>
+       {rulesModal}
+    </>
   );
 }
 

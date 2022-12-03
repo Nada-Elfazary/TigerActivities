@@ -9,7 +9,6 @@ from flask_cors import cross_origin
 import urllib.request
 
 
-
 app = flask.Flask(__name__, static_folder="build/static", template_folder="build")
 #app.config['CORS_HEADERS'] = 'Content-Type'
 app.secret_key = os.environ['APP_SECRET_KEY']
@@ -23,10 +22,10 @@ def logout():
 
 @app.route('/' , methods=['GET'])
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
-def nishan():
+def shree():
 
     print('I am here')
-    return render_template('index.html')
+    return flask.render_template('index.html')
 
 
 
@@ -49,32 +48,21 @@ def nishan():
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def dummy_route():
   print("inside dummy")
-  url = auth.authenticate()
-  return (url)
+  username = auth.authenticate()
+  return (username)
 
 @app.route("/events", methods = ['GET'])
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 #
 def index():
-  # username = auth.authenticate()
-   # res = request.json
-  # print("request: ")
-   # print("before title")
-    #title = res['title']
-    #print("after title")
-    #print(title)
+   #username = auth.authenticate()
    title = flask.request.args.get("title") or ''
    day = flask.request.args.get("day") or ''
    category = flask.request.args.get("category") or ''
    cost = flask.request.args.get("cost") or 'all'
-   #condition = flask.request.args.get("capCond") or 'LIKE'
-   #cap = flask.request.args.get("cap") or '1'
-  
-   print("Received arguments: title={} day={} category={} cost={}".format(title, day, category, cost))
-   #print("Received arguments: title={} day={} category={} cost={} capCond={} cap={}".format(title, day, category, cost, condition, cap))
-   events = proc.fetch_activities(title, day, category, cost)
-   #events = proc.fetch_activities(title, day, category, cost, condition, cap)
-   print("events route has been called. Fetching events: {}".format(events))
+   capMin = flask.request.args.get("capMin") or '1'
+   capMax = flask.request.args.get("capMax") or '99999'
+   events = proc.fetch_activities(title, day, category, cost, capMin, capMax)
    results =[]
    for event in events:
         response_body={
@@ -92,15 +80,14 @@ def index():
             "week_day": event[11],
             "end_date":event[12],
             "signup_number":event[13],
-            
         }
         results.append(response_body)
    return results
 
 @app.route("/user-sign-ups", methods = ['GET'])
 def sign_ups():
-  username = auth.authenticate()
-  events = proc.fetch_user_sign_ups(username)
+  #username = auth.authenticate()
+  events = proc.fetch_user_sign_ups()
   results = []
   for event in events:
         response_body={
@@ -115,8 +102,9 @@ def sign_ups():
             "description":event[8],
             "cost":event[9],
             "start_date":event[10],
-            "end_date":event[11],
-            "signup_number":event[12]
+            "week_day": event[11],
+            "end_date":event[12],
+            "signup_number":event[13]
         }
         results.append(response_body)
   return results
@@ -125,16 +113,24 @@ def sign_ups():
 # cross_origin()
 def get_attendees():
     #username = auth.authenticate()
-    username = 'ragogoe'
     #res = request.json
     id = flask.request.args.get("event_id")
+    attendees_response = []
     attendees = proc.get_activity_attendees(id)
-    return attendees
+    for attendee in attendees:
+        response_body = {
+            "name": attendee.get_name(),
+            "netid": attendee.get_netid(),
+            "email": attendee.get_email(),
+            "number": attendee.get_number()
+        }
+        attendees_response.append(response_body)
+    return attendees_response
 
 @app.route('/create-event', methods = ['POST'])
 # cross_origin()
 def createEvent():
-    username = auth.authenticate()
+    #username = auth.authenticate()
     res = flask.request.json
     print("response", res['event_name'])
     print("Recieved request: {}".format(flask.request.json))
@@ -162,21 +158,57 @@ def validate():
 @app.route('/sign-up', methods = ['POST'])
 # cross_origin()
 def signUp():
-    username = auth.authenticate()
+    #username = auth.authenticate()
     res = flask.request.json
     print("json")
     print(res)
-    proc.store_sign_up(res, username)
+    proc.store_sign_up(res)
     return res
 
 @app.route('/cancel-sign-up', methods = ['POST'])
 # cross_origin()
 def cancelSignUp():
-    username = auth.authenticate()
+    #username = auth.authenticate()
     res = flask.request.json
     print("json")
     print(res)
     id = res["event_id"]
     print(id)
-    proc.delete_signup(id, username)
+    proc.delete_signup(id)
     return res
+
+@app.route('/update-profile', methods = ['POST'])
+def updateProfile():
+    res = flask.request.json
+    
+    netid = res["netid"]
+    name = res["name"]
+    phone = res["phone"]
+    email = res["email"]
+    class_year = "" #tbd
+
+    proc.store_student([netid,name,phone,email,class_year])
+    return res
+
+@app.route('/profile', methods = ['GET'])
+def getProfileInfo():
+    netid = flask.request.args.get("netid")
+    print("Inside /profile. Request data: {}".format(netid))
+    student_row = proc.student_details(netid)
+    print("received Student infomation: {}".format(student_row))
+    if student_row is None:
+        response_body = {
+            "name": "",
+            "phone": "",
+            "email": "",
+            "class_year": ""
+        }
+    else:
+        response_body = {
+            "name": student_row[1],
+            "phone": student_row[2],
+            "email": student_row[3],
+            "class_year":student_row[4]
+        }
+    return response_body
+   

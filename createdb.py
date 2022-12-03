@@ -13,7 +13,7 @@ DATABASE_URL = 'postgres://hwwlwcbv:hyNZQS9_LH8CSD3yQoc5IpDHkBJeSlhF@peanut.db.e
 def main():
 
     if len(sys.argv) != 1:
-        print('Usage: python create.py', file=sys.stderr)
+        print('Usage: python createdb.py', file=sys.stderr)
         sys.exit(1)
 
     try:
@@ -43,7 +43,7 @@ def main():
 
                 cursor.execute("DROP TABLE IF EXISTS students")
                 cursor.execute("CREATE TABLE students (netid TEXT, name" 
-                + " TEXT, number TEXT, email TEXT, classyear TEXT)")
+                + " TEXT, number TEXT, email TEXT, classyear TEXT, PRIMARY KEY(netid))")
                 
                 #-------------------------------------------------------
 

@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
+import {Button, Row, Col, Card, Table} from 'react-bootstrap';
 import useCollapse from 'react-collapsed';
-import Modal from './Modal';
+import SignUpModal from './SignUpModal';
 import "./Home.css";
 import axios from 'axios';
+import { propTypes } from 'react-bootstrap/esm/Image';
 
-const XDSCard = ({item, ownerView, signUpsView}) => {
+const XDSCard = ({item, ownerView, signUpsView,name,netid,phone,email}) => {
     const [isExpanded, setExpanded] = useState(false)
     const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded })
     const [displaySignUp, setDisplaySignUp] = useState(false)
@@ -43,19 +45,18 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
   }
   
 
-  const signUpModal = displaySignUp ? (<Modal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}/>): null
+  const signUpModal = displaySignUp ? (<SignUpModal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}
+    name={name}
+    phone={phone}
+    email={email}
+    />): null
 
   const get_attendees = (event)=>{
     console.log("inside get attendees")
     axios.get('/attendees', {params: {
       event_id : event.id,
-    }}).then(res =>{
-        if(res.data.length === 0){
-            setAttendees("No sign ups yet")
-        }
-        else{
+    }}).then(res =>{ 
             setAttendees(res.data)
-        }
     }).catch(err =>{
       console.log(err)
     
@@ -64,65 +65,98 @@ const XDSCard = ({item, ownerView, signUpsView}) => {
   const closed = item.signup_number === item.maxcap ? (<p>{closedText}</p>) : null
   return (
     <>
-     <div className='customized-card'>
-        <div className='customized-card-body'>
-            <h2>{item.event_name}{closed} </h2>
-            <table>
-                <tbody>
-                    <tr>
-                      
-                        <td>
-                        <strong>Category: </strong>{item.category}
-                        </td>
-                        <td><strong>Location : </strong>{item.location}</td>
-                    </tr>
-                    <tr>
-                    <td><strong>Start date : </strong>{numToDay[item.week_day]} {numToMonth[item.start_date.split("/")[1]]} {item.start_date.split("/")[2]}</td>
-                        <td><strong>Created by :</strong> {item.creator}</td>
-                    </tr>
-                    <tr>
-                    <td><strong>Start time : </strong>{item.start_time}</td>
-                        <td><strong>Number of attendees :</strong> {item.signup_number}/{item.maxcap}</td>
-                    </tr>
-                    <tr>
-                      
-                      <td><strong>Cost : </strong>{item.cost}</td>
-                    </tr>
-                    <tr>
-                        <td><p {...getCollapseProps()}>
-                        Description: {item.description}
+    <Card className='customized-card'>
+      <Card.Body>
+        <Card.Title> <h2>{item.event_name}{closed} </h2></Card.Title>
+        <Card.Text> 
+                <Row>
+                  <Col><strong>Category: </strong> {item.category}</Col>
+                  <Col><strong>Location : </strong>{item.location}</Col>
+                </Row>
+        </Card.Text>
+        <Card.Text>
+          <Row>
+            <Col><strong>Start date : </strong>{numToDay[item.week_day]} {numToMonth[item.start_date.split("/")[1]]} {item.start_date.split("/")[2]}</Col>
+            <Col><strong>Created by :</strong> {item.creator}</Col>
+          </Row>
+        </Card.Text>
+        <Card.Text>
+          <Row>
+            <Col><strong>Start time : </strong>{item.start_time}</Col>
+            <Col><strong>Number of attendees :</strong> {item.signup_number}/{item.maxcap}</Col>
+          </Row>
+        </Card.Text>
+        <Card.Text>
+          <Row>
+            <Col><strong>End time : </strong>{item.end_time}</Col>
+            <Col><strong>Estimated Cost : </strong>$ {item.cost} </Col>
+          </Row>
+        </Card.Text>
+        <Card.Text>
+          <Row>
+            <Col><p {...getCollapseProps()}>
+                        <strong>Description: </strong>{item.description}
                  
-                           </p>     
-                        </td>
-                        <td>{(!ownerView && !signUpsView) ? (<p {...getCollapseProps()}>
-                        <button onClick={handleSignUp} disabled={item.signup_number === item.maxcap}>Sign Up</button>            
+                           </p> </Col>
+
+          <Col>
+          {(!ownerView && !signUpsView) ? (<p {...getCollapseProps()}>
+                        <Button  
+                        variant="warning"
+                        onClick={handleSignUp} disabled={item.signup_number === item.maxcap}>Sign Up</Button>            
                            </p>) : null }   {(!ownerView && signUpsView) ? (<p {...getCollapseProps()}>
-                        <button class = "buttonShift" onClick={handleCancellation}>Cancel</button>            
+                        <Button 
+                        variant="warning"
+                        class = "buttonShift" onClick={handleCancellation}>Cancel</Button>            
                            </p>) : null }
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{ownerView ? (
+            </Col>
+          </Row>
+          </Card.Text>
+          <Card.Text>
+            <Row>
+              <Col>
+              {ownerView ? (
                             <p {...getCollapseProps()}>
-                                Attendees : {attendees}
+                                <strong>Attendees</strong> :
+                                <Table  responsive="sm" striped bordered hover variant="light">
+                                  <thead>
+                                  <tr>
+                                  <th> Name</th>
+                                  <th>NetId</th>
+                                  <th>Email</th>
+                                  <th>Phone Number</th>
+                                </tr>
+                                  {attendees.map((attendee)=>{
+                                    return (
+                                      <tr key ={attendee.netid}>
+                                        <td>{attendee.name}</td>
+                                        <td>{attendee.netid}</td>
+                                        <td>{attendee.email}</td>
+                                        <td>{attendee.number}</td>
+                                      </tr>
+                                    )
+                                  })}
+                                  </thead>
+                                </Table>
                             </p>) : null }
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <button
+              </Col>
+            </Row>
+          </Card.Text>
+          <Card.Text>
+          <Button
+          variant="warning"
         {...getToggleProps({
           onClick: () =>{ setExpanded((prevExpanded) => !prevExpanded)
         get_attendees(item)},
         })}
       >
         {isExpanded ? 'Less Details' : 'More Details'}
-      </button>
-     
-     </div>
-        {signUpModal}
-      
-</div>
+      </Button>
+      </Card.Text>
+      </Card.Body>
+    
+    </Card>
+    {signUpModal}
     </>
   )
 }

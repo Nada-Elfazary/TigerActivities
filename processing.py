@@ -9,6 +9,7 @@ import psycopg2
 import datetime
 import pytz
 import pickle
+import attendee as attendeemod
 #-----------------------------------------------------------------------
 DATABASE_URL = 'postgres://hwwlwcbv:hyNZQS9_LH8CSD3yQoc5IpDHkBJeSlhF@peanut.db.elephantsql.com/hwwlwcbv'
 
@@ -60,48 +61,38 @@ def get_date_limit():
         if(month > 12):
             month = 1
             year += 1
-       
-    print("Inside get_date: year: {}, month: {}, \
-    day: {}".format(year, month, newDay))
     currDay = convert_date(year, month, newDay)
    
  
     return currDay
 
-#def fetch_activities(title, day, category, cost, capCondition, cap):
-def fetch_activities(title, day, category, cost):
+def fetch_activities(title, day, category, cost, capMin, capMax):
     title = '%' + title + '%'
     category = '%' + category + '%'
-    
+    print("capMin received in proc: " + capMin)
+    print("capMax recieved in proc: " + capMax)
     try:
         database_url = DATABASE_URL
         activities = []
         currDate = get_current_date()
         currTime = get_current_time()
-        print("Date: {}, time: {}".format(currDate, currTime) )
         dateLimit = get_date_limit()
         with psycopg2.connect(database_url) as connection:            
             with connection.cursor() as cursor:
                 statementOne = "SELECT * FROM events WHERE startdate = %s AND starttime > %s "
-                statementOne += "AND eventname LIKE %s AND category LIKE %s"
-                # AND maxcap %s %s"
+                statementOne += "AND eventname LIKE %s AND category LIKE %s AND maxcap BETWEEN %s AND %s "
                 if cost != "all":
-                    statementOne += "AND COST <= %s"
-                    cursor.execute(statementOne, [currDate, currTime, title, category, cost])
+                    statementOne += "AND cost <= %s"
+                    cursor.execute(statementOne, [currDate, currTime, title, category, capMin, capMax, cost])
                 
                 else:
-                    cursor.execute(statementOne, [currDate, currTime, title, category])  
-
+                    cursor.execute(statementOne, [currDate, currTime, title, category, capMin, capMax])  
                 row = cursor.fetchone()
-                print("row is", row)
                 while row is not None:
                     weekday = row[10].weekday()
-                    print("The day of the week for date {} is {}\n. Current day: {}".format(row[10], weekday, day))
-                    print("**********weekday: ", weekday)
                     if day != "" and weekday != int(day):
                         row = cursor.fetchone()
                         continue
-                    print("Appending row")
                     newStartTime = row[2].strftime("%H:%M")
                     newEndTime = row[3].strftime("%H:%M")
                     newStartDate = row[10].strftime("%Y/%m/%d")
@@ -109,49 +100,42 @@ def fetch_activities(title, day, category, cost):
                   
                     copy_row = (row[0], row[1], newStartTime, newEndTime, row[4],
                     row[5], row[6], row[7], row[8], row[9], newStartDate, weekday, newEndTime, row[12])
-                    print("copy rowwwww: ", copy_row)
                     activities.append(copy_row)
                     row = cursor.fetchone()
 
                 statementTwo = "SELECT * FROM events WHERE %s < startdate AND startdate < %s"
-                statementTwo += "AND eventname LIKE %s AND category LIKE %s" 
+                statementTwo += "AND eventname LIKE %s AND category LIKE %s AND maxcap BETWEEN %s AND %s " 
                 #AND maxcap %s %s"
-                statementOne += "ORDER BY RANDOM() LIMIT 1000"
+              #  statementOne += "ORDER BY RANDOM() LIMIT 1000"
                # AND eventname LIKE %s
                 if cost != "all":
-                    statementTwo += "AND COST <= %s"
-                    cursor.execute(statementTwo, [currDate, dateLimit, title, category, cost])
+                    statementTwo += "AND cost <= %s"
+                    cursor.execute(statementTwo, [currDate, dateLimit, title, category, capMin, capMax, cost])
                 
                 else:
-                    cursor.execute(statementTwo, [currDate, dateLimit, title, category]) 
-                print ("after second execute")
+                    cursor.execute(statementTwo, [currDate, dateLimit, title, category, capMin, capMax]) 
                 row = cursor.fetchone()
-                print("Date: ", get_current_date(), "+ 5 days")
                 while row is not None:
                     weekday = row[10].weekday()
-                    print("The day of the week for date {} is {}. Current day: {}\n".format(row[10], weekday, day))
                     if day != "" and weekday != int(day):
                         row = cursor.fetchone()
                         continue
-                    print("Appending row")
                     newStartTime = row[2].strftime("%H:%M")
                     newEndTime = row[3].strftime("%H:%M")
                     newStartDate = row[10].strftime("%Y/%m/%d")
                     newEndDate = row[11].strftime("%Y/%m/%d")
                     copy_row = (row[0], row[1], newStartTime, newEndTime, row[4],
                     row[5], row[6], row[7], row[8], row[9], newStartDate, weekday, newEndDate, row[12])
-                   # print(copy_row)
                     activities.append(copy_row)
                     row = cursor.fetchone()
-
         return activities              
 
     except Exception as ex:
         print(ex, file=sys.stderr)
         sys.exit(1)
 
-def fetch_user_sign_ups(netid):
-    # netid = "fifth" #hardcoded for now
+def fetch_user_sign_ups():
+    netid = "fifth" #hardcoded for now
 
     eventids = []
     activities = []
@@ -176,12 +160,13 @@ def fetch_user_sign_ups(netid):
                 cursor.execute(statement, [eventids, currDate, currTime, currDate])
                 row = cursor.fetchone()
                 while row is not None:
+                    weekday = row[10].weekday()
                     newStartTime = row[2].strftime("%H:%M")
                     newEndTime = row[3].strftime("%H:%M")
                     newStartDate = row[10].strftime("%Y/%m/%d")
                     newEndDate = row[11].strftime("%Y/%m/%d")
                     copy_row = (row[0], row[1], newStartTime, newEndTime, row[4],
-                    row[5], row[6], row[7], row[8], row[9], newStartDate, newEndDate, row[12])
+                    row[5], row[6], row[7], row[8], row[9], newStartDate, weekday, newEndDate, row[12])
                    # print(copy_row)
                     activities.append(copy_row)
                     row = cursor.fetchone()
@@ -245,8 +230,8 @@ def store_activity(activity):
         sys.exit(1)
     
 # this is workinnggggggggggggggggg
-def store_sign_up(activity, netid):
-    # netid = 'last' #hardcoded for now
+def store_sign_up(activity):
+    netid = 'last' #hardcoded for now
     eventid = activity['event_id']
     name = activity['name']
     phone_num = activity['phone']
@@ -276,9 +261,9 @@ def store_sign_up(activity, netid):
         print(ex, file=sys.stderr)
         sys.exit(1)
 
-def delete_signup(event_id, netid):
+def delete_signup(event_id):
     eventid = event_id
-    # netid = "fifth"
+    netid = "fifth"
     try:
         database_url = DATABASE_URL
         with psycopg2.connect(database_url) as connection:
@@ -312,6 +297,25 @@ def store_signup(event_id, net_id):
         print(ex, file=sys.stderr)
         sys.exit(1)
 
+# def upsertStudent(netid,name, phone, email):
+#     print("Inside upsertStudent()")
+#     try: 
+#         DATABASE_URL = DATABASE_URL
+#         with psycopg2.connect(database_url) as connection:
+            
+#             with connection.cursor() as cursor:
+#                 statement = "SELECT netid,number,name,email FROM students WHERE netid=%s"
+#                 cursor.execute(statement, [netid])
+#                 row = cursor.fetchone()
+#                 if row is None:
+#                     insertStatement = "INSERT INTO students"
+#     except Exception as ex:
+#         print(ex, file=sys.stderr)
+#         sys.exit(1) 
+#     #query student table for netid
+#     #if netid in db, update fields
+#     #if not, create new row in student
+
 def store_student(student_info):
     netid = student_info[0]
     name = student_info[1]
@@ -327,16 +331,16 @@ def store_student(student_info):
                 
                 # UPDATE STUDENTS TABLE
                 statement = "INSERT INTO students VALUES(%s, %s, %s, %s, %s) "
-                # statement += "ON CONFLICT (netid) DO UPDATE SET students.name = %s, "
-                # statement += "students.phone_num = %s, students.email = %s, students.classyear = %s"  
-                cursor.execute(statement, (netid, name, phone_num, email, classyear))    
+                statement += "ON CONFLICT (netid) DO UPDATE SET name = %s, "
+                statement += "number = %s, email = %s, classyear = %s"  
+                cursor.execute(statement, (netid, name, phone_num, email, classyear, name,phone_num, email, classyear))    
 
     except Exception as ex:
         print(ex, file=sys.stderr)
         sys.exit(1)
         
-def student_details():
-    netid = 'rauniyar'
+def student_details(netid):
+    # netid = 'rauniyar'
     try:
         database_url = DATABASE_URL
         with psycopg2.connect(database_url) as connection:
@@ -346,6 +350,7 @@ def student_details():
                 cursor.execute(statement, [netid])
                 row = cursor.fetchone()
               #  print(row)
+                return row
     except Exception as ex:
         print(ex, file=sys.stderr)
         sys.exit(1)
@@ -359,17 +364,23 @@ def get_activity_attendees(eventid):
         with psycopg2.connect(database_url) as connection:
             
             with connection.cursor() as cursor:
-                statement = "SELECT signup_netid FROM signup WHERE eventid = %s"
+                statement = "SELECT signup_netid, name, email, number FROM signup, students WHERE eventid = %s AND signup_netid = netid"
                 cursor.execute(statement, [eventid])
                 row = cursor.fetchone()
                 while row is not None:
-                    print(row[0])
-                    attendees.append(row[0])
+                    attendee = attendeemod.Attendee(row[0], row[1], row[2], row[3])
+                    attendees.append(attendee)
                     row = cursor.fetchone()
+                if len(attendees) == 0:
+                    text = "No Sign Ups Yet"
+                    attendee = attendeemod.Attendee(text, text, text, text)
+                    attendees.append(attendee)
         return attendees
     except Exception as ex:
         print(ex, file=sys.stderr)
-        sys.exit(1)    
+        sys.exit(1)   
+
+
 
 def main():
 

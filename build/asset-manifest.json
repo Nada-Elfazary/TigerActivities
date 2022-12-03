@@ -13,5 +13,16 @@
   "entrypoints": [
     "static/css/main.02f3bfdf.css",
     "static/js/main.57ce1e2a.js"
+    "main.css": "/static/css/main.cc62cb5a.css",
+    "main.js": "/static/js/main.8cb02f7e.js",
+    "static/js/787.90eebcb9.chunk.js": "/static/js/787.90eebcb9.chunk.js",
+    "index.html": "/index.html",
+    "main.cc62cb5a.css.map": "/static/css/main.cc62cb5a.css.map",
+    "main.8cb02f7e.js.map": "/static/js/main.8cb02f7e.js.map",
+    "787.90eebcb9.chunk.js.map": "/static/js/787.90eebcb9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cc62cb5a.css",
+    "static/js/main.8cb02f7e.js"
   ]
 }

@@ -1,24 +1,41 @@
 /* @import "compass/css3"; */
 
-.day-filter {
+.dayFilter, .categoryFilter, .titleFilter, .capFilter {
     display: inline-block;
-    border: solid red 3px;
+    /* border: solid red 3px; */
+    height: 88px;
 }
 
 .filterSurround {
-    margin: 10px 30px 20px 10px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px;
+    text-align: center;
+    width:100%;
+    border-radius: 0px;
+    
+    /* position:fixed; */
+    /* left:100px; */
+    /* left:200px; */
+    
 }
 
 .alignFilter {
-    display:flex;
-    flex-direction:row;
+    /* border:rgb(104, 117, 217) solid 2px;  */
+    /* width:200px;  */
+    margin: 5px 20px;
 }
+
 .filterContainer{
-    background-color: rgba(186, 124, 62, 0.212);
+    background-color: #f5b52b51;
     display: inline-block;
-    margin:  0px 0px 20px 0px;
-    padding: 10px;
+    margin:  0px 0px 0px 0px;
+    padding: 10px 10px 15px 10px;
     border-radius: 10px;
+    display:flex;
+    justify-content:center;
+    flex-direction:row;
+    text-align: center;
+    
 }
 
 .FilterX {
@@ -30,53 +47,12 @@
 
 }
 /* CSS for rotating button @https://codepen.io/woovils/pen/nVzLvO */ 
-
-
 .FilterX:hover {
     -webkit-transform: rotate(270deg);
     -moz-transform: rotate(270deg);
     transform: rotate(270deg);
         opacity:1;
 }
-
-
-/* CSS for rotating button @https://codepen.io/woovils/pen/nVzLvO
-.wrap{
-	margin:5em auto;
-	width:500px;
-}
-.box{
-	height:300px;
-	width:500px;
-	background-color:#bdc3c7;
-	box-sizing:border-box;
-	position:relative;
-	overflow:hidden;
-	border:2px solid #ecf0f1;
-}
-
-	
-.box > object{
-    margin: 30px 0 0 -70px;
-}
-
-.box > img{
-    top:5px;
-    right:5px;
-    width:25px;
-    height:25px;
-    position:absolute;
-    -webkit-transition:-webkit-transform .25s, opacity .25s;
-        -moz-transition:-moz-transform .25s, opacity .25s;
-                transition: transform .25s, opacity .25s;
-    opacity:.25;
-}
-.box > img:hover{
-    -webkit-transform: rotate(270deg);
--moz-transform: rotate(270deg);
-transform: rotate(270deg);
-    opacity:1;
-} */
 
 :root {
     --main-color: rgb(104, 117, 217);
@@ -103,4 +79,32 @@ background: var(--track-color);
 .customSlider-track.customSlider-track-0 {
 /* color of the track before the thumb */
 background: var(--main-color);
+}
+/* 
+.capFilter {
+    height: 60px;
+    width: 243px;
+} */
+
+.capFilter > table{
+    margin-top:5px;
+}
+
+.capFilter > tbody, td {
+    padding: 5px;
+}
+
+#capGeqInput, #capLeqInput {
+    visibility: hidden;
+}
+
+.filterDropdown {
+    background: var(--bs-card-color);
+}
+
+.inputBox {
+    width:50px;
+    margin-left: 5px;
+    margin-right: 5px;
+
 }

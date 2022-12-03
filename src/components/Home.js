@@ -5,27 +5,38 @@ import XDSCard from "./XDSCard";
 import Dropdown from "./Dropdown";
 import tiger from './tiger.jpeg';
 import Filter from './Filter';
+import Profile from "./Profile";
 import "./Home.css";
 import axios from 'axios';
 import ClipLoader from 'react-spinners/ClipLoader'
+import "./App.css"
 
 // importing Link from react-router-dom to navigate to 
 // different end points.
   
-export default function Home() : React.ReactNode {
+export default function  Home() : React.ReactNode {
+  const [initialState, setInitialState] = useState(true)
   const [clickedActivites, setClickedActivities] = useState(false)
   const [clickedMyActivites, setClickedMyActivities] = useState(false)
+  const [clickedMySignUps, setClickedMySignUps] = useState(false)
+  const [clickedProfile, setClickedProfile] = useState(false)
   const [events, setEvents] = useState([])
   const [displayModal, setDisplayModal] = useState(false)
-  const [clickedMySignUps, setClickedMySignUps] = useState(false)
   const [refresh, setRefresh] = useState(false)
   const [loading, setLoading] = useState(false)
   const [nameFilter, setNameFilter] = useState('')
   let currLogin = "Nada"
+  const [profileData, setProfileData] = useState(["","","",""])
+  let currLogin = "Reuben"
+  let currNetid = "ragogoe"
 
   useEffect(()=>{
-    getEvents(false, "")
     setRefresh(true)
+    activitesClicked()
+    setEvents([])
+    // getEvents(false, "")
+    
+    
 }, [])
 
 
@@ -33,9 +44,11 @@ const mySignUpsClicked= () => {
   if(clickedMySignUps) {
     setEvents([])
   }
+  setInitialState(false)
   setClickedMySignUps(true)
   setClickedActivities(false)
   setClickedMyActivities(false)
+  setClickedProfile(false)
   setRefresh(false)
   console.log("Requesting user signups")
 
@@ -51,12 +64,12 @@ const activitesClicked= () => {
   if(clickedActivites) {
     setEvents([])
   }
+  setInitialState(false)
   setClickedActivities(true)
   setClickedMyActivities(false)
   setClickedMySignUps(false)
+  setClickedProfile(false)
   setRefresh(false)
-
-  console.log("Requesting Dummy Data")
   /*
   axios({
     method: "GET",
@@ -82,54 +95,48 @@ const myActivitesClicked= ()=>{
   if(clickedMyActivites) {
     setEvents([])
   } 
+  setInitialState(false)
   setClickedMyActivities(true)
   console.log("Clicked 'My Activities'. Events:", events.length, events)
   setClickedActivities(false)
   setClickedMySignUps(false)
+  setClickedProfile(false)
   setRefresh(false)
 
   getEvents(true, "")
 }
 
-const handleCreateEvent = ()=>{
+const profileClicked= () =>{
+  setInitialState(false)
+  setClickedMyActivities(false)
+  setClickedActivities(false)
+  setClickedMySignUps(false)
+  setClickedProfile(true)
+  getProfileData(currNetid)
+  console.log("Inside clickedProfile set Clicked Profile to true.")
+}
+
+const handleCreateEvent = () =>{
   setDisplayModal(true);
 }
 
-const getEvents =  (ownerView, name, day, category, cost)=> {
-  /*
-  axios({
-    method: "POST",
-    url:"https://tigeractivities.onrender.com/events",
-  })
-  .then((response) => {
-    const res =response.data
-    console.log("inside get data")
-    setEvents(res)
-  }).catch((error) => {
-    if (error.response) {
-      console.log(error.response)
-      console.log(error.response.status)
-      console.log(error.response.headers)
-      }
-  })
-  */
-
-// axios.get('https://tigeractivities.onrender.com/events').then(res =>{
+const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
   setLoading(true)
-  axios.get('https://tigeractivities.onrender.com/events', {params: {title: name, day: day, category: category, cost: cost}}).then(res =>{
+  axios.get('/events', {params: {title: name, day: day, category: category, cost: cost, capMin: capMin, capMax: capMax}}).then(res =>{
     console.log("Events received from db:", res)
-    console.log("Setting events to:", res.data)
     setEvents([])
     if (ownerView === true) {
       let filtered = res.data.filter(event => event.creator === currLogin)
       console.log("length: ", filtered.length)
       if (filtered.length !== 0) {
-      setEvents(filtered)
+        console.log("Setting events to:", filtered)
+        setEvents(filtered)
       }
       else {
         console.log("No events created by owner")
       }
     } else {
+      console.log("Setting events to:", res.data)
       setEvents(res.data)
     }
     setLoading(false)
@@ -138,11 +145,42 @@ const getEvents =  (ownerView, name, day, category, cost)=> {
   })
 }
 
+const getProfileData = (netid) => {
+  axios.get('/profile', {params:{
+          netid: netid
+      }
+  })
+  .then((response) => {
+      if (response.length === 0) {
+          setProfileData(["", "", "", ""])
+      }
+      else {
+          console.log("Response is:",response)
+          setProfileData([response.data.name, response.data.phone, response.data.email, response.data.class_year])
+          console.log("Profile Data:", profileData)
+      }
+  }).catch(err =>{
+      console.log("Error received from db:", err)
+  })
+
+}
+
+
 
   const title = <h1><i>TigerActivities </i></h1>
  
-  const activities = <Button class = 'button' onClick={activitesClicked}>Activities</Button>
-  const myActivities = <Button onClick={myActivitesClicked}>My Activities</Button>
+  const activities = (
+    <>
+    <Button class = 'button'id = "act" onClick={activitesClicked}>Activities</Button>
+    <br/>
+  </>
+  )
+  const myActivities = (
+    <>
+  <Button onClick={myActivitesClicked}>My Activities</Button>
+  <br/>
+  </>
+  )
   const mySignUps = <Button onClick={mySignUpsClicked}>My Sign-Ups</Button>
   const createEventButton = <Button className="buttonStyle" onClick={handleCreateEvent}>Create Activity</Button>
   const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents}
@@ -152,19 +190,22 @@ const getEvents =  (ownerView, name, day, category, cost)=> {
 const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator !== currLogin).map((event, index)=>{
   return (
 
-    <XDSCard key ={index} item ={event} ownerView={false} signUpsView = {false}/>
+    <XDSCard key ={index} item ={event} ownerView={false} signUpsView = {false} 
+    name={profileData[0]}
+    phone={profileData[1]}
+    email={profileData[2]}/>
   )
-}): "No events created yet"
+}): <h1 className = "center-screen">"No events created yet"</h1>
 const displayOwnerEvents = events.length !== 0 ? events.map((event, index)=>{
   return (
     <XDSCard key ={index} item={event} ownerView={true} signUpsView = {false}/>
   )
-}): "No events created yet"
+}): <h1 className = "center-screen">"No events created yet"</h1>
 const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
   return (
     <XDSCard key ={index} item={event} ownerView={false} signUpsView = {true}/>
   )
-}): "No current sign-ups"
+}): <h1 className = "center-screen">No current sign-ups</h1>
 
 const topNav = 
  <Navbar className="Navbar">
@@ -172,13 +213,15 @@ const topNav =
                 className="d-inline-block align-top"
                 /> {' '}</Navbar.Brand>
   <Navbar.Brand>{title}</Navbar.Brand>
+
+  <div className = "buttonsSec">
+  <Navbar.Brand><Button onClick={activitesClicked}>Activities</Button></Navbar.Brand>
+  <Navbar.Brand><Button onClick={myActivitesClicked}>My Activities</Button></Navbar.Brand>
+  <Navbar.Brand><Button onClick={mySignUpsClicked}>My Sign-Ups</Button></Navbar.Brand>
+  <Navbar.Brand><Button onClick={profileClicked}>Profile</Button></Navbar.Brand>
+  </div>
 </Navbar>
 
-const handleFilter = (event) => {
-    setNameFilter(event.target.value)
-    console.log(event.target.value)
-    getEvents(false, event.target.value)
-}
 const results = refresh ? (displayEvents) : null
 
 const showResults = clickedActivites? (
@@ -203,11 +246,20 @@ const showResults = clickedActivites? (
     displaySignUps
   ): null
 
-  const showFilter = clickedActivites ? (
+  const showFilter = clickedActivites || initialState ? (
     // <input value={nameFilter} name="title" onChange={handleFilter} />
+    
     <Filter getEvents={getEvents} />
 
   ): null
+
+  const showProfile = clickedProfile ? <Profile 
+    name={profileData[0]}
+    netid={currNetid}
+    phone={profileData[1]}
+    email={profileData[2]}
+    classYear={profileData[3]}
+    /> : null
 
   const dropDowns = (filter, items) => (
     <Dropdown filter = {filter} items = {items}></Dropdown>
@@ -215,26 +267,20 @@ const showResults = clickedActivites? (
 
   const showLoading = <ClipLoader loading={loading} size={200}/>
   return (
-    <div className = "pageContainer">
-    
+    <div className = "pageContainer">   
     {topNav}
-      <div className = "LeftNavContainer-1">
-        <div className="btn">
-        {activities}
-        {myActivities}
-        {mySignUps}
-        </div>
-        </div>  
-      
         <div className="content">
           {showCreateEventButton}
           {showFilter}
-          {!loading ? results : showLoading}
-          {showResults}
-          {!loading ? showOwnerActivities : showLoading}
-          {showSignUps}
-          {modal}
-         </div>
+          {showProfile}
+            <div className="events">
+            {!loading ? results : showLoading}
+            {showResults}
+            {!loading ? showOwnerActivities : showLoading}
+            {showSignUps}
+            {modal}
+          </div>
+        </div>
     </div>
     
   );

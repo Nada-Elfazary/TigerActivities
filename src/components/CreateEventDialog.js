@@ -10,7 +10,7 @@ import "./CreateEventDialog.css"
 
 function CreateEventDialog(props) {
     const MAX_NO_DAYS = 5
-    const DEFAULT_CREATOR = "Nada"
+    const DEFAULT_CREATOR = "Reuben"
     const DEFAULT_CATEGORY = "Sports"
     const DEFAULT_SIGNUP_NR = 0
     const[eventTitle, setEventTitle] = useState('')
@@ -122,7 +122,7 @@ function CreateEventDialog(props) {
         <Form>
           <Form.Group>
             <Row>
-              <Col><Form.Label>Title:</Form.Label></Col>
+              <Col><Form.Label>Title: </Form.Label></Col>
               <Col><Form.Control type="text" id = "title" name="title" value={eventTitle} onChange={(event)=>{
                         setEventTitle(event.target.value)
                         document.getElementById('title').classList.remove("error");
@@ -145,9 +145,25 @@ function CreateEventDialog(props) {
             <Row>
               <Col><Form.Label>Category:</Form.Label>
               </Col>
-              <Col><Form.Control type="text" name="Category" value ={eventCategory} onChange={(event)=>{
-                        setEventCategory(event.target.value)
-                    }}></Form.Control></Col>
+              <Col><Form.Select type="text" id = "category" name="Category" value ={eventCategory} onChange={(event)=>{
+                        document.getElementById('category').classList.remove("error");
+                        if (event.target.value === "Select a Category"){
+                          setEventCategory("")
+                        }
+                        else {
+                          setEventCategory(event.target.value)
+                        }
+                    }}>
+                      <option>Select a Category</option>
+                      <option>Sports</option>
+                      <option>Entertainment</option>
+                      <option>Academic</option>
+                      <option>Off-campus</option>
+                      <option>Outdoors</option>
+                      <option>Meals/Coffee Chats</option>
+                      <option>Nassau Street</option>
+                    </Form.Select>
+                </Col>
             </Row>
             
           </Form.Group><Form.Group>
@@ -241,6 +257,10 @@ function CreateEventDialog(props) {
           document.getElementById('location').classList.add("error");
           document.getElementById('location').placeholder = "location cannot be empty";
 
+          error = 1;
+        }
+        if(eventCategory.length === 0){
+          document.getElementById('category').classList.add("error");
           error = 1;
         }
        if( endTime.getTime() <= startTime.getTime()){
