@@ -8,7 +8,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 module.exports = function(app) {
    
    //app.get('/searchresults', searchResults);
-
+console.log("inside setup proxy")
   app.use(
     '/api',
     createProxyMiddleware({

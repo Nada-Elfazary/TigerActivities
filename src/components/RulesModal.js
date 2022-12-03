@@ -12,9 +12,10 @@ export default function RulesModal(props) : React.ReactNode {
     const [errorMsg, setErrorMsg] = useState("")
     const navigate = useNavigate()
 
-    const cas = ()=>{axios.get('/authenticate').then(
+    const cas = ()=>{axios.get('https://tigeractivities.onrender.com/authenticate').then(
      res=>{
       let response = res.data
+      console.log("response", response)
       if(response.username === ''){
         console.log("redirect to cas")
         window.location.replace(response.redirect);
