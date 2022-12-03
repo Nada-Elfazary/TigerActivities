@@ -12,7 +12,7 @@ export default function RulesModal(props) : React.ReactNode {
     const [errorMsg, setErrorMsg] = useState("")
     const navigate = useNavigate()
 
-    const cas = ()=>{axios.get('/events').then(
+    const cas = ()=>{axios.get('https://tigeractivities.onrender.com/events').then(
       console.log("logout")
     ).catch(err=>{
       console.log("error")

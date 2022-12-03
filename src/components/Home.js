@@ -122,7 +122,7 @@ const handleCreateEvent = () =>{
 
 const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
   setLoading(true)
-  axios.get('/events', {params: {title: name, day: day, category: category, cost: cost, capMin: capMin, capMax: capMax}}).then(res =>{
+  axios.get('https://tigeractivities.onrender.com/events', {params: {title: name, day: day, category: category, cost: cost, capMin: capMin, capMax: capMax}}).then(res =>{
     console.log("Events received from db:", res)
     setEvents([])
     if (ownerView === true) {
@@ -146,7 +146,7 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
 }
 
 const getProfileData = (netid) => {
-  axios.get('/profile', {params:{
+  axios.get('https://tigeractivities.onrender.com/profile', {params:{
           netid: netid
       }
   })

@@ -83,6 +83,7 @@ def index():
    return results
 
 @app.route("/user-sign-ups", methods = ['GET'])
+@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def sign_ups():
   #username = auth.authenticate()
   events = proc.fetch_user_sign_ups()
@@ -108,6 +109,7 @@ def sign_ups():
   return results
 
 @app.route('/attendees', methods=['GET'])
+@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 # cross_origin()
 def get_attendees():
     #username = auth.authenticate()
@@ -126,6 +128,7 @@ def get_attendees():
     return attendees_response
 
 @app.route('/create-event', methods = ['POST'])
+@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 # cross_origin()
 def createEvent():
     #username = auth.authenticate()
@@ -154,6 +157,7 @@ def validate():
     return lines[0].decode('utf-8')
 
 @app.route('/sign-up', methods = ['POST'])
+@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 # cross_origin()
 def signUp():
     #username = auth.authenticate()
@@ -164,6 +168,7 @@ def signUp():
     return res
 
 @app.route('/cancel-sign-up', methods = ['POST'])
+@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 # cross_origin()
 def cancelSignUp():
     #username = auth.authenticate()
@@ -176,6 +181,7 @@ def cancelSignUp():
     return res
 
 @app.route('/update-profile', methods = ['POST'])
+@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def updateProfile():
     res = flask.request.json
     
@@ -189,6 +195,7 @@ def updateProfile():
     return res
 
 @app.route('/profile', methods = ['GET'])
+@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def getProfileInfo():
     netid = flask.request.args.get("netid")
     print("Inside /profile. Request data: {}".format(netid))
