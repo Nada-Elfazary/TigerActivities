@@ -80,11 +80,10 @@ class CASClient:
       
         # The request does not contain a valid login ticket, so
         # redirect the browser to the login page to get one.
-       #login_url = self.cas_url + 'login' \
-       #     + '?service=' + quote(self.stripTicket())
-       # login_url = sub(r'authenticate', 'authenticate2', login_url)
-       # return {'username': '' , 'redirect': login_url}
-       return ('nothing in authenticate')
+       login_url = self.cas_url + 'login' \
+            + '?service=' + quote(self.stripTicket())
+       login_url = sub(r'authenticate', 'authenticate2', login_url)
+       return {'username': '' , 'redirect': login_url}
 
     #-------------------------------------------------------------------
 

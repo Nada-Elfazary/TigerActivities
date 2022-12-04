@@ -40,10 +40,10 @@ def shree():
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def authenticate():
    authResult = CasClient.CASClient().authenticate()
-   return(authResult)
-   #return jsonify(
-   #     username=authResult['username'],
-   #     redirect=authResult['redirect'])
+   #return(authResult)
+   return jsonify(
+        username=authResult['username'],
+        redirect=authResult['redirect'])
 
 
 
