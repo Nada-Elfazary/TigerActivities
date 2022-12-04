@@ -12,7 +12,7 @@ import urllib.request
 import CasClient
 #-----------------------------------------------------------------------
 
-APP_URL = 'https://tigeractivities-iqwe.onrender.com'
+APP_URL = 'https://tigeractivities-iqwe.onrender.com/home'
 
 #-----------------------------------------------------------------------
 app = flask.Flask(__name__, static_folder="build/static", template_folder="build")
