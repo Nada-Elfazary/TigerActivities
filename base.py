@@ -1,6 +1,7 @@
 #from flask import Flask, request, render_template
 import flask
 from flask.json import jsonify
+from flask import abort, redirect
 import processing as proc
 import parseargs
 import os
@@ -9,7 +10,11 @@ from flask_cors import CORS
 from flask_cors import cross_origin
 import urllib.request
 import CasClient
+#-----------------------------------------------------------------------
 
+APP_URL = 'https://tigeractivities-iqwe.onrender.com'
+
+#-----------------------------------------------------------------------
 app = flask.Flask(__name__, static_folder="build/static", template_folder="build")
 #app.config['CORS_HEADERS'] = 'Content-Type'
 app.secret_key = os.environ['APP_SECRET_KEY']
@@ -45,7 +50,18 @@ def authenticate():
         username=authResult['username'],
         redirect=authResult['redirect'])
 
+#-----------------------------------------------------------------------
 
+@app.route('/authenticate2', methods=['GET'])
+@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
+def authenticate2():
+    authResult = CasClient.CASClient().authenticate()
+    if authResult['username'] == '':
+        return 'Something is badly wrong.'
+    abort(redirect(APP_URL))
+    #abort(redirect(request.url_root))
+
+#-----------------------------------------------------------------------
 
 @app.route("/dummy", methods = ['GET'])
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
