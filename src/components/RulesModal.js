@@ -12,22 +12,18 @@ export default function RulesModal(props) : React.ReactNode {
     const [errorMsg, setErrorMsg] = useState("")
     const navigate = useNavigate()
 
-    const cas = ()=>{axios.get('https://tigeractivities.onrender.com/authenticate').then(
-     res=>{
-      let response = res.data
-      console.log("response", response)
-      if(response.username === ''){
-        console.log("redirect to cas")
-        window.location.replace(response.redirect);
-      }
-      else{
-        console.log("insinde nav to home")
-        navigate('/home')
-      }
-     }
-    ).catch(err=>{
-      console.log("error", err)
-    })
+    const cas = ()=>{ 
+      fetch('/authenticate').then(res=>{
+        console.log(res)
+        if(res.username === ''){
+          window.location.replace(response.redirect);
+        }
+        else{
+          navigate('/home')
+        }
+      }).catch(err=>{
+        console.log(err)
+      })
   }
 
     const failureCallBack = (error)=>{
@@ -43,8 +39,8 @@ export default function RulesModal(props) : React.ReactNode {
       setErrorMsg(null)
       props.setOpenModal(false)
       props.setRedirect(true)
-      // cas()
-      navigate('/home')
+      cas()
+      //navigate('/home')
 
     }
     const handleChecked = (event)=>{
