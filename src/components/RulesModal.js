@@ -13,7 +13,8 @@ export default function RulesModal(props) : React.ReactNode {
     const navigate = useNavigate()
 
     const cas = ()=>{ 
-      fetch('/authenticate').then(res=>{
+      console.log("inside cas")
+      fetch('https://tigeractivities.onrender.com/authenticate').then(res=>{
         console.log(res)
         if(res.username === ''){
           window.location.replace(response.redirect);
