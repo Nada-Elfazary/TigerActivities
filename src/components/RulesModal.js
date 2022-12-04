@@ -20,6 +20,7 @@ export default function RulesModal(props) : React.ReactNode {
         console.log('data from cas: ', data)
         if(response.username === ''){
           window.location.replace(response.redirect);
+          console.log('username: ', response.username)
         }
         else{
           console.log('username: ', response.username)
