@@ -64,26 +64,26 @@ class CASClient:
         
         # If the user's username is in the session, then the user was
         # authenticated previously.  So return the user's username.
-       # if 'username' in session:
-       #     return {'username' : session.get('username') , 'redirect' : ''}
+        if 'username' in session:
+            return {'username' : session.get('username') , 'redirect' : ''}
         
         # If the request contains a login ticket, then try to
         # validate it.
-       # ticket = request.args.get('ticket')
-       # if ticket is not None:
-        #    username = self.validate(ticket)
-         #   if username is not None:             
+        ticket = request.args.get('ticket')
+        if ticket is not None:
+            username = self.validate(ticket)
+            if username is not None:             
                 # The user is authenticated, so store the user's
                 # username in the session.               
-         #       session['username'] = username        
-         #       return {'username' : username , 'redirect' : ''}
+                session['username'] = username        
+                return {'username' : username , 'redirect' : ''}
       
         # The request does not contain a valid login ticket, so
         # redirect the browser to the login page to get one.
-       login_url = self.cas_url + 'login' \
+        login_url = self.cas_url + 'login' \
             + '?service=' + quote(self.stripTicket())
-       login_url = sub(r'authenticate', 'authenticate2', login_url)
-       return {'username': '' , 'redirect': login_url}
+        login_url = sub(r'authenticate', 'authenticate2', login_url)
+        return {'username': '' , 'redirect': login_url}
 
     #-------------------------------------------------------------------
 
