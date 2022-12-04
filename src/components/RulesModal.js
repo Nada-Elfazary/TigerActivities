@@ -19,6 +19,7 @@ export default function RulesModal(props) : React.ReactNode {
         let response = JSON.parse(data)
         console.log('data from cas: ', data)
         if(response.username === ''){
+          console.log('redirect url')
           window.location.replace(response.redirect);
           console.log('username: ', response.username)
         }

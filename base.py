@@ -58,7 +58,8 @@ def authenticate2():
     authResult = CasClient.CASClient().authenticate()
     if authResult['username'] == '':
         return 'Something is badly wrong.'
-    abort(redirect(APP_URL))
+    return authResult['username']
+    #abort(redirect(APP_URL))
     #abort(redirect(request.url_root))
 
 #-----------------------------------------------------------------------
