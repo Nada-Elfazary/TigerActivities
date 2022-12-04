@@ -38,7 +38,7 @@ export default function Welcome(): React.ReactNode{
     // console.log('status: %s, body size: %d, headers: %j', res.statusCode, data.length, res.headers);
   // console.log("data: ", decodeURI(data))
   }
-/*
+
   useEffect(() => {
     console.log("broswer url: ", window.location.href)
     if (window.location.href.includes('ticket=')) {
@@ -48,7 +48,7 @@ export default function Welcome(): React.ReactNode{
     navigate('/home')
     //validate(ticket)
   }
-   }, [])*/
+   }, [])
     const handleOnClickedDisplayEvents =()=>{
         setClickedDisplayEvents(true)
         // setDisabledDisplayEvents(true)
