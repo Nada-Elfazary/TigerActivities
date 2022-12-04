@@ -69,14 +69,14 @@ class CASClient:
         
         # If the request contains a login ticket, then try to
         # validate it.
-        ticket = request.args.get('ticket')
-        if ticket is not None:
-            username = self.validate(ticket)
-            if username is not None:             
+       # ticket = request.args.get('ticket')
+       # if ticket is not None:
+        #    username = self.validate(ticket)
+         #   if username is not None:             
                 # The user is authenticated, so store the user's
                 # username in the session.               
-                session['username'] = username        
-                return {'username' : username , 'redirect' : ''}
+         #       session['username'] = username        
+         #       return {'username' : username , 'redirect' : ''}
       
         # The request does not contain a valid login ticket, so
         # redirect the browser to the login page to get one.
