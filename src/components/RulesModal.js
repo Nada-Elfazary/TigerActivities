@@ -14,8 +14,10 @@ export default function RulesModal(props) : React.ReactNode {
 
     const cas = ()=>{ 
       console.log("inside cas")
-      fetch('https://tigeractivities.onrender.com/authenticate').then(res=>{
-        console.log(res)
+      fetch('https://tigeractivities.onrender.com/authenticate').then((resp)=>
+        {return resp.text();}).then((data) => {
+        let response = JSON.parse(data)
+        console.log('json data in cas: ', response)
         if(res.username === ''){
           window.location.replace(response.redirect);
         }

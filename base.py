@@ -1,5 +1,6 @@
 #from flask import Flask, request, render_template
 import flask
+from flask.json import jsonify
 import processing as proc
 import parseargs
 import os
@@ -7,7 +8,7 @@ import auth
 from flask_cors import CORS
 from flask_cors import cross_origin
 import urllib.request
-import CASClient
+import CasClient
 
 app = flask.Flask(__name__, static_folder="build/static", template_folder="build")
 #app.config['CORS_HEADERS'] = 'Content-Type'
@@ -38,12 +39,11 @@ def shree():
 @app.route('/authenticate', methods=['GET'])
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def authenticate():
-   authResult = CASClient().authenticate()
-   response_body={
-        "username":authResult['username'],
-        "redirect":authResult['redirect'],
-   } 
-   return response_body
+   authResult = CasClient().authenticate()
+   return jsonify(
+        username=authResult['username'],
+        redirect=authResult['redirect'])
+
 
 
 @app.route("/dummy", methods = ['GET'])
