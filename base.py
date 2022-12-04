@@ -41,9 +41,9 @@ def shree():
 def authenticate():
    authResult = CasClient().authenticate()
    return('after call to casclient')
-   return jsonify(
-        username=authResult['username'],
-        redirect=authResult['redirect'])
+   #return jsonify(
+   #     username=authResult['username'],
+   #     redirect=authResult['redirect'])
 
 
 
