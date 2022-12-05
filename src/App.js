@@ -1,5 +1,5 @@
 import './App.css';
-import {Route, Routes} from 'react-router-dom'
+import {Route, Routes, Router} from 'react-router-dom'
 import Welcome from './components/welcome'
 import Home from "./components/Home"
 import HomeTo from "./components/HomeTo"
@@ -13,13 +13,15 @@ function App(): React.ReactNode {
   return (
     
    <div>
+    <Router>
       <Routes>
       <Route exact path ="/" element={<Welcome/>}/>
-      <Route path="/home" element={<Home/>}/>
-      <Route path = '/login' element={<CasPage />}/>
-      <Route path="/homeTo" element={<HomeTo />}/>
+      <Route exact path="/home" element={<Home/>}/>
+      <Route exact path = '/login' element={<CasPage />}/>
+      <Route exact path="/homeTo" element={<HomeTo />}/>
       {/* <Route path="/profile" element={<SignUpModal />} /> */}
     </Routes>
+    </Router>
    </div>
   );
 }
