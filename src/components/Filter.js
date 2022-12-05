@@ -174,7 +174,7 @@ export default function Filter(props) : React.ReactNode {
                     <input class = "inputBox" value = {capMax} onChange={(event) => {
                         setCapMax(event.target.value)
                         console.log("capMax value:", event, event.target.value, capMax)
-                        props.getEvents(false, setTitle, dayToNumber[day], category, cost, capMin, event.target.value)
+                        props.getEvents(false, title, dayToNumber[day], category, cost, capMin, event.target.value)
                     }}></input>
                       
                     <br/>
