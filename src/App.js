@@ -13,7 +13,6 @@ function App(): React.ReactNode {
   return (
     
    <div>
-    <Router>
       <Routes>
       <Route exact path ="/" element={<Welcome/>}/>
       <Route exact path="/home" element={<Home/>}/>
@@ -21,7 +20,6 @@ function App(): React.ReactNode {
       <Route exact path="/homeTo" element={<HomeTo />}/>
       {/* <Route path="/profile" element={<SignUpModal />} /> */}
     </Routes>
-    </Router>
    </div>
   );
 }
