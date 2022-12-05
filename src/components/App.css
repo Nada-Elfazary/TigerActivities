@@ -72,6 +72,12 @@ display: flex;
   color: #61dafb;
 }
 
+#logo {
+  border-color: white;
+  background-color: white;
+
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
