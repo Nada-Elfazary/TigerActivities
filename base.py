@@ -58,9 +58,9 @@ def authenticate2():
     authResult = CasClient.CASClient().authenticate()
     if authResult['username'] == '':
         return 'Something is badly wrong.'
-    #html_code = flask.render_template('index.html', username = authResult['username'] )
-    #return html_code
-    abort(redirect(APP_URL))
+    html_code = flask.render_template('index.html', username = authResult['username'] )
+    return html_code
+    #abort(redirect(APP_URL))
     #abort(redirect(request.url_root))
 
 #-----------------------------------------------------------------------
