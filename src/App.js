@@ -14,7 +14,7 @@ function App(): React.ReactNode {
     
    <div>
       <Routes>
-      <Route path ="/" element={<Welcome/>}/>
+      <Route exact path ="/" element={<Welcome/>}/>
       <Route path="/home" element={<Home/>}/>
       <Route path = '/login' element={<CasPage />}/>
       <Route path="/homeTo" element={<HomeTo />}/>

@@ -12,7 +12,7 @@ import urllib.request
 import CasClient
 #-----------------------------------------------------------------------
 
-APP_URL = 'https://tigeractivities-iqwe.onrender.com'
+APP_URL = 'https://tigeractivities-iqwe.onrender.com/homeTo'
 
 #-----------------------------------------------------------------------
 app = flask.Flask(__name__, static_folder="build/static", template_folder="build")
@@ -58,9 +58,9 @@ def authenticate2():
     authResult = CasClient.CASClient().authenticate()
     if authResult['username'] == '':
         return 'Something is badly wrong.'
-    html_code = flask.render_template('index.html', username = authResult['username'] )
-    return html_code
-    #abort(redirect(APP_URL))
+    #html_code = flask.render_template('index.html', username = authResult['username'] )
+    #return html_code
+    abort(redirect(APP_URL))
     #abort(redirect(request.url_root))
 
 #-----------------------------------------------------------------------
