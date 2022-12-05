@@ -213,9 +213,9 @@ const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
 
 const topNav = 
  <Navbar className="Navbar">
-  <Navbar.Brand><img alt="" src={tiger} width="60" height="60"
+  <Navbar.Brand><Button onClick = {activitesClicked}><img alt="" src={tiger} width="60" height="60"
                 className="d-inline-block align-top"
-                /> {' '}</Navbar.Brand>
+                /> {' '}</Button></Navbar.Brand>
   <Navbar.Brand>{title}</Navbar.Brand>
 
   <div className = "buttonsSec">
