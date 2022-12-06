@@ -144,7 +144,7 @@ export default function Profile(props) {
           justifyContent: "center",
         }}>
        <Button id="cancelBtn" variant="secondary" onClick={() => {
-              props.setOpenSignUpModal(false);
+             setShowModal(false);
             }}>Cancel</Button>
         <Button variant="primary" onClick={()=>{
              let error = 0;
@@ -179,6 +179,13 @@ export default function Profile(props) {
             document.getElementById('email').value="Email address is invalid";
             error = 1;
           }
+
+           if(updateClassYear.length !== 0 && !/^[202]+[3-6]/.test(updateClassYear)){
+            console.log("class state:", updateClassYear)
+            document.getElementById('year').classList.add("error");
+            document.getElementById('year').value="Class Year address is invalid";
+            error = 1;
+           }
 
           error !== 0 ? failureCallBack("Please fix errors above") : successCallBack()             
           }}>Submit</Button>
