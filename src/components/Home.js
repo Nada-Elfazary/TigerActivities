@@ -28,7 +28,7 @@ export default function  Home() : React.ReactNode {
   const [nameFilter, setNameFilter] = useState('')
   let currLogin = "Nada"
   const [profileData, setProfileData] = useState(["","","",""])
-  const user = ""
+  let user = ""
   const location = useLocation()
   let currNetid = "ragogoe"
 
