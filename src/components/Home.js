@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import { useLocation } from "react-router-dom";
 import CreateEventDialog from "./CreateEventDialog";
 import {Button, Navbar} from 'react-bootstrap'
 import XDSCard from "./XDSCard";
@@ -27,15 +28,16 @@ export default function  Home() : React.ReactNode {
   const [nameFilter, setNameFilter] = useState('')
   let currLogin = "Nada"
   const [profileData, setProfileData] = useState(["","","",""])
-
+  const user = ""
+  const location = useLocation()
   let currNetid = "ragogoe"
 
   useEffect(()=>{
     setRefresh(true)
     activitesClicked()
     setEvents([])
-    // getEvents(false, "")
-    
+    user = location.state.username
+    console.log("user on page is", user)
     
 }, [])
 

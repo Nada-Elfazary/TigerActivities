@@ -25,7 +25,11 @@ export default function RulesModal(props) : React.ReactNode {
         }
         else{
           console.log('username: ', response.username)
-          navigate('/home')
+          navigate('/home', {
+            state:{
+              username: response.username
+            }
+          })
         }
       }).catch(err=>{
         console.log(err)
