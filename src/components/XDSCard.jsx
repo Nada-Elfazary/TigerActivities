@@ -75,7 +75,7 @@ const XDSCard = ({item, ownerView, signUpsView,name,netid,phone, email, tagColor
     <Card className='customized-card'>
       <Card.Body>
         <Card.Title> <h1>{item.event_name}{closed}</h1></Card.Title>
-        <Card.Subtitle> <h5><a className='tag' style={{'backgroundColor': backgroundColor}}>{item.category}</a></h5></Card.Subtitle>
+        <Card.Subtitle> <h5><a className='tag' style={{'backgroundColor': backgroundColor}}><text className='white'>{item.category}</text></a></h5></Card.Subtitle>
         <br></br>
         <Card.Text> 
                 <Row>

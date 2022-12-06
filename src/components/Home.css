@@ -209,7 +209,6 @@ th{
 .tag{
     background-color: red;
     width: 50%;
-    text-emphasis-color: black;
     color: inherit;
     text-decoration: none;
     border-radius: 5px;
@@ -221,4 +220,8 @@ th{
 
 .note {
     color: red;
+}
+
+.white {
+    color: white
 }
