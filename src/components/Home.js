@@ -210,7 +210,7 @@ const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
 }): <h1 className = "center-screen">No current sign-ups</h1>
 
 const topNav = 
-<Container fluid>
+
  <Navbar className="Navbar">
   <Navbar.Brand><img alt="" src={tiger} width="60" height="60"
                 className="d-inline-block align-top"
@@ -225,7 +225,6 @@ const topNav =
   <Navbar.Brand>{user}</Navbar.Brand>
   </div>
 </Navbar>
-</Container>
 const results = refresh ? (displayEvents) : null
 
 const showResults = clickedActivites? (
