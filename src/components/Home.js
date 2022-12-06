@@ -37,8 +37,8 @@ export default function  Home() : React.ReactNode {
     setRefresh(true)
     activitesClicked()
     setEvents([])
-    console.log("Location:", location)
-    user = location.state.username
+    //user = location.state.username
+    user =  new URL(window.location.href).searchParams.get('user')
     setUserName(String(user))
     console.log("user on page is", user)
     
@@ -170,6 +170,18 @@ const getProfileData = (netid) => {
 
 }
 
+const handleLogout = ()=>{
+  axios.get('/logoutapp').then(res =>{
+    let data = res.text()
+    let response = JSON.parse(data)
+    console.log("logged out")
+    window.location.replace(response.redirect)
+  }).catch(
+    err=>{
+      console.log(err)
+    }
+  )
+}
 
 
   const title = <h1><i>TigerActivities </i></h1>
@@ -221,11 +233,12 @@ const topNav =
   <Navbar.Brand>{title}</Navbar.Brand>
 
   <div className = "buttonsSec">
+  <Navbar.Brand><strong>{username}</strong></Navbar.Brand>
   <Navbar.Brand><Button onClick={activitesClicked}>Activities</Button></Navbar.Brand>
   <Navbar.Brand><Button onClick={myActivitesClicked}>My Activities</Button></Navbar.Brand>
   <Navbar.Brand><Button onClick={mySignUpsClicked}>My Sign-Ups</Button></Navbar.Brand>
   <Navbar.Brand><Button onClick={profileClicked}>Profile</Button></Navbar.Brand>
-  <Navbar.Brand><strong>{username}</strong></Navbar.Brand>
+  <Navbar.Brand><Button onClick={handleLogout}>Logout</Button></Navbar.Brand>
   </div>
 </Navbar>
 const results = refresh ? (displayEvents) : null
