@@ -36,8 +36,7 @@ export default function  Home() : React.ReactNode {
     setRefresh(true)
     activitesClicked()
     setEvents([])
-    //user = location.state.username
-    user =  new URL(window.location.href).searchParams.get('user')
+    getUser()
     setUserName(String(user))
     console.log("user on page is", user)
     
@@ -93,6 +92,9 @@ const activitesClicked= () => {
   getEvents(false, '')
   
   
+}
+const getUser= ()=>{
+
 }
 
 const myActivitesClicked= ()=>{
@@ -273,7 +275,7 @@ const showResults = clickedActivites? (
 
   const showProfile = clickedProfile ? <Profile 
     name={profileData[0]}
-    netid={currNetid}
+    netid={username}
     phone={profileData[1]}
     email={profileData[2]}
     classYear={profileData[3]}

@@ -13,7 +13,7 @@ import CasClient
 #-----------------------------------------------------------------------
 
 APP_URL = 'https://tigeractivities-iqwe.onrender.com/homeTo'
-
+username = ''
 #-----------------------------------------------------------------------
 app = flask.Flask(__name__, static_folder="build/static", template_folder="build")
 #app.config['CORS_HEADERS'] = 'Content-Type'
@@ -59,6 +59,8 @@ def authenticate2():
     authResult = CasClient.CASClient().authenticate()
     if authResult['username'] == '':
         return 'Something is badly wrong.'
+    global username
+    username = authResult['username']
     html_code = flask.render_template('index.html', username = authResult['username'] )
     return html_code
     #abort(redirect(APP_URL))
@@ -66,6 +68,9 @@ def authenticate2():
 
 #-----------------------------------------------------------------------
 
+@app.route('/username', methods=['GET'])
+def get_username():
+    return username
 @app.route("/dummy", methods = ['GET'])
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def dummy_route():
