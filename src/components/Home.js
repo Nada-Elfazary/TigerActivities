@@ -31,6 +31,7 @@ export default function  Home() : React.ReactNode {
   const [profileData, setProfileData] = useState(["","","",""])
   let user = ""
   const location = useLocation()
+  let currNetid = "ragogoe"
 
   useEffect(()=>{
     setRefresh(true)
