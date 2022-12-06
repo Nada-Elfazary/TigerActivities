@@ -31,7 +31,6 @@ export default function  Home() : React.ReactNode {
   const [profileData, setProfileData] = useState(["","","",""])
   let user = ""
   const location = useLocation()
-  let currNetid = "ragogoe"
 
   useEffect(()=>{
     setRefresh(true)
@@ -117,7 +116,7 @@ const profileClicked= () =>{
   setClickedActivities(false)
   setClickedMySignUps(false)
   setClickedProfile(true)
-  getProfileData(currNetid)
+  getProfileData(username)
   console.log("Inside clickedProfile set Clicked Profile to true.")
 }
 
