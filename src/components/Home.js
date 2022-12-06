@@ -22,6 +22,7 @@ export default function  Home() : React.ReactNode {
   const [clickedMySignUps, setClickedMySignUps] = useState(false)
   const [clickedProfile, setClickedProfile] = useState(false)
   const [events, setEvents] = useState([])
+  const [username, setUserName] = useState(null)
   const [displayModal, setDisplayModal] = useState(false)
   const [refresh, setRefresh] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -37,6 +38,7 @@ export default function  Home() : React.ReactNode {
     activitesClicked()
     setEvents([])
     user = location.state.username
+    setUserName(String(user))
     console.log("user on page is", user)
     
 }, [])
@@ -222,7 +224,7 @@ const topNav =
   <Navbar.Brand><Button onClick={myActivitesClicked}>My Activities</Button></Navbar.Brand>
   <Navbar.Brand><Button onClick={mySignUpsClicked}>My Sign-Ups</Button></Navbar.Brand>
   <Navbar.Brand><Button onClick={profileClicked}>Profile</Button></Navbar.Brand>
-  <Navbar.Brand>{user}</Navbar.Brand>
+  <Navbar.Brand><strong>{username}</strong></Navbar.Brand>
   </div>
 </Navbar>
 const results = refresh ? (displayEvents) : null
