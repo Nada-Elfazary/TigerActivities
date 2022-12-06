@@ -80,13 +80,13 @@ def fetch_activities(title, day, category, cost, capMin, capMax):
         with psycopg2.connect(database_url) as connection:            
             with connection.cursor() as cursor:
                 statementOne = "SELECT * FROM events WHERE startdate = %s AND starttime > %s "
-                statementOne += "AND eventname LIKE %s AND category LIKE %s AND maxcap BETWEEN %s AND %s "
+                statementOne += "AND LOWER(eventname) LIKE %s AND category LIKE %s AND maxcap BETWEEN %s AND %s "
                 if cost != "all":
                     statementOne += "AND cost <= %s"
-                    cursor.execute(statementOne, [currDate, currTime, title, category, capMin, capMax, cost])
+                    cursor.execute(statementOne, [currDate, currTime, title.lower(), category, capMin, capMax, cost])
                 
                 else:
-                    cursor.execute(statementOne, [currDate, currTime, title, category, capMin, capMax])  
+                    cursor.execute(statementOne, [currDate, currTime, title.lower(), category, capMin, capMax])  
                 row = cursor.fetchone()
                 while row is not None:
                     weekday = row[10].weekday()
@@ -104,16 +104,16 @@ def fetch_activities(title, day, category, cost, capMin, capMax):
                     row = cursor.fetchone()
 
                 statementTwo = "SELECT * FROM events WHERE %s < startdate AND startdate < %s"
-                statementTwo += "AND eventname LIKE %s AND category LIKE %s AND maxcap BETWEEN %s AND %s " 
+                statementTwo += "AND LOWER(eventname) LIKE %s AND category LIKE %s AND maxcap BETWEEN %s AND %s " 
                 #AND maxcap %s %s"
               #  statementOne += "ORDER BY RANDOM() LIMIT 1000"
                # AND eventname LIKE %s
                 if cost != "all":
                     statementTwo += "AND cost <= %s"
-                    cursor.execute(statementTwo, [currDate, dateLimit, title, category, capMin, capMax, cost])
+                    cursor.execute(statementTwo, [currDate, dateLimit, title.lower(), category, capMin, capMax, cost])
                 
                 else:
-                    cursor.execute(statementTwo, [currDate, dateLimit, title, category, capMin, capMax]) 
+                    cursor.execute(statementTwo, [currDate, dateLimit, title.lower(), category, capMin, capMax]) 
                 row = cursor.fetchone()
                 while row is not None:
                     weekday = row[10].weekday()
