@@ -423,8 +423,11 @@ def delete_event(eventid):
         database_url = DATABASE_URL
         with psycopg2.connect(database_url) as connection: 
             with connection.cursor() as cursor:
-                statement = "DELETE FROM events WHERE eventid = %s"
-                cursor.execute(statement, [eventid])
+                statement1 = "DELETE FROM events WHERE eventid = %s"
+                cursor.execute(statement1, [eventid])
+
+                statement2 = "DELETE FROM signup WHERE eventid = %s"
+                cursor.execute(statement2, [eventid])
                 return True
     except Exception as ex:
         print(ex, file=sys.stderr)
