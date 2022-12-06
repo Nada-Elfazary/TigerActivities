@@ -184,7 +184,7 @@ const handleLogout = ()=>{
     console.log(res)
    // let response = JSON.parse(res)
     console.log("logged out")
-    window.location.replace(res.redirect)
+   // window.location.replace(res.redirect)
   }).catch(
     err=>{
       console.log(err)
