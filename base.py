@@ -18,10 +18,10 @@ app = flask.Flask(__name__)
 def logout():
     return auth.logoutapp()
 
-@app.route('/' , methods=['GET'])
-def nishan():
-    print('I am here')
-    return ('Hello Nishan!')
+# @app.route('/' , methods=['GET'])
+# def nishan():
+#     print('I am here')
+#     return ('Hello Nishan!')
 
 #@app.after_request
 #def after_request(response):
@@ -39,7 +39,6 @@ def nishan():
 
 @app.route("/events", methods = ['GET'])
 # cross_origin()
-#
 def index():
    #auth.authenticate()
    title = flask.request.args.get("title") or ''
@@ -49,7 +48,7 @@ def index():
    capMin = flask.request.args.get("capMin") or '1'
    capMax = flask.request.args.get("capMax") or '99999'
   
-   print("Received arguments: title={} day={} category={} cost={} capMin={} capMax={}".format(title, day, category, cost, capMin, capMax))
+#    print("Received arguments: title={} day={} category={} cost={} capMin={} capMax={}".format(title, day, category, cost, capMin, capMax))
    events = proc.fetch_activities(title, day, category, cost, capMin, capMax)
    results =[]
    for event in events:
