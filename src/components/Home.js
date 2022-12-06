@@ -98,7 +98,7 @@ const getUser= ()=>{
 axios.get('/username').then(
   res=>{
     console.log("username returned", res)
-    setUserName(res)
+    setUserName(res.data)
   }
 ).catch(err=>{
   console.log("err")
