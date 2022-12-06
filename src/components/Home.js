@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useLocation } from "react-router-dom";
 import CreateEventDialog from "./CreateEventDialog";
-import {Button, Navbar} from 'react-bootstrap'
+import {Button, Container, Navbar} from 'react-bootstrap'
 import XDSCard from "./XDSCard";
 import Dropdown from "./Dropdown";
 import tiger from './tiger.jpeg';
@@ -210,6 +210,7 @@ const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
 }): <h1 className = "center-screen">No current sign-ups</h1>
 
 const topNav = 
+<Container fluid>
  <Navbar className="Navbar">
   <Navbar.Brand><img alt="" src={tiger} width="60" height="60"
                 className="d-inline-block align-top"
@@ -221,9 +222,10 @@ const topNav =
   <Navbar.Brand><Button onClick={myActivitesClicked}>My Activities</Button></Navbar.Brand>
   <Navbar.Brand><Button onClick={mySignUpsClicked}>My Sign-Ups</Button></Navbar.Brand>
   <Navbar.Brand><Button onClick={profileClicked}>Profile</Button></Navbar.Brand>
+  <Navbar.Brand>{user}</Navbar.Brand>
   </div>
 </Navbar>
-
+</Container>
 const results = refresh ? (displayEvents) : null
 
 const showResults = clickedActivites? (
