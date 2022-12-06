@@ -27,7 +27,7 @@ export default function  Home() : React.ReactNode {
   const [refresh, setRefresh] = useState(false)
   const [loading, setLoading] = useState(false)
   const [nameFilter, setNameFilter] = useState('')
-  let currLogin = "Nada"
+  // let currLogin = "Nada"
   const [profileData, setProfileData] = useState(["","","",""])
   let user = ""
   const location = useLocation()
@@ -140,7 +140,7 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
     console.log("Events received from db:", res)
     setEvents([])
     if (ownerView === true) {
-      let filtered = res.data.filter(event => event.creator === currLogin)
+      let filtered = res.data.filter(event => event.creator === username)
       console.log("length: ", filtered.length)
       if (filtered.length !== 0) {
         console.log("Setting events to:", filtered)
@@ -210,10 +210,10 @@ const handleLogout = ()=>{
   const mySignUps = <Button onClick={mySignUpsClicked}>My Sign-Ups</Button>
   const createEventButton = <Button className="buttonStyle" onClick={handleCreateEvent}>Create Activity</Button>
   const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents}
-  />) : null 
+  username={username} />) : null 
 
 
-const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator !== currLogin).map((event, index)=>{
+const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator !== username).map((event, index)=>{
   return (
 
     <XDSCard key ={index} item ={event} ownerView={false} signUpsView = {false} 

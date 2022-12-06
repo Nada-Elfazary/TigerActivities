@@ -10,7 +10,7 @@ import "./CreateEventDialog.css"
 
 function CreateEventDialog(props) {
     const MAX_NO_DAYS = 5
-    const DEFAULT_CREATOR = "Reuben"
+    // const DEFAULT_CREATOR = "Reuben"
     const DEFAULT_CATEGORY = "Sports"
     const DEFAULT_SIGNUP_NR = 0
     const[eventTitle, setEventTitle] = useState('')
@@ -30,7 +30,7 @@ function CreateEventDialog(props) {
     // const five_days_in_future = curr_time.setDate(curr_time.getDate() + MAX_NO_DAYS) 
     // console.log("Max time in future",five_days_in_future)
     
-    const currLogin = "Nada"
+    // const currLogin = "Nada"
   const getEvents =  (ownerView, name, day, category, cost)=> {
     props.setLoading(true)
 
@@ -40,7 +40,7 @@ function CreateEventDialog(props) {
     console.log("Setting events to:", res.data)
     props.setEvents([])
     if (ownerView === true) {
-      let filtered = res.data.filter(event => event.creator === currLogin)
+      let filtered = res.data.filter(event => event.creator === props.username)
       console.log("length: ", filtered.length)
       if (filtered.length !== 0) {
       props.setEvents(filtered)
@@ -67,7 +67,7 @@ function CreateEventDialog(props) {
             start_time:    startTime,
             end_time:      endTime,
             maxcap:        maxAttendeeCount,
-            creator:       DEFAULT_CREATOR,
+            creator:       props.username,
             category:      eventCategory,
             location:      eventLocation,
             description:   description,
