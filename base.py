@@ -162,12 +162,13 @@ def updateProfile():
     res = flask.request.json
     print("Inside /update-profile. Request data: {}".format(res))
     
-    netid = res["netid"]
-    name = res["name"]
-    phone = res["phone"]
-    email = res["email"]
-    class_year = "" #tbd
-
+    netid = res["netid"] 
+    name = res["name"] or ""
+    phone = res["phone"] or ""
+    email = res["email"] or ""
+    class_year = res["classYear"] or ""
+    print("phone: {}, integer: {} ; year: {}, integer:{}".format(phone,
+    type(phone), class_year, type(class_year)))
     proc.store_student([netid,name,phone,email,class_year])
     return res
 

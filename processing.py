@@ -321,7 +321,9 @@ def store_student(student_info):
     name = student_info[1]
     phone_num = student_info[2]
     email = student_info[3]
-    classyear = student_info[4]
+    class_year = student_info[4]
+    print("Inside store student: netid:{}, name: {}, phone: {}, email: {},  year: {}".format(netid,
+    name, phone_num, email, class_year))
 
     try:
         database_url = DATABASE_URL
@@ -333,7 +335,16 @@ def store_student(student_info):
                 statement = "INSERT INTO students VALUES(%s, %s, %s, %s, %s) "
                 statement += "ON CONFLICT (netid) DO UPDATE SET name = %s, "
                 statement += "number = %s, email = %s, classyear = %s"  
-                cursor.execute(statement, (netid, name, phone_num, email, classyear, name,phone_num, email, classyear))    
+                cursor.execute(statement, (netid, name, phone_num, email, class_year, name,phone_num, email, class_year))
+                # print("YOLO")    
+                statement2 = "SELECT * FROM students WHERE netid = %s"  
+                cursor.execute(statement2, [netid])  
+                # print("YOLO2")   
+                row = cursor.fetchone()
+                if row is None:
+                    print("ERROR: netid was not inserted")
+                else:
+                    print("Info fetched from db: {}".format(row))
 
     except Exception as ex:
         print(ex, file=sys.stderr)
@@ -346,7 +357,7 @@ def student_details(netid):
         with psycopg2.connect(database_url) as connection:
             
             with connection.cursor() as cursor:
-                statement = "SELECT * FROM students WHERE netid = %s"
+                statement = "SELECT * FROM students WHERE netid LIKE %s"
                 cursor.execute(statement, [netid])
                 row = cursor.fetchone()
               #  print(row)

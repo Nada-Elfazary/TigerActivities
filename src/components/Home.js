@@ -262,11 +262,13 @@ const showResults = clickedActivites? (
   )
 
   const showProfile = clickedProfile ? <Profile 
-    name={profileData[0]}
+    // name={profileData[0]}
     netid={currNetid}
-    phone={profileData[1]}
-    email={profileData[2]}
-    classYear={profileData[3]}
+    // phone={profileData[1]}
+    // email={profileData[2]}
+    // classYear={profileData[3]}
+    profileData={profileData}
+    getProfileData={getProfileData}
     /> : null
 
   const dropDowns = (filter, items) => (
