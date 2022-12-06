@@ -181,9 +181,10 @@ const getProfileData = (netid) => {
 
 const handleLogout = ()=>{
   axios.get('/logoutapp').then(res =>{
-    let response = JSON.parse(res)
+    console.log(res)
+   // let response = JSON.parse(res)
     console.log("logged out")
-    window.location.replace(response.redirect)
+    window.location.replace(res.redirect)
   }).catch(
     err=>{
       console.log(err)
