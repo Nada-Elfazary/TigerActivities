@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import CreateEventDialog from "./CreateEventDialog";
 import {Button, Container, Navbar} from 'react-bootstrap'
 import XDSCard from "./XDSCard";
@@ -32,6 +32,7 @@ export default function  Home() : React.ReactNode {
   let user = ""
   const location = useLocation()
   let currNetid = "ragogoe"
+  const navigate = useNavigate()
 
   useEffect(()=>{
     setRefresh(true)
@@ -98,7 +99,13 @@ const getUser= ()=>{
 axios.get('/username').then(
   res=>{
     console.log("username returned", res)
-    setUserName(res.data)
+    if(res.data.length === 0){
+      navigate('/')
+    }
+    else{
+      setUserName(res.data)
+
+    }
   }
 ).catch(err=>{
   console.log("err")
