@@ -24,7 +24,8 @@ cors = CORS(app, resources={r"/*": {'origins': "http://tigeractivities-iqwe.onre
 @app.route('/logoutapp', methods=['GET'])
 @app.route('/logoutcas', methods=['GET'])
 def logout():
-    return auth.logoutapp()
+    authResult = CasClient.CASClient().logout()
+    return jsonify(redirect = authResult)
 
 @app.route('/' , methods=['GET'])
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
