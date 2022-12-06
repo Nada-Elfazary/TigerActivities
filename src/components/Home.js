@@ -31,6 +31,7 @@ export default function  Home() : React.ReactNode {
   const [profileData, setProfileData] = useState(["","","",""])
   let user = ""
   const location = useLocation()
+  let currNetid = "ragogoe"
 
   useEffect(()=>{
     setRefresh(true)
@@ -260,7 +261,7 @@ const showResults = clickedActivites? (
 
   const showProfile = clickedProfile ? <Profile 
     name={profileData[0]}
-    netid={currNetid}
+    netid={username}
     phone={profileData[1]}
     email={profileData[2]}
     classYear={profileData[3]}
