@@ -67,7 +67,8 @@ export default function Profile(props) {
             classYear: updateClassYear,
             })
             .then((response) => {
-            console.log(response)
+            console.log("Response:", response)
+            console.log("Props:", props)
             }, (error) => {
             console.log(error)
             })
