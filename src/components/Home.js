@@ -95,7 +95,14 @@ const activitesClicked= () => {
   
 }
 const getUser= ()=>{
-
+axios.get('/username').then(
+  res=>{
+    console.log("username returned", res)
+    setUserName(res)
+  }
+).catch(err=>{
+  console.log("err")
+})
 }
 
 const myActivitesClicked= ()=>{
@@ -174,8 +181,7 @@ const getProfileData = (netid) => {
 
 const handleLogout = ()=>{
   axios.get('/logoutapp').then(res =>{
-    let data = res.text()
-    let response = JSON.parse(data)
+    let response = JSON.parse(res)
     console.log("logged out")
     window.location.replace(response.redirect)
   }).catch(
