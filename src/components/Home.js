@@ -35,10 +35,9 @@ export default function  Home() : React.ReactNode {
   const navigate = useNavigate()
 
   useEffect(()=>{
-    setRefresh(true)
-    activitesClicked()
-    setEvents([])
     cas()
+    setRefresh(true)
+    setEvents([])
     // setUserName(String(user))
     // console.log("user on page is", user)
     
@@ -108,6 +107,7 @@ const cas = ()=>{
       console.log('username: ', response.username)
     } else {
       setUserName(response.username)
+      activitesClicked()
     }
   }).catch(err=>{
     console.log(err)
