@@ -14,6 +14,7 @@ const XDSCard = ({item, ownerView, signUpsView,name,netid,phone, email, tagColor
     const [id, setEventId] = useState('')
     const [attendees, setAttendees] = useState([])
     const [backgroundColor, setBackgroundColor ] = useState(tagColor)
+    const [activityData, setActivityData] = useState(["","","","","","","",""])
     const closedText = "(CLOSED)"
 
     console.log('color: ', tagColor)
@@ -42,6 +43,31 @@ const XDSCard = ({item, ownerView, signUpsView,name,netid,phone, email, tagColor
 
      axios.post('/cancel-sign-up', {
       event_id : item.id,
+    }).then(res =>{
+      console.log(res)
+    }).catch(err =>{
+      console.log(err)
+    
+    })
+  }
+
+  const handleEdit = ()=>{
+    console.log("editing event")
+    console.log(item.id)
+    console.log(item.event_name)
+
+     axios.post('/edit-event', {
+     /* event_name:    eventTitle,
+      start_time:    startTime,
+      end_time:      endTime,
+      maxcap:        maxAttendeeCount,
+      creator:       DEFAULT_CREATOR,
+      category:      eventCategory,
+      location:      eventLocation,
+      description:   description,
+      cost:          cost,
+      signup_number: DEFAULT_SIGNUP_NR,*/
+      
     }).then(res =>{
       console.log(res)
     }).catch(err =>{
@@ -113,8 +139,12 @@ const XDSCard = ({item, ownerView, signUpsView,name,netid,phone, email, tagColor
                            </p>) : null }   {(!ownerView && signUpsView) ? (<p {...getCollapseProps()}>
                         <Button 
                         variant="warning"
-                        class = "buttonShift" onClick={handleCancellation}>Cancel</Button>            
-                           </p>) : null }
+                        class = "buttonShift" onClick={handleCancellation}>Cancel</Button>        
+                           </p>
+                           
+                           ) : null 
+                           }
+         
             </Col>
           </Row>
           </Card.Text>
@@ -159,7 +189,12 @@ const XDSCard = ({item, ownerView, signUpsView,name,netid,phone, email, tagColor
         })}
       >
         {isExpanded ? 'Less Details' : 'More Details'}
+        
       </Button></Col>
+      <Col>
+      <Col></Col>
+      <Button variant="warning" onClick={handleEdit}> Edit</Button></Col>
+
             <Col>{!ownerView ? (<p {...getCollapseProps()} className = "creator">
               <strong>Created by : {item.creator}</strong></p>):null}</Col>
             </Row> 

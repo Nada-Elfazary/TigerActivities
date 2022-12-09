@@ -25,10 +25,10 @@ export default function  Home() : React.ReactNode {
   const [refresh, setRefresh] = useState(false)
   const [loading, setLoading] = useState(false)
   const [profileData, setProfileData] = useState(["","","",""])
-  let currLogin = "Reuben"
+  let currLogin = "Sriyans"
   let currNetid = "ragogoe"
 
-  const categoryToColor = {'Sports': "cyan", 'Entertainment': "purple", 'Academic': "yellow", 'Off-campus': "olive", 'Outdoors': "navy",  
+  const categoryToColor = {'Sports': "cyan", 'Entertainment': "purple", 'Academic': "darkorange", 'Off-campus': "olive", 'Outdoors': "navy",  
   'Meals/Coffee Chats': "maroon", 'Nassau Street': "green"} 
 
   useEffect(()=>{
