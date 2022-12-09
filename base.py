@@ -83,6 +83,9 @@ def dummy_route():
 #
 def index():
    #username = auth.authenticate()
+   authResult = CasClient.CASClient().authenticate()
+   if authResult['username'] == '':
+        return "Not found"
    title = flask.request.args.get("title") or ''
    day = flask.request.args.get("day") or ''
    category = flask.request.args.get("category") or ''
