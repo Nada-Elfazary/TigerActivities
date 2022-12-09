@@ -38,9 +38,9 @@ export default function  Home() : React.ReactNode {
     setRefresh(true)
     activitesClicked()
     setEvents([])
-    getUser()
-    setUserName(String(user))
-    console.log("user on page is", user)
+    cas()
+    // setUserName(String(user))
+    // console.log("user on page is", user)
     
 }, [])
 
@@ -95,6 +95,25 @@ const activitesClicked= () => {
   
   
 }
+
+const cas = ()=>{ 
+  console.log("inside cas")
+  fetch('https://tigeractivities.onrender.com/authenticate').then((resp)=>
+    {return resp.text();}).then((data) => {
+    let response = JSON.parse(data)
+    console.log('data from cas: ', data)
+    if(response.username === ''){
+      console.log('redirect url')
+      window.location.replace(response.redirect);
+      console.log('username: ', response.username)
+    } else {
+      setUserName(response.username)
+    }
+  }).catch(err=>{
+    console.log(err)
+  })
+}
+/*
 const getUser= ()=>{
 axios.get('/username').then(
   res=>{
@@ -111,7 +130,7 @@ axios.get('/username').then(
   console.log("err")
 })
 }
-
+*/
 const myActivitesClicked= ()=>{
   if(clickedMyActivites) {
     setEvents([])
