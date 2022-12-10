@@ -16,10 +16,10 @@ function CreateEventDialog(props) {
     const[eventTitle, setEventTitle] = useState('')
     const[eventLocation, setEventLocation] = useState('')
     const [eventCategory, setEventCategory] = useState('')
-    const[maxAttendeeCount, setMaxAttendeeCount] = useState(0)
+    const[maxAttendeeCount, setMaxAttendeeCount] = useState(5)
     const [disableSubmitForm, setDisableSubmitForm] = useState(false)
-    const [startTime, setStartTime] = useState()
-    const [endTime, setEndTime] = useState()
+    const [startTime, setStartTime] = useState(new Date())
+    const [endTime, setEndTime] = useState(new Date())
     const [cost, setCost] = useState(0)
     const [description, setDescription] = useState("")
     const [saving, setSaving] = useState(true)
@@ -30,17 +30,12 @@ function CreateEventDialog(props) {
     // const five_days_in_future = curr_time.setDate(curr_time.getDate() + MAX_NO_DAYS) 
     // console.log("Max time in future",five_days_in_future)
     
-<<<<<<< HEAD
   const currLogin = "Nada"
   const getEvents =  (ownerView, name, day, category, cost)=> {
-=======
-    const currLogin = "Nada"
-  const getEvents =  (ownerView, name, day, category, cost, capMin, capMax)=> {
->>>>>>> 496c01cc10b5916dc785b9c4133ed669dde79991
     props.setLoading(true)
 
 // axios.get('https://tigeractivities.onrender.com/events').then(res =>{
-  axios.get('/events', {params: {title: name, day: day, category: category, cost: cost, capMin:capMin, capMax: capMax}}).then(res =>{
+  axios.get('/events', {params: {title: name, day: day, category: category, cost: cost}}).then(res =>{
     console.log("Events received from db:", res)
     console.log("Setting events to:", res.data)
     props.setEvents([])
@@ -306,8 +301,8 @@ function CreateEventDialog(props) {
 
           error = 1;
         }
-    
-        if(maxAttendeeCount.length == 0){
+  
+        if(maxAttendeeCount.length === 0){
           //    error.push("Max Attendee Count cannot be negative")
               // setShowErrorMsg(true)
               document.getElementById('cap').classList.add("error");
