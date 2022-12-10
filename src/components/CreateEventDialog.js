@@ -30,7 +30,7 @@ function CreateEventDialog(props) {
     // const five_days_in_future = curr_time.setDate(curr_time.getDate() + MAX_NO_DAYS) 
     // console.log("Max time in future",five_days_in_future)
     
-    const currLogin = "Nada"
+  const currLogin = "Nada"
   const getEvents =  (ownerView, name, day, category, cost)=> {
     props.setLoading(true)
 
@@ -52,6 +52,7 @@ function CreateEventDialog(props) {
       props.setEvents(res.data)
     }
     props.setLoading(false)
+    
 
   }).catch(err =>{
     console.log("Error receiving event from db:", err)
@@ -296,10 +297,21 @@ function CreateEventDialog(props) {
       //    error.push("Max Attendee Count cannot be negative")
           // setShowErrorMsg(true)
           document.getElementById('cap').classList.add("error");
-          document.getElementById('cap').value = "Max Attendee Count cannot be negative";
+          document.getElementById('cap').placeholder = "Count cannot be negative";
 
           error = 1;
         }
+    
+        if(maxAttendeeCount.length == 0){
+          //    error.push("Max Attendee Count cannot be negative")
+              // setShowErrorMsg(true)
+              document.getElementById('cap').classList.add("error");
+              document.getElementById('cap').placeholder = "Count cannot be empty";
+    
+              error = 1;
+            }
+
+
 
         if(description.length == 0){
           //    error.push("Max Attendee Count cannot be negative")
