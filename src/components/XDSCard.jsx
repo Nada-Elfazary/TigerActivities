@@ -41,7 +41,7 @@ const XDSCard = ({item, ownerView, signUpsView,name, netid, phone, email, tagCol
   
   }
 
-
+  
   const handleCancellation = ()=>{
     console.log("canceling sign-up")
     console.log(item.id)
@@ -127,14 +127,7 @@ const XDSCard = ({item, ownerView, signUpsView,name, netid, phone, email, tagCol
                         <Button  
                         variant="warning"
                         onClick={handleSignUp} disabled={item.signup_number === item.maxcap}>Sign Up</Button>            
-                           </p>) : null }   {(!ownerView && signUpsView) ? (<p {...getCollapseProps()}>
-                        <Button 
-                        variant="warning"
-                        class = "buttonShift" onClick={handleCancellation}>Cancel</Button>        
-                           </p>
-                           
-                           ) : null 
-                           }
+                           </p>) : null }  
          
             </Col>
           </Row>
@@ -188,7 +181,14 @@ const XDSCard = ({item, ownerView, signUpsView,name, netid, phone, email, tagCol
 
             <Col>{!ownerView ? (<p {...getCollapseProps()} className = "creator">
               <strong>Created by : {item.creator}</strong></p>):null}
-              {ownerView ? (<Button variant="warning" onClick={handleEdit}> Edit</Button>):null}</Col>
+              {ownerView ? (<Button variant="warning" onClick={handleEdit}> Edit</Button>):null}
+               {(!ownerView && signUpsView) ? (
+                        <Button 
+                        variant="warning"
+                        class = "buttonShift" onMouseEnter={(e) => e.target.style.background = 'red'}  onClick={(handleCancellation)} onMouseLeave={(e) => e.target.style.background = ''} >Cancel</Button>
+                           ) : null 
+                           }
+              </Col>
             </Row> 
       </Card.Text>
       </Card.Body>

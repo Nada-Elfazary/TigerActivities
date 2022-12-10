@@ -128,6 +128,9 @@ function EditEventDialog(props) {
       <Modal.Body>
         <Form>
           <Form.Group>
+          <Row><Col><strong><text className="error">Note: It is your responsibility to contact previously 
+          signed up users and notify them of the changes made</text></strong></Col></Row>
+          <br></br>
             <Row>
               <Col><Form.Label>Title: </Form.Label></Col>
               
