@@ -32,6 +32,13 @@ function SignUpModal(props) {
     })
     .then((response) => {
       console.log(response)
+      if(response.data === 'FULL'){
+        setErrorMsg("This event is full. Please refresh the page to get the current updates")
+        showErrorMsg(true)
+      }
+      else {
+        props.setOpenSignUpModal(false)
+      }
     }, (error) => {
       console.log(error)
     })
@@ -51,7 +58,6 @@ function SignUpModal(props) {
    //   console.log(description)
    //   console.log(eventLocation)
         submitForm()
-      props.setOpenSignUpModal(false)
       // props.setClickMyActivities(true)
     }
 
