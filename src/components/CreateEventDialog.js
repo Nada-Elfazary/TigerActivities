@@ -297,8 +297,8 @@ function CreateEventDialog(props) {
       //    error.push("Max Attendee Count cannot be negative")
           // setShowErrorMsg(true)
           document.getElementById('cap').classList.add("error");
+          setMaxAttendeeCount("")
           document.getElementById('cap').placeholder = "Count cannot be negative";
-
           error = 1;
         }
   
@@ -310,6 +310,7 @@ function CreateEventDialog(props) {
     
               error = 1;
             }
+
 
 
 
