@@ -235,7 +235,7 @@ def store_sign_up(activity):
             with connection.cursor() as cursor:
                # day = get_day()
                # statement = "SELECT "
-                statement = "SELECT signedup_number, maxcap FROM events WHERER eventid =%s "
+                statement = "SELECT signedup_number, maxcap FROM events WHERE eventid =%s "
                 cursor.execute(statement, [eventid])
                 row = cursor.fetchone()
                 if row[0] == row[1]:

@@ -25,7 +25,7 @@ export default function  Home() : React.ReactNode {
   const [refresh, setRefresh] = useState(false)
   const [loading, setLoading] = useState(false)
   const [profileData, setProfileData] = useState(["","","",""])
-  let currLogin = "Reuben"
+  let currLogin = "Nada"
   let currNetid = "ragogoe"
 
   const categoryToColor = {'Sports': "cyan", 'Entertainment': "purple", 'Academic': "darkorange", 'Off-campus': "olive", 'Outdoors': "navy",  

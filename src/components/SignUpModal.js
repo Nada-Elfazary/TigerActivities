@@ -34,7 +34,7 @@ function SignUpModal(props) {
       console.log(response)
       if(response.data === 'FULL'){
         setErrorMsg("This event is full. Please refresh the page to get the current updates")
-        showErrorMsg(true)
+        setShowErrorMsg(true)
       }
       else {
         props.setOpenSignUpModal(false)
@@ -121,7 +121,7 @@ function SignUpModal(props) {
        <Button id="cancelBtn" variant="secondary" onClick={() => {
               props.setOpenSignUpModal(false);
             }}>Cancel</Button>
-        <Button variant="primary" onClick={()=>{
+        <Button variant="primary" disabled={showErrorMsg} onClick={()=>{
              let error = 0;
              let errorMsg = []
  
