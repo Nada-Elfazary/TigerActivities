@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import EditEventDialog from "./EditEventDialog";
 import {Button, Row, Col, Card, Table} from 'react-bootstrap';
 import useCollapse from 'react-collapsed';
 import SignUpModal from './SignUpModal';
@@ -6,18 +7,23 @@ import "./Home.css";
 import axios from 'axios';
 import { propTypes } from 'react-bootstrap/esm/Image';
 
-const XDSCard = ({item, ownerView, signUpsView,name,netid,phone, email, tagColor}) => {
+const XDSCard = ({item, ownerView, signUpsView,name, netid, phone, email, tagColor}) => {
     const [isExpanded, setExpanded] = useState(false)
     const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded })
     const [displaySignUp, setDisplaySignUp] = useState(false)
     const [eventTitle, setEventTitle] = useState('')
+    const [events, setEvents] = useState([])
+    const [displayModal, setDisplayModal] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [id, setEventId] = useState('')
     const [attendees, setAttendees] = useState([])
-    const [backgroundColor, setBackgroundColor ] = useState(tagColor)
-    const [activityData, setActivityData] = useState(["","","","","","","",""])
+    const backgroundColor = tagColor
+   // const [activityData, setActivityData] = useState(["","","","","","","",""])
+  //  const [displayEditModal, setDisplayEditModal] = useState(false)
     const closedText = "(CLOSED)"
 
-    console.log('color: ', tagColor)
+    console.log(item.event_name, 'color: ', tagColor)
+
 
     const numToDay = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 
     3: "Thursday", 4: "Friday", 5: "Saturday", 6: "Sunday"}
@@ -55,27 +61,12 @@ const XDSCard = ({item, ownerView, signUpsView,name,netid,phone, email, tagColor
     console.log("editing event")
     console.log(item.id)
     console.log(item.event_name)
-
-     axios.post('/edit-event', {
-     /* event_name:    eventTitle,
-      start_time:    startTime,
-      end_time:      endTime,
-      maxcap:        maxAttendeeCount,
-      creator:       DEFAULT_CREATOR,
-      category:      eventCategory,
-      location:      eventLocation,
-      description:   description,
-      cost:          cost,
-      signup_number: DEFAULT_SIGNUP_NR,*/
-      
-    }).then(res =>{
-      console.log(res)
-    }).catch(err =>{
-      console.log(err)
-    
-    })
+    setDisplayModal(true);
+    console.log("display modal state: ", displayModal)
   }
   
+  const editModal = displayModal ? (<EditEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents} 
+  events = {item} />) : null 
 
   const signUpModal = displaySignUp ? (<SignUpModal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}
     name={name}
@@ -193,16 +184,18 @@ const XDSCard = ({item, ownerView, signUpsView,name,netid,phone, email, tagColor
       </Button></Col>
       <Col>
       <Col></Col>
-      <Button variant="warning" onClick={handleEdit}> Edit</Button></Col>
+      </Col>
 
             <Col>{!ownerView ? (<p {...getCollapseProps()} className = "creator">
-              <strong>Created by : {item.creator}</strong></p>):null}</Col>
+              <strong>Created by : {item.creator}</strong></p>):null}
+              {ownerView ? (<Button variant="warning" onClick={handleEdit}> Edit</Button>):null}</Col>
             </Row> 
       </Card.Text>
       </Card.Body>
     
     </Card>
     {signUpModal}
+    {editModal}
     </>
   )
 }

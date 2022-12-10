@@ -221,7 +221,7 @@ def store_activity(activity):
     
 # this is workinnggggggggggggggggg
 def store_sign_up(activity):
-    netid = 'diff' #hardcoded for now
+    netid = 'last' #hardcoded for now
     eventid = activity['event_id']
     name = activity['name']
     phone_num = activity['phone']
@@ -235,7 +235,11 @@ def store_sign_up(activity):
             with connection.cursor() as cursor:
                # day = get_day()
                # statement = "SELECT "
-
+                statement = "SELECT signedup_number, maxcap FROM events WHERER eventid =%s "
+                cursor.execute(statement, [eventid])
+                row = cursor.fetchone()
+                if row[0] == row[1]:
+                    return "FULL"
                # UPDATE EVENTS TABLE
                 statement = "UPDATE events SET signedup_number = signedup_number + 1 WHERE eventid = %s"
 
@@ -246,7 +250,7 @@ def store_sign_up(activity):
                 
                 # UPDATE STUDENTS TABLE
                 store_student([netid, name, phone_num, email, classyear])   
-
+        return "SUCCESSFUL"
     except Exception as ex:
         print(ex, file=sys.stderr)
         sys.exit(1)
@@ -405,7 +409,8 @@ def edit_event(activity):
     description = activity['description']
     category = activity['category']
     signedup_number = activity['signup_number']
-
+    
+    print("edited activity :", activity)
     try:
         database_url = DATABASE_URL
         with psycopg2.connect(database_url) as connection:

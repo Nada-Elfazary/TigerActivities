@@ -25,7 +25,7 @@ export default function  Home() : React.ReactNode {
   const [refresh, setRefresh] = useState(false)
   const [loading, setLoading] = useState(false)
   const [profileData, setProfileData] = useState(["","","",""])
-  let currLogin = "Sriyans"
+  let currLogin = "Reuben"
   let currNetid = "ragogoe"
 
   const categoryToColor = {'Sports': "cyan", 'Entertainment': "purple", 'Academic': "darkorange", 'Off-campus': "olive", 'Outdoors': "navy",  
@@ -120,6 +120,7 @@ const profileClicked= () =>{
 const handleCreateEvent = () =>{
   setDisplayModal(true);
 }
+
 
 const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
   setLoading(true)
@@ -257,9 +258,9 @@ const showResults = clickedActivites? (
 
   ): null
 
-  const showNote = (
+  const showNote = !clickedProfile ? (
     <h3><text className = 'note'>Note: The activities shown are the ones within the next 5 days</text></h3>
-  )
+  ): null
 
   const showProfile = clickedProfile ? <Profile 
     // name={profileData[0]}

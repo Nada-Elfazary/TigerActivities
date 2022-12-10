@@ -141,8 +141,8 @@ def signUp():
     res = flask.request.json
     print("json")
     print(res)
-    proc.store_sign_up(res)
-    return res
+    response = proc.store_sign_up(res)
+    return response
 
 @app.route('/cancel-sign-up', methods = ['POST'])
 # cross_origin()
@@ -169,6 +169,16 @@ def updateProfile():
     print("phone: {}, integer: {} ; year: {}, integer:{}".format(phone,
     type(phone), class_year, type(class_year)))
     proc.store_student([netid,name,phone,email,class_year])
+    return res
+
+@app.route('/edit-activity', methods = ['POST'])
+# cross_origin()
+def editActivity():
+   # username = auth.authenticate()
+    res = flask.request.json
+    print("**********edit backend json: *************")
+    print(res)
+    proc.edit_event(res)
     return res
 
 @app.route('/profile', methods = ['GET'])
