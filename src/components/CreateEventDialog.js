@@ -280,7 +280,7 @@ function CreateEventDialog(props) {
         //  errorMsg.push("Cost involved cannot be negative")
           // setShowErrorMsg(true)
           document.getElementById('cost').classList.add("error");
-          document.getElementById('cost').value = "Cost involved cannot be negative";
+          document.getElementById('cost').placeholder = "Cost involved cannot be negative";
 
           error = 1;
         }
@@ -288,8 +288,7 @@ function CreateEventDialog(props) {
           //  errorMsg.push("Cost involved cannot be negative")
             // setShowErrorMsg(true)
             document.getElementById('cost').classList.add("error");
-            document.getElementById('cost').value = "Cost involved must be an integer";
-  
+            document.getElementById('cost').placeholder = "Cost cannot be negative";
             error = 1;
           }
 
