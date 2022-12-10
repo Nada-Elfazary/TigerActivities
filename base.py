@@ -13,7 +13,7 @@ import CasClient
 #-----------------------------------------------------------------------
 
 APP_URL = 'https://tigeractivities-iqwe.onrender.com/homeTo'
-username = ''
+#username = ''
 #-----------------------------------------------------------------------
 app = flask.Flask(__name__, static_folder="build/static", template_folder="build")
 #app.config['CORS_HEADERS'] = 'Content-Type'
@@ -59,18 +59,18 @@ def authenticate2():
     authResult = CasClient.CASClient().authenticate()
     if authResult['username'] == '':
         return 'Something is badly wrong.'
-    global username
-    username = authResult['username']
-    html_code = flask.render_template('index.html', username = authResult['username'] )
+   # global username
+  #  username = authResult['username']
+    html_code = flask.render_template('index.html')
     return html_code
     #abort(redirect(APP_URL))
     #abort(redirect(request.url_root))
 
 #-----------------------------------------------------------------------
 
-@app.route('/username', methods=['GET'])
-def get_username():
-    return username
+#@app.route('/username', methods=['GET'])
+#def get_username():
+#    return username
 @app.route("/dummy", methods = ['GET'])
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def dummy_route():
@@ -117,8 +117,11 @@ def index():
 @app.route("/user-sign-ups", methods = ['GET'])
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def sign_ups():
-  #username = auth.authenticate()
-  events = proc.fetch_user_sign_ups()
+  authResult = CasClient.CASClient().authenticate()
+  username = authResult['username']
+  if username == '':
+    return "Not found"
+  events = proc.fetch_user_sign_ups(username)
   results = []
   for event in events:
         response_body={
@@ -177,7 +180,7 @@ def createEvent():
     # @api.route('/create-event', methods = ["POST"])
     # def createEvent():  
     #     print("Recieved request: {}".format(request))
-
+'''
 @app.route('/validate', methods=['GET'])
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def validate():
@@ -187,16 +190,19 @@ def validate():
     with urllib.request.urlopen(url) as flo:
         lines = flo.readlines()
     return lines[0].decode('utf-8')
-
+'''
 @app.route('/sign-up', methods = ['POST'])
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 # cross_origin()
 def signUp():
-    #username = auth.authenticate()
+    authResult = CasClient.CASClient().authenticate()
+    username = authResult['username']
+    if username == '':
+        return "Not found"
     res = flask.request.json
     print("json")
     print(res)
-    proc.store_sign_up(res)
+    proc.store_sign_up(res, username)
     return res
 
 @app.route('/cancel-sign-up', methods = ['POST'])
