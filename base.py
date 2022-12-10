@@ -209,27 +209,33 @@ def signUp():
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 # cross_origin()
 def cancelSignUp():
-    #username = auth.authenticate()
+    authResult = CasClient.CASClient().authenticate()
+    username = authResult['username']
+    if username == '':
+        return "Not found"
     res = flask.request.json
     print("json")
     print(res)
     id = res["event_id"]
     print(id)
-    proc.delete_signup(id)
+    proc.delete_signup(id, username)
     return res
 
 @app.route('/update-profile', methods = ['POST'])
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def updateProfile():
     res = flask.request.json
-    
-    netid = res["netid"]
+    authResult = CasClient.CASClient().authenticate()
+    username = authResult['username']
+    if username == '':
+        return "Not found"
+    #netid = res["netid"]
     name = res["name"]
     phone = res["phone"]
     email = res["email"]
     class_year = "" #tbd
 
-    proc.store_student([netid,name,phone,email,class_year])
+    proc.store_student([username,name,phone,email,class_year])
     return res
 
 @app.route('/profile', methods = ['GET'])

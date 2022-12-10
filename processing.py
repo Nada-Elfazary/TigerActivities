@@ -261,9 +261,9 @@ def store_sign_up(activity, username):
         print(ex, file=sys.stderr)
         sys.exit(1)
 
-def delete_signup(event_id):
+def delete_signup(event_id, username):
     eventid = event_id
-    netid = "fifth"
+    netid = username
     try:
         database_url = DATABASE_URL
         with psycopg2.connect(database_url) as connection:

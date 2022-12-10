@@ -57,7 +57,7 @@ export default function Profile(props) {
         const submitForm= () =>
         {
             axios.post('/update-profile', {
-            netid: props.netid,
+          //  netid: props.netid,
             name: updateName,
             phone: updatePhone,
             email: updateEmail,
