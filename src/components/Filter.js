@@ -3,7 +3,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import {Button, Navbar, Form, NavbarBrand} from 'react-bootstrap';
+import {Button, Navbar, Form, NavbarBrand, Row, Col} from 'react-bootstrap';
 
 import "./Filter.css";
 export default function Filter(props) : React.ReactNode {
@@ -135,23 +135,26 @@ export default function Filter(props) : React.ReactNode {
             <Form.Group>
                 <Form.Label>
                 Number of Attendees Range
-                </Form.Label> <br></br>
-                <Form.Label>
-                From:
                 </Form.Label>
+                <Row>
+                    <Col>  <Form.Label>From:</Form.Label></Col>
+
+                    <Col>       
                 <Form.Control type="text" className = "inputBox" value = {capMin} onChange={(event) => {
                         setCapMin(event.target.value)
                         console.log("capMin value:", event, event.target.value, capMin)
                         props.getEvents(false, title, dayToNumber[day], category, cost, event.target.value, capMax)
-                    }}></Form.Control>
-            </Form.Group>
-            <Form.Group>
-            <Form.Label>To: </Form.Label>
-                    <Form.Control type="text" className = "inputBox" value = {capMax} onChange={(event) => {
+                    }}></Form.Control> </Col>
+                     <Col>  <Form.Label>To:</Form.Label></Col>
+                    <Col><Form.Control type="text" className = "inputBox" value = {capMax} onChange={(event) => {
                         setCapMax(event.target.value)
                         console.log("capMax value:", event, event.target.value, capMax)
                         props.getEvents(false, title, dayToNumber[day], category, cost, capMin, event.target.value)
-                    }}></Form.Control>
+                    }}></Form.Control></Col>
+
+                </Row>
+
+       
             </Form.Group>
         </Navbar.Brand>
 

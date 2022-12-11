@@ -30,7 +30,7 @@ function CreateEventDialog(props) {
     // const five_days_in_future = curr_time.setDate(curr_time.getDate() + MAX_NO_DAYS) 
     // console.log("Max time in future",five_days_in_future)
     
-  const currLogin = "Nada"
+  const currLogin = "Reuben"
   const getEvents =  (ownerView, name, day, category, cost, capMin, capMax)=> {
     props.setLoading(true)
 
@@ -313,7 +313,7 @@ function CreateEventDialog(props) {
 
 
 
-        if(description.length == 0){
+        if(description.length === 0){
           //    error.push("Max Attendee Count cannot be negative")
               // setShowErrorMsg(true)
               document.getElementById('descrip').classList.add("error");

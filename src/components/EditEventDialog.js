@@ -13,6 +13,7 @@ function EditEventDialog(props) {
     const startDate = backendStartDate[0] + " " + backendStartDate[1] + " " + backendStartDate[2] + " " + String(props.events.start_time)
     const backendEndDate = props.events.end_date.split("/")
     const endDate = backendEndDate[0] + " " + backendEndDate[1] + " " + backendEndDate[2] + " " + String(props.events.end_time)
+    console.log("start date: ", startDate)
     console.log("end date: ", endDate)
     const MAX_NO_DAYS = 5
     const DEFAULT_CREATOR = "Reuben"
@@ -25,6 +26,8 @@ function EditEventDialog(props) {
     const [disableSubmitForm, setDisableSubmitForm] = useState(false)
     const [startTime, setStartTime] = useState(new Date())
     const [endTime, setEndTime] = useState(new Date())
+    //let startTime = new Date()
+    //let endTime = new Date()
     const [cost, setCost] = useState(props.events.cost)
     const [description, setDescription] = useState(props.events.description)
     const [saving, setSaving] = useState(true)
@@ -39,7 +42,7 @@ function EditEventDialog(props) {
     const currLogin = "Nada"
 
     console.log("props: ", props)
-    console.log("start date: ", props.events.start_date.split("/")[0], props.events.start_date.split("/")[1], props.events.start_date.split("/")[2],  props.events.start_time.split(":")[0], props.events.start_time.split(":")[1])
+    //console.log("start date: ", props.events.start_date.split("/")[0], props.events.start_date.split("/")[1], props.events.start_date.split("/")[2],  props.events.start_time.split(":")[0], props.events.start_time.split(":")[1])
 
     const getEvents =  (ownerView, name, day, category, cost, capMin, capMax)=> {
       props.setLoading(true)
@@ -190,16 +193,16 @@ function EditEventDialog(props) {
                      data-enable-time 
                      id = "start-time"
                      class = "customFlatpickr"
-                     //value={startTime} 
+                     value={startTime} 
                      defaultValue = {startDate}
                      onChange={(event) => 
                      {
                         console.log("event: ", event)
-                        console.log("date:" +  startTime)
+                      //  console.log("date:" +  startTime)
                         document.getElementById('start-time').classList.remove("error");
                         setStartTime(new Date(event))
-                        console.log("start: ", new Date(event))
-                        console.log("date after:", event)
+                        console.log("start: ", startTime)
+                      //  console.log("date after:", event)
                      }} /></Col>
             </Row>
           </Form.Group><Form.Group>
@@ -213,9 +216,12 @@ function EditEventDialog(props) {
                     defaultValue = {endDate}
                      onChange={(event) => 
                      {
+                        console.log("event:", event)
                         setEndTime(new Date(event))
+                        event.target.value = endTime
                         document.getElementById('end-time').classList.remove("error");
-                        console.log("date:", event)
+                        console.log("end: ", endTime)
+                       // console.log("date:", event)
                      }} /> </Col>
             </Row>
           </Form.Group><Form.Group>
@@ -284,6 +290,7 @@ function EditEventDialog(props) {
           document.getElementById('category').classList.add("error");
           error = 1;
         }
+
        if(endTime.getTime() <= startTime.getTime()){
           console.log("wrong dates")
           errorMsg.push("End Date before or equal to start date. Please fix this \n")
