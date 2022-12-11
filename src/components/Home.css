@@ -57,10 +57,9 @@ html {
 .content{
     display: flex; 
     flex-direction: column; 
-    height: 100vh;
+    height: 100%;
     /* border: blue 3px solid; */
     align-items: center;
-
 }
 
 .events {
@@ -69,7 +68,6 @@ html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
 
 }
 section{
