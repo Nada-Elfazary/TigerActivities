@@ -21,7 +21,7 @@ export default function Profile(props) {
     const [errorMsg, setErrorMsg] = useState("")
     const [showErrorMsg, setShowErrorMsg] = useState(false)
     console.log("Props in Profile:", props)
-    
+    console.log("Name in Profile:", props.profileData[0])
     const failureCallBack = (error)=>{
         setErrorMsg(error)
          setShowErrorMsg(true)
