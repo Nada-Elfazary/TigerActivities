@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import EditEventDialog from "./EditEventDialog";
 import {Button, Row, Col, Card, Table} from 'react-bootstrap';
 import useCollapse from 'react-collapsed';
 import SignUpModal from './SignUpModal';
@@ -6,21 +7,32 @@ import "./Home.css";
 import axios from 'axios';
 import { propTypes } from 'react-bootstrap/esm/Image';
 
-const XDSCard = ({item, ownerView, signUpsView,name,netid,phone,email}) => {
+const XDSCard = ({item, ownerView, signUpsView,name, netid, phone, email, tagColor}) => {
     const [isExpanded, setExpanded] = useState(false)
     const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded })
     const [displaySignUp, setDisplaySignUp] = useState(false)
     const [eventTitle, setEventTitle] = useState('')
+    const [events, setEvents] = useState([])
+    const [displayModal, setDisplayModal] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [id, setEventId] = useState('')
     const [attendees, setAttendees] = useState([])
+    const backgroundColor = tagColor
+   // const [activityData, setActivityData] = useState(["","","","","","","",""])
+  //  const [displayEditModal, setDisplayEditModal] = useState(false)
     const closedText = "(CLOSED)"
+
+    console.log(item.event_name, 'color: ', tagColor)
+
 
     const numToDay = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 
     3: "Thursday", 4: "Friday", 5: "Saturday", 6: "Sunday"}
 
     const numToMonth = {1: "Jan.", 2: "Feb.", 3: "Mar.", 4: "Apr.", 5: "May",  
-    6: "June", 7: "July", 8: "Aug.", 9: "Sept.", 10: "Oct.", 11: "Nov.", 12: "Dec.",  
-  }
+    6: "June", 7: "July", 8: "Aug.", 9: "Sept.", 10: "Oct.", 11: "Nov.", 12: "Dec."}
+
+   
+    
     
   const handleSignUp = ()=>{
     setDisplaySignUp(true)
@@ -29,6 +41,7 @@ const XDSCard = ({item, ownerView, signUpsView,name,netid,phone,email}) => {
   
   }
 
+  
   const handleCancellation = ()=>{
     console.log("canceling sign-up")
     console.log(item.id)
@@ -43,7 +56,17 @@ const XDSCard = ({item, ownerView, signUpsView,name,netid,phone,email}) => {
     
     })
   }
+
+  const handleEdit = ()=>{
+    console.log("editing event")
+    console.log(item.id)
+    console.log(item.event_name)
+    setDisplayModal(true);
+    console.log("display modal state: ", displayModal)
+  }
   
+  const editModal = displayModal ? (<EditEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents} 
+  events = {item} />) : null 
 
   const signUpModal = displaySignUp ? (<SignUpModal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}
     name={name}
@@ -56,45 +79,45 @@ const XDSCard = ({item, ownerView, signUpsView,name,netid,phone,email}) => {
     axios.get('https://tigeractivities.onrender.com/attendees', {params: {
       event_id : event.id,
     }}).then(res =>{ 
-            setAttendees(res.data)
+            setAttendees(res.data)     
     }).catch(err =>{
       console.log(err)
     
     })
   }
   const closed = item.signup_number === item.maxcap ? (<p>{closedText}</p>) : null
+
   return (
     <>
     <Card className='customized-card'>
       <Card.Body>
-        <Card.Title> <h2>{item.event_name}{closed} </h2></Card.Title>
+        <Card.Title> <h1>{item.event_name}{closed}</h1></Card.Title>
+        <Card.Subtitle> <h5><a className='tag' style={{'backgroundColor': backgroundColor}}><text className='white'>{item.category}</text></a></h5></Card.Subtitle>
+        <br></br>
         <Card.Text> 
                 <Row>
-                  <Col><strong>Category: </strong> {item.category}</Col>
-                  <Col><strong>Location : </strong>{item.location}</Col>
+                <h5 className='date'><strong>{numToDay[item.week_day]} {numToMonth[item.start_date.split("/")[1]]} {item.start_date.split("/")[2]}, {item.start_time}</strong></h5>
                 </Row>
         </Card.Text>
         <Card.Text>
           <Row>
-            <Col><strong>Start date : </strong>{numToDay[item.week_day]} {numToMonth[item.start_date.split("/")[1]]} {item.start_date.split("/")[2]}</Col>
-            <Col><strong>Created by :</strong> {item.creator}</Col>
+          <Col><strong>End time : </strong>{item.end_time}</Col>
+          <Col><strong>Location : </strong>{item.location}</Col>
+            
           </Row>
         </Card.Text>
+       
         <Card.Text>
           <Row>
-            <Col><strong>Start time : </strong>{item.start_time}</Col>
-            <Col><strong>Number of attendees :</strong> {item.signup_number}/{item.maxcap}</Col>
+            <Col><p {...getCollapseProps()}><strong>Number of attendees :</strong> {item.signup_number}/{item.maxcap}</p></Col>
+            <Col><p {...getCollapseProps()}><strong>Estimated Cost : </strong>$ {item.cost}</p></Col>
           </Row>
-        </Card.Text>
-        <Card.Text>
-          <Row>
-            <Col><strong>End time : </strong>{item.end_time}</Col>
-            <Col><strong>Estimated Cost : </strong>$ {item.cost} </Col>
-          </Row>
+          
         </Card.Text>
         <Card.Text>
           <Row>
             <Col><p {...getCollapseProps()}>
+        
                         <strong>Description: </strong>{item.description}
                  
                            </p> </Col>
@@ -104,11 +127,8 @@ const XDSCard = ({item, ownerView, signUpsView,name,netid,phone,email}) => {
                         <Button  
                         variant="warning"
                         onClick={handleSignUp} disabled={item.signup_number === item.maxcap}>Sign Up</Button>            
-                           </p>) : null }   {(!ownerView && signUpsView) ? (<p {...getCollapseProps()}>
-                        <Button 
-                        variant="warning"
-                        class = "buttonShift" onClick={handleCancellation}>Cancel</Button>            
-                           </p>) : null }
+                           </p>) : null }  
+         
             </Col>
           </Row>
           </Card.Text>
@@ -141,9 +161,11 @@ const XDSCard = ({item, ownerView, signUpsView,name,netid,phone,email}) => {
                             </p>) : null }
               </Col>
             </Row>
+            
           </Card.Text>
           <Card.Text>
-          <Button
+            <Row>
+          <Col><Button
           variant="warning"
         {...getToggleProps({
           onClick: () =>{ setExpanded((prevExpanded) => !prevExpanded)
@@ -151,12 +173,29 @@ const XDSCard = ({item, ownerView, signUpsView,name,netid,phone,email}) => {
         })}
       >
         {isExpanded ? 'Less Details' : 'More Details'}
-      </Button>
+        
+      </Button></Col>
+      <Col>
+      <Col></Col>
+      </Col>
+
+            <Col>{!ownerView ? (<p {...getCollapseProps()} className = "creator">
+              <strong>Created by : {item.creator}</strong></p>):null}
+              {ownerView ? (<Button variant="warning" onClick={handleEdit}> Edit</Button>):null}
+               {(!ownerView && signUpsView) ? (
+                        <Button 
+                        variant="warning"
+                        class = "buttonShift" onMouseEnter={(e) => e.target.style.background = 'red'}  onClick={(handleCancellation)} onMouseLeave={(e) => e.target.style.background = ''} >Cancel</Button>
+                           ) : null 
+                           }
+              </Col>
+            </Row> 
       </Card.Text>
       </Card.Body>
     
     </Card>
     {signUpModal}
+    {editModal}
     </>
   )
 }

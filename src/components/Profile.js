@@ -7,51 +7,54 @@ import CreateEventModalDraggable from "./CreateEventModalDraggable";
 import SignUpModal from "./SignUpModal";
 
 export default function Profile(props) {
-    const [dbName, setDbName] = useState(props.name)
-    const [updateName, setUpdateName] = useState(dbName)
-    const [dbPhone, setDbPhone] = useState(props.phone)
-    const [updatePhone, setUpdatePhone] = useState(dbPhone)
-    const [dbEmail,setDbEmail] = useState(props.email)
-    const [updateEmail, setUpdateEmail] = useState(dbEmail)
-    const[classYear,setClassYear] = useState(props.classYear)
-    const[showModal, setShowModal] = useState(false)
+    // const [dbName, setDbName] = useState(props.name)
+    const [updateName, setUpdateName] = useState(props.profileData[0])
+    // const [dbPhone, setDbPhone] = useState(props.phone)
+    const [updatePhone, setUpdatePhone] = useState(props.profileData[1])
+    // const [dbEmail,setDbEmail] = useState(props.email)
+    const [updateEmail, setUpdateEmail] = useState(props.profileData[2])
+    // const[classYear,setClassYear] = useState(props.classYear)
+    const [updateClassYear, setUpdateClassYear] = useState(props.profileData[3])
+    console.log("Update values:", updateName, updatePhone, updateEmail, updateClassYear)
+    const[showModal, setShowModal] = useState( false)
     const [errorMsg, setErrorMsg] = useState("")
     const [showErrorMsg, setShowErrorMsg] = useState(false)
     console.log("Props in Profile:", props)
-    console.log("Values in Profile:", dbName, dbPhone, dbEmail, classYear)
+    
     const failureCallBack = (error)=>{
         setErrorMsg(error)
          setShowErrorMsg(true)
          console.log("error")
     }
 
-    React.useEffect(() => {
-      setDbName(props.name)
-      setDbEmail(props.email)
-      setDbPhone(props.phone)
-      setClassYear(props.classYear)
-    }, [])
+    // React.useEffect(() => {
+    //   setDbName(props.name)
+    //   setDbEmail(props.email)
+    //   setDbPhone(props.phone)
+    //   setClassYear(props.classYear)
+    // }, [])
 
 
     const successCallBack = ()=>{
-    console.log("success")
-       setShowErrorMsg(false) 
-       setErrorMsg(null)
-        // setSaving(true)
-     //   console.log(eventTitle)
-     //   console.log(description)
-     //   console.log(eventLocation)
-          submitForm()
-          setShowModal(false)
-          updateProfileInformation()
-        // props.setClickMyActivities(true)
+      console.log("success")
+      setShowErrorMsg(false) 
+      setErrorMsg(null)
+      // setSaving(true)
+      //   console.log(eventTitle)
+      //   console.log(description)
+      //   console.log(eventLocation)
+      submitForm()
+      setShowModal(false)
+      props.getProfileData(props.netid)
+      // updateProfileInformation()
+      // props.setClickMyActivities(true)
       }
 
-      const updateProfileInformation = () => {
-        setDbName(updateName)
-        setDbEmail(updateEmail)
-        setDbPhone(updatePhone)
-      }
+      // const updateProfileInformation = () => {
+      //   setDbName(updateName)
+      //   setDbEmail(updateEmail)
+      //   setDbPhone(updatePhone)
+      // }
 
       //   submits the edit form once user is done updaing infomation
         const submitForm= () =>
@@ -61,9 +64,11 @@ export default function Profile(props) {
             name: updateName,
             phone: updatePhone,
             email: updateEmail,
+            classYear: updateClassYear,
             })
             .then((response) => {
-            console.log(response)
+            console.log("Response:", response)
+            console.log("Props:", props)
             }, (error) => {
             console.log(error)
             })
@@ -119,6 +124,18 @@ export default function Profile(props) {
                 </Col>
             </Row>
             </Form.Group>
+            <Form.Group>
+            <Row>
+              <Col><Form.Label>Class Year: </Form.Label></Col>
+              <Col><Form.Control type="text" id = "year" name="Class Year" placeholder = "Class Year" value={updateClassYear} onChange={(event) =>
+                    {
+                      document.getElementById('year').classList.remove("error");
+                      setUpdateClassYear(event.target.value)
+                    }}
+                 ></Form.Control>
+                </Col>
+            </Row>
+            </Form.Group>
             <Form.Group>{errorM}</Form.Group>
           </Form>
         </Modal.Body>
@@ -127,7 +144,7 @@ export default function Profile(props) {
           justifyContent: "center",
         }}>
        <Button id="cancelBtn" variant="secondary" onClick={() => {
-              props.setOpenSignUpModal(false);
+             setShowModal(false);
             }}>Cancel</Button>
         <Button variant="primary" onClick={()=>{
              let error = 0;
@@ -163,6 +180,13 @@ export default function Profile(props) {
             error = 1;
           }
 
+           if(updateClassYear.length !== 0 && !/^[202]+[3-6]/.test(updateClassYear)){
+            console.log("class state:", updateClassYear)
+            document.getElementById('year').classList.add("error");
+            document.getElementById('year').value="Class Year address is invalid";
+            error = 1;
+           }
+
           error !== 0 ? failureCallBack("Please fix errors above") : successCallBack()             
           }}>Submit</Button>
 
@@ -179,19 +203,19 @@ export default function Profile(props) {
                 <Card.Title></Card.Title>
                 <Card.Text>
                     <Row>
-                        <Col><strong>Name:</strong> {dbName} </Col>
+                        <Col><strong>Name:</strong> {props.profileData[0]} </Col>
                     </Row>
                     <Row>
                         <Col><strong>Netid:</strong> {props.netid}</Col>
                     </Row>
                     <Row>
-                        <Col><strong>Phone:</strong> {dbPhone}</Col>
+                        <Col><strong>Phone:</strong> {props.profileData[1]}</Col>
                     </Row>
                     <Row>
-                        <Col><strong>Email:</strong> {dbEmail}</Col>
+                        <Col><strong>Email:</strong> {props.profileData[2]}</Col>
                     </Row>
                     <Row>
-                        <Col><strong>Class Year:</strong> {classYear}</Col>
+                        <Col><strong>Class Year:</strong> {props.profileData[3]}</Col>
                     </Row>
                 </Card.Text>
             </Card>

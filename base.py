@@ -230,12 +230,23 @@ def updateProfile():
     if username == '':
         return "Not found"
     #netid = res["netid"]
-    name = res["name"]
-    phone = res["phone"]
-    email = res["email"]
-    class_year = "" #tbd
-
+    name = res["name"] or ""
+    phone = res["phone"] or ""
+    email = res["email"] or ""
+    class_year = res["classYear"] or ""
+    print("phone: {}, integer: {} ; year: {}, integer:{}".format(phone,
+    type(phone), class_year, type(class_year)))
     proc.store_student([username,name,phone,email,class_year])
+    return res
+
+@app.route('/edit-activity', methods = ['POST'])
+# cross_origin()
+def editActivity():
+   # username = auth.authenticate()
+    res = flask.request.json
+    print("**********edit backend json: *************")
+    print(res)
+    proc.edit_event(res)
     return res
 
 @app.route('/profile', methods = ['GET'])

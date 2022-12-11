@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Button, Modal, Form, Row, Col, InputGroup, Container} from 'react-bootstrap';
+import {Button, Modal, Form, Row, Col, InputGroup, Container, NavItem} from 'react-bootstrap';
 import CreateEventModalDraggable from "./CreateEventModalDraggable";
 import "bootstrap/dist/css/bootstrap.css";
 import Flatpickr from "react-flatpickr";
@@ -8,39 +8,52 @@ import axios from 'axios';
 import "./CreateEventDialog.css"
 
 
-function CreateEventDialog(props) {
+function EditEventDialog(props) {
+    const backendStartDate = props.events.start_date.split("/")
+    const startDate = backendStartDate[0] + " " + backendStartDate[1] + " " + backendStartDate[2] + " " + String(props.events.start_time)
+    const backendEndDate = props.events.end_date.split("/")
+    const endDate = backendEndDate[0] + " " + backendEndDate[1] + " " + backendEndDate[2] + " " + String(props.events.end_time)
+    console.log("start date: ", startDate)
+    console.log("end date: ", endDate)
     const MAX_NO_DAYS = 5
-    // const DEFAULT_CREATOR = "Reuben"
+    const DEFAULT_CREATOR = "Reuben"
     const DEFAULT_CATEGORY = "Sports"
     const DEFAULT_SIGNUP_NR = 0
-    const[eventTitle, setEventTitle] = useState('')
-    const[eventLocation, setEventLocation] = useState('')
-    const [eventCategory, setEventCategory] = useState('')
-    const[maxAttendeeCount, setMaxAttendeeCount] = useState(0)
+    const[eventTitle, setEventTitle] = useState(props.events.event_name)
+    const[eventLocation, setEventLocation] = useState(props.events.location)
+    const [eventCategory, setEventCategory] = useState(props.events.category)
+    const[maxAttendeeCount, setMaxAttendeeCount] = useState(props.events.maxcap)
     const [disableSubmitForm, setDisableSubmitForm] = useState(false)
     const [startTime, setStartTime] = useState(new Date())
     const [endTime, setEndTime] = useState(new Date())
-    const [cost, setCost] = useState(0)
-    const [description, setDescription] = useState("")
+    //let startTime = new Date()
+    //let endTime = new Date()
+    const [cost, setCost] = useState(props.events.cost)
+    const [description, setDescription] = useState(props.events.description)
     const [saving, setSaving] = useState(true)
     const [errorMsg, setErrorMsg] = useState("")
     const [showErrorMsg, setShowErrorMsg] = useState(false)
+
     // const curr_time = new Date()
     // console.log("Current time", curr_time.getTime())
     // const five_days_in_future = curr_time.setDate(curr_time.getDate() + MAX_NO_DAYS) 
     // console.log("Max time in future",five_days_in_future)
     
-  // const currLogin = "Reuben"
-  const getEvents =  (ownerView, name, day, category, cost, capMin, capMax)=> {
-    props.setLoading(true)
+    const currLogin = "Nada"
 
-// axios.get('https://tigeractivities.onrender.com/events').then(res =>{
-  axios.get('https://tigeractivities.onrender.com/events', {params: {title: name, day: day, category: category, cost: cost, capMin:capMin, capMax: capMax}}).then(res =>{
+    console.log("props: ", props)
+    //console.log("start date: ", props.events.start_date.split("/")[0], props.events.start_date.split("/")[1], props.events.start_date.split("/")[2],  props.events.start_time.split(":")[0], props.events.start_time.split(":")[1])
+
+    const getEvents =  (ownerView, name, day, category, cost, capMin, capMax)=> {
+      props.setLoading(true)
+  
+  // axios.get('https://tigeractivities.onrender.com/events').then(res =>{
+    axios.get('/events', {params: {title: name, day: day, category: category, cost: cost, capMin:capMin, capMax: capMax}}).then(res =>{
     console.log("Events received from db:", res)
     console.log("Setting events to:", res.data)
     props.setEvents([])
     if (ownerView === true) {
-      let filtered = res.data.filter(event => event.creator === props.username)
+      let filtered = res.data.filter(event => event.creator === currLogin)
       console.log("length: ", filtered.length)
       if (filtered.length !== 0) {
       props.setEvents(filtered)
@@ -52,7 +65,6 @@ function CreateEventDialog(props) {
       props.setEvents(res.data)
     }
     props.setLoading(false)
-    
 
   }).catch(err =>{
     console.log("Error receiving event from db:", err)
@@ -62,13 +74,15 @@ function CreateEventDialog(props) {
     const submitForm = ()=>{
         setDisableSubmitForm(true)
         console.log(disableSubmitForm)
-        axios.post('https://tigeractivities.onrender.com/create-event', {
+        console.log('editing')
+        axios.post('/edit-activity', {
           // create_id
+            event_id:      props.events.id,
             event_name:    eventTitle,
             start_time:    startTime,
             end_time:      endTime,
             maxcap:        maxAttendeeCount,
-            creator:       props.username,
+            creator:       DEFAULT_CREATOR,
             category:      eventCategory,
             location:      eventLocation,
             description:   description,
@@ -117,11 +131,14 @@ function CreateEventDialog(props) {
          display: "flex",
          justifyContent: "center",
         }}>
-        <Modal.Title>Create a TigerActivity</Modal.Title>
+        <Modal.Title>Edit Your TigerActivity</Modal.Title>
           </Modal.Header>
       <Modal.Body>
         <Form>
           <Form.Group>
+          <Row><Col><strong><text className="error">Note: It is your responsibility to contact previously 
+          signed up users and notify them of the changes made</text></strong></Col></Row>
+          <br></br>
             <Row>
               <Col><Form.Label>Title: </Form.Label></Col>
               
@@ -172,16 +189,20 @@ function CreateEventDialog(props) {
             <Row>
               <Col><Form.Label>Start Time:</Form.Label> </Col>
               <Col><Flatpickr 
+                    
                      data-enable-time 
                      id = "start-time"
                      class = "customFlatpickr"
                      value={startTime} 
+                     defaultValue = {startDate}
                      onChange={(event) => 
                      {
-                        console.log("date:" +  startTime)
+                        console.log("event: ", event)
+                      //  console.log("date:" +  startTime)
                         document.getElementById('start-time').classList.remove("error");
                         setStartTime(new Date(event))
-                        console.log("date after:", event)
+                        console.log("start: ", startTime)
+                      //  console.log("date after:", event)
                      }} /></Col>
             </Row>
           </Form.Group><Form.Group>
@@ -191,12 +212,16 @@ function CreateEventDialog(props) {
                      data-enable-time 
                       id = "end-time"
                       class = "customFlatpickr"
-                     value={endTime} 
+                   // value={endTime} 
+                    defaultValue = {endDate}
                      onChange={(event) => 
                      {
+                        console.log("event:", event)
                         setEndTime(new Date(event))
+                        event.target.value = endTime
                         document.getElementById('end-time').classList.remove("error");
-                        console.log("date:", event)
+                        console.log("end: ", endTime)
+                       // console.log("date:", event)
                      }} /> </Col>
             </Row>
           </Form.Group><Form.Group>
@@ -244,7 +269,7 @@ function CreateEventDialog(props) {
         <Button variant="primary" onClick={()=>{
           let error = 0;
           let errorMsg = []
-        console.log(endTime.getTime())
+        console.log("end time", endTime.getTime())
         console.log(startTime.getTime())
         if(eventTitle.length === 0 ){
 //              error.push("Title field cannot be empty")
@@ -265,7 +290,8 @@ function CreateEventDialog(props) {
           document.getElementById('category').classList.add("error");
           error = 1;
         }
-       if( endTime.getTime() <= startTime.getTime()){
+
+       if(endTime.getTime() <= startTime.getTime()){
           console.log("wrong dates")
           errorMsg.push("End Date before or equal to start date. Please fix this \n")
           document.getElementById('start-time').classList.add("error")
@@ -280,7 +306,7 @@ function CreateEventDialog(props) {
         //  errorMsg.push("Cost involved cannot be negative")
           // setShowErrorMsg(true)
           document.getElementById('cost').classList.add("error");
-          document.getElementById('cost').placeholder = "Cost involved cannot be negative";
+          document.getElementById('cost').value = "Cost involved cannot be negative";
 
           error = 1;
         }
@@ -288,7 +314,8 @@ function CreateEventDialog(props) {
           //  errorMsg.push("Cost involved cannot be negative")
             // setShowErrorMsg(true)
             document.getElementById('cost').classList.add("error");
-            document.getElementById('cost').placeholder = "Cost cannot be negative";
+            document.getElementById('cost').value = "Cost involved must be an integer";
+  
             error = 1;
           }
 
@@ -296,23 +323,12 @@ function CreateEventDialog(props) {
       //    error.push("Max Attendee Count cannot be negative")
           // setShowErrorMsg(true)
           document.getElementById('cap').classList.add("error");
-          setMaxAttendeeCount("")
-          document.getElementById('cap').placeholder = "Count cannot be negative";
+          document.getElementById('cap').value = "Max Attendee Count cannot be negative";
+
           error = 1;
         }
-  
-        if(maxAttendeeCount.length === 0){
-          //    error.push("Max Attendee Count cannot be negative")
-              // setShowErrorMsg(true)
-              document.getElementById('cap').classList.add("error");
-              document.getElementById('cap').placeholder = "Count cannot be empty";
-    
-              error = 1;
-            }
-    
-    
-    
-            if(description.length === 0){
+
+        if(description.length == 0){
           //    error.push("Max Attendee Count cannot be negative")
               // setShowErrorMsg(true)
               document.getElementById('descrip').classList.add("error");
@@ -322,7 +338,7 @@ function CreateEventDialog(props) {
             }
        error !== 0 ? failureCallBack("Please fix errors above") : successCallBack()
 
-        }} >Create</Button>
+        }} >Save Changes</Button>
       </Modal.Footer>
     </Modal>
     </Container>
@@ -333,4 +349,4 @@ function CreateEventDialog(props) {
   );
 }
 
-export default CreateEventDialog;
+export default EditEventDialog;

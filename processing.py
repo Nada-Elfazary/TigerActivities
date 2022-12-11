@@ -62,15 +62,11 @@ def get_date_limit():
             month = 1
             year += 1
     currDay = convert_date(year, month, newDay)
-   
- 
     return currDay
 
 def fetch_activities(title, day, category, cost, capMin, capMax):
     title = '%' + title + '%'
     category = '%' + category + '%'
-    print("capMin received in proc: " + capMin)
-    print("capMax recieved in proc: " + capMax)
     try:
         database_url = DATABASE_URL
         activities = []
@@ -99,7 +95,7 @@ def fetch_activities(title, day, category, cost, capMin, capMax):
                     newEndDate = row[11].strftime("%Y/%m/%d")
                   
                     copy_row = (row[0], row[1], newStartTime, newEndTime, row[4],
-                    row[5], row[6], row[7], row[8], row[9], newStartDate, weekday, newEndTime, row[12])
+                    row[5], row[6], row[7], row[8], row[9], newStartDate, weekday, newEndDate, row[12])
                     activities.append(copy_row)
                     row = cursor.fetchone()
 
@@ -151,7 +147,7 @@ def fetch_user_sign_ups(username):
                 cursor.execute(statement, [netid])
                 row = cursor.fetchone()
                 while row is not None:
-                    print("event id :" , row[0])
+                    # print("event id :" , row[0])
                     eventids.append(row[0])
                     row = cursor.fetchone()
 
@@ -170,7 +166,6 @@ def fetch_user_sign_ups(username):
                    # print(copy_row)
                     activities.append(copy_row)
                     row = cursor.fetchone()
-
         return activities
     except Exception as ex:
         print(ex, file=sys.stderr)
@@ -214,11 +209,6 @@ def store_activity(activity):
                 EVENT_ID = EVENT_ID[0]
 
                 statement = "INSERT INTO events VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)" 
-                # how to actually check if the event id is unique and not duplicate
-                # statement += " ON CONFLICT (events.eventid) DO UPDATE SET events.title = %s, 
-                # events.location = %s, events.startdate = %s, events.enddate = %s, events.starttime = %s, 
-                # events.endtime = %s, events.capacity = %s, events.cost = %s, events.description = %s, 
-                # events.category = %s, events.creator = %s"
                 cursor.execute(statement, [str(EVENT_ID), title, start_time,
                 end_time, str(cap), creator, category, location, description,
                 str(cost), start_date, end_date, signedup_number])  
@@ -245,7 +235,11 @@ def store_sign_up(activity, username):
             with connection.cursor() as cursor:
                # day = get_day()
                # statement = "SELECT "
-
+                statement = "SELECT signedup_number, maxcap FROM events WHERE eventid =%s "
+                cursor.execute(statement, [eventid])
+                row = cursor.fetchone()
+                if row[0] == row[1]:
+                    return "FULL"
                # UPDATE EVENTS TABLE
                 statement = "UPDATE events SET signedup_number = signedup_number + 1 WHERE eventid = %s"
 
@@ -256,7 +250,7 @@ def store_sign_up(activity, username):
                 
                 # UPDATE STUDENTS TABLE
                 store_student([netid, name, phone_num, email, classyear])   
-
+        return "SUCCESSFUL"
     except Exception as ex:
         print(ex, file=sys.stderr)
         sys.exit(1)
@@ -321,7 +315,9 @@ def store_student(student_info):
     name = student_info[1]
     phone_num = student_info[2]
     email = student_info[3]
-    classyear = student_info[4]
+    class_year = student_info[4]
+    # print("Inside store student: netid:{}, name: {}, phone: {}, email: {},  year: {}".format(netid,
+    # name, phone_num, email, class_year))
 
     try:
         database_url = DATABASE_URL
@@ -333,7 +329,16 @@ def store_student(student_info):
                 statement = "INSERT INTO students VALUES(%s, %s, %s, %s, %s) "
                 statement += "ON CONFLICT (netid) DO UPDATE SET name = %s, "
                 statement += "number = %s, email = %s, classyear = %s"  
-                cursor.execute(statement, (netid, name, phone_num, email, classyear, name,phone_num, email, classyear))    
+                cursor.execute(statement, (netid, name, phone_num, email, class_year, name,phone_num, email, class_year))
+                # print("YOLO")    
+                statement2 = "SELECT * FROM students WHERE netid = %s"  
+                cursor.execute(statement2, [netid])  
+                # print("YOLO2")   
+                row = cursor.fetchone()
+                if row is None:
+                    print("ERROR: netid was not inserted")
+                else:
+                    print("Info fetched from db: {}".format(row))
 
     except Exception as ex:
         print(ex, file=sys.stderr)
@@ -346,7 +351,7 @@ def student_details(netid):
         with psycopg2.connect(database_url) as connection:
             
             with connection.cursor() as cursor:
-                statement = "SELECT * FROM students WHERE netid = %s"
+                statement = "SELECT * FROM students WHERE netid LIKE %s"
                 cursor.execute(statement, [netid])
                 row = cursor.fetchone()
               #  print(row)
@@ -380,7 +385,73 @@ def get_activity_attendees(eventid):
         print(ex, file=sys.stderr)
         sys.exit(1)   
 
+def edit_event(activity):
+    eventid = activity['event_id']
+    title = activity['event_name']
+    location = activity['location']
 
+    startDateTime = activity['start_time']
+    startDateTime = startDateTime.split("T")
+    startDate = startDateTime[0].split("-")
+    startTime = startDateTime[1].split(":")
+    start_date = convert_date(int(startDate[0]), int(startDate[1]), int(startDate[2]))
+    start_time = convert_time(int(startTime[0]), int(startTime[1]))
+
+    endDateTime = activity['end_time']
+    endDateTime = endDateTime.split("T")
+    endDate = endDateTime[0].split("-")
+    endTime = endDateTime[1].split(":")
+    end_date = convert_date(int(endDate[0]), int(endDate[1]), int(endDate[2]))
+    end_time = convert_time(int(endTime[0]), int(endTime[1]))
+
+    cap = activity['maxcap']
+    cost = activity['cost']
+    description = activity['description']
+    category = activity['category']
+    signedup_number = activity['signup_number']
+    
+    print("edited activity :", activity)
+    try:
+        database_url = DATABASE_URL
+        with psycopg2.connect(database_url) as connection:
+            
+            with connection.cursor() as cursor:
+                statement = "UPDATE events SET eventname = %s, starttime = %s, endtime = %s, maxcap = %s, category = %s, location = %s, description = %s, cost = %s, startdate = %s, enddate = %s, signedup_number = %s WHERE eventid = %s"
+                cursor.execute(statement, [title, start_time, end_time, cap, category, location, description, cost, start_date, end_date, signedup_number, eventid])
+                return True
+    except Exception as ex:
+        print(ex, file=sys.stderr)
+        sys.exit(1)
+
+def delete_event(eventid):
+    try:
+        database_url = DATABASE_URL
+        with psycopg2.connect(database_url) as connection: 
+            with connection.cursor() as cursor:
+                statement1 = "DELETE FROM events WHERE eventid = %s"
+                cursor.execute(statement1, [eventid])
+
+                statement2 = "DELETE FROM signup WHERE eventid = %s"
+                cursor.execute(statement2, [eventid])
+                return True
+    except Exception as ex:
+        print(ex, file=sys.stderr)
+        sys.exit(1)
+
+def cancel_signup(eventid, netid):
+    try:
+        database_url = DATABASE_URL
+        with psycopg2.connect(database_url) as connection: 
+            with connection.cursor() as cursor:
+                statement1 = "DELETE FROM signup WHERE eventid = %s AND signup_netid = %s"
+                cursor.execute(statement1, [eventid, netid])
+
+                statement2 = "UPDATE events SET signedup_number = signedup_number - 1 WHERE eventid = %s"
+                cursor.execute(statement2, [eventid])
+                return True
+    except Exception as ex:
+        print(ex, file=sys.stderr)
+        sys.exit(1)
 
 def main():
 

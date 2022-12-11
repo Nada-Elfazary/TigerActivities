@@ -82,7 +82,7 @@ export default function RulesModal(props) : React.ReactNode {
             in banning from this platform</ListGroup.Item>
           <ListGroup.Item>Be respectful of your peer's time</ListGroup.Item>
           <ListGroup.Item>Keep your attendees updated on changes in activities</ListGroup.Item>
-          <ListGroup.Item>Keep safe. Enjour our platform. Cheers!</ListGroup.Item>
+          <ListGroup.Item>Keep safe. Enjoy our platform. Cheers!</ListGroup.Item>
           </ListGroup>
         <Form.Check type="checkbox" label = "Agree with terms and conditions" onChange={handleChecked}/>
       </Modal.Body>
