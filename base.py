@@ -30,7 +30,6 @@ def logout():
 @app.route('/' , methods=['GET'])
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def shree():
-
     print('I am here')
     return flask.render_template('index.html')
 
