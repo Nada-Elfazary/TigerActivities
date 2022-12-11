@@ -28,7 +28,9 @@ export default function  Home() : React.ReactNode {
   const [loading, setLoading] = useState(false)
   const [nameFilter, setNameFilter] = useState('')
   // let currLogin = "Nada"
-  const [profileData, setProfileData] = useState(["","","",""])
+ // const [profileData, setProfileData] = useState(["","","",""])
+ let profileData = ['', '', '', '']
+
   let user = ""
   const location = useLocation()
   let currNetid = "ragogoe"
@@ -197,13 +199,13 @@ const getProfileData = (netid) => {
   })
   .then((response) => {
       if (response.length === 0) {
-          setProfileData(["", "", "", ""])
+          profileData = ["", "", "", ""]
           // redirect to profile page and set some kind of warning
       }
       else {
           console.log("Response is:",response)
           console.log(response.data)
-          setProfileData([response.data.name, response.data.phone, response.data.email, response.data.class_year])
+          profileData = [response.data.name, response.data.phone, response.data.email, response.data.class_year]
           console.log("Profile Data:", profileData)
       }
   }).catch(err =>{
