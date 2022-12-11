@@ -198,6 +198,7 @@ const getProfileData = (netid) => {
   .then((response) => {
       if (response.length === 0) {
           setProfileData(["", "", "", ""])
+          // redirect to profile page and set some kind of warning
       }
       else {
           console.log("Response is:",response)
@@ -322,11 +323,7 @@ const showResults = clickedActivites? (
   ): null
 
   const showProfile = clickedProfile ? <Profile 
-    // name={profileData[0]}
-    netid={currNetid}
-    // phone={profileData[1]}
-    // email={profileData[2]}
-    // classYear={profileData[3]}
+    netid={username}
     profileData={profileData}
     getProfileData={getProfileData}
     /> : null
