@@ -9,6 +9,7 @@ import SignUpModal from "./SignUpModal";
 export default function Profile(props) {
     console.log("Props before declaration:", props)
     // const [dbName, setDbName] = useState(props.name)
+    const name = String(props.profileData[0])
     const [updateName, setUpdateName] = useState(props.profileData[0])
     // const [dbPhone, setDbPhone] = useState(props.phone)
     const [updatePhone, setUpdatePhone] = useState(props.profileData[1])
