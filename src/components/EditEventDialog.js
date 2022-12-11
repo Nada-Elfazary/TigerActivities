@@ -34,6 +34,7 @@ function EditEventDialog(props) {
     const [errorMsg, setErrorMsg] = useState("")
     const [showErrorMsg, setShowErrorMsg] = useState(false)
 
+    console.log("event info: ", eventTitle, eventLocation, eventCategory)
     // const curr_time = new Date()
     // console.log("Current time", curr_time.getTime())
     // const five_days_in_future = curr_time.setDate(curr_time.getDate() + MAX_NO_DAYS) 
