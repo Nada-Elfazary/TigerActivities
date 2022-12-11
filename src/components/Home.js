@@ -202,6 +202,7 @@ const getProfileData = (netid) => {
       }
       else {
           console.log("Response is:",response)
+          console.log(response.data)
           setProfileData([response.data.name, response.data.phone, response.data.email, response.data.class_year])
           console.log("Profile Data:", profileData)
       }
@@ -210,6 +211,7 @@ const getProfileData = (netid) => {
   })
 
 }
+
 
 const handleLogout = ()=>{
   axios.get('/logoutapp').then(res =>{
