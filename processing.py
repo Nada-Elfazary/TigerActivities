@@ -86,6 +86,8 @@ def fetch_activities(title, day, category, cost, capMin, capMax):
                 row = cursor.fetchone()
                 while row is not None:
                     weekday = row[10].weekday()
+                    print("*************** start weekday, ", row[10].weekday())
+                    print("*************end weekday: ", row[11].weekday())
                     if day != "" and weekday != int(day):
                         row = cursor.fetchone()
                         continue
@@ -113,6 +115,8 @@ def fetch_activities(title, day, category, cost, capMin, capMax):
                 row = cursor.fetchone()
                 while row is not None:
                     weekday = row[10].weekday()
+                    print("*************** start weekday, ", row[10].weekday())
+                    print("*************end weekday: ", row[11].weekday())
                     if day != "" and weekday != int(day):
                         row = cursor.fetchone()
                         continue
@@ -123,6 +127,7 @@ def fetch_activities(title, day, category, cost, capMin, capMax):
                     copy_row = (row[0], row[1], newStartTime, newEndTime, row[4],
                     row[5], row[6], row[7], row[8], row[9], newStartDate, weekday, newEndDate, row[12])
                     activities.append(copy_row)
+                    print(copy_row)
                     row = cursor.fetchone()
         return activities              
 
