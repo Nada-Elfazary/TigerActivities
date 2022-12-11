@@ -91,7 +91,7 @@ export default function Profile(props) {
             <Form.Group>
             <Row>
               <Col><Form.Label>Name: </Form.Label></Col>
-              <Col><Form.Control type="text"  id = "name" name="name" placeholder = "Full Name" value={updateName} onChange={(event) =>
+              <Col><Form.Control type="text"  id = "name" name="name" placeholder = {updateName.length===0?"Full Name":updateName} value={updateName} onChange={(event) =>
 
                     { document.getElementById('name').classList.remove("error");
                     setUpdateName(event.target.value)
@@ -103,7 +103,7 @@ export default function Profile(props) {
             <Form.Group>
             <Row>
               <Col><Form.Label>Phone Number: </Form.Label></Col>
-              <Col><Form.Control type="text" id = "num" name="Number" placeholder = "Only digits allowed" value={updatePhone} onChange={(event) =>
+              <Col><Form.Control type="text" id = "num" name="Number" value={updatePhone} onChange={(event) =>
                     {
                       document.getElementById('num').classList.remove("error");
                       setUpdatePhone(event.target.value)
@@ -115,7 +115,7 @@ export default function Profile(props) {
             <Form.Group>
             <Row>
               <Col><Form.Label>Email: </Form.Label></Col>
-              <Col><Form.Control type="text" id = "email" name="Email" placeholder = "Email Address" value={updateEmail} onChange={(event) =>
+              <Col><Form.Control type="text" id = "email" name="Email" value={updateEmail} onChange={(event) =>
                     {
                       document.getElementById('email').classList.remove("error");
                       setUpdateEmail(event.target.value)
@@ -127,7 +127,7 @@ export default function Profile(props) {
             <Form.Group>
             <Row>
               <Col><Form.Label>Class Year: </Form.Label></Col>
-              <Col><Form.Control type="text" id = "year" name="Class Year" placeholder = "Class Year" value={updateClassYear} onChange={(event) =>
+              <Col><Form.Control type="text" id = "year" name="Class Year" value={updateClassYear} onChange={(event) =>
                     {
                       document.getElementById('year').classList.remove("error");
                       setUpdateClassYear(event.target.value)
