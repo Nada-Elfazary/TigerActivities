@@ -105,6 +105,7 @@ export default function Profile(props) {
               <Col><Form.Label>Phone Number: </Form.Label></Col>
               <Col><Form.Control type="text" id = "num" name="Number" placeholder = "Only digits allowed" value={updatePhone} onChange={(event) =>
                     {
+                      console.log("phone num state", updatePhone)
                       document.getElementById('num').classList.remove("error");
                       setUpdatePhone(event.target.value)
                     }}
@@ -129,6 +130,7 @@ export default function Profile(props) {
               <Col><Form.Label>Class Year: </Form.Label></Col>
               <Col><Form.Control type="text" id = "year" name="Class Year" placeholder = "Class Year" value={updateClassYear} onChange={(event) =>
                     {
+                      
                       document.getElementById('year').classList.remove("error");
                       setUpdateClassYear(event.target.value)
                     }}
