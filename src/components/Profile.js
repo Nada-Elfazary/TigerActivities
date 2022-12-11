@@ -7,6 +7,7 @@ import CreateEventModalDraggable from "./CreateEventModalDraggable";
 import SignUpModal from "./SignUpModal";
 
 export default function Profile(props) {
+    console.log("Props before declaration:", props)
     // const [dbName, setDbName] = useState(props.name)
     const [updateName, setUpdateName] = useState(props.profileData[0])
     // const [dbPhone, setDbPhone] = useState(props.phone)
@@ -105,6 +106,7 @@ export default function Profile(props) {
               <Col><Form.Label>Phone Number: </Form.Label></Col>
               <Col><Form.Control type="text" id = "num" name="Number" placeholder = {updatePhone.length===0?"Only digits allowed":updatePhone} value={updatePhone} onChange={(event) =>
                     {
+                      console.log("phone num before typing: ", updatePhone)
                       document.getElementById('num').classList.remove("error");
                       setUpdatePhone(event.target.value)
                     }}

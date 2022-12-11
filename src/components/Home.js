@@ -157,10 +157,9 @@ const profileClicked= () =>{
   setClickedMyActivities(false)
   setClickedActivities(false)
   setClickedMySignUps(false)
-  getProfileData(username)
   setClickedProfile(true)
+  getProfileData(username)
   console.log("Inside clickedProfile set Clicked Profile to true.")
-  console.log("Profile Data after axios:", profileData)
 }
 
 const handleCreateEvent = () =>{
