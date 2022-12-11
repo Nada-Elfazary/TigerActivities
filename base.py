@@ -191,6 +191,11 @@ def validate():
         lines = flo.readlines()
     return lines[0].decode('utf-8')
 '''
+@app.route('/hello', methods = ['GET'])
+@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
+def hello():
+    return "Hello, worlds!"
+
 @app.route('/sign-up', methods = ['POST'])
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 # cross_origin()
