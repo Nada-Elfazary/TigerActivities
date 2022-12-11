@@ -28,8 +28,8 @@ export default function  Home() : React.ReactNode {
   const [loading, setLoading] = useState(false)
   const [nameFilter, setNameFilter] = useState('')
   // let currLogin = "Nada"
- // const [profileData, setProfileData] = useState(["","","",""])
- let profileData = ['', '', '', '']
+  const [profileData, setProfileData] = useState(["","","",""])
+ //let profileData = ['', '', '', '']
 
   let user = ""
   const location = useLocation()
@@ -157,9 +157,10 @@ const profileClicked= () =>{
   setClickedMyActivities(false)
   setClickedActivities(false)
   setClickedMySignUps(false)
-  setClickedProfile(true)
   getProfileData(username)
+  setClickedProfile(true)
   console.log("Inside clickedProfile set Clicked Profile to true.")
+  console.log("Profile Data after axios:", profileData)
 }
 
 const handleCreateEvent = () =>{
@@ -199,14 +200,14 @@ const getProfileData = (netid) => {
   })
   .then((response) => {
       if (response.length === 0) {
-          profileData = ["", "", "", ""]
+          setProfileData(["", "", "", ""])
           // redirect to profile page and set some kind of warning
       }
       else {
           console.log("Response is:",response)
           console.log(response.data)
-          profileData = [response.data.name, response.data.phone, response.data.email, response.data.class_year]
-          console.log("Profile Data:", profileData)
+          setProfileData ([response.data.name, response.data.phone, response.data.email, response.data.class_year])
+          console.log("Profile Data in axios:", profileData)
       }
   }).catch(err =>{
       console.log("Error received from db:", err)
