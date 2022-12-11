@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import CreateEventDialog from "./CreateEventDialog";
-import {Button, Navbar} from 'react-bootstrap'
+import {Button, Navbar, Container} from 'react-bootstrap'
 import XDSCard from "./XDSCard";
 import Dropdown from "./Dropdown";
 import tiger from './tiger.jpeg';
@@ -25,7 +25,7 @@ export default function  Home() : React.ReactNode {
   const [refresh, setRefresh] = useState(false)
   const [loading, setLoading] = useState(false)
   const [profileData, setProfileData] = useState(["","","",""])
-  let currLogin = "Nada"
+  let currLogin = "Reuben"
   let currNetid = "ragogoe"
 
   const categoryToColor = {'Sports': "cyan", 'Entertainment': "purple", 'Academic': "darkorange", 'Off-campus': "olive", 'Outdoors': "navy",  
@@ -253,8 +253,10 @@ const showResults = clickedActivites? (
 
   const showFilter = clickedActivites || initialState ? (
     // <input value={nameFilter} name="title" onChange={handleFilter} />
-    
-    <Filter getEvents={getEvents} />
+  
+          <Filter getEvents={getEvents} />
+
+
 
   ): null
 
@@ -280,10 +282,9 @@ const showResults = clickedActivites? (
   return (
     <div className = "pageContainer">   
     {topNav}
-    
+    {showFilter}
         <div className="content">
           {showCreateEventButton}
-          {showFilter}
           {showProfile}
             <div className="events">
             {showNote}

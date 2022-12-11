@@ -95,7 +95,7 @@ def fetch_activities(title, day, category, cost, capMin, capMax):
                     newEndDate = row[11].strftime("%Y/%m/%d")
                   
                     copy_row = (row[0], row[1], newStartTime, newEndTime, row[4],
-                    row[5], row[6], row[7], row[8], row[9], newStartDate, weekday, newEndTime, row[12])
+                    row[5], row[6], row[7], row[8], row[9], newStartDate, weekday, newEndDate, row[12])
                     activities.append(copy_row)
                     row = cursor.fetchone()
 

@@ -38,6 +38,11 @@
     
 }
 
+.bootstrapFilter {
+    background-color: #f5b52b51;
+    justify-content: left;
+    padding-left: 5%;
+}
 .FilterX {
     color: red;
     background-color: Transparent;

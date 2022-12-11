@@ -9,6 +9,11 @@ import "./CreateEventDialog.css"
 
 
 function EditEventDialog(props) {
+    const backendStartDate = props.events.start_date.split("/")
+    const startDate = backendStartDate[0] + " " + backendStartDate[1] + " " + backendStartDate[2] + " " + String(props.events.start_time)
+    const backendEndDate = props.events.end_date.split("/")
+    const endDate = backendEndDate[0] + " " + backendEndDate[1] + " " + backendEndDate[2] + " " + String(props.events.end_time)
+    console.log("end date: ", endDate)
     const MAX_NO_DAYS = 5
     const DEFAULT_CREATOR = "Reuben"
     const DEFAULT_CATEGORY = "Sports"
@@ -18,8 +23,8 @@ function EditEventDialog(props) {
     const [eventCategory, setEventCategory] = useState(props.events.category)
     const[maxAttendeeCount, setMaxAttendeeCount] = useState(props.events.maxcap)
     const [disableSubmitForm, setDisableSubmitForm] = useState(false)
-    const [startTime, setStartTime] = useState(new Date(props.events.start_date.split("/")[0], props.events.start_date.split("/")[1], props.events.start_date.split("/")[2],  props.events.start_time.split(":")[0], props.events.start_time.split(":")[1]))
-    const [endTime, setEndTime] = useState()
+    const [startTime, setStartTime] = useState(new Date())
+    const [endTime, setEndTime] = useState(new Date())
     const [cost, setCost] = useState(props.events.cost)
     const [description, setDescription] = useState(props.events.description)
     const [saving, setSaving] = useState(true)
@@ -181,16 +186,19 @@ function EditEventDialog(props) {
             <Row>
               <Col><Form.Label>Start Time:</Form.Label> </Col>
               <Col><Flatpickr 
+                    
                      data-enable-time 
                      id = "start-time"
                      class = "customFlatpickr"
-                     value={setStartTime} 
+                     //value={startTime} 
+                     defaultValue = {startDate}
                      onChange={(event) => 
                      {
                         console.log("event: ", event)
                         console.log("date:" +  startTime)
                         document.getElementById('start-time').classList.remove("error");
                         setStartTime(new Date(event))
+                        console.log("start: ", new Date(event))
                         console.log("date after:", event)
                      }} /></Col>
             </Row>
@@ -201,7 +209,8 @@ function EditEventDialog(props) {
                      data-enable-time 
                       id = "end-time"
                       class = "customFlatpickr"
-                     value={endTime} 
+                   // value={endTime} 
+                    defaultValue = {endDate}
                      onChange={(event) => 
                      {
                         setEndTime(new Date(event))
@@ -254,7 +263,7 @@ function EditEventDialog(props) {
         <Button variant="primary" onClick={()=>{
           let error = 0;
           let errorMsg = []
-        console.log(endTime.getTime())
+        console.log("end time", endTime.getTime())
         console.log(startTime.getTime())
         if(eventTitle.length === 0 ){
 //              error.push("Title field cannot be empty")
@@ -275,7 +284,7 @@ function EditEventDialog(props) {
           document.getElementById('category').classList.add("error");
           error = 1;
         }
-       if( endTime.getTime() <= startTime.getTime()){
+       if(endTime.getTime() <= startTime.getTime()){
           console.log("wrong dates")
           errorMsg.push("End Date before or equal to start date. Please fix this \n")
           document.getElementById('start-time').classList.add("error")

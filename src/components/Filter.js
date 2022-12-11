@@ -3,7 +3,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import Button from 'react-bootstrap/Button';
+import {Button, Navbar, Form, NavbarBrand} from 'react-bootstrap';
 
 import "./Filter.css";
 export default function Filter(props) : React.ReactNode {
@@ -63,127 +63,101 @@ export default function Filter(props) : React.ReactNode {
     // console.log("handle select day:", handleSelectDay)
 
     return (
-        <div className="filterSurround">
-            <div className="filterContainer">
-                <div className="titleFilter">
-                    <label>Event Title</label>
-                    <div className="alignFilter">
-                   
-                    <input value={title} name="title" onChange={(event) => {
+        <Navbar className="bootstrapFilter">
+       <Navbar.Brand>
+        <Form>
+            <Form.Group>
+                <Form.Label>Event Title</Form.Label>
+                <Form.Control type="text" name="title" onChange={(event) => {
                         setTitle(event.target.value)
                         console.log("Title value:", event, event.target.value, title)
                         props.getEvents(false, event.target.value, dayToNumber[day], category, cost)
-                    }}></input>
-                    <br/>
-                    </div>
-                </div>
-                <div className="dayFilter">
-                    <label>Day</label>
-                    <div className="alignFilter">
-                        <DropdownButton 
-                            title= {day == "" || null ? "Day" : day}
-                            variant="warning"
-                            onSelect={(key, event) => 
-                                handleSelect(key, event, "dayFilter")}
-                        >
-                            <Dropdown.Item>Monday</Dropdown.Item>
-                            <Dropdown.Item>Tuesday</Dropdown.Item>
-                            <Dropdown.Item>Wednesday</Dropdown.Item>
-                            <Dropdown.Item>Thursday</Dropdown.Item>
-                            <Dropdown.Item>Friday</Dropdown.Item>
-                            <Dropdown.Item>Saturday</Dropdown.Item>
-                            <Dropdown.Item>Sunday</Dropdown.Item>
-                        </DropdownButton>
-                        {dayFilterButton}
-                    </div>
-                </div>
-
-                <div className="categoryFilter">
-                    <label>Category</label>
-                    <div className="alignFilter">
-                        <DropdownButton 
-                            title= {category == "" || null ? "Category" : category} 
-                            variant="warning"
-                            onSelect={(key,event) => 
-                                handleSelect(key, event, "categoryFilter")}
-                        >
-                            <Dropdown.Item>Sports</Dropdown.Item>
-                            <Dropdown.Item>Entertainment</Dropdown.Item>
-                            <Dropdown.Item>Academic</Dropdown.Item>
-                            <Dropdown.Item>Off-campus</Dropdown.Item>
-                            <Dropdown.Item>Outdoors</Dropdown.Item>
-                            <Dropdown.Item>Meals/Coffee Chats</Dropdown.Item>
-                            <Dropdown.Item>Nassau Street</Dropdown.Item>
-                        </DropdownButton>
-                        {categoryFilterButton}
-                    </div>
-                </div>
-
-                <div className="costFilter">
-                    <label>Maximum Cost ($)</label>
-                    <div className="alignFilter">
+                    }} ></Form.Control>
+            </Form.Group>
+        </Form>
+        
+       </Navbar.Brand>
+     
+                   
+       <Navbar.Brand>  <Form.Group><Form.Label>Day</Form.Label>
                     
-                    <div>
-                    <input value={cost} name="cost" placeholder= "Enter a positive integer" onChange={(event) => {
+                    <DropdownButton 
+                        title= {day == "" || null ? "Day" : day}
+                        variant="warning"
+                        onSelect={(key, event) => 
+                            handleSelect(key, event, "dayFilter")}
+                    >
+                        <Dropdown.Item>Monday</Dropdown.Item>
+                        <Dropdown.Item>Tuesday</Dropdown.Item>
+                        <Dropdown.Item>Wednesday</Dropdown.Item>
+                        <Dropdown.Item>Thursday</Dropdown.Item>
+                        <Dropdown.Item>Friday</Dropdown.Item>
+                        <Dropdown.Item>Saturday</Dropdown.Item>
+                        <Dropdown.Item>Sunday</Dropdown.Item>
+                    </DropdownButton>
+                    </Form.Group>
+                    {dayFilterButton}
+                    </Navbar.Brand>
+                    
+        <Navbar.Brand>
+        <Form.Group><Form.Label>Category</Form.Label>
+                    
+            <DropdownButton 
+            title= {category == "" || null ? "Category" : category} 
+            variant="warning"
+            onSelect={(key,event) => 
+                handleSelect(key, event, "categoryFilter")}
+        >
+            <Dropdown.Item>Sports</Dropdown.Item>
+            <Dropdown.Item>Entertainment</Dropdown.Item>
+            <Dropdown.Item>Academic</Dropdown.Item>
+            <Dropdown.Item>Off-campus</Dropdown.Item>
+            <Dropdown.Item>Outdoors</Dropdown.Item>
+            <Dropdown.Item>Meals/Coffee Chats</Dropdown.Item>
+            <Dropdown.Item>Nassau Street</Dropdown.Item>
+        </DropdownButton>
+        {categoryFilterButton}
+                    </Form.Group>
+                    
+        </Navbar.Brand>
+
+        <Navbar.Brand>
+        <Form.Group>
+                <Form.Label>Maximum Cost ($)</Form.Label>
+                <Form.Control type = "text" value={cost} name="cost" placeholder= "Enter a positive integer" onChange={(event) => {
                         setCost(event.target.value)
                         console.log("Cost value:", event, event.target.value, cost)
                         props.getEvents(false, title, dayToNumber[day], category, event.target.value, capMin, capMax)
-                    }}></input>
-                    <br/>
-                </div>
-                    </div>
-                </div>                             
-               {/* <label for="leq"> Less than or equal to</label></td>
-                   <td> <input type = "radio" id= "leq" value= "<=" name="condition" onChange={(event) => {
-                        setCapCondition(event.target.value)
-                        console.log("Cap value:", event, event.target.value, title)
-                        props.getEvents(false, title, dayToNumber[day], category, cost, event.target.value, cap)
-                    }}></input></td>
-                    </tr>
-                    <tr>
-                    <td><label for="leq">Greater than or equal to</label></td>
-                    <td><input type = "radio" value= ">=" name="condition" onChange={(event) => {
-                        setCapCondition(event.target.value)
-                        console.log("Cap value:", event, event.target.value, title)
-                        props.getEvents(false, title, dayToNumber[day], category, cost, event.target.value, cap)
-                    }}></input></td>
-                    <td><input id= "cap" placeholder= "Enter a positive integer" name="leq" onChange={(event) => {
-                        setCap(event.target.value)
-                        console.log("Cap value:", event, event.target.value, title)
-                        props.getEvents(false, title, dayToNumber[day], category, cost, capCondition, event.target.value)
-                    }}></input></td>
-                    </tr>
-                    </tbody>
-                    </table>
-                    
-                    <br/>
-                </div> */}
-                <div className="capFilter">
-                
-                <label>Number of Attendees Range</label>
-                <div className="alignFilter">
-                
-                <label>From: </label>
-                    <input class = "inputBox" value = {capMin} onChange={(event) => {
+                    }}></Form.Control>
+        </Form.Group>
+        </Navbar.Brand>
+        <Navbar.Brand>
+            <Form.Group>
+                <Form.Label>
+                Number of Attendees Range
+                </Form.Label> <br></br>
+                <Form.Label>
+                From:
+                </Form.Label>
+                <Form.Control type="text" className = "inputBox" value = {capMin} onChange={(event) => {
                         setCapMin(event.target.value)
                         console.log("capMin value:", event, event.target.value, capMin)
                         props.getEvents(false, title, dayToNumber[day], category, cost, event.target.value, capMax)
-                    }}></input>
-
-                    <label>To: </label>
-                    <input class = "inputBox" value = {capMax} onChange={(event) => {
+                    }}></Form.Control>
+            </Form.Group>
+            <Form.Group>
+            <Form.Label>To: </Form.Label>
+                    <Form.Control type="text" className = "inputBox" value = {capMax} onChange={(event) => {
                         setCapMax(event.target.value)
                         console.log("capMax value:", event, event.target.value, capMax)
                         props.getEvents(false, title, dayToNumber[day], category, cost, capMin, event.target.value)
-                    }}></input>
-                      
-                    <br/>
-                    </div>
-                </div>
+                    }}></Form.Control>
+            </Form.Group>
+        </Navbar.Brand>
 
-            </div>
-        </div>
-        
+
+       </Navbar>
+
     );
 };
 

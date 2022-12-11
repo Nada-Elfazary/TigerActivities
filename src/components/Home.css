@@ -56,10 +56,11 @@ html {
 
 .content{
     display: flex; 
-    flex-direction: column; 
-    height: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /*height: 100%;*/
     /* border: blue 3px solid; */
-    align-items: center;
+    /*align-items: center;*/
 }
 
 .events {
