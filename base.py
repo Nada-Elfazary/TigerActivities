@@ -4,6 +4,8 @@ import processing as proc
 import parseargs
 import os
 import auth 
+from datetime import datetime
+import pytz
 #from flask_cors import CORS
 
 
@@ -125,6 +127,29 @@ def createEvent():
     print("Body", flask.request.form)
     print("Event Name", res["event_name"])
     print("Location", res["location"])
+    print("start time before format", res['start_time'])
+
+  
+    result = res['start_time'].split(' ')
+    print("result", result)
+    result = result[1: 5]
+    print("converted", result)
+    res['start_time']= result
+
+    result = res['end_time'].split(' ')
+    print("result", result)
+    result = result[1: 5]
+    print("converted", result)
+    res['end_time']= result
+
+    '''
+    format  = "%Y/%m/%d %H:%M:%S"
+    local_dt = datetime.strptime(res['start_time'], format)
+    print("format", local_dt)
+    res['start_time'] = local_dt.astimezone(pytz.GMT)
+    '''
+    print("start date: ", type(res['start_time']))
+    print("end date: ", type(res['end_time']))
     # return {'name':res['event_name'], 'location': res['location']}
     proc.store_activity(res)
     return res
@@ -178,6 +203,19 @@ def editActivity():
     res = flask.request.json
     print("**********edit backend json: *************")
     print(res)
+
+    result = res['start_time'].split(' ')
+    print("result", result)
+    result = result[1: 5]
+    print("converted", result)
+    res['start_time']= result
+
+    result = res['end_time'].split(' ')
+    print("result", result)
+    result = result[1: 5]
+    print("converted", result)
+    res['end_time']= result
+    
     proc.edit_event(res)
     return res
 

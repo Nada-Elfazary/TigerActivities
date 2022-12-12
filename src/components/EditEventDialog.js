@@ -24,8 +24,10 @@ function EditEventDialog(props) {
     const [eventCategory, setEventCategory] = useState(props.events.category)
     const[maxAttendeeCount, setMaxAttendeeCount] = useState(props.events.maxcap)
     const [disableSubmitForm, setDisableSubmitForm] = useState(false)
-    const [startTime, setStartTime] = useState(new Date())
-    const [endTime, setEndTime] = useState(new Date())
+    const [startTime, setStartTime] = useState(new Date(startDate))
+    console.log ("startTime: ", startTime)
+    console.log("start date", startDate)
+    const [endTime, setEndTime] = useState(new Date(endDate))
     //let startTime = new Date()
     //let endTime = new Date()
     const [cost, setCost] = useState(props.events.cost)
@@ -79,8 +81,8 @@ function EditEventDialog(props) {
           // create_id
             event_id:      props.events.id,
             event_name:    eventTitle,
-            start_time:    startTime,
-            end_time:      endTime,
+            start_time:    startTime.toString(),
+            end_time:      endTime.toString(),
             maxcap:        maxAttendeeCount,
             creator:       DEFAULT_CREATOR,
             category:      eventCategory,
@@ -212,7 +214,7 @@ function EditEventDialog(props) {
                      data-enable-time 
                       id = "end-time"
                       class = "customFlatpickr"
-                   // value={endTime} 
+                    value={endTime} 
                     defaultValue = {endDate}
                      onChange={(event) => 
                      {

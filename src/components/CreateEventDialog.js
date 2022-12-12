@@ -60,13 +60,15 @@ function CreateEventDialog(props) {
 }
    
     const submitForm = ()=>{
+        console.log("start time before axios: ", startTime)
+        console.log("End time before axios: ",  endTime)
         setDisableSubmitForm(true)
         console.log(disableSubmitForm)
         axios.post('/create-event', {
           // create_id
             event_name:    eventTitle,
-            start_time:    startTime,
-            end_time:      endTime,
+            start_time:    startTime.toString(),
+            end_time:      endTime.toString(),
             maxcap:        maxAttendeeCount,
             creator:       DEFAULT_CREATOR,
             category:      eventCategory,
@@ -182,6 +184,7 @@ function CreateEventDialog(props) {
                         document.getElementById('start-time').classList.remove("error");
                         setStartTime(new Date(event))
                         console.log("date after:", event)
+                        console.log("date wih new date:", new Date(event))
                      }} /></Col>
             </Row>
           </Form.Group><Form.Group>
