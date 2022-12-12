@@ -157,7 +157,7 @@ export default function Profile(props) {
              // error.push("Title field cannot be empty")
              // setShowErrorMsg(true)
              document.getElementById('name').classList.add("error");
-             document.getElementById('name').placeholder = "Name cannot be empty";
+             document.getElementById('name').placeholder = "Please enter your name";
              
    
              error = 1;
@@ -170,11 +170,6 @@ export default function Profile(props) {
         //      error = 1;
         //    }
          
-           if(updateEmail.length === 0){
-             document.getElementById('email').classList.add("error");
-             document.getElementById('email').placeholder = "Email field cannot be empty";
-             error = 1;
-           }
            
            if(!/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/.test(updateEmail)){
             console.log("email state:", updateEmail)
@@ -183,6 +178,12 @@ export default function Profile(props) {
             document.getElementById('email').placeholder="Email address is invalid";
             
 
+            error = 1;
+          }
+
+          if(updateEmail.length === 0){
+            document.getElementById('email').classList.add("error");
+            document.getElementById('email').placeholder = "Please enter your email";
             error = 1;
           }
 
@@ -195,11 +196,25 @@ export default function Profile(props) {
             error = 1;
           }
 
+          if(updatePhone.length === 0) {
+            document.getElementById('num').classList.add("error");
+            document.getElementById('num').placeholder="Please enter your number";
+            setUpdatePhone("")
+          }
 
-           if(updateClassYear.length !== 0 && !/^[202]+[3-6]/.test(updateClassYear)){
+
+           if(!/^[202]+[3-6]/.test(updateClassYear)){
             console.log("class state:", updateClassYear)
             document.getElementById('year').classList.add("error");
             document.getElementById('year').placeholder="Invalid class year";
+            setUpdateClassYear("")
+            error = 1;
+           }
+
+           if(updateClassYear.length === 0){
+            console.log("class state:", updateClassYear)
+            document.getElementById('year').classList.add("error");
+            document.getElementById('year').placeholder="Please enter a class year";
             setUpdateClassYear("")
             error = 1;
            }

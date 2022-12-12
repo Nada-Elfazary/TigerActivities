@@ -18,8 +18,8 @@ function CreateEventDialog(props) {
     const [eventCategory, setEventCategory] = useState('')
     const[maxAttendeeCount, setMaxAttendeeCount] = useState(0)
     const [disableSubmitForm, setDisableSubmitForm] = useState(false)
-    const [startTime, setStartTime] = useState(new Date())
-    const [endTime, setEndTime] = useState(new Date())
+    const [startTime, setStartTime] = useState("")
+    const [endTime, setEndTime] = useState("")
     const [cost, setCost] = useState(0)
     const [description, setDescription] = useState("")
     const [saving, setSaving] = useState(true)
@@ -276,6 +276,27 @@ function CreateEventDialog(props) {
           // failureCallBack("End Date before start date. Please fix this")
           
         }
+
+        if(cost.length === 0){
+          //  errorMsg.push("Cost involved cannot be negative")
+            // setShowErrorMsg(true)
+            document.getElementById('cost').classList.add("error");
+            document.getElementById('cost').placeholder = "Empty cost";
+          
+            error = 1;
+          }
+
+          if(!/^[0-9]+$/.test(cost)){
+            //  errorMsg.push("Cost involved cannot be negative")
+              // setShowErrorMsg(true)
+              document.getElementById('cost').classList.add("error");
+              document.getElementById('cost').placeholder = "Invalid input";
+              setCost("")
+              error = 1;
+            }
+
+
+
          if(cost < 0){
         //  errorMsg.push("Cost involved cannot be negative")
           // setShowErrorMsg(true)
@@ -286,22 +307,31 @@ function CreateEventDialog(props) {
 
           error = 1;
         }
-        else if(!/^[0-9]+$/.test(cost)){
+
+
+
+
+
+
+        if(!/^[0-9]+$/.test(maxAttendeeCount)){
           //  errorMsg.push("Cost involved cannot be negative")
             // setShowErrorMsg(true)
-            document.getElementById('cost').classList.add("error");
-            document.getElementById('cost').placeholder = "Cost cannot be negative";
+            document.getElementById('cap').classList.add("error");
+            document.getElementById('cap').placeholder = "Invalid input";
+            setMaxAttendeeCount("")
+
+
             error = 1;
           }
 
-        if(maxAttendeeCount < 0){
-      //    error.push("Max Attendee Count cannot be negative")
-          // setShowErrorMsg(true)
-          document.getElementById('cap').classList.add("error");
-          setMaxAttendeeCount("")
-          document.getElementById('cap').placeholder = "Count cannot be negative";
-          error = 1;
-        }
+          if(maxAttendeeCount < 0){
+            //    error.push("Max Attendee Count cannot be negative")
+                // setShowErrorMsg(true)
+                document.getElementById('cap').classList.add("error");
+                setMaxAttendeeCount("")
+                document.getElementById('cap').placeholder = "Count cannot be negative";
+                error = 1;
+              }
   
         if(maxAttendeeCount.length === 0){
           //    error.push("Max Attendee Count cannot be negative")
