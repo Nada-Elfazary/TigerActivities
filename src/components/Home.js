@@ -40,8 +40,6 @@ export default function  Home() : React.ReactNode {
     setRefresh(true)
     activitiesClicked()
     setEvents([])
-    // getEvents(false, "")
-    
     
 }, [])
 
@@ -82,6 +80,7 @@ const mySignUpsClicked= () => {
     setEvents(res.data)
     setLoading(false)
   }).catch(err =>{
+    
     console.log("Error receiving event from db:", err)
   })
 }
@@ -97,22 +96,6 @@ const activitiesClicked= () => {
   setClickedProfile(false)
   setRefresh(false)
   setCurrentPage(1)
-  /*
-  axios({
-    method: "GET",
-    url:"https://tigeractivities.onrender.com/dummy",
-  })
-  .then((response) => {
-    const res = response.data
-    console.log("Recieved Dummy Response:", res)
-  }).catch((error) => {
-    if (error.response) {
-      console.log("Recevived dummy Error:", error.response)
-      console.log(error.response.status)
-      console.log(error.response.headers)
-      }
-  })
-  */
   getEvents(false, "")
   
 }

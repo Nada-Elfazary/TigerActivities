@@ -8,7 +8,7 @@ import "./Modal.css";
 function SignUpModal(props) {
 
   const [name,setName] = useState(props.name)
-  const [phone,setPhone] = useState("")
+  const [phone,setPhone] = useState(props.phone)
   const [email,setEmail] = useState(props.email)
   const [errorMsg, setErrorMsg] = useState("")
   const [showErrorMsg, setShowErrorMsg] = useState(false)

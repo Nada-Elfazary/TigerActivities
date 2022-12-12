@@ -22,7 +22,7 @@ const XDSCard = ({item, ownerView, signUpsView,name, netid, phone, email, tagCol
   //  const [displayEditModal, setDisplayEditModal] = useState(false)
     const closedText = "(CLOSED)"
 
-    console.log(item.event_name, 'color: ', tagColor)
+    // console.log(item.event_name, 'color: ', tagColor)
 
 
     const numToDay = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 
