@@ -16,7 +16,7 @@ function CreateEventDialog(props) {
     const[eventTitle, setEventTitle] = useState('')
     const[eventLocation, setEventLocation] = useState('')
     const [eventCategory, setEventCategory] = useState('')
-    const[maxAttendeeCount, setMaxAttendeeCount] = useState(0)
+    const[maxAttendeeCount, setMaxAttendeeCount] = useState(1)
     const [disableSubmitForm, setDisableSubmitForm] = useState(false)
     const [startTime, setStartTime] = useState(new Date())
     const [endTime, setEndTime] = useState(new Date())
