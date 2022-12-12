@@ -65,8 +65,8 @@ function CreateEventDialog(props) {
         axios.post('https://tigeractivities.onrender.com/create-event', {
           // create_id
             event_name:    eventTitle,
-            start_time:    startTime,
-            end_time:      endTime,
+            start_time:    startTime.toString(),
+            end_time:      endTime.toString(),
             maxcap:        maxAttendeeCount,
             creator:       props.username,
             category:      eventCategory,

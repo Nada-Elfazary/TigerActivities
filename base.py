@@ -165,20 +165,37 @@ def get_attendees():
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 # cross_origin()
 def createEvent():
-    #username = auth.authenticate()
+    authResult = CasClient.CASClient().authenticate()
+    username = authResult['username']
+    if username == '':
+        return "Not found"
     res = flask.request.json
     print("response", res['event_name'])
     print("Recieved request: {}".format(flask.request.json))
     print("Body", flask.request.form)
     print("Event Name", res["event_name"])
     print("Location", res["location"])
+    print("start time before format", res['start_time'])
+
+
+    result = res['start_time'].split(' ')
+    print("result", result)
+    result = result[1: 5]
+    print("converted", result)
+    res['start_time']= result
+
+    result = res['end_time'].split(' ')
+    print("result", result)
+    result = result[1: 5]
+    print("converted", result)
+    res['end_time']= result
+
+    print("start date: ", type(res['start_time']))
+    print("end date: ", type(res['end_time']))
     # return {'name':res['event_name'], 'location': res['location']}
     proc.store_activity(res)
     return res
-    # return request
-    # @api.route('/create-event', methods = ["POST"])
-    # def createEvent():  
-    #     print("Recieved request: {}".format(request))
+  
 '''
 @app.route('/validate', methods=['GET'])
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
@@ -247,9 +264,25 @@ def updateProfile():
 # cross_origin()
 def editActivity():
    # username = auth.authenticate()
+    authResult = CasClient.CASClient().authenticate()
+    username = authResult['username']
+    if username == '':
+        return "Not found"
     res = flask.request.json
     print("**********edit backend json: *************")
     print(res)
+    result = res['start_time'].split(' ')
+    print("result", result)
+    result = result[1: 5]
+    print("converted", result)
+    res['start_time']= result
+
+    result = res['end_time'].split(' ')
+    print("result", result)
+    result = result[1: 5]
+    print("converted", result)
+    res['end_time']= result
+    
     proc.edit_event(res)
     return res
 

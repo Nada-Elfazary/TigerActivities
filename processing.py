@@ -33,6 +33,17 @@ def convert_time(hour, minute):
     time = time.strftime("%H:%M")
     return time
 
+def format_time(time):
+    print("start date in store activity: ", time)
+
+    converted_month_start = convert_month(time[0])
+
+    splitTime = time[3].split(':')
+    format_Date = convert_date(int(time[2]), converted_month_start, int(time[1]))
+    format_time = convert_time(int(splitTime[0]), int(splitTime[1]))
+
+    return format_Date, format_time
+
 def get_date_limit():
     
     currDay = datetime.datetime.now(pytz.timezone('US/Central'))
@@ -63,6 +74,21 @@ def get_date_limit():
             year += 1
     currDay = convert_date(year, month, newDay)
     return currDay
+
+def convert_month(month):
+    dict = {"Jan": 1, 
+            "Feb": 2,
+            "Mar": 3,
+            "Apr": 4, 
+            "May": 5,
+            "Jun": 6, 
+            "Jul": 7, 
+            "Aug": 8,
+            "Sep": 9, 
+            "Oct": 10, 
+            "Nov": 11, 
+            "Dec": 12}
+    return dict[month]
 
 def fetch_activities(title, day, category, cost, capMin, capMax):
     title = '%' + title + '%'
@@ -177,19 +203,8 @@ def store_activity(activity):
     title = activity['event_name']
     location = activity['location']
 
-    startDateTime = activity['start_time']
-    startDateTime = startDateTime.split("T")
-    startDate = startDateTime[0].split("-")
-    startTime = startDateTime[1].split(":")
-    start_date = convert_date(int(startDate[0]), int(startDate[1]), int(startDate[2]))
-    start_time = convert_time(int(startTime[0]), int(startTime[1]))
-
-    endDateTime = activity['end_time']
-    endDateTime = endDateTime.split("T")
-    endDate = endDateTime[0].split("-")
-    endTime = endDateTime[1].split(":")
-    end_date = convert_date(int(endDate[0]), int(endDate[1]), int(endDate[2]))
-    end_time = convert_time(int(endTime[0]), int(endTime[1]))
+    start_date, start_time = format_time(activity['start_time'])
+    end_date, end_time = format_time(activity['end_time'])
 
     cap = activity['maxcap']
     cost = activity['cost']
@@ -390,20 +405,9 @@ def edit_event(activity):
     title = activity['event_name']
     location = activity['location']
 
-    startDateTime = activity['start_time']
-    startDateTime = startDateTime.split("T")
-    startDate = startDateTime[0].split("-")
-    startTime = startDateTime[1].split(":")
-    start_date = convert_date(int(startDate[0]), int(startDate[1]), int(startDate[2]))
-    start_time = convert_time(int(startTime[0]), int(startTime[1]))
-
-    endDateTime = activity['end_time']
-    endDateTime = endDateTime.split("T")
-    endDate = endDateTime[0].split("-")
-    endTime = endDateTime[1].split(":")
-    end_date = convert_date(int(endDate[0]), int(endDate[1]), int(endDate[2]))
-    end_time = convert_time(int(endTime[0]), int(endTime[1]))
-
+    start_date, start_time = format_time(activity['start_time'])
+    end_date, end_time = format_time(activity['end_time'])
+    
     cap = activity['maxcap']
     cost = activity['cost']
     description = activity['description']
