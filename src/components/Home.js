@@ -46,7 +46,7 @@ export default function  Home() : React.ReactNode {
   useEffect(()=>{
     cas()
     setRefresh(true)
-    activitiesClicked()
+    activitesClicked()
     setEvents([])
     // setUserName(String(user))
     // console.log("user on page is", user)
@@ -261,13 +261,13 @@ const handleLogout = ()=>{
  
   const activities = (
     <>
-    <Button class = 'button'id = "act" onClick={activitiesClicked}>Activities</Button>
+    <Button class = 'button'id = "act" onClick={activitesClicked}>Activities</Button>
     <br/>
   </>
   )
   const myActivities = (
     <>
-  <Button onClick={myActivitiesClicked}>My Activities</Button>
+  <Button onClick={myActivitesClicked}>My Activities</Button>
   <br/>
   </>
   )
@@ -303,15 +303,15 @@ const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
 const topNav = 
 
  <Navbar className="Navbar">
-  <Navbar.Brand><Button onClick = {activitiesClicked} id = "logo"><img alt="" src={tiger} width="60" height="60"
+  <Navbar.Brand><Button onClick = {activitesClicked} id = "logo"><img alt="" src={tiger} width="60" height="60"
                 className="d-inline-block align-top"
                 /> {' '}</Button></Navbar.Brand>
-  <Navbar.Brand><Button className="titleLink" onClick={activitiesClicked}>{title}</Button></Navbar.Brand>
+  <Navbar.Brand><Button className="titleLink" onClick={activitesClicked}>{title}</Button></Navbar.Brand>
 
   <div className = "buttonsSec">
   <Navbar.Brand><strong>{username}</strong></Navbar.Brand>
-  <Navbar.Brand><Button onClick={activitiesClicked}>Activities</Button></Navbar.Brand>
-  <Navbar.Brand><Button onClick={myActivitiesClicked}>My Activities</Button></Navbar.Brand>
+  <Navbar.Brand><Button onClick={activitesClicked}>Activities</Button></Navbar.Brand>
+  <Navbar.Brand><Button onClick={myActivitesClicked}>My Activities</Button></Navbar.Brand>
   <Navbar.Brand><Button onClick={mySignUpsClicked}>My Sign-Ups</Button></Navbar.Brand>
   <Navbar.Brand><Button onClick={profileClicked}>Profile</Button></Navbar.Brand>
   <Navbar.Brand><Button onClick={handleLogout}>Logout</Button></Navbar.Brand>
@@ -319,21 +319,21 @@ const topNav =
 </Navbar>
 const results = refresh ? (displayEvents) : null
 
-const showResults = clickedActivities? (
+const showResults = clickedActivites? (
  
     displayEvents
   
 
   ): null
 
-  const showCreateEventButton = clickedMyActivities? (
+  const showCreateEventButton = clickedMyActivites? (
 
     createEventButton
   
 
   ): null
 
-  const showOwnerActivities = clickedMyActivities ? (
+  const showOwnerActivities = clickedMyActivites ? (
     displayOwnerEvents
 
   ): null
@@ -341,7 +341,7 @@ const showResults = clickedActivities? (
     displaySignUps
   ): null
 
-  const showFilter = clickedActivities || initialState ? (
+  const showFilter = clickedActivites || initialState ? (
     // <input value={nameFilter} name="title" onChange={handleFilter} />
   
           <Filter getEvents={getEvents} />

@@ -17,6 +17,7 @@ APP_URL = 'https://tigeractivities-iqwe.onrender.com/homeTo'
 #-----------------------------------------------------------------------
 app = flask.Flask(__name__, static_folder="build/static", template_folder="build")
 #app.config['CORS_HEADERS'] = 'Content-Type'
+os.environ['APP_SECRET_KEY'] = 'asdfasdfasdfadf'
 app.secret_key = os.environ['APP_SECRET_KEY']
 #CORS(app)
 cors = CORS(app, resources={r"/*": {'origins': "http://tigeractivities-iqwe.onrender.com"}}, supports_credentials=True)
