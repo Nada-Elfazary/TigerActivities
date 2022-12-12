@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import CreateEventDialog from "./CreateEventDialog";
-import {Button, Navbar, Container} from 'react-bootstrap'
+import {Button, Navbar, Container, Pagination} from 'react-bootstrap'
 import XDSCard from "./XDSCard";
 import Dropdown from "./Dropdown";
 import tiger from './tiger.jpeg';
@@ -11,6 +11,7 @@ import "./Home.css";
 import axios from 'axios';
 import ClipLoader from 'react-spinners/ClipLoader'
 import "./App.css"
+import _ from "lodash"
 
 // importing Link from react-router-dom to navigate to 
 // different end points.
@@ -29,6 +30,9 @@ export default function  Home() : React.ReactNode {
   const [nameFilter, setNameFilter] = useState('')
   // let currLogin = "Nada"
   const [profileData, setProfileData] = useState(["","","",""])
+  const [paginatedEvents, setPaginatedEvents] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const pageSize = 1;
  //let profileData = ['', '', '', '']
 
   let user = ""
@@ -42,11 +46,31 @@ export default function  Home() : React.ReactNode {
   useEffect(()=>{
     cas()
     setRefresh(true)
+    activitiesClicked()
     setEvents([])
     // setUserName(String(user))
     // console.log("user on page is", user)
     
 }, [])
+
+const pageCount = events ? Math.ceil(events.length/ pageSize) : 0
+const pagination = (pageNo)=>{
+  setCurrentPage(pageNo)
+  const startIndex = (pageNo -1) *pageSize
+  const paginatedEvent = _(events).slice(startIndex).take(pageSize).value()
+  console.log("paginated",paginatedEvent)
+  setPaginatedEvents(paginatedEvent)
+}
+const pages = _.range(1, pageCount+1)
+const displayPagination = <Pagination className="paginate">
+ { pages.map((page)=>{
+   return <Pagination.Item  active={page === currentPage}>
+    <Button className="page-link" onClick={()=>{ pagination(page)
+    }}>{page}</Button>
+    </Pagination.Item>
+}) 
+}
+</Pagination>
 
 
 const mySignUpsClicked= () => {
@@ -59,6 +83,7 @@ const mySignUpsClicked= () => {
   setClickedMyActivities(false)
   setClickedProfile(false)
   setRefresh(false)
+  setCurrentPage(1)
   console.log("Requesting user signups")
   setLoading(true)
   axios.get('https://tigeractivities.onrender.com/user-sign-ups').then((res) =>{
@@ -80,6 +105,7 @@ const activitesClicked= () => {
   setClickedMySignUps(false)
   setClickedProfile(false)
   setRefresh(false)
+  setCurrentPage(1)
   /*
   axios({
     method: "GET",
@@ -148,7 +174,7 @@ const myActivitesClicked= ()=>{
   setClickedMySignUps(false)
   setClickedProfile(false)
   setRefresh(false)
-
+  setCurrentPage(1)
   getEvents(true, "")
 }
 
@@ -178,6 +204,7 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
       if (filtered.length !== 0) {
         console.log("Setting events to:", filtered)
         setEvents(filtered)
+        setPaginatedEvents(_(filtered).slice(0).take(pageSize).value())
       }
       else {
         console.log("No events created by owner")
@@ -185,6 +212,7 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
     } else {
       console.log("Setting events to:", res.data)
       setEvents(res.data)
+      setPaginatedEvents(_(res.data).slice(0).take(pageSize).value())
     }
     setLoading(false)
   }).catch(err =>{
@@ -233,13 +261,13 @@ const handleLogout = ()=>{
  
   const activities = (
     <>
-    <Button class = 'button'id = "act" onClick={activitesClicked}>Activities</Button>
+    <Button class = 'button'id = "act" onClick={activitiesClicked}>Activities</Button>
     <br/>
   </>
   )
   const myActivities = (
     <>
-  <Button onClick={myActivitesClicked}>My Activities</Button>
+  <Button onClick={myActivitiesClicked}>My Activities</Button>
   <br/>
   </>
   )
@@ -259,7 +287,7 @@ const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator
     tagColor = {categoryToColor[event.category]}/>
   )
 }): <h1 className = "center-screen">"No events created yet"</h1>
-const displayOwnerEvents = events.length !== 0 ? events.map((event, index)=>{
+const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
   return (
     <XDSCard key ={index} item={event} ownerView={true} signUpsView = {false} 
     tagColor = {categoryToColor[event.category]}/>
@@ -275,15 +303,15 @@ const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
 const topNav = 
 
  <Navbar className="Navbar">
-  <Navbar.Brand><Button onClick = {activitesClicked} id = "logo"><img alt="" src={tiger} width="60" height="60"
+  <Navbar.Brand><Button onClick = {activitiesClicked} id = "logo"><img alt="" src={tiger} width="60" height="60"
                 className="d-inline-block align-top"
                 /> {' '}</Button></Navbar.Brand>
-  <Navbar.Brand>{title}</Navbar.Brand>
+  <Navbar.Brand><Button className="titleLink" onClick={activitiesClicked}>{title}</Button></Navbar.Brand>
 
   <div className = "buttonsSec">
   <Navbar.Brand><strong>{username}</strong></Navbar.Brand>
-  <Navbar.Brand><Button onClick={activitesClicked}>Activities</Button></Navbar.Brand>
-  <Navbar.Brand><Button onClick={myActivitesClicked}>My Activities</Button></Navbar.Brand>
+  <Navbar.Brand><Button onClick={activitiesClicked}>Activities</Button></Navbar.Brand>
+  <Navbar.Brand><Button onClick={myActivitiesClicked}>My Activities</Button></Navbar.Brand>
   <Navbar.Brand><Button onClick={mySignUpsClicked}>My Sign-Ups</Button></Navbar.Brand>
   <Navbar.Brand><Button onClick={profileClicked}>Profile</Button></Navbar.Brand>
   <Navbar.Brand><Button onClick={handleLogout}>Logout</Button></Navbar.Brand>
@@ -291,21 +319,21 @@ const topNav =
 </Navbar>
 const results = refresh ? (displayEvents) : null
 
-const showResults = clickedActivites? (
+const showResults = clickedActivities? (
  
     displayEvents
   
 
   ): null
 
-  const showCreateEventButton = clickedMyActivites? (
+  const showCreateEventButton = clickedMyActivities? (
 
     createEventButton
   
 
   ): null
 
-  const showOwnerActivities = clickedMyActivites ? (
+  const showOwnerActivities = clickedMyActivities ? (
     displayOwnerEvents
 
   ): null
@@ -313,12 +341,10 @@ const showResults = clickedActivites? (
     displaySignUps
   ): null
 
-  const showFilter = clickedActivites || initialState ? (
+  const showFilter = clickedActivities || initialState ? (
     // <input value={nameFilter} name="title" onChange={handleFilter} />
   
           <Filter getEvents={getEvents} />
-
-
 
   ): null
 
@@ -337,22 +363,22 @@ const showResults = clickedActivites? (
   )
 
   const showLoading = <ClipLoader loading={loading} size={200}/>
+
   return (
-    <div className = "pageContainer">   
-    {topNav}
-    {showFilter}
-        <div className="content">
-          {showCreateEventButton}
-          {showProfile}
-            <div className="events">
-            {showNote}
-            {!loading ? results : showLoading}
-            {showResults}
-            {!loading ? showOwnerActivities : showLoading}
+    <div className="page">
+      {topNav}
+      {showFilter}
+      {showCreateEventButton}
+      {showNote}
+      <div className="content"> 
+        {showResults}
+        {showProfile}
+        {!loading ? results : showLoading}
+        {!loading ? showOwnerActivities : showLoading}
             {showSignUps}
             {modal}
-          </div>
-        </div>
+      </div>
+      {!clickedProfile?  displayPagination : null}
     </div>
     
   );

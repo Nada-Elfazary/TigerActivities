@@ -6,7 +6,7 @@ import HomeTo from "./components/HomeTo"
 import CasPage from './components/CasPage';
 import CreateEventModalDraggable from './components/CreateEventModalDraggable';
 import SignUpModal from './components/SignUpModal';
-//import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 function App(): React.ReactNode {
 
   return (
