@@ -261,7 +261,7 @@ const handleLogout = ()=>{
  
   const activities = (
     <>
-    <Button class = 'button'id = "act" onClick={activitesClicked}>Explore Activities</Button>
+    <Button class = 'button'id = "act" onClick={activitesClicked}>Activities</Button>
     <br/>
   </>
   )
@@ -310,7 +310,7 @@ const topNav =
 
   <div className = "buttonsSec">
   <Navbar.Brand><strong>{username}</strong></Navbar.Brand>
-  <Navbar.Brand><Button onClick={activitesClicked}>Activities</Button></Navbar.Brand>
+  <Navbar.Brand><Button onClick={activitesClicked}>Explore Activities</Button></Navbar.Brand>
   <Navbar.Brand><Button onClick={myActivitesClicked}>My Activities</Button></Navbar.Brand>
   <Navbar.Brand><Button onClick={mySignUpsClicked}>My Sign-Ups</Button></Navbar.Brand>
   <Navbar.Brand><Button onClick={profileClicked}>Profile</Button></Navbar.Brand>
