@@ -4,7 +4,7 @@ import Welcome from './components/welcome'
 import Home from "./components/Home"
 import CreateEventModalDraggable from './components/CreateEventModalDraggable';
 import SignUpModal from './components/SignUpModal';
-//import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import HomeTo from './components/HomeTo';
 function App(): React.ReactNode {
 

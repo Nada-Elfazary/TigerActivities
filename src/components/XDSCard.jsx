@@ -91,29 +91,22 @@ const XDSCard = ({item, ownerView, signUpsView,name, netid, phone, email, tagCol
     <>
     <Card className='customized-card'>
       <Card.Body>
-        <Card.Title> <h1>{item.event_name}{closed}</h1></Card.Title>
+        <Card.Title> <h2>{item.event_name}{closed}</h2></Card.Title>
         <Card.Subtitle> <h5><a className='tag' style={{'backgroundColor': backgroundColor}}><text className='white'>{item.category}</text></a></h5></Card.Subtitle>
-        <br></br>
         <Card.Text> 
                 <Row>
                 <h5 className='date'><strong>{numToDay[item.week_day]} {numToMonth[item.start_date.split("/")[1]]} {item.start_date.split("/")[2]}, {item.start_time}</strong></h5>
                 </Row>
-        </Card.Text>
-        <Card.Text>
-          <Row>
+                <Row>
           <Col><strong>End time : </strong>{item.end_time}</Col>
           <Col><strong>Location : </strong>{item.location}</Col>
             
           </Row>
         </Card.Text>
-       
-        <Card.Text>
-          <Row>
+        <Row>
             <Col><p {...getCollapseProps()}><strong>Number of attendees :</strong> {item.signup_number}/{item.maxcap}</p></Col>
             <Col><p {...getCollapseProps()}><strong>Estimated Cost : </strong>$ {item.cost}</p></Col>
           </Row>
-          
-        </Card.Text>
         <Card.Text>
           <Row>
             <Col><p {...getCollapseProps()}>
@@ -131,9 +124,7 @@ const XDSCard = ({item, ownerView, signUpsView,name, netid, phone, email, tagCol
          
             </Col>
           </Row>
-          </Card.Text>
-          <Card.Text>
-            <Row>
+          <Row>
               <Col>
               {ownerView ? (
                             <p {...getCollapseProps()}>
@@ -161,11 +152,10 @@ const XDSCard = ({item, ownerView, signUpsView,name, netid, phone, email, tagCol
                             </p>) : null }
               </Col>
             </Row>
-            
           </Card.Text>
           <Card.Text>
             <Row>
-          <Col><Button
+          <Col><Button className='Button'
           variant="warning"
         {...getToggleProps({
           onClick: () =>{ setExpanded((prevExpanded) => !prevExpanded)

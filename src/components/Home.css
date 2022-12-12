@@ -9,15 +9,34 @@
 */
 
 html {
-    overflow: hidden;
+    /*overflow: hidden;*/
     /* display:flex; */
     /* flex-direction:col; */
+    -webkit-overflow-scrolling: touch;
+
+}
+.page{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.paginate{
+    background-color: orange;
+    margin-top: 10rem;
+    justify-content: center;
+    
 }
 .Navbar{
     background-color: orange;
     justify-content: left;
     padding-left: 5%;
  
+}
+.titleLink{
+    background-color: orange;
+    border-color: orange;
+    color: black;
 }
 .title {
     flex: 10;
@@ -55,11 +74,15 @@ html {
 
 
 .content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /*
     display: flex; 
     flex-direction: column; 
-    height: 100%;
+    height: 100%; */
     /* border: blue 3px solid; */
-    align-items: center;
+    /*align-items: center;*/
 }
 
 .events {
@@ -140,36 +163,24 @@ div.pageContainer{
 
 .customized-card{
     margin: 8px 10px;
-    width: 35rem;
+    width: 23rem;
     background: rgb(252, 222, 169);
     box-shadow: 0 0 15px;
     border-radius: 10px;
-    height: max-content;
+    max-height: max-content;
 }
 
 .customized-card-body{
    padding: 10px 20px;
 }
-.customized-card-body h2{
-    text-align: center;
-}
-.customized-card-body td{
-  width: 300px;
-  text-align: center;
-
-}
 .customized-card-body p{
     font-weight: bold;
 }
-.customized-card-body button{
-    color: orange;
-    height: 25px;
-    font-size: 15px;
-    width:120px;
-}
 
-.button {
+
+.Button {
     background-color: orange;
+    width: 8rem;
 }
 
 
