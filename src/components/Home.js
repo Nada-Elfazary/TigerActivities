@@ -261,7 +261,7 @@ const handleLogout = ()=>{
  
   const activities = (
     <>
-    <Button class = 'button'id = "act" onClick={activitesClicked}>Activities</Button>
+    <Button class = 'button'id = "act" onClick={activitesClicked}>Explore Activities</Button>
     <br/>
   </>
   )
