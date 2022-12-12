@@ -103,7 +103,7 @@ export default function Profile(props) {
             <Form.Group>
             <Row>
               <Col><Form.Label>Phone Number: </Form.Label></Col>
-              <Col><Form.Control type="text" id = "num" name="Number" placeholder = "Only digits allowed" value={updatePhone} onChange={(event) =>
+              <Col><Form.Control type="text" id = "num" name="Number" placeholder = "Phone number" value={updatePhone} onChange={(event) =>
                     {
                       console.log("phone num state", updatePhone)
                       document.getElementById('num').classList.remove("error");
@@ -157,7 +157,8 @@ export default function Profile(props) {
              // error.push("Title field cannot be empty")
              // setShowErrorMsg(true)
              document.getElementById('name').classList.add("error");
-             document.getElementById('name').placeholder = "Name field cannot be empty";
+             document.getElementById('name').placeholder = "Name cannot be empty";
+             
    
              error = 1;
            }
@@ -178,14 +179,28 @@ export default function Profile(props) {
            if(!/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/.test(updateEmail)){
             console.log("email state:", updateEmail)
             document.getElementById('email').classList.add("error");
-            document.getElementById('email').value="Email address is invalid";
+            setUpdateEmail("")
+            document.getElementById('email').placeholder="Email address is invalid";
+            
+
             error = 1;
           }
+
+          if(!/^(\d{3})(\d{3})(\d{4})$/.test(updatePhone)){
+            document.getElementById('num').classList.add("error");
+            document.getElementById('num').placeholder="Phone number is invalid";
+            setUpdatePhone("")
+            
+
+            error = 1;
+          }
+
 
            if(updateClassYear.length !== 0 && !/^[202]+[3-6]/.test(updateClassYear)){
             console.log("class state:", updateClassYear)
             document.getElementById('year').classList.add("error");
-            document.getElementById('year').value="Class Year address is invalid";
+            document.getElementById('year').placeholder="Invalid class year";
+            setUpdateClassYear("")
             error = 1;
            }
 

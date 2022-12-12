@@ -280,7 +280,9 @@ function CreateEventDialog(props) {
         //  errorMsg.push("Cost involved cannot be negative")
           // setShowErrorMsg(true)
           document.getElementById('cost').classList.add("error");
-          document.getElementById('cost').placeholder = "Cost involved cannot be negative";
+          document.getElementById('cost').placeholder = "Negative cost!";
+          setCost("")
+
 
           error = 1;
         }
@@ -305,8 +307,7 @@ function CreateEventDialog(props) {
           //    error.push("Max Attendee Count cannot be negative")
               // setShowErrorMsg(true)
               document.getElementById('cap').classList.add("error");
-              document.getElementById('cap').placeholder = "Count cannot be empty";
-    
+              document.getElementById('cap').placeholder = "Empty count";
               error = 1;
             }
 
