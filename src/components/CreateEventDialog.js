@@ -292,12 +292,12 @@ function CreateEventDialog(props) {
             error = 1;
           }
 
-        if(maxAttendeeCount < 0){
+        if(maxAttendeeCount <= 0){
       //    error.push("Max Attendee Count cannot be negative")
           // setShowErrorMsg(true)
           document.getElementById('cap').classList.add("error");
           setMaxAttendeeCount("")
-          document.getElementById('cap').placeholder = "Count cannot be negative";
+          document.getElementById('cap').placeholder = "Count cannot be negative or zero";
           error = 1;
         }
   
