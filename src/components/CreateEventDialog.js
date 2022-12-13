@@ -252,8 +252,9 @@ function CreateEventDialog(props) {
         <Button variant="primary" onClick={()=>{
           let error = 0;
           let errorMsg = []
-        console.log(endTime.getTime())
-        console.log(startTime.getTime())
+        
+        // console.log(endTime.getTime())
+        // console.log(startTime.getTime())
         if(eventTitle.length === 0 ){
 //              error.push("Title field cannot be empty")
           // setShowErrorMsg(true)
@@ -273,7 +274,17 @@ function CreateEventDialog(props) {
           document.getElementById('category').classList.add("error");
           error = 1;
         }
-       if( endTime.getTime() <= startTime.getTime()){
+        if (endTime === ""){
+          errorMsg.push("End Date can not be empty. Please fix this \n")
+          document.getElementById('end-time').classList.add("error")
+          document.getElementById('end-time').placeholder = "End date can not be empty"
+        }
+        if (startTime === ""){
+          errorMsg.push("Start Date can not be empty. Please fix this \n")
+          document.getElementById('start-time').classList.add("error")
+          document.getElementById('start-time').placeholder = "Start date can not be empty"
+        }
+       if(startTime !=="" && endTime !=="" && endTime.getTime() <= startTime.getTime()){
           console.log("wrong dates")
           errorMsg.push("End Date before or equal to start date. Please fix this \n")
           document.getElementById('start-time').classList.add("error")
