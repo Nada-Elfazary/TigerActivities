@@ -299,7 +299,7 @@ const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((e
 }): <h1 className = "center-screen">"No events created yet"</h1>
 const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
   return (
-    <XDSCard key ={index} item={event} ownerView={false} signUpsView = {true}
+    <XDSCard key ={index} item={event} setEvents = {setEvents} ownerView={false} signUpsView = {true}
     tagColor = {categoryToColor[event.category]}/>
   )
 }): <h1 className = "center-screen">No current sign-ups</h1>
