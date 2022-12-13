@@ -8,7 +8,7 @@ import "./Home.css";
 import axios from 'axios';
 import { propTypes } from 'react-bootstrap/esm/Image';
 
-const XDSCard = ({item, setEvents, ownerView, signUpsView,name, phone, email, tagColor}) => {
+const XDSCard = ({item, setEvents, setPaginatedEvents, pageSize, ownerView, signUpsView,name, phone, email, tagColor}) => {
     const [isExpanded, setExpanded] = useState(false)
     const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded })
     const [displaySignUp, setDisplaySignUp] = useState(false)
@@ -63,7 +63,7 @@ const XDSCard = ({item, setEvents, ownerView, signUpsView,name, phone, email, ta
   }
   
   const editModal = displayModal ? (<EditEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents} 
-  events = {item} />) : null 
+    setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize} events = {item} />) : null 
 
   const signUpModal = displaySignUp ? (<SignUpModal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}
     name={name}
