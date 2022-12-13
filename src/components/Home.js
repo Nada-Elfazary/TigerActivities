@@ -257,7 +257,7 @@ const handleLogout = ()=>{
 }
 
 
-  const title = <h1><i>TigerActivities </i></h1>
+  const title = <h1><b>TigerActivities </b></h1>
  
   const activities = (
     <>
