@@ -8,6 +8,8 @@ import "./Modal.css";
 function CancelSignUpModal(props) {
     console.log("cancel props: ", props)
     const [saving, setSaving] = useState(true)
+  //  const [events, setEvents] = useState([])
+   // const [loading, setLoading] = useState(false)
   /*
   React.useEffect(() => {
     setName(props.name)
@@ -16,6 +18,22 @@ function CancelSignUpModal(props) {
   }, [])
 
   */
+  const currLogin = "Reuben"
+
+  const getSignUps =  ()=> {
+    props.setLoading(true)
+    axios.get('/user-sign-ups').then((res) =>{
+      console.log("in sign-up")
+      console.log(res.data)
+      props.setEvents([])
+      props.setEvents(res.data)
+      props.setLoading(false)
+    }).catch(err =>{
+      
+      console.log("Error receiving event from db:", err)
+    })
+}
+
   const submitForm= () =>
   {
     console.log("props.id", props.id)
@@ -24,8 +42,8 @@ function CancelSignUpModal(props) {
       }).then(res =>{
         console.log(res)
         setSaving(true)
-        getEvents(true, "")
-        props.setOpenModal(false)
+        getSignUps()
+        props.setOpenCancelModal(false)
       }).catch(err =>{
         console.log(err)
       

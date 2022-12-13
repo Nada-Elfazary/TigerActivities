@@ -164,7 +164,7 @@ def fetch_activities(title, day, category, cost, capMin, capMax):
         sys.exit(1)
 
 def fetch_user_sign_ups():
-    netid = "last" #hardcoded for now
+    netid = "neww" #hardcoded for now
 
     eventids = []
     activities = []
@@ -255,7 +255,7 @@ def store_activity(activity):
     
 # this is workinnggggggggggggggggg
 def store_sign_up(activity):
-    netid = 'last' #hardcoded for now
+    netid = 'neww' #hardcoded for now
     eventid = activity['event_id']
     name = activity['name']
     phone_num = activity['phone']

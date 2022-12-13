@@ -8,18 +8,19 @@ import "./Home.css";
 import axios from 'axios';
 import { propTypes } from 'react-bootstrap/esm/Image';
 
-const XDSCard = ({item, ownerView, signUpsView,name, netid, phone, email, tagColor}) => {
+const XDSCard = ({item, setEvents, ownerView, signUpsView,name, phone, email, tagColor}) => {
     const [isExpanded, setExpanded] = useState(false)
     const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded })
     const [displaySignUp, setDisplaySignUp] = useState(false)
     const [eventTitle, setEventTitle] = useState('')
-    const [events, setEvents] = useState([])
+   // const [events, setEvents] = useState([])
     const [displayModal, setDisplayModal] = useState(false)
     const [loading, setLoading] = useState(false)
     const [id, setEventId] = useState('')
     const [attendees, setAttendees] = useState([])
     const [displayCancel, setDisplayCancel] = useState(false)
     const backgroundColor = tagColor
+    
    // const [activityData, setActivityData] = useState(["","","","","","","",""])
   //  const [displayEditModal, setDisplayEditModal] = useState(false)
     const closedText = "(CLOSED)"
@@ -70,7 +71,7 @@ const XDSCard = ({item, ownerView, signUpsView,name, netid, phone, email, tagCol
     email={email}
     />): null
 
-   const cancelModal = displayCancel ? (<CancelSignUpModal setOpenCancelModal={setDisplayCancel} 
+   const cancelModal = displayCancel ? (<CancelSignUpModal setOpenCancelModal={setDisplayCancel} setLoading = {setLoading} setEvents ={setEvents} 
       event_id={id} title = {eventTitle} />) : null 
 
   const get_attendees = (event)=>{

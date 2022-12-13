@@ -59,7 +59,9 @@ function EditEventDialog(props) {
       console.log("length: ", filtered.length)
       if (filtered.length !== 0) {
         console.log("in if")
+        console.log("filtered get: ", filtered)
         props.setEvents(filtered)
+
       }
       else {
         console.log("No events created by owner")

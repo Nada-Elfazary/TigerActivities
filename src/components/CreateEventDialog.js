@@ -30,7 +30,7 @@ function CreateEventDialog(props) {
     // const five_days_in_future = curr_time.setDate(curr_time.getDate() + MAX_NO_DAYS) 
     // console.log("Max time in future",five_days_in_future)
     
-  const currLogin = "Reuben"
+  const currLogin = "neww"
   const getEvents =  (ownerView, name, day, category, cost, capMin, capMax)=> {
     props.setLoading(true)
 
