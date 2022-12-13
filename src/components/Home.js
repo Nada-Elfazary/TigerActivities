@@ -288,6 +288,10 @@ const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator
   )
 }): <h1 className = "center-screen">"No events created yet"</h1>
 const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
+  console.log("paginated events", paginatedEvents.length)
+  console.log(paginatedEvents)
+  console.log(paginatedEvents.filter((event)=>event.creator === username))
+
   return (
     <XDSCard key ={index} item={event} ownerView={true} signUpsView = {false} 
     tagColor = {categoryToColor[event.category]}/>
