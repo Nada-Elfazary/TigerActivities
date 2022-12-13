@@ -31,7 +31,7 @@ function CreateEventDialog(props) {
     // const five_days_in_future = curr_time.setDate(curr_time.getDate() + MAX_NO_DAYS) 
     // console.log("Max time in future",five_days_in_future)
     
-  const currLogin = "Reuben"
+  const currLogin = "neww"
   const navigate = useNavigate()
   const getEvents =  (ownerView, name, day, category, cost, capMin, capMax)=> {
     props.setLoading(true)
@@ -45,7 +45,7 @@ function CreateEventDialog(props) {
       let filtered = res.data.filter(event => event.creator === currLogin)
       console.log("length: ", filtered.length)
       if (filtered.length !== 0) {
-      props.setEvents(filtered)
+        props.setEvents(filtered)
       }
       else {
         console.log("No events created by owner")

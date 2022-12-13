@@ -3,21 +3,24 @@ import EditEventDialog from "./EditEventDialog";
 import {Button, Row, Col, Card, Table} from 'react-bootstrap';
 import useCollapse from 'react-collapsed';
 import SignUpModal from './SignUpModal';
+import CancelSignUpModal from './CancelSignUpModal';
 import "./Home.css";
 import axios from 'axios';
 import { useNavigate, useLocation } from "react-router-dom";
 
-const XDSCard = ({item, ownerView, signUpsView, setDisplayError, name, netid, phone, email, tagColor}) => {
+const XDSCard = ({item, setEvents, setPaginatedEvents, pageSize, ownerView, signUpsView,name, phone, email, tagColor}) => {
     const [isExpanded, setExpanded] = useState(false)
     const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded })
     const [displaySignUp, setDisplaySignUp] = useState(false)
     const [eventTitle, setEventTitle] = useState('')
-    const [events, setEvents] = useState([])
+   // const [events, setEvents] = useState([])
     const [displayModal, setDisplayModal] = useState(false)
     const [loading, setLoading] = useState(false)
     const [id, setEventId] = useState('')
     const [attendees, setAttendees] = useState([])
+    const [displayCancel, setDisplayCancel] = useState(false)
     const backgroundColor = tagColor
+    
    // const [activityData, setActivityData] = useState(["","","","","","","",""])
   //  const [displayEditModal, setDisplayEditModal] = useState(false)
     const closedText = "(CLOSED)"
@@ -44,17 +47,9 @@ const XDSCard = ({item, ownerView, signUpsView, setDisplayError, name, netid, ph
     console.log("canceling sign-up")
     console.log(item.id)
     console.log(item.event_name)
-
-     axios.post('/cancel-sign-up', {
-      event_id : item.id,
-    }).then(res =>{
-      console.log(res)
-    }).catch(err =>{
-      // setDisplayError([true, "Generic Error Message"])
-      navigate("/error")
-      console.log(err)
-    
-    })
+    setDisplayCancel(true)
+    setEventTitle(item.event_name)
+    setEventId(item.id)
   }
 
   const handleEdit = ()=>{
@@ -66,13 +61,16 @@ const XDSCard = ({item, ownerView, signUpsView, setDisplayError, name, netid, ph
   }
   
   const editModal = displayModal ? (<EditEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents} 
-  events = {item} />) : null 
+    setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize} events = {item} />) : null 
 
   const signUpModal = displaySignUp ? (<SignUpModal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}
     name={name}
     phone={phone}
     email={email}
     />): null
+
+   const cancelModal = displayCancel ? (<CancelSignUpModal setOpenCancelModal={setDisplayCancel} setLoading = {setLoading} setEvents ={setEvents} 
+      event_id={id} title = {eventTitle} />) : null 
 
   const get_attendees = (event)=>{
     console.log("inside get attendees")
@@ -188,6 +186,7 @@ const XDSCard = ({item, ownerView, signUpsView, setDisplayError, name, netid, ph
     </Card>
     {signUpModal}
     {editModal}
+    {cancelModal}
     </>
   )
 }

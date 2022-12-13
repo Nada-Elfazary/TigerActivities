@@ -6,6 +6,8 @@ import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_orange.css";
 import axios from 'axios';
 import "./CreateEventDialog.css"
+import "./Home.css";
+import _ from "lodash"
 import { useNavigate } from "react-router-dom";
 
 
@@ -42,12 +44,13 @@ function EditEventDialog(props) {
     // const five_days_in_future = curr_time.setDate(curr_time.getDate() + MAX_NO_DAYS) 
     // console.log("Max time in future",five_days_in_future)
     
-    const currLogin = "Nada"
+    const currLogin = "Reuben"
     const navigate = useNavigate()
 
     console.log("props: ", props)
     //console.log("start date: ", props.events.start_date.split("/")[0], props.events.start_date.split("/")[1], props.events.start_date.split("/")[2],  props.events.start_time.split(":")[0], props.events.start_time.split(":")[1])
 
+  
     const getEvents =  (ownerView, name, day, category, cost, capMin, capMax)=> {
       props.setLoading(true)
   
@@ -60,13 +63,17 @@ function EditEventDialog(props) {
       let filtered = res.data.filter(event => event.creator === currLogin)
       console.log("length: ", filtered.length)
       if (filtered.length !== 0) {
-      props.setEvents(filtered)
+        console.log("in if")
+        console.log("filtered get: ", filtered)
+        props.setEvents(filtered)
+        props.setPaginatedEvents(_(filtered).slice(0).take(props.pageSize).value())
       }
       else {
         console.log("No events created by owner")
       }
     } else {
       props.setEvents(res.data)
+      props.setPaginatedEvents(_(res.data).slice(0).take(props.pageSize).value())
     }
     props.setLoading(false)
 
@@ -96,7 +103,7 @@ function EditEventDialog(props) {
 
           })
           .then((response) =>{
-            console.log(response);
+            console.log("response after axios", response);
             setSaving(true)
             getEvents(true, "")
             props.setOpenModal(false)

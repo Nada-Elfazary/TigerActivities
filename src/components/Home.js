@@ -88,6 +88,7 @@ const mySignUpsClicked= () => {
   setLoading(true)
   axios.get('/user-sign-ups').then((res) =>{
     console.log("in sign-up")
+    console.log(res.data)
     setEvents(res.data)
     setLoading(false)
   }).catch(err =>{
@@ -227,13 +228,13 @@ const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator
 }): <h1 className = "center-screen">"No events created yet"</h1>
 const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
   return (
-    <XDSCard key ={index} item={event} ownerView={true} signUpsView = {false}
+    <XDSCard key ={index} item={event} setEvents = {setEvents} setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize} ownerView={true} signUpsView = {false} 
     tagColor = {categoryToColor[event.category]}/>
   )
 }): <h1 className = "center-screen">"No events created yet"</h1>
 const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
   return (
-    <XDSCard key ={index} item={event} ownerView={false} signUpsView = {true}
+    <XDSCard key ={index} item={event} setEvents = {setEvents} ownerView={false} signUpsView = {true}
     tagColor = {categoryToColor[event.category]}/>
   )
 }): <h1 className = "center-screen">No current sign-ups</h1>
