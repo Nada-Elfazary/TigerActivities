@@ -223,7 +223,8 @@ const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator
     name={profileData[0]}
     phone={profileData[1]}
     email={profileData[2]}
-    tagColor = {categoryToColor[event.category]}/>
+    tagColor = {categoryToColor[event.category]}
+    username={currNetid}/>
   )
 }): <h1 className = "center-screen">"No events created yet"</h1>
 const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{

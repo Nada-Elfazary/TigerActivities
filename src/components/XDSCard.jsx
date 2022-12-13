@@ -8,7 +8,7 @@ import "./Home.css";
 import axios from 'axios';
 import { useNavigate, useLocation } from "react-router-dom";
 
-const XDSCard = ({item, setEvents, setPaginatedEvents, pageSize, ownerView, signUpsView,name, phone, email, tagColor}) => {
+const XDSCard = ({item, setEvents, setPaginatedEvents, pageSize, ownerView, signUpsView,name, phone, email, tagColor, username}) => {
     const [isExpanded, setExpanded] = useState(false)
     const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded })
     const [displaySignUp, setDisplaySignUp] = useState(false)
@@ -19,7 +19,9 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, pageSize, ownerView, sign
     const [id, setEventId] = useState('')
     const [attendees, setAttendees] = useState([])
     const [displayCancel, setDisplayCancel] = useState(false)
+    const [isCurrUserSignedUp, setIsCurrUserSignedUp] = useState(false)
     const backgroundColor = tagColor
+
     
    // const [activityData, setActivityData] = useState(["","","","","","","",""])
   //  const [displayEditModal, setDisplayEditModal] = useState(false)
@@ -32,24 +34,24 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, pageSize, ownerView, sign
     const numToMonth = {1: "Jan.", 2: "Feb.", 3: "Mar.", 4: "Apr.", 5: "May",  
     6: "June", 7: "July", 8: "Aug.", 9: "Sept.", 10: "Oct.", 11: "Nov.", 12: "Dec."}
 
-   
-    
     
   const handleSignUp = ()=>{
     setDisplaySignUp(true)
     setEventTitle(item.event_name)
     setEventId(item.id)
+    get_attendees(item.id)
   
   }
 
   
-  const handleCancellation = ()=>{
+  const handleCancellation = () => {
     console.log("canceling sign-up")
     console.log(item.id)
     console.log(item.event_name)
     setDisplayCancel(true)
     setEventTitle(item.event_name)
     setEventId(item.id)
+    setIsCurrUserSignedUp(false) 
   }
 
   const handleEdit = ()=>{
@@ -77,7 +79,14 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, pageSize, ownerView, sign
     axios.get('/attendees', {params: {
       event_id : event.id,
     }}).then(res =>{ 
-            setAttendees(res.data)     
+            setAttendees(res.data)
+            console.log("Iterating thorugh attendees:", res.data)
+            for (const attendee of res.data) {
+              console.log("Attendee:", attendee)
+              if (attendee["netid"] === username){
+                setIsCurrUserSignedUp(true)
+              }
+            }     
     }).catch(err =>{
       // setDisplayError([true, "Generic error message."])
       navigate("/error")
@@ -85,6 +94,7 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, pageSize, ownerView, sign
     
     })
   }
+  get_attendees(id)
   const closed = item.signup_number === item.maxcap ? (<p>{closedText}</p>) : null
 
   return (
@@ -117,9 +127,15 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, pageSize, ownerView, sign
 
           <Col>
           {(!ownerView && !signUpsView) ? (<p {...getCollapseProps()}>
-                        <Button  
-                        variant="warning"
-                        onClick={handleSignUp} disabled={item.signup_number === item.maxcap}>Sign Up</Button>            
+                        {isCurrUserSignedUp?
+                        <Button variant="success" disabled>Signed Up</Button>
+                        :
+                         <Button  
+                         variant="warning"
+                         onClick={handleSignUp} disabled={item.signup_number === item.maxcap}>Sign Up</Button> 
+                        
+                        }
+                                  
                            </p>) : null }  
          
             </Col>
