@@ -30,7 +30,7 @@ export default function  Home() : React.ReactNode {
   const [currentPage, setCurrentPage] = useState(1)
   const pageSize = 1;
  
-  let currLogin = "Reuben"
+  let currLogin = "diff"
   let currNetid = "ragogoe"
 
   const categoryToColor = {'Sports': "cyan", 'Entertainment': "purple", 'Academic': "darkorange", 'Off-campus': "olive", 'Outdoors': "navy",  
@@ -77,6 +77,7 @@ const mySignUpsClicked= () => {
   setLoading(true)
   axios.get('/user-sign-ups').then((res) =>{
     console.log("in sign-up")
+    console.log(res.data)
     setEvents(res.data)
     setLoading(false)
   }).catch(err =>{

@@ -43,7 +43,7 @@ function CreateEventDialog(props) {
       let filtered = res.data.filter(event => event.creator === currLogin)
       console.log("length: ", filtered.length)
       if (filtered.length !== 0) {
-      props.setEvents(filtered)
+        props.setEvents(filtered)
       }
       else {
         console.log("No events created by owner")

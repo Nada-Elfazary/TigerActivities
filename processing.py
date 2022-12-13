@@ -164,7 +164,7 @@ def fetch_activities(title, day, category, cost, capMin, capMax):
         sys.exit(1)
 
 def fetch_user_sign_ups():
-    netid = "diff" #hardcoded for now
+    netid = "last" #hardcoded for now
 
     eventids = []
     activities = []
@@ -291,7 +291,7 @@ def store_sign_up(activity):
 
 def delete_signup(event_id):
     eventid = event_id
-    netid = "fifth"
+    netid = "last"
     try:
         database_url = DATABASE_URL
         with psycopg2.connect(database_url) as connection:

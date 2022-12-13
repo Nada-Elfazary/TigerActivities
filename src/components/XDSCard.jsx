@@ -3,6 +3,7 @@ import EditEventDialog from "./EditEventDialog";
 import {Button, Row, Col, Card, Table} from 'react-bootstrap';
 import useCollapse from 'react-collapsed';
 import SignUpModal from './SignUpModal';
+import CancelSignUpModal from './CancelSignUpModal';
 import "./Home.css";
 import axios from 'axios';
 import { propTypes } from 'react-bootstrap/esm/Image';
@@ -17,6 +18,7 @@ const XDSCard = ({item, ownerView, signUpsView,name, netid, phone, email, tagCol
     const [loading, setLoading] = useState(false)
     const [id, setEventId] = useState('')
     const [attendees, setAttendees] = useState([])
+    const [displayCancel, setDisplayCancel] = useState(false)
     const backgroundColor = tagColor
    // const [activityData, setActivityData] = useState(["","","","","","","",""])
   //  const [displayEditModal, setDisplayEditModal] = useState(false)
@@ -46,15 +48,9 @@ const XDSCard = ({item, ownerView, signUpsView,name, netid, phone, email, tagCol
     console.log("canceling sign-up")
     console.log(item.id)
     console.log(item.event_name)
-
-     axios.post('/cancel-sign-up', {
-      event_id : item.id,
-    }).then(res =>{
-      console.log(res)
-    }).catch(err =>{
-      console.log(err)
-    
-    })
+    setDisplayCancel(true)
+    setEventTitle(item.event_name)
+    setEventId(item.id)
   }
 
   const handleEdit = ()=>{
@@ -73,6 +69,9 @@ const XDSCard = ({item, ownerView, signUpsView,name, netid, phone, email, tagCol
     phone={phone}
     email={email}
     />): null
+
+   const cancelModal = displayCancel ? (<CancelSignUpModal setOpenCancelModal={setDisplayCancel} 
+      event_id={id} title = {eventTitle} />) : null 
 
   const get_attendees = (event)=>{
     console.log("inside get attendees")
@@ -186,6 +185,7 @@ const XDSCard = ({item, ownerView, signUpsView,name, netid, phone, email, tagCol
     </Card>
     {signUpModal}
     {editModal}
+    {cancelModal}
     </>
   )
 }
