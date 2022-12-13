@@ -40,8 +40,8 @@ export default function  Home() : React.ReactNode {
   let currNetid = "ragogoe"
   const navigate = useNavigate()
 
-  const categoryToColor = {'Sports': "cyan", 'Entertainment': "purple", 'Academic': "darkorange", 'Off-campus': "olive", 'Outdoors': "navy",  
-  'Meals/Coffee Chats': "maroon", 'Nassau Street': "green"} 
+  const categoryToColor = {'Sports': "cyan", 'Entertainment': "slateblue", 'Academic': "orange", 'Off-campus': "olive", 'Outdoors': "navy",  
+  'Meals/Coffee Chats': "maroon", 'Nassau Street': "green", 'Social': "tomato"} 
 
   useEffect(()=>{
     cas()
@@ -208,11 +208,13 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
       }
       else {
         console.log("No events created by owner")
+        setPaginatedEvents([])
       }
     } else {
-      console.log("Setting events to:", res.data)
-      setEvents(res.data)
-      setPaginatedEvents(_(res.data).slice(0).take(pageSize).value())
+      let filtered = res.data.filter(event => event.creator !== username)
+      console.log("Setting events to:", filtered)
+      setEvents(filtered)
+      setPaginatedEvents(_(filtered).slice(0).take(pageSize).value())
     }
     setLoading(false)
   }).catch(err =>{

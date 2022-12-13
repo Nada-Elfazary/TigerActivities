@@ -182,6 +182,7 @@ function EditEventDialog(props) {
                       <option>Outdoors</option>
                       <option>Meals/Coffee Chats</option>
                       <option>Nassau Street</option>
+                      <option>Social</option>
                     </Form.Select>
                 </Col>
             </Row>

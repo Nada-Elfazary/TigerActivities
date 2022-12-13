@@ -115,6 +115,7 @@ export default function Filter(props) : React.ReactNode {
             <Dropdown.Item>Outdoors</Dropdown.Item>
             <Dropdown.Item>Meals/Coffee Chats</Dropdown.Item>
             <Dropdown.Item>Nassau Street</Dropdown.Item>
+            <Dropdown.Item>Social</Dropdown.Item>
         </DropdownButton>
         {categoryFilterButton}
                     </Form.Group>
