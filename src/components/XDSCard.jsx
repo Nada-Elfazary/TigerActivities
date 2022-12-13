@@ -5,9 +5,9 @@ import useCollapse from 'react-collapsed';
 import SignUpModal from './SignUpModal';
 import "./Home.css";
 import axios from 'axios';
-import { propTypes } from 'react-bootstrap/esm/Image';
+import { useNavigate, useLocation } from "react-router-dom";
 
-const XDSCard = ({item, ownerView, signUpsView,name, netid, phone, email, tagColor}) => {
+const XDSCard = ({item, ownerView, signUpsView, setDisplayError, name, netid, phone, email, tagColor}) => {
     const [isExpanded, setExpanded] = useState(false)
     const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded })
     const [displaySignUp, setDisplaySignUp] = useState(false)
@@ -21,10 +21,8 @@ const XDSCard = ({item, ownerView, signUpsView,name, netid, phone, email, tagCol
    // const [activityData, setActivityData] = useState(["","","","","","","",""])
   //  const [displayEditModal, setDisplayEditModal] = useState(false)
     const closedText = "(CLOSED)"
-
-    // console.log(item.event_name, 'color: ', tagColor)
-
-
+    const navigate=useNavigate()
+    
     const numToDay = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 
     3: "Thursday", 4: "Friday", 5: "Saturday", 6: "Sunday"}
 
@@ -52,6 +50,8 @@ const XDSCard = ({item, ownerView, signUpsView,name, netid, phone, email, tagCol
     }).then(res =>{
       console.log(res)
     }).catch(err =>{
+      // setDisplayError([true, "Generic Error Message"])
+      navigate("/error")
       console.log(err)
     
     })
@@ -81,6 +81,8 @@ const XDSCard = ({item, ownerView, signUpsView,name, netid, phone, email, tagCol
     }}).then(res =>{ 
             setAttendees(res.data)     
     }).catch(err =>{
+      // setDisplayError([true, "Generic error message."])
+      navigate("/error")
       console.log(err)
     
     })

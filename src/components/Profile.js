@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import {Button, Modal, Form, Row, Col, Container, Card} from 'react-bootstrap';
 import CreateEventModalDraggable from "./CreateEventModalDraggable";
+import { useNavigate } from "react-router-dom";
 
 // import "./Modal.css";
 import SignUpModal from "./SignUpModal";
@@ -23,9 +24,10 @@ export default function Profile(props) {
     
     const failureCallBack = (error)=>{
         setErrorMsg(error)
-         setShowErrorMsg(true)
+        setShowErrorMsg(true)
          console.log("error")
     }
+    const navigate = useNavigate()
 
     // React.useEffect(() => {
     //   setDbName(props.name)
@@ -71,6 +73,7 @@ export default function Profile(props) {
             console.log("Props:", props)
             }, (error) => {
             console.log(error)
+            navigate("/error")
             })
         }
 

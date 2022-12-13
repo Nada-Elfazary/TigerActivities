@@ -1,0 +1,16 @@
+.error {
+    background-color: rgb(252, 222, 169);
+    width:stretch;
+    height: 200px;
+    justify-content: center;
+     
+} 
+
+.errMsgContainer {
+    align-self: center; 
+}
+
+.card-link-css{
+    color:black;
+    font-size: 17px;
+}

@@ -6,6 +6,7 @@ import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_orange.css";
 import axios from 'axios';
 import "./CreateEventDialog.css"
+import { useNavigate } from "react-router-dom";
 
 
 function EditEventDialog(props) {
@@ -42,6 +43,7 @@ function EditEventDialog(props) {
     // console.log("Max time in future",five_days_in_future)
     
     const currLogin = "Nada"
+    const navigate = useNavigate()
 
     console.log("props: ", props)
     //console.log("start date: ", props.events.start_date.split("/")[0], props.events.start_date.split("/")[1], props.events.start_date.split("/")[2],  props.events.start_time.split(":")[0], props.events.start_time.split(":")[1])
@@ -70,6 +72,7 @@ function EditEventDialog(props) {
 
   }).catch(err =>{
     console.log("Error receiving event from db:", err)
+    navigate("/error")
   })
 }
    
@@ -101,6 +104,7 @@ function EditEventDialog(props) {
             console.log(error)
             setErrorMsg(error)
             setSaving(false)
+            navigate("/error")
             // setShowErrorMsg(true)
           })
     }

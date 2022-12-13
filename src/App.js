@@ -4,8 +4,8 @@ import Welcome from './components/welcome'
 import Home from "./components/Home"
 import CreateEventModalDraggable from './components/CreateEventModalDraggable';
 import SignUpModal from './components/SignUpModal';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import HomeTo from './components/HomeTo';
+import Error from "./components/Error"
 function App(): React.ReactNode {
 
   return (
@@ -15,7 +15,7 @@ function App(): React.ReactNode {
       <Route path ="/" element={<Welcome/>}/>
       <Route path="/home" element={<Home/>}/>
       <Route path='/homeTo' element={<HomeTo/>}/>
-      {/* <Route path="/profile" element={<SignUpModal />} /> */}
+      <Route path="/error" element={<Error/>}/>
     </Routes>
    </div>
   );

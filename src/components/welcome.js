@@ -14,7 +14,7 @@ export default function Welcome(): React.ReactNode{
     const [checked, setChecked] = useState(false)
     const [logInClicked, setLogInClicked] = useState(false)
     const [redirect, setRedirect] = useState(false)
-  const navigate = useNavigate()
+    const navigate = useNavigate()
 
     const handleOnClickedDisplayEvents =()=>{
         setClickedDisplayEvents(true)
