@@ -111,8 +111,10 @@ def fetch_activities(title, day, category, cost, capMin, capMax):
                     cursor.execute(statementOne, [currDate, currTime, title.lower(), category, capMin, capMax])  
                 row = cursor.fetchone()
                 while row is not None:
-                    weekday = row[10].weekday()
-                    if day != "" and weekday != int(day):
+                    startWeekday = row[10].weekday()
+                    endWeekday = row[11].weekday()
+
+                    if day != "" and startWeekday != int(day):
                         row = cursor.fetchone()
                         continue
                     newStartTime = row[2].strftime("%H:%M")
@@ -121,7 +123,7 @@ def fetch_activities(title, day, category, cost, capMin, capMax):
                     newEndDate = row[11].strftime("%Y/%m/%d")
                   
                     copy_row = (row[0], row[1], newStartTime, newEndTime, row[4],
-                    row[5], row[6], row[7], row[8], row[9], newStartDate, weekday, newEndDate, row[12])
+                    row[5], row[6], row[7], row[8], row[9], newStartDate, startWeekday, endWeekday, newEndDate, row[12])
                     activities.append(copy_row)
                     row = cursor.fetchone()
 
@@ -138,8 +140,9 @@ def fetch_activities(title, day, category, cost, capMin, capMax):
                     cursor.execute(statementTwo, [currDate, dateLimit, title.lower(), category, capMin, capMax]) 
                 row = cursor.fetchone()
                 while row is not None:
-                    weekday = row[10].weekday()
-                    if day != "" and weekday != int(day):
+                    startWeekday = row[10].weekday()
+                    endWeekday = row[11].weekday()
+                    if day != "" and startWeekday != int(day):
                         row = cursor.fetchone()
                         continue
                     newStartTime = row[2].strftime("%H:%M")
@@ -147,7 +150,7 @@ def fetch_activities(title, day, category, cost, capMin, capMax):
                     newStartDate = row[10].strftime("%Y/%m/%d")
                     newEndDate = row[11].strftime("%Y/%m/%d")
                     copy_row = (row[0], row[1], newStartTime, newEndTime, row[4],
-                    row[5], row[6], row[7], row[8], row[9], newStartDate, weekday, newEndDate, row[12])
+                    row[5], row[6], row[7], row[8], row[9], newStartDate, startWeekday, endWeekday, newEndDate, row[12])
                     activities.append(copy_row)
                     row = cursor.fetchone()
         return activities              

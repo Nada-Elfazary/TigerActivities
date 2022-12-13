@@ -286,7 +286,7 @@ const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator
     email={profileData[2]}
     tagColor = {categoryToColor[event.category]}/>
   )
-}): <h1 className = "center-screen">"No events created yet"</h1>
+}): <h1 className = "center-screen">No events created yet</h1>
 const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
   console.log("paginated events", paginatedEvents.length)
   console.log(paginatedEvents)
@@ -296,7 +296,7 @@ const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((e
     <XDSCard key ={index} item={event} ownerView={true} signUpsView = {false} 
     tagColor = {categoryToColor[event.category]}/>
   )
-}): <h1 className = "center-screen">"No events created yet"</h1>
+}): <h1 className = "center-screen">No events created yet</h1>
 const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
   return (
     <XDSCard key ={index} item={event} setEvents = {setEvents} ownerView={false} signUpsView = {true}
