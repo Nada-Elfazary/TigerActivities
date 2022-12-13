@@ -32,7 +32,7 @@ export default function  Home() : React.ReactNode {
   const [profileData, setProfileData] = useState(["","","",""])
   const [paginatedEvents, setPaginatedEvents] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
-  const pageSize = 1;
+  const pageSize = 9;
  //let profileData = ['', '', '', '']
 
   let user = ""
