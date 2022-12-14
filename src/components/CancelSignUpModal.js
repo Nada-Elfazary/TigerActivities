@@ -19,7 +19,6 @@ function CancelSignUpModal(props) {
   }, [])
 
   */
-  const currLogin = "Reuben"
   const navigate = useNavigate()
 
   const getSignUps =  ()=> {
@@ -39,9 +38,10 @@ function CancelSignUpModal(props) {
 
   const submitForm= () =>
   {
-    console.log("props.id", props.id)
+    console.log("props.id", props.event_id)
     axios.post('/cancel-sign-up', {
         event_id : props.event_id,
+        username : props.username,
       }).then(res =>{
         console.log(res)
         setSaving(true)

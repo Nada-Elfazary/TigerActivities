@@ -31,7 +31,6 @@ export default function  Home() : React.ReactNode {
   const pageSize = 1;
  
   let currLogin = "elfazary\n"
-  let currNetid = "ragogoe"
 
   const categoryToColor = {'Sports': "cyan", 'Entertainment': "purple", 'Academic': "darkorange", 'Off-campus': "olive", 'Outdoors': "navy",  
   'Meals/Coffee Chats': "maroon", 'Nassau Street': "green"} 
@@ -75,7 +74,7 @@ const mySignUpsClicked= () => {
   setCurrentPage(1)
   console.log("Requesting user signups")
   setLoading(true)
-  axios.get('/user-sign-ups').then((res) =>{
+  axios.get('/user-sign-ups', {params: {username: currLogin}}).then((res) =>{
     console.log("in sign-up")
     console.log(res.data)
     setEvents(res.data)
@@ -122,7 +121,7 @@ const profileClicked= () =>{
   setClickedActivities(false)
   setClickedMySignUps(false)
   setClickedProfile(true)
-  getProfileData(currNetid)
+  getProfileData(currLogin)
   console.log("Inside clickedProfile set Clicked Profile to true.")
 }
 
@@ -204,23 +203,24 @@ const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator
   return (
 
     <XDSCard key ={index} item ={event} ownerView={false} signUpsView = {false} setLoading = {setLoading}
+    username={currLogin}
     name={profileData[0]}
     phone={profileData[1]}
     email={profileData[2]}
     tagColor = {categoryToColor[event.category]}
-    username={currNetid}/>
+    username={currLogin}/>
   )
 }): <h1 className = "center-screen">"No events created yet"</h1>
 const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
   return (
     <XDSCard key ={index} item={event} setEvents = {setEvents} setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize} ownerView={true} signUpsView = {false} 
-    tagColor = {categoryToColor[event.category]} setLoading = {setLoading}/>
+    tagColor = {categoryToColor[event.category]} setLoading = {setLoading} username={currLogin}/>
   )
 }): <h1 className = "center-screen">"No events created yet"</h1>
 const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
   return (
     <XDSCard key ={index} item={event} setEvents = {setEvents} ownerView={false} signUpsView = {true}
-    tagColor = {categoryToColor[event.category]} setLoading = {setLoading}/>
+    tagColor = {categoryToColor[event.category]} setLoading = {setLoading} username={currLogin}/>
   )
 }): <h1 className = "center-screen">No current sign-ups</h1>
 
@@ -277,7 +277,7 @@ const showResults = clickedActivities? (
 
   const showProfile = clickedProfile ? <Profile 
     // name={profileData[0]}
-    netid={currNetid}
+    netid={currLogin}
     // phone={profileData[1]}
     // email={profileData[2]}
     // classYear={profileData[3]}

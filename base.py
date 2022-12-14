@@ -76,8 +76,8 @@ def index():
 
 @app.route("/user-sign-ups", methods = ['GET'])
 def sign_ups():
-  #username = auth.authenticate()
-  events = proc.fetch_user_sign_ups()
+  username = flask.request.args.get("username")
+  events = proc.fetch_user_sign_ups(username)
   results = []
   for event in events:
         response_body={
@@ -164,8 +164,7 @@ def createEvent():
 def signUp():
    # username = auth.authenticate()
     res = flask.request.json
-    print("json")
-    print(res)
+    print("Request params in /sign-up:", res)
     response = proc.store_sign_up(res)
     return response
 
@@ -174,11 +173,11 @@ def signUp():
 def cancelSignUp():
    # username = auth.authenticate()
     res = flask.request.json
-    print("json")
-    print(res)
+    print("Inside cancel-sign-up:", res)
     id = res["event_id"]
-    print(id)
-    proc.delete_signup(id)
+    username=res["username"]
+    print("Inside cancel-sign-up. username: {}, event_id: {}".format(username,id))
+    proc.delete_signup(id, username)
     return res
 
 @app.route('/update-profile', methods = ['POST'])
