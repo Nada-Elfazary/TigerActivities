@@ -8,6 +8,7 @@ import axios from 'axios';
 import "./CreateEventDialog.css"
 import _ from "lodash"
 
+
 function CreateEventDialog(props) {
     const MAX_NO_DAYS = 5
     // const DEFAULT_CREATOR = "Reuben"
