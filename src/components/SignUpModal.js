@@ -121,7 +121,7 @@ function SignUpModal(props) {
        <Button id="cancelBtn" variant="secondary" onClick={() => {
               props.setOpenSignUpModal(false);
             }}>Cancel</Button>
-        <Button variant="primary" disabled={showErrorMsg} onClick={()=>{
+        <Button variant="primary" disabled={!showErrorMsg} onClick={()=>{
              let error = 0;
              let errorMsg = []
  

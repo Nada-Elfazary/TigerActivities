@@ -38,7 +38,7 @@ export default function  Home() : React.ReactNode {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const categoryToColor = {'Sports': "cyan", 'Entertainment': "slateblue", 'Academic': "orange", 'Off-campus': "olive", 'Outdoors': "navy",  
+  const categoryToColor = {'Sports': "DeepSkyBlue", 'Entertainment': "slateblue", 'Academic': "orange", 'Off-campus': "olive", 'Outdoors': "navy",  
   'Meals/Coffee Chats': "maroon", 'Nassau Street': "green", 'Social': "tomato"} 
 
   useEffect(()=>{
@@ -261,13 +261,13 @@ const handleLogout = ()=>{
       email={profileData[2]}
       tagColor = {categoryToColor[event.category]}/>
     )
-  }): <h1 className = "center-screen">"No events created yet"</h1>
+  }): <h1 className = "center-screen">No events created yet</h1>
   const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
     return (
       <XDSCard key ={index} item={event} setEvents = {setEvents} setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize} ownerView={true} signUpsView = {false} 
       tagColor = {categoryToColor[event.category]} setLoading = {setLoading} username={username}/>
     )
-  }): <h1 className = "center-screen">"No events created yet"</h1>
+  }): <h1 className = "center-screen">No events created yet</h1>
   const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
     return (
       <XDSCard key ={index} item={event} setEvents = {setEvents} ownerView={false} signUpsView = {true}

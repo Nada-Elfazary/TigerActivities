@@ -88,7 +88,7 @@ function EditEventDialog(props) {
             start_time:    startTime.toString(),
             end_time:      endTime.toString(),
             maxcap:        maxAttendeeCount,
-            creator:       DEFAULT_CREATOR,
+          //  creator:       DEFAULT_CREATOR,
             category:      eventCategory,
             location:      eventLocation,
             description:   description,
