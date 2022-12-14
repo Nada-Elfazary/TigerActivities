@@ -30,7 +30,7 @@ function SignUpModal(props) {
       name: name,
       phone: phone,
       email: email,
-      user_id:"rand_usr",
+      user_id:props.username,
       event_id:props.event_id,
     })
     .then((response) => {
