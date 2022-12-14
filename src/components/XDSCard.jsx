@@ -19,7 +19,7 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
     const [id, setEventId] = useState('')
     const [attendees, setAttendees] = useState([])
     const [displayCancel, setDisplayCancel] = useState(false)
-    const [isCurrUserSignedUp, setIsCurrUserSignedUp] = useState(false)
+    // const [isCurrUserSignedUp, setIsCurrUserSignedUp] = useState(false)
     const backgroundColor = tagColor
 
     
@@ -53,7 +53,7 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
     setDisplayCancel(true)
     setEventTitle(item.event_name)
     setEventId(item.id)
-    setIsCurrUserSignedUp(false) 
+    // setIsCurrUserSignedUp(false) 
   }
 
   const handleEdit = ()=>{
@@ -82,19 +82,18 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
       event_id : event.id,
     }}).then(res =>{ 
             setAttendees(res.data)
-            console.log("Iterating thorugh attendees:", res.data)
-            for (const attendee of res.data) {
-              console.log("Attendee:", attendee)
-              if (attendee["netid"] === username){
-                setIsCurrUserSignedUp(true)
-              }
-            }     
+            // console.log("Iterating thorugh attendees:", res.data)
+            // for (const attendee of res.data) {
+            //   console.log("Attendee:", attendee)
+            //   if (attendee["netid"] === username){
+            //     setIsCurrUserSignedUp(true)
+            //   }
+            // }     
     }).catch(err =>{
       console.log(err)
     
     })
   }
-  get_attendees(id)
   const closed = item.signup_number === item.maxcap ? (<p>{closedText}</p>) : null
 
   return (
@@ -127,7 +126,7 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
 
           <Col>
           {(!ownerView && !signUpsView) ? (<p {...getCollapseProps()}>
-                        {isCurrUserSignedUp?
+                        {/* {isCurrUserSignedUp?
                         <Button variant="success" disabled>Signed Up</Button>
                         :
                          <Button  
@@ -136,7 +135,11 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
                         
                         }
                                   
-                           </p>) : null }  
+                           </p>) : null }   */}
+                           <Button  
+                         variant="warning"
+                         onClick={handleSignUp} disabled={item.signup_number === item.maxcap}>Sign Up</Button> 
+                         </p>):null}
          
             </Col>
           </Row>
