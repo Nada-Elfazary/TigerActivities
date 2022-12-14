@@ -87,9 +87,11 @@ const mySignUpsClicked= () => {
 }
 
 const activitiesClicked= () => {
+  
   if(clickedActivities) {
     setEvents([])
   }
+  
   setInitialState(false)
   setClickedActivities(true)
   setClickedMyActivities(false)
@@ -149,8 +151,9 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
       }
     } else {
       console.log("Setting events to:", res.data)
-      setEvents(res.data)
-      setPaginatedEvents(_(res.data).slice(0).take(pageSize).value())
+      let explore = res.data.filter(event => event.creator !== currLogin)
+      setEvents(explore)
+      setPaginatedEvents(_(explore).slice(0).take(pageSize).value())
     }
     setLoading(false)
   }).catch(err =>{
@@ -200,7 +203,7 @@ const getProfileData = (netid) => {
   />) : null 
 
 
-const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator !== currLogin).map((event, index)=>{
+const displayEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
   return (
 
     <XDSCard key ={index} item ={event} ownerView={false} signUpsView = {false} setLoading = {setLoading}
@@ -210,19 +213,22 @@ const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator
     tagColor = {categoryToColor[event.category]}
     username={currNetid}/>
   )
-}): <h1 className = "center-screen">"No events created yet"</h1>
+}): null 
+// <h1 className = "center-screen">"No events created yet"</h1>
 const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
   return (
     <XDSCard key ={index} item={event} setEvents = {setEvents} setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize} ownerView={true} signUpsView = {false} 
     tagColor = {categoryToColor[event.category]} setLoading = {setLoading}/>
   )
-}): <h1 className = "center-screen">"No events created yet"</h1>
+}): null 
+// <h1 className = "center-screen">"No events created yet"</h1>
 const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
   return (
     <XDSCard key ={index} item={event} setEvents = {setEvents} ownerView={false} signUpsView = {true}
     tagColor = {categoryToColor[event.category]} setLoading = {setLoading}/>
   )
-}): <h1 className = "center-screen">No current sign-ups</h1>
+}): null
+//<h1 className = "center-screen">No current sign-ups</h1>
 
 const topNav = 
  <Navbar className="Navbar">
@@ -289,7 +295,7 @@ const showResults = clickedActivities? (
     <Dropdown filter = {filter} items = {items}></Dropdown>
   )
 
-  const showLoading = <ClipLoader loading={loading} size={200}/>
+  const showLoading = loading ? <ClipLoader loading={loading} size={200}/> : null
  
   return (
     <div className="page">
@@ -300,7 +306,7 @@ const showResults = clickedActivities? (
       <div className="content"> 
         {showResults}
         {showProfile}
-        {!loading ? results : showLoading}
+        {results}
         {!loading ? showOwnerActivities : showLoading}
             {showSignUps}
             {modal}
