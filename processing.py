@@ -153,6 +153,9 @@ def fetch_activities(title, day, category, cost, capMin, capMax):
                     row[5], row[6], row[7], row[8], row[9], newStartDate, startWeekday, endWeekday, newEndDate, row[12])
                     activities.append(copy_row)
                     row = cursor.fetchone()
+                if len(activities) == 0:
+                    copy_row = ("", "No Activities Created Yet", "", "", "", "", "", "", "", "", "", "", "", "")
+                    activities.append(copy_row)
         return activities              
 
     except Exception as ex:
@@ -195,6 +198,9 @@ def fetch_user_sign_ups(username):
                    # print(copy_row)
                     activities.append(copy_row)
                     row = cursor.fetchone()
+                if len(activities) == 0:
+                    copy_row = ("", "No Sign Ups Yet", "", "", "", "", "", "", "", "", "", "", "", "")
+                    activities.append(copy_row)
         return activities
     except Exception as ex:
         print(ex, file=sys.stderr)

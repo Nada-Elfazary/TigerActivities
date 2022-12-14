@@ -211,10 +211,10 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
         setPaginatedEvents([])
       }
     } else {
-      let filtered = res.data.filter(event => event.creator !== username)
-      console.log("Setting events to:", filtered)
-      setEvents(filtered)
-      setPaginatedEvents(_(filtered).slice(0).take(pageSize).value())
+      let explored = res.data.filter(event => event.creator !== username)
+      console.log("Setting events to:", explored)
+      setEvents(explored)
+      setPaginatedEvents(_(explored).slice(0).take(pageSize).value())
     }
     setLoading(false)
   }).catch(err =>{
@@ -279,7 +279,7 @@ const handleLogout = ()=>{
   username={username} />) : null 
 
 
-const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator !== username).map((event, index)=>{
+const displayEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
   return (
 
     <XDSCard key ={index} item ={event} ownerView={false} signUpsView = {false} 
@@ -288,7 +288,8 @@ const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator
     email={profileData[2]}
     tagColor = {categoryToColor[event.category]}/>
   )
-}): <h1 className = "center-screen">No events created yet</h1>
+}): null
+// <h1 className = "center-screen">No events created yet</h1>
 const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
   console.log("paginated events", paginatedEvents.length)
   console.log(paginatedEvents)
@@ -298,13 +299,15 @@ const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((e
     <XDSCard key ={index} item={event} ownerView={true} signUpsView = {false} 
     tagColor = {categoryToColor[event.category]}/>
   )
-}): <h1 className = "center-screen">No events created yet</h1>
-const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
+}): null 
+//<h1 className = "center-screen">No events created yet</h1>
+const displaySignUps = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
   return (
     <XDSCard key ={index} item={event} setEvents = {setEvents} ownerView={false} signUpsView = {true}
     tagColor = {categoryToColor[event.category]}/>
   )
-}): <h1 className = "center-screen">No current sign-ups</h1>
+}): null 
+//<h1 className = "center-screen">No current sign-ups</h1>
 
 const topNav = 
 
@@ -368,7 +371,7 @@ const showResults = clickedActivites? (
     <Dropdown filter = {filter} items = {items}></Dropdown>
   )
 
-  const showLoading = <ClipLoader loading={loading} size={200}/>
+  const showLoading = loading? <ClipLoader loading={loading} size={200}/>: null
 
   return (
     <div className="page">
@@ -379,8 +382,8 @@ const showResults = clickedActivites? (
       <div className="content"> 
         {showResults}
         {showProfile}
-        {!loading ? results : showLoading}
-        {!loading ? showOwnerActivities : showLoading}
+        {results }
+        {showOwnerActivities}
             {showSignUps}
             {modal}
       </div>
