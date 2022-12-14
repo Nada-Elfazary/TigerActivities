@@ -340,7 +340,8 @@ const showResults = clickedActivites? (
     <Dropdown filter = {filter} items = {items}></Dropdown>
   )
 
-  const showUpdateProfile = updateProfileMsg!==""?<Card>
+  const showUpdateProfile = updateProfileMsg!==""?
+  <Card className="updateProfileMessage" variant="danger">
     <Card.Title>{updateProfileMsg}</Card.Title>
   </Card>:null
 
