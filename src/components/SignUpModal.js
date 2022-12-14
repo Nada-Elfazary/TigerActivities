@@ -40,7 +40,7 @@ function SignUpModal(props) {
         props.setOpenSignUpModal(false)
       }
     }, (error) => {
-      console.log(error)
+      console.log("Failed to load signup", error)
     })
   }
 

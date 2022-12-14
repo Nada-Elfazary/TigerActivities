@@ -32,7 +32,7 @@ export default function  Home() : React.ReactNode {
   const [profileData, setProfileData] = useState(["","",""])
   const [paginatedEvents, setPaginatedEvents] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
-  const [updateProfileMsg, setUpdateProfileMsg] = useState("")
+  // const [updateProfileMsg, setUpdateProfileMsg] = useState("")
   const pageSize = 9;
  //let profileData = ['', '', '', '']
   const location = useLocation()
@@ -109,9 +109,9 @@ const activitesClicked= () => {
   
 }
 
-const updateProfileMessage= (msg) => {
-  setUpdateProfileMsg(msg)
-}
+// const updateProfileMessage= (msg) => {
+//   setUpdateProfileMsg(msg)
+// }
 
 const cas = ()=>{ 
   console.log("inside cas")
@@ -200,15 +200,15 @@ const getProfileData = (netid) => {
       if (response.length === 0 || response.data.email==="") {
           setProfileData(["", "", ""])
           // redirect to profile page and set some kind of warning
-          setUpdateProfileMsg("Please update your profile information.")
-          profileClicked()
+          // setUpdateProfileMsg("Please update your profile information.")
+          // profileClicked()
 
       }
       else {
           console.log("Response is:",response)
           console.log(response.data)
           setProfileData ([response.data.name, response.data.phone, response.data.email])
-          setUpdateProfileMsg("")
+          // setUpdateProfileMsg("")
           console.log("Profile Data in axios:", profileData)
       }
   }).catch(err =>{
@@ -331,7 +331,7 @@ const showResults = clickedActivites? (
     netid={username}
     profileData={profileData}
     getProfileData={getProfileData}
-    updateProfileMsg={updateProfileMessage}
+    // updateProfileMsg={updateProfileMessage}
     /> : null
 
 
@@ -339,10 +339,10 @@ const showResults = clickedActivites? (
     <Dropdown filter = {filter} items = {items}></Dropdown>
   )
 
-  const showUpdateProfile = updateProfileMsg!==""?
-  <Card className="updateProfileMessage" variant="Info">
-    <Card.Title>{updateProfileMsg}</Card.Title>
-  </Card>:null
+  // const showUpdateProfile = updateProfileMsg!==""?
+  // <Card className="updateProfileMessage" variant="Info">
+  //   <Card.Title>{updateProfileMsg}</Card.Title>
+  // </Card>:null
 
   const showLoading = <ClipLoader loading={loading} size={200}/>
 
@@ -350,7 +350,7 @@ const showResults = clickedActivites? (
     <div className="page">
       {topNav}
       {showFilter}
-      {showUpdateProfile}
+      {/* {showUpdateProfile} */}
       {showCreateEventButton}
       {/* {showNote} */}
       <div className="content"> 

@@ -69,7 +69,7 @@ export default function Profile(props) {
             .then((response) => {
             console.log("Response:", response)
             console.log("Props:", props)
-            props.updateProfileMsg("")
+            // props.updateProfileMsg("")
             }, (error) => {
             console.log(error)
             })
