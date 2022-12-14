@@ -180,25 +180,27 @@ export default function Profile(props) {
 
 
     return (
-        <div>
+        <div className="profileDisplay">
             <h1>Profile</h1>
-            <Card>
-                <Card.Title></Card.Title>
-                <Card.Text>
-                    <Row>
-                        <Col><strong>Name:</strong> {props.profileData[0]} </Col>
-                    </Row>
-                    <Row>
-                        <Col><strong>Netid:</strong> {props.netid}</Col>
-                    </Row>
-                    <Row>
-                        <Col><strong>Phone:</strong> {props.profileData[1]}</Col>
-                    </Row>
-                    <Row>
-                        <Col><strong>Email:</strong> {props.profileData[2]}</Col>
-                    </Row>
-                </Card.Text>
-            </Card>
+            <div classname="outerProfileContainer">
+              <Card classname="innerProfileContainer">
+                  <Card.Title></Card.Title>
+                  <Card.Text>
+                      <Row>
+                          <Col><strong>Name:</strong> {props.profileData[0]} </Col>
+                      </Row>
+                      <Row>
+                          <Col><strong>Netid:</strong> {props.netid}</Col>
+                      </Row>
+                      <Row>
+                          <Col><strong>Phone:</strong> {props.profileData[1]}</Col>
+                      </Row>
+                      <Row>
+                          <Col><strong>Email:</strong> {props.profileData[2]}</Col>
+                      </Row>
+                  </Card.Text>
+              </Card>
+            </div>
             <Button
                 variant="warning"
                 onClick={() => setShowModal(true)}
