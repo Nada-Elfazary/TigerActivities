@@ -249,36 +249,32 @@ const handleLogout = ()=>{
   )
   const mySignUps = <Button onClick={mySignUpsClicked}>My Sign-Ups</Button>
   const createEventButton = <Button className="buttonStyle" onClick={handleCreateEvent}>Create Activity</Button>
-  const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents}
-  username={username} />) : null 
+  const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents} setPaginatedEvents = {setPaginatedEvents}
+    pageSize = {pageSize} username={username} />) : null 
 
 
-const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator !== username).map((event, index)=>{
-  return (
-
-    <XDSCard key ={index} item ={event} ownerView={false} signUpsView = {false} setLoading = {setLoading}
-    name={profileData[0]}
-    phone={profileData[1]}
-    email={profileData[2]}
-    tagColor = {categoryToColor[event.category]}/>
-  )
-}): <h1 className = "center-screen">No events created yet</h1>
-const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
-  console.log("paginated events", paginatedEvents.length)
-  console.log(paginatedEvents)
-  console.log(paginatedEvents.filter((event)=>event.creator === username))
-
-  return (
-    <XDSCard key ={index} item={event} ownerView={true} signUpsView = {false} setLoading = {setLoading}
-    tagColor = {categoryToColor[event.category]}/>
-  )
-}): <h1 className = "center-screen">No events created yet</h1>
-const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
-  return (
-    <XDSCard key ={index} item={event} setEvents = {setEvents} ownerView={false} signUpsView = {true} setLoading = {setLoading}
-    tagColor = {categoryToColor[event.category]}/>
-  )
-}): <h1 className = "center-screen">No current sign-ups</h1>
+  const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator !== username).map((event, index)=>{
+    return (
+  
+      <XDSCard key ={index} item ={event} ownerView={false} signUpsView = {false} setLoading = {setLoading}
+      name={profileData[0]}
+      phone={profileData[1]}
+      email={profileData[2]}
+      tagColor = {categoryToColor[event.category]}/>
+    )
+  }): <h1 className = "center-screen">"No events created yet"</h1>
+  const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
+    return (
+      <XDSCard key ={index} item={event} setEvents = {setEvents} setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize} ownerView={true} signUpsView = {false} 
+      tagColor = {categoryToColor[event.category]} setLoading = {setLoading} username={username}/>
+    )
+  }): <h1 className = "center-screen">"No events created yet"</h1>
+  const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
+    return (
+      <XDSCard key ={index} item={event} setEvents = {setEvents} ownerView={false} signUpsView = {true}
+      tagColor = {categoryToColor[event.category]} setLoading = {setLoading}/>
+    )
+  }): <h1 className = "center-screen">No current sign-ups</h1>
 
 const topNav = 
 
