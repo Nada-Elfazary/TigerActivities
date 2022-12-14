@@ -95,7 +95,6 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
     
     })
   }
-  get_attendees(id)
   const closed = item.signup_number === item.maxcap ? (<p>{closedText}</p>) : null
 
   return (
