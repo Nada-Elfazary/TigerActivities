@@ -249,7 +249,7 @@ const handleLogout = ()=>{
 const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator !== username).map((event, index)=>{
   return (
 
-    <XDSCard key ={index} item ={event} ownerView={false} signUpsView = {false} 
+    <XDSCard key ={index} item ={event} ownerView={false} signUpsView = {false} setLoading = {setLoading}
     name={profileData[0]}
     phone={profileData[1]}
     email={profileData[2]}
@@ -262,13 +262,13 @@ const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((e
   console.log(paginatedEvents.filter((event)=>event.creator === username))
 
   return (
-    <XDSCard key ={index} item={event} ownerView={true} signUpsView = {false} 
+    <XDSCard key ={index} item={event} ownerView={true} signUpsView = {false} setLoading = {setLoading}
     tagColor = {categoryToColor[event.category]}/>
   )
 }): <h1 className = "center-screen">No events created yet</h1>
 const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
   return (
-    <XDSCard key ={index} item={event} setEvents = {setEvents} ownerView={false} signUpsView = {true}
+    <XDSCard key ={index} item={event} setEvents = {setEvents} ownerView={false} signUpsView = {true} setLoading = {setLoading}
     tagColor = {categoryToColor[event.category]}/>
   )
 }): <h1 className = "center-screen">No current sign-ups</h1>
