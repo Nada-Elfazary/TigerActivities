@@ -340,7 +340,7 @@ const showResults = clickedActivites? (
   )
 
   const showUpdateProfile = updateProfileMsg!==""?
-  <Card className="updateProfileMessage" variant="danger">
+  <Card className="updateProfileMessage" variant="Danger">
     <Card.Title>{updateProfileMsg}</Card.Title>
   </Card>:null
 
