@@ -47,7 +47,6 @@ export default function  Home() : React.ReactNode {
     activitesClicked()
     setEvents([])
     getProfileData()
-    // setUserName(String(user))
     // console.log("user on page is", user)
     
 }, [])

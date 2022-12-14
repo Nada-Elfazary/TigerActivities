@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import {Button, Modal, Form, Row, Col, Container, Card} from 'react-bootstrap';
 import CreateEventModalDraggable from "./CreateEventModalDraggable";
+import "./Profile.css"
 
 // import "./Modal.css";
 import SignUpModal from "./SignUpModal";
