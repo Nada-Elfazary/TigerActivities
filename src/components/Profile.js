@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import {Button, Modal, Form, Row, Col, Container, Card} from 'react-bootstrap';
 import CreateEventModalDraggable from "./CreateEventModalDraggable";
 import { useNavigate } from "react-router-dom";
+import "./Profile.css"
 
 // import "./Modal.css";
 import SignUpModal from "./SignUpModal";
@@ -232,28 +233,30 @@ export default function Profile(props) {
 
 
     return (
-        <div>
+        <div className="profileDisplay">
             <h1>Profile</h1>
-            <Card>
-                <Card.Title></Card.Title>
-                <Card.Text>
-                    <Row>
-                        <Col><strong>Name:</strong> {props.profileData[0]} </Col>
-                    </Row>
-                    <Row>
-                        <Col><strong>Netid:</strong> {props.netid}</Col>
-                    </Row>
-                    <Row>
-                        <Col><strong>Phone:</strong> {props.profileData[1]}</Col>
-                    </Row>
-                    <Row>
-                        <Col><strong>Email:</strong> {props.profileData[2]}</Col>
-                    </Row>
-                    <Row>
-                        <Col><strong>Class Year:</strong> {props.profileData[3]}</Col>
-                    </Row>
-                </Card.Text>
-            </Card>
+            <div className="outerProfileContainer">
+              <Card className="innerProfileContainer">
+                  <Card.Title></Card.Title>
+                  <Card.Text>
+                      <Row>
+                          <Col><strong>Name:</strong> {props.profileData[0]} </Col>
+                      </Row>
+                      <Row>
+                          <Col><strong>Netid:</strong> {props.netid}</Col>
+                      </Row>
+                      <Row>
+                          <Col><strong>Phone:</strong> {props.profileData[1]}</Col>
+                      </Row>
+                      <Row>
+                          <Col><strong>Email:</strong> {props.profileData[2]}</Col>
+                      </Row>
+                      <Row>
+                          <Col><strong>Class Year:</strong> {props.profileData[3]}</Col>
+                      </Row>
+                  </Card.Text>
+              </Card>
+            </div>
             <Button
                 variant="warning"
                 onClick={() => setShowModal(true)}
