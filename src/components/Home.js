@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import CreateEventDialog from "./CreateEventDialog";
-import {Button, Navbar, Container, Pagination} from 'react-bootstrap'
+import {Button, Navbar, Container, Pagination, Card} from 'react-bootstrap'
 import XDSCard from "./XDSCard";
 import Dropdown from "./Dropdown";
 import tiger from './tiger.jpeg';
@@ -32,12 +32,10 @@ export default function  Home() : React.ReactNode {
   const [profileData, setProfileData] = useState(["","",""])
   const [paginatedEvents, setPaginatedEvents] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
+  const [updateProfileMsg, setUpdateProfileMsg] = useState("")
   const pageSize = 9;
  //let profileData = ['', '', '', '']
-
-  let user = ""
   const location = useLocation()
-  let currNetid = "ragogoe"
   const navigate = useNavigate()
 
   const categoryToColor = {'Sports': "cyan", 'Entertainment': "slateblue", 'Academic': "orange", 'Off-campus': "olive", 'Outdoors': "navy",  
@@ -48,6 +46,7 @@ export default function  Home() : React.ReactNode {
     setRefresh(true)
     activitesClicked()
     setEvents([])
+    getProfileData()
     // setUserName(String(user))
     // console.log("user on page is", user)
     
@@ -109,6 +108,10 @@ const activitesClicked= () => {
   getEvents(false, '')
   
   
+}
+
+const updateProfileMessage= (msg) => {
+  setUpdateProfileMsg(msg)
 }
 
 const cas = ()=>{ 
@@ -195,14 +198,18 @@ const getProfileData = (netid) => {
       }
   })
   .then((response) => {
-      if (response.length === 0) {
+      if (response.length === 0 || response.data.email==="") {
           setProfileData(["", "", ""])
           // redirect to profile page and set some kind of warning
+          setUpdateProfileMsg("Please update your profile information.")
+          profileClicked()
+
       }
       else {
           console.log("Response is:",response)
           console.log(response.data)
           setProfileData ([response.data.name, response.data.phone, response.data.email])
+          setUpdateProfileMsg("")
           console.log("Profile Data in axios:", profileData)
       }
   }).catch(err =>{
@@ -329,11 +336,17 @@ const showResults = clickedActivites? (
     netid={username}
     profileData={profileData}
     getProfileData={getProfileData}
+    updateProfileMsg={updateProfileMessage}
     /> : null
+
 
   const dropDowns = (filter, items) => (
     <Dropdown filter = {filter} items = {items}></Dropdown>
   )
+
+  const showUpdateProfile = updateProfileMsg!==""?<Card>
+    <Card.Title>{updateProfileMsg}</Card.Title>
+  </Card>:null
 
   const showLoading = <ClipLoader loading={loading} size={200}/>
 
@@ -341,6 +354,7 @@ const showResults = clickedActivites? (
     <div className="page">
       {topNav}
       {showFilter}
+      {showProfileUpdate}
       {showCreateEventButton}
       {/* {showNote} */}
       <div className="content"> 
