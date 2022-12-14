@@ -354,9 +354,9 @@ const showResults = clickedActivites? (
 
   ): null
 
-  const showNote = !clickedProfile ? (
-    <h3><text className = 'note'>Note: The activities shown are the ones within the next 5 days</text></h3>
-  ): null
+  // const showNote = !clickedProfile ? (
+  //   <h3><text className = 'note'>Note: The activities shown are the ones within the next 5 days</text></h3>
+  // ): null
 
   const showProfile = clickedProfile ? <Profile 
     netid={username}
@@ -375,7 +375,7 @@ const showResults = clickedActivites? (
       {topNav}
       {showFilter}
       {showCreateEventButton}
-      {showNote}
+      {/* {showNote} */}
       <div className="content"> 
         {showResults}
         {showProfile}
