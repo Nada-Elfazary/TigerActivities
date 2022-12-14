@@ -59,13 +59,13 @@ const XDSCard = ({item, ownerView, setEvents, setPaginatedEvents, username, page
     console.log(item.id)
     console.log(item.event_name)
     setDisplayModal(true);
-    console.log("display modal state: ", displayModal)
+ignUp    console.log("display modal state: ", displayModal)
   }
   
   const editModal = displayModal ? (<EditEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents} 
     setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize} events = {item} username={username}/>) : null 
 
-  const signUpModal = displaySignUp ? (<SignUpModal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}
+  const signUpModal = displaySignUp ? (<SignUpModal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id} username={username}
     name={name}
     phone={phone}
     email={email}
