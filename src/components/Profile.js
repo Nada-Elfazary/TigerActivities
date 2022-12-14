@@ -16,9 +16,7 @@ export default function Profile(props) {
     const [updatePhone, setUpdatePhone] = useState(props.profileData[1])
     // const [dbEmail,setDbEmail] = useState(props.email)
     const [updateEmail, setUpdateEmail] = useState(props.profileData[2])
-    // const[classYear,setClassYear] = useState(props.classYear)
-    const [updateClassYear, setUpdateClassYear] = useState(props.profileData[3])
-    console.log("Update values:", updateName, updatePhone, updateEmail, updateClassYear)
+    console.log("Update values:", updateName, updatePhone, updateEmail)
     const[showModal, setShowModal] = useState( false)
     const [errorMsg, setErrorMsg] = useState("")
     const [showErrorMsg, setShowErrorMsg] = useState(false)
@@ -34,7 +32,6 @@ export default function Profile(props) {
     //   setDbName(props.name)
     //   setDbEmail(props.email)
     //   setDbPhone(props.phone)
-    //   setClassYear(props.classYear)
     // }, [])
 
 
@@ -67,7 +64,6 @@ export default function Profile(props) {
             name: updateName,
             phone: updatePhone,
             email: updateEmail,
-            classYear: updateClassYear,
             })
             .then((response) => {
             console.log("Response:", response)
@@ -128,18 +124,6 @@ export default function Profile(props) {
                 </Col>
             </Row>
             </Form.Group>
-            <Form.Group>
-            <Row>
-              <Col><Form.Label>Class Year: </Form.Label></Col>
-              <Col><Form.Control type="text" id = "year" name="Class Year" placeholder = {updateClassYear.length===0?"Class Year":updateClassYear} value={updateClassYear} onChange={(event) =>
-                    {
-                      document.getElementById('year').classList.remove("error");
-                      setUpdateClassYear(event.target.value)
-                    }}
-                 ></Form.Control>
-                </Col>
-            </Row>
-            </Form.Group>
             <Form.Group>{errorM}</Form.Group>
           </Form>
         </Modal.Body>
@@ -184,13 +168,6 @@ export default function Profile(props) {
             error = 1;
           }
 
-           if(updateClassYear.length !== 0 && !/^[202]+[3-6]/.test(updateClassYear)){
-            console.log("class state:", updateClassYear)
-            document.getElementById('year').classList.add("error");
-            document.getElementById('year').value="Class Year address is invalid";
-            error = 1;
-           }
-
           error !== 0 ? failureCallBack("Please fix errors above") : successCallBack()             
           }}>Submit</Button>
 
@@ -217,9 +194,6 @@ export default function Profile(props) {
                     </Row>
                     <Row>
                         <Col><strong>Email:</strong> {props.profileData[2]}</Col>
-                    </Row>
-                    <Row>
-                        <Col><strong>Class Year:</strong> {props.profileData[3]}</Col>
                     </Row>
                 </Card.Text>
             </Card>

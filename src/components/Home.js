@@ -29,7 +29,7 @@ export default function  Home() : React.ReactNode {
   const [loading, setLoading] = useState(false)
   const [nameFilter, setNameFilter] = useState('')
   // let currLogin = "Nada"
-  const [profileData, setProfileData] = useState(["","","",""])
+  const [profileData, setProfileData] = useState(["","",""])
   const [paginatedEvents, setPaginatedEvents] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const pageSize = 9;
@@ -106,22 +106,6 @@ const activitesClicked= () => {
   setClickedProfile(false)
   setRefresh(false)
   setCurrentPage(1)
-  /*
-  axios({
-    method: "GET",
-    url:"https://tigeractivities.onrender.com/dummy",
-  })
-  .then((response) => {
-    const res = response.data
-    console.log("Recieved Dummy Response:", res)
-  }).catch((error) => {
-    if (error.response) {
-      console.log("Recevived dummy Error:", error.response)
-      console.log(error.response.status)
-      console.log(error.response.headers)
-      }
-  })
-  */
   getEvents(false, '')
   
   
@@ -145,24 +129,7 @@ const cas = ()=>{
     console.log(err)
   })
 }
-/*
-const getUser= ()=>{
-axios.get('/username').then(
-  res=>{
-    console.log("username returned", res)
-    if(res.data.length === 0){
-      navigate('/')
-    }
-    else{
-      setUserName(res.data)
 
-    }
-  }
-).catch(err=>{
-  console.log("err")
-})
-}
-*/
 const myActivitesClicked= ()=>{
   if(clickedMyActivites) {
     setEvents([])
@@ -229,13 +196,13 @@ const getProfileData = (netid) => {
   })
   .then((response) => {
       if (response.length === 0) {
-          setProfileData(["", "", "", ""])
+          setProfileData(["", "", ""])
           // redirect to profile page and set some kind of warning
       }
       else {
           console.log("Response is:",response)
           console.log(response.data)
-          setProfileData ([response.data.name, response.data.phone, response.data.email, response.data.class_year])
+          setProfileData ([response.data.name, response.data.phone, response.data.email])
           console.log("Profile Data in axios:", profileData)
       }
   }).catch(err =>{
