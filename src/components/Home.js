@@ -275,8 +275,8 @@ const handleLogout = ()=>{
   )
   const mySignUps = <Button onClick={mySignUpsClicked}>My Sign-Ups</Button>
   const createEventButton = <Button className="buttonStyle" onClick={handleCreateEvent}>Create Activity</Button>
-  const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents} pageSize = {pageSize}
-  username={username} />) : null 
+  const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents} setPaginatedEvents = {setPaginatedEvents}
+    pageSize = {pageSize} username={username} />) : null 
 
 
   const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator !== username).map((event, index)=>{
