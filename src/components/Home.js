@@ -350,7 +350,7 @@ const showResults = clickedActivites? (
     <div className="page">
       {topNav}
       {showFilter}
-      {showProfileUpdate}
+      {showUpdateProfile}
       {showCreateEventButton}
       {/* {showNote} */}
       <div className="content"> 
