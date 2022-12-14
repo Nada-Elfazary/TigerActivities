@@ -65,7 +65,7 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
   }
   
   const editModal = displayModal ? (<EditEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents} 
-    setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize} events = {item} />) : null 
+    setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize} events = {item} username={username}/>) : null 
 
   const signUpModal = displaySignUp ? (<SignUpModal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}
     username={username}
