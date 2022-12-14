@@ -8,7 +8,7 @@ import "./Home.css";
 import axios from 'axios';
 import { propTypes } from 'react-bootstrap/esm/Image';
 
-const XDSCard = ({item, ownerView, setEvents, pageSize, setLoading, signUpsView,name, phone, email, tagColor}) => {
+const XDSCard = ({item, ownerView, setEvents, setPaginatedEvents, username, pageSize, setLoading, signUpsView,name, phone, email, tagColor}) => {
     const [isExpanded, setExpanded] = useState(false)
     const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded })
     const [displaySignUp, setDisplaySignUp] = useState(false)
@@ -63,7 +63,7 @@ const XDSCard = ({item, ownerView, setEvents, pageSize, setLoading, signUpsView,
   }
   
   const editModal = displayModal ? (<EditEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents} 
-  events = {item} />) : null 
+    setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize} events = {item} username={username}/>) : null 
 
   const signUpModal = displaySignUp ? (<SignUpModal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}
     name={name}
@@ -71,8 +71,8 @@ const XDSCard = ({item, ownerView, setEvents, pageSize, setLoading, signUpsView,
     email={email}
     />): null
 
-  const cancelModal = displayCancel ? (<CancelSignUpModal setOpenCancelModal={setDisplayCancel} setLoading = {setLoading} setEvents ={setEvents} 
-    event_id={id} title = {eventTitle} />) : null 
+   const cancelModal = displayCancel ? (<CancelSignUpModal setOpenCancelModal={setDisplayCancel} setLoading = {setLoading} setEvents ={setEvents} 
+      event_id={id} title = {eventTitle} />) : null 
 
   const get_attendees = (event)=>{
     console.log("inside get attendees")

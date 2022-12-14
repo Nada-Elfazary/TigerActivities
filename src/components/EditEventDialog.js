@@ -40,7 +40,7 @@ function EditEventDialog(props) {
     // const five_days_in_future = curr_time.setDate(curr_time.getDate() + MAX_NO_DAYS) 
     // console.log("Max time in future",five_days_in_future)
     
-    const currLogin = "Nada"
+   // const currLogin = "Nada"
 
     console.log("props: ", props)
     //console.log("start date: ", props.events.start_date.split("/")[0], props.events.start_date.split("/")[1], props.events.start_date.split("/")[2],  props.events.start_time.split(":")[0], props.events.start_time.split(":")[1])
@@ -54,7 +54,7 @@ function EditEventDialog(props) {
     console.log("Setting events to:", res.data)
     props.setEvents([])
     if (ownerView === true) {
-      let filtered = res.data.filter(event => event.creator === currLogin)
+      let filtered = res.data.filter(event => event.creator === props.username)
       console.log("length: ", filtered.length)
       if (filtered.length !== 0) {
       props.setEvents(filtered)
@@ -65,7 +65,7 @@ function EditEventDialog(props) {
         props.setPaginatedEvents([])
       }
     } else {
-      let filtered = res.data.filter(event => event.creator !== currLogin)
+      let filtered = res.data.filter(event => event.creator !== props.username)
       props.setEvents(filtered)
       props.setPaginatedEvents(_(filtered).slice(0).take(props.pageSize).value())
     }

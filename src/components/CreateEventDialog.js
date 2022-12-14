@@ -6,7 +6,7 @@ import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_orange.css";
 import axios from 'axios';
 import "./CreateEventDialog.css"
-
+import _ from "lodash"
 
 function CreateEventDialog(props) {
     const MAX_NO_DAYS = 5
@@ -47,9 +47,13 @@ function CreateEventDialog(props) {
       }
       else {
         console.log("No events created by owner")
+        props.setEvents([])
+        props.setPaginatedEvents([])
       }
     } else {
-      props.setEvents(res.data)
+      let filtered = res.data.filter(event => event.creator !== props.username)
+      props.setEvents(filtered)
+      props.setPaginatedEvents(_(filtered).slice(0).take(props.pageSize).value())
     }
     props.setLoading(false)
     
