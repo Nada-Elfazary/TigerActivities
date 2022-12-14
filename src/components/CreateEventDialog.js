@@ -45,6 +45,7 @@ function CreateEventDialog(props) {
       console.log("length: ", filtered.length)
       if (filtered.length !== 0) {
       props.setEvents(filtered)
+      props.setPaginatedEvents(_(filtered).slice(0).take(props.pageSize).value())
       }
       else {
         console.log("No events created by owner")
