@@ -61,9 +61,13 @@ function EditEventDialog(props) {
       }
       else {
         console.log("No events created by owner")
+        props.setEvents([])
+        props.setPaginatedEvents([])
       }
     } else {
-      props.setEvents(res.data)
+      let filtered = res.data.filter(event => event.creator !== currLogin)
+      props.setEvents(filtered)
+      props.setPaginatedEvents(_(filtered).slice(0).take(props.pageSize).value())
     }
     props.setLoading(false)
 
