@@ -163,11 +163,12 @@ div.pageContainer{
 
 .customized-card{
     margin: 8px 10px;
-    width: 23rem;
+    /*width: 23rem;*/
+    max-width: fit-content;
     background: rgb(252, 222, 169);
     box-shadow: 0 0 15px;
     border-radius: 10px;
-    max-height: max-content;
+    max-height: fit-content;
 }
 
 .customized-card-body{
