@@ -83,14 +83,12 @@ function CreateEventDialog(props) {
 
           })
           .then((response) =>{
-            console.log(response);
-            setSaving(true)
+            console.log(response);           
             getEvents(true, "")
             props.setOpenModal(false)
           }, (error) => {
             console.log(error)
             setErrorMsg(error)
-            setSaving(false)
             // setShowErrorMsg(true)
           })
     }
@@ -102,9 +100,9 @@ function CreateEventDialog(props) {
     }
     const successCallBack = ()=>{
       console.log("success")
-     setShowErrorMsg(false) 
-     setErrorMsg(null)
-      // setSaving(true)
+      setShowErrorMsg(false) 
+      setErrorMsg(null)
+      setSaving(true)
       console.log(eventTitle)
       console.log(description)
       console.log(eventLocation)
@@ -248,7 +246,7 @@ function CreateEventDialog(props) {
           justifyContent: "center",
         }}>
         <Button   id="cancelBtn" variant="secondary" onClick={()=>{props.setOpenModal(false)}}>Close</Button>
-        <Button variant="primary" onClick={()=>{
+        <Button variant="primary" disabled = {saving} onClick={()=>{
           let error = 0;
           let errorMsg = []
         console.log(endTime.getTime())

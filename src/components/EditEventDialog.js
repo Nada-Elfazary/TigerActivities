@@ -98,13 +98,13 @@ function EditEventDialog(props) {
           })
           .then((response) =>{
             console.log(response);
-            setSaving(true)
+         //   setSaving(true)
             getEvents(true, "")
             props.setOpenModal(false)
           }, (error) => {
             console.log(error)
             setErrorMsg(error)
-            setSaving(false)
+       //     setSaving(false)
             // setShowErrorMsg(true)
           })
     }
@@ -118,7 +118,7 @@ function EditEventDialog(props) {
       console.log("success")
      setShowErrorMsg(false) 
      setErrorMsg(null)
-      // setSaving(true)
+      setSaving(true)
       console.log(eventTitle)
       console.log(description)
       console.log(eventLocation)
@@ -273,7 +273,7 @@ function EditEventDialog(props) {
           justifyContent: "center",
         }}>
         <Button   id="cancelBtn" variant="secondary" onClick={()=>{props.setOpenModal(false)}}>Close</Button>
-        <Button variant="primary" onClick={()=>{
+        <Button variant="primary" disabled = {saving} onClick={()=>{
           let error = 0;
           let errorMsg = []
         console.log("end time", endTime.getTime())
