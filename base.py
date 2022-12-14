@@ -29,7 +29,6 @@ def logout():
     return jsonify(redirect = authResult)
 
 @app.route('/' , methods=['GET'])
-@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def shree():
     print('I am here')
     return flask.render_template('index.html')
@@ -43,7 +42,6 @@ def shree():
  # return response
 
 @app.route('/authenticate', methods=['GET'])
-@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def authenticate():
    authResult = CasClient.CASClient().authenticate()
    #return(authResult)
@@ -54,7 +52,6 @@ def authenticate():
 #-----------------------------------------------------------------------
 
 @app.route('/authenticate2', methods=['GET'])
-@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def authenticate2():
     authResult = CasClient.CASClient().authenticate()
     if authResult['username'] == '':
@@ -68,18 +65,13 @@ def authenticate2():
 
 #-----------------------------------------------------------------------
 
-#@app.route('/username', methods=['GET'])
-#def get_username():
-#    return username
 @app.route("/dummy", methods = ['GET'])
-@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def dummy_route():
   print("inside dummy")
   username = auth.authenticate()
   return (username)
 
 @app.route("/events", methods = ['GET'])
-@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 #
 def index():
    #username = auth.authenticate()
@@ -116,7 +108,6 @@ def index():
    return results
 
 @app.route("/user-sign-ups", methods = ['GET'])
-@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def sign_ups():
   authResult = CasClient.CASClient().authenticate()
   username = authResult['username']
@@ -145,8 +136,6 @@ def sign_ups():
   return results
 
 @app.route('/attendees', methods=['GET'])
-@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
-# cross_origin()
 def get_attendees():
     #username = auth.authenticate()
     #res = request.json
@@ -210,13 +199,10 @@ def validate():
     return lines[0].decode('utf-8')
 '''
 @app.route('/hello', methods = ['GET'])
-@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def hello():
     return "Hello, worlds!"
 
 @app.route('/sign-up', methods = ['POST'])
-@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
-# cross_origin()
 def signUp():
     authResult = CasClient.CASClient().authenticate()
     username = authResult['username']
@@ -229,8 +215,6 @@ def signUp():
     return res
 
 @app.route('/cancel-sign-up', methods = ['POST'])
-@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
-# cross_origin()
 def cancelSignUp():
     authResult = CasClient.CASClient().authenticate()
     username = authResult['username']
@@ -245,7 +229,6 @@ def cancelSignUp():
     return res
 
 @app.route('/update-profile', methods = ['POST'])
-@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def updateProfile():
     res = flask.request.json
     authResult = CasClient.CASClient().authenticate()
@@ -256,14 +239,11 @@ def updateProfile():
     name = res["name"] or ""
     phone = res["phone"] or ""
     email = res["email"] or ""
-    class_year = res["classYear"] or ""
-    print("phone: {}, integer: {} ; year: {}, integer:{}".format(phone,
-    type(phone), class_year, type(class_year)))
-    proc.store_student([username,name,phone,email,class_year])
+    # print("phone: {}, integer: {}".format(phone,type(phone)))
+    proc.store_student([username,name,phone,email])
     return res
 
 @app.route('/edit-activity', methods = ['POST'])
-# cross_origin()
 def editActivity():
    # username = auth.authenticate()
     authResult = CasClient.CASClient().authenticate()
@@ -289,7 +269,6 @@ def editActivity():
     return res
 
 @app.route('/profile', methods = ['GET'])
-@cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def getProfileInfo():
     netid = flask.request.args.get("netid")
     print("Inside /profile. Request data: {}".format(netid))
@@ -300,14 +279,12 @@ def getProfileInfo():
             "name": "",
             "phone": "",
             "email": "",
-            "class_year": ""
         }
     else:
         response_body = {
             "name": student_row[1],
             "phone": student_row[2],
-            "email": student_row[3],
-            "class_year":student_row[4]
+            "email": student_row[3]
         }
     return response_body
    

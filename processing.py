@@ -339,7 +339,8 @@ def store_student(student_info):
     name = student_info[1]
     phone_num = student_info[2]
     email = student_info[3]
-    class_year = student_info[4]
+    # placeholder value for classs year
+    class_year = ""
     # print("Inside store student: netid:{}, name: {}, phone: {}, email: {},  year: {}".format(netid,
     # name, phone_num, email, class_year))
 

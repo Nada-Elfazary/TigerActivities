@@ -234,3 +234,7 @@ th{
 .white {
     color: white
 }
+
+.updateProfileMessage {
+    text-align: center;
+}

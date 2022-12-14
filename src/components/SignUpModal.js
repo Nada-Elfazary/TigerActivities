@@ -12,6 +12,7 @@ function SignUpModal(props) {
   const [email,setEmail] = useState(props.email)
   const [errorMsg, setErrorMsg] = useState("")
   const [showErrorMsg, setShowErrorMsg] = useState(false)
+  const [saving, setSaving] = useState(false)
 
   /*
   React.useEffect(() => {
@@ -27,7 +28,7 @@ function SignUpModal(props) {
       name: name,
       phone: phone,
       email: email,
-      user_id:"rand_usr",
+      user_id:props.username,
       event_id:props.event_id,
     })
     .then((response) => {
@@ -40,7 +41,7 @@ function SignUpModal(props) {
         props.setOpenSignUpModal(false)
       }
     }, (error) => {
-      console.log(error)
+      console.log("Failed to load signup", error)
     })
   }
 
@@ -53,6 +54,7 @@ function SignUpModal(props) {
       console.log("success")
      setShowErrorMsg(false) 
      setErrorMsg(null)
+     setSaving(true)
       // setSaving(true)
    //   console.log(eventTitle)
    //   console.log(description)
@@ -121,7 +123,7 @@ function SignUpModal(props) {
        <Button id="cancelBtn" variant="secondary" onClick={() => {
               props.setOpenSignUpModal(false);
             }}>Cancel</Button>
-        <Button variant="primary" disabled={showErrorMsg} onClick={()=>{
+        <Button variant="primary" disabled = {saving} onClick={()=>{
              let error = 0;
              let errorMsg = []
  

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import CreateEventDialog from "./CreateEventDialog";
-import {Button, Navbar, Container, Pagination} from 'react-bootstrap'
+import {Button, Navbar, Container, Pagination, Card} from 'react-bootstrap'
 import XDSCard from "./XDSCard";
 import Dropdown from "./Dropdown";
 import tiger from './tiger.jpeg';
@@ -29,18 +29,16 @@ export default function  Home() : React.ReactNode {
   const [loading, setLoading] = useState(false)
   const [nameFilter, setNameFilter] = useState('')
   // let currLogin = "Nada"
-  const [profileData, setProfileData] = useState(["","","",""])
+  const [profileData, setProfileData] = useState(["","",""])
   const [paginatedEvents, setPaginatedEvents] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
+  // const [updateProfileMsg, setUpdateProfileMsg] = useState("")
   const pageSize = 9;
  //let profileData = ['', '', '', '']
-
-  let user = ""
   const location = useLocation()
-  let currNetid = "ragogoe"
   const navigate = useNavigate()
 
-  const categoryToColor = {'Sports': "cyan", 'Entertainment': "slateblue", 'Academic': "orange", 'Off-campus': "olive", 'Outdoors': "navy",  
+  const categoryToColor = {'Sports': "DeepSkyBlue", 'Entertainment': "slateblue", 'Academic': "orange", 'Off-campus': "olive", 'Outdoors': "navy",  
   'Meals/Coffee Chats': "maroon", 'Nassau Street': "green", 'Social': "tomato"} 
 
   useEffect(()=>{
@@ -48,7 +46,7 @@ export default function  Home() : React.ReactNode {
     setRefresh(true)
     activitesClicked()
     setEvents([])
-    // setUserName(String(user))
+    getProfileData()
     // console.log("user on page is", user)
     
 }, [])
@@ -106,26 +104,14 @@ const activitesClicked= () => {
   setClickedProfile(false)
   setRefresh(false)
   setCurrentPage(1)
-  /*
-  axios({
-    method: "GET",
-    url:"https://tigeractivities.onrender.com/dummy",
-  })
-  .then((response) => {
-    const res = response.data
-    console.log("Recieved Dummy Response:", res)
-  }).catch((error) => {
-    if (error.response) {
-      console.log("Recevived dummy Error:", error.response)
-      console.log(error.response.status)
-      console.log(error.response.headers)
-      }
-  })
-  */
   getEvents(false, '')
   
   
 }
+
+// const updateProfileMessage= (msg) => {
+//   setUpdateProfileMsg(msg)
+// }
 
 const cas = ()=>{ 
   console.log("inside cas")
@@ -145,24 +131,7 @@ const cas = ()=>{
     console.log(err)
   })
 }
-/*
-const getUser= ()=>{
-axios.get('/username').then(
-  res=>{
-    console.log("username returned", res)
-    if(res.data.length === 0){
-      navigate('/')
-    }
-    else{
-      setUserName(res.data)
 
-    }
-  }
-).catch(err=>{
-  console.log("err")
-})
-}
-*/
 const myActivitesClicked= ()=>{
   if(clickedMyActivites) {
     setEvents([])
@@ -185,7 +154,7 @@ const profileClicked= () =>{
   setClickedMySignUps(false)
   setClickedProfile(true)
   getProfileData(username)
-  console.log("Inside clickedProfile set Clicked Profile to true.")
+  console.log("Inside profileClicked: set clickedProfile to true.")
 }
 
 const handleCreateEvent = () =>{
@@ -228,14 +197,18 @@ const getProfileData = (netid) => {
       }
   })
   .then((response) => {
-      if (response.length === 0) {
-          setProfileData(["", "", "", ""])
+      if (response.length === 0 || response.data.email==="") {
+          setProfileData(["", "", ""])
           // redirect to profile page and set some kind of warning
+          // setUpdateProfileMsg("Please update your profile information.")
+          // profileClicked()
+
       }
       else {
           console.log("Response is:",response)
           console.log(response.data)
-          setProfileData ([response.data.name, response.data.phone, response.data.email, response.data.class_year])
+          setProfileData ([response.data.name, response.data.phone, response.data.email])
+          // setUpdateProfileMsg("")
           console.log("Profile Data in axios:", profileData)
       }
   }).catch(err =>{
@@ -275,8 +248,8 @@ const handleLogout = ()=>{
   )
   const mySignUps = <Button onClick={mySignUpsClicked}>My Sign-Ups</Button>
   const createEventButton = <Button className="buttonStyle" onClick={handleCreateEvent}>Create Activity</Button>
-  const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents}
-  username={username} />) : null 
+  const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents} setPaginatedEvents = {setPaginatedEvents}
+    pageSize = {pageSize} username={username} />) : null 
 
 
 const displayEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
@@ -357,15 +330,17 @@ const showResults = clickedActivites? (
 
   ): null
 
-  const showNote = !clickedProfile ? (
-    <h3><text className = 'note'>Note: The activities shown are the ones within the next 5 days</text></h3>
-  ): null
+  // const showNote = !clickedProfile ? (
+  //   <h3><text className = 'note'>Note: The activities shown are the ones within the next 5 days</text></h3>
+  // ): null
 
   const showProfile = clickedProfile ? <Profile 
     netid={username}
     profileData={profileData}
     getProfileData={getProfileData}
+    // updateProfileMsg={updateProfileMessage}
     /> : null
+
 
   const dropDowns = (filter, items) => (
     <Dropdown filter = {filter} items = {items}></Dropdown>
@@ -377,8 +352,9 @@ const showResults = clickedActivites? (
     <div className="page">
       {topNav}
       {showFilter}
+      {/* {showUpdateProfile} */}
       {showCreateEventButton}
-      {showNote}
+      {/* {showNote} */}
       <div className="content"> 
         {showResults}
         {showProfile}

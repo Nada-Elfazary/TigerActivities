@@ -6,6 +6,7 @@ import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_orange.css";
 import axios from 'axios';
 import "./CreateEventDialog.css"
+import _ from "lodash"
 
 
 function CreateEventDialog(props) {
@@ -44,12 +45,17 @@ function CreateEventDialog(props) {
       console.log("length: ", filtered.length)
       if (filtered.length !== 0) {
       props.setEvents(filtered)
+      props.setPaginatedEvents(_(filtered).slice(0).take(props.pageSize).value())
       }
       else {
         console.log("No events created by owner")
+        props.setEvents([])
+        props.setPaginatedEvents([])
       }
     } else {
-      props.setEvents(res.data)
+      let filtered = res.data.filter(event => event.creator !== props.username)
+      props.setEvents(filtered)
+      props.setPaginatedEvents(_(filtered).slice(0).take(props.pageSize).value())
     }
     props.setLoading(false)
     
@@ -77,14 +83,12 @@ function CreateEventDialog(props) {
 
           })
           .then((response) =>{
-            console.log(response);
-            setSaving(true)
+            console.log(response);           
             getEvents(true, "")
             props.setOpenModal(false)
           }, (error) => {
             console.log(error)
             setErrorMsg(error)
-            setSaving(false)
             // setShowErrorMsg(true)
           })
     }
@@ -96,9 +100,9 @@ function CreateEventDialog(props) {
     }
     const successCallBack = ()=>{
       console.log("success")
-     setShowErrorMsg(false) 
-     setErrorMsg(null)
-      // setSaving(true)
+      setShowErrorMsg(false) 
+      setErrorMsg(null)
+      setSaving(true)
       console.log(eventTitle)
       console.log(description)
       console.log(eventLocation)
@@ -242,7 +246,7 @@ function CreateEventDialog(props) {
           justifyContent: "center",
         }}>
         <Button   id="cancelBtn" variant="secondary" onClick={()=>{props.setOpenModal(false)}}>Close</Button>
-        <Button variant="primary" onClick={()=>{
+        <Button variant="primary" disabled = {saving} onClick={()=>{
           let error = 0;
           let errorMsg = []
         console.log(endTime.getTime())

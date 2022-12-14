@@ -6,7 +6,7 @@ import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_orange.css";
 import axios from 'axios';
 import "./CreateEventDialog.css"
-
+import _ from "lodash"
 
 function EditEventDialog(props) {
     const backendStartDate = props.events.start_date.split("/")
@@ -40,7 +40,7 @@ function EditEventDialog(props) {
     // const five_days_in_future = curr_time.setDate(curr_time.getDate() + MAX_NO_DAYS) 
     // console.log("Max time in future",five_days_in_future)
     
-    const currLogin = "Nada"
+   // const currLogin = "Nada"
 
     console.log("props: ", props)
     //console.log("start date: ", props.events.start_date.split("/")[0], props.events.start_date.split("/")[1], props.events.start_date.split("/")[2],  props.events.start_time.split(":")[0], props.events.start_time.split(":")[1])
@@ -54,16 +54,21 @@ function EditEventDialog(props) {
     console.log("Setting events to:", res.data)
     props.setEvents([])
     if (ownerView === true) {
-      let filtered = res.data.filter(event => event.creator === currLogin)
+      let filtered = res.data.filter(event => event.creator === props.username)
       console.log("length: ", filtered.length)
       if (filtered.length !== 0) {
       props.setEvents(filtered)
+      props.setPaginatedEvents(_(filtered).slice(0).take(props.pageSize).value())
       }
       else {
         console.log("No events created by owner")
+        props.setEvents([])
+        props.setPaginatedEvents([])
       }
     } else {
-      props.setEvents(res.data)
+      let filtered = res.data.filter(event => event.creator !== props.username)
+      props.setEvents(filtered)
+      props.setPaginatedEvents(_(filtered).slice(0).take(props.pageSize).value())
     }
     props.setLoading(false)
 
@@ -83,7 +88,7 @@ function EditEventDialog(props) {
             start_time:    startTime.toString(),
             end_time:      endTime.toString(),
             maxcap:        maxAttendeeCount,
-            creator:       DEFAULT_CREATOR,
+          //  creator:       DEFAULT_CREATOR,
             category:      eventCategory,
             location:      eventLocation,
             description:   description,
@@ -93,13 +98,13 @@ function EditEventDialog(props) {
           })
           .then((response) =>{
             console.log(response);
-            setSaving(true)
+         //   setSaving(true)
             getEvents(true, "")
             props.setOpenModal(false)
           }, (error) => {
             console.log(error)
             setErrorMsg(error)
-            setSaving(false)
+       //     setSaving(false)
             // setShowErrorMsg(true)
           })
     }
@@ -113,7 +118,7 @@ function EditEventDialog(props) {
       console.log("success")
      setShowErrorMsg(false) 
      setErrorMsg(null)
-      // setSaving(true)
+      setSaving(true)
       console.log(eventTitle)
       console.log(description)
       console.log(eventLocation)
@@ -268,7 +273,7 @@ function EditEventDialog(props) {
           justifyContent: "center",
         }}>
         <Button   id="cancelBtn" variant="secondary" onClick={()=>{props.setOpenModal(false)}}>Close</Button>
-        <Button variant="primary" onClick={()=>{
+        <Button variant="primary" disabled = {saving} onClick={()=>{
           let error = 0;
           let errorMsg = []
         console.log("end time", endTime.getTime())

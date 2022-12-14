@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.aa7c35ac.css",
-    "main.js": "/static/js/main.16cc930c.js",
+    "main.css": "/static/css/main.fde9c3d0.css",
+    "main.js": "/static/js/main.9c452cef.js",
     "static/js/787.90eebcb9.chunk.js": "/static/js/787.90eebcb9.chunk.js",
     "static/media/tiger.jpeg": "/static/media/tiger.2ea48e05ac93bcd04718.jpeg",
     "static/media/princeton_tigers_logo.png": "/static/media/princeton_tigers_logo.961ba311858168601016.png",
     "index.html": "/index.html",
-    "main.aa7c35ac.css.map": "/static/css/main.aa7c35ac.css.map",
-    "main.16cc930c.js.map": "/static/js/main.16cc930c.js.map",
+    "main.fde9c3d0.css.map": "/static/css/main.fde9c3d0.css.map",
+    "main.9c452cef.js.map": "/static/js/main.9c452cef.js.map",
     "787.90eebcb9.chunk.js.map": "/static/js/787.90eebcb9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.aa7c35ac.css",
-    "static/js/main.16cc930c.js"
+    "static/css/main.fde9c3d0.css",
+    "static/js/main.9c452cef.js"
   ]
 }
