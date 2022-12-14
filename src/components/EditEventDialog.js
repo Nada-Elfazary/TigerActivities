@@ -6,7 +6,7 @@ import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_orange.css";
 import axios from 'axios';
 import "./CreateEventDialog.css"
-
+import _ from "lodash"
 
 function EditEventDialog(props) {
     const backendStartDate = props.events.start_date.split("/")
