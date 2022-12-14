@@ -158,7 +158,7 @@ def fetch_activities(title, day, category, cost, capMin, capMax):
                     print(copy_row)
                     row = cursor.fetchone()
                 if len(activities) == 0:
-                    copy_row = ("", "No Activities Created", "", "", "", "", "", "", "", "", "", "", "", "")
+                    copy_row = ("", "No Activities Created Yet", "", "", "", "", "", "", "", "", "", "", "", "")
                     activities.append(copy_row)
         return activities              
 

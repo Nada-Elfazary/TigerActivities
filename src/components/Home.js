@@ -30,7 +30,7 @@ export default function  Home() : React.ReactNode {
   const [currentPage, setCurrentPage] = useState(1)
   const pageSize = 1;
  
-  let currLogin = "elfazary\n"
+  let currLogin = "elfazaryyy\n"
 
   const categoryToColor = {'Sports': "cyan", 'Entertainment': "purple", 'Academic': "darkorange", 'Off-campus': "olive", 'Outdoors': "navy",  
   'Meals/Coffee Chats': "maroon", 'Nassau Street': "green"} 
