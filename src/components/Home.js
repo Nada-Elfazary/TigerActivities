@@ -155,7 +155,7 @@ const profileClicked= () =>{
   setClickedMySignUps(false)
   setClickedProfile(true)
   getProfileData(username)
-  console.log("Inside clickedProfile set Clicked Profile to true.")
+  console.log("Inside profileClicked: set clickedProfile to true.")
 }
 
 const handleCreateEvent = () =>{

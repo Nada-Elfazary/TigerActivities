@@ -148,13 +148,13 @@ export default function Profile(props) {
    
              error = 1;
            }
-        //    if(phone.length === 0){
-        // //     error.push("Location field cannot be empty \n")
-        //      document.getElementById('num').classList.add("error");
-        //      document.getElementById('num').placeholder = "Phone number field cannot be empty";
+           if(updatePhone.length === 0){
+        //     error.push("Number field cannot be empty \n")
+             document.getElementById('num').classList.add("error");
+             document.getElementById('num').placeholder = "Phone number field cannot be empty";
    
-        //      error = 1;
-        //    }
+             error = 1;
+           }
          
            if(updateEmail.length === 0){
              document.getElementById('email').classList.add("error");
