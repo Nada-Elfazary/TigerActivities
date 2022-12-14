@@ -6,16 +6,16 @@ import SignUpModal from './SignUpModal';
 import CancelSignUpModal from './CancelSignUpModal';
 import "./Home.css";
 import axios from 'axios';
-import { useNavigate, useLocation } from "react-router-dom";
+import { propTypes } from 'react-bootstrap/esm/Image';
 
-const XDSCard = ({item, setEvents, setPaginatedEvents, pageSize, ownerView, signUpsView,name, phone, email, tagColor}) => {
+const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, ownerView, signUpsView,name, phone, email, tagColor}) => {
     const [isExpanded, setExpanded] = useState(false)
     const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded })
     const [displaySignUp, setDisplaySignUp] = useState(false)
     const [eventTitle, setEventTitle] = useState('')
    // const [events, setEvents] = useState([])
     const [displayModal, setDisplayModal] = useState(false)
-    const [loading, setLoading] = useState(false)
+   //const [loading, setLoading] = useState(false)
     const [id, setEventId] = useState('')
     const [attendees, setAttendees] = useState([])
     const [displayCancel, setDisplayCancel] = useState(false)
@@ -24,8 +24,10 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, pageSize, ownerView, sign
    // const [activityData, setActivityData] = useState(["","","","","","","",""])
   //  const [displayEditModal, setDisplayEditModal] = useState(false)
     const closedText = "(CLOSED)"
-    const navigate=useNavigate()
-    
+
+    // console.log(item.event_name, 'color: ', tagColor)
+
+
     const numToDay = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 
     3: "Thursday", 4: "Friday", 5: "Saturday", 6: "Sunday"}
 
@@ -79,8 +81,6 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, pageSize, ownerView, sign
     }}).then(res =>{ 
             setAttendees(res.data)     
     }).catch(err =>{
-      // setDisplayError([true, "Generic error message."])
-      navigate("/error")
       console.log(err)
     
     })

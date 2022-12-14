@@ -11,7 +11,6 @@ import axios from 'axios';
 import ClipLoader from 'react-spinners/ClipLoader'
 import "./App.css"
 import _ from "lodash"
-import { useNavigate, useLocation } from "react-router-dom";
 
 // importing Link from react-router-dom to navigate to 
 // different end points.
@@ -30,14 +29,9 @@ export default function  Home() : React.ReactNode {
   const [paginatedEvents, setPaginatedEvents] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const pageSize = 1;
-  // const [displayErr, setDisplayErr] = useState([false, ""])
  
-  let currLogin = "Reuben"
+  let currLogin = "elfazary\n"
   let currNetid = "ragogoe"
-
-  const currentLocation = useLocation()
-  const navigate=useNavigate()
-  console.log("Current location in Home.js:", currentLocation)
 
   const categoryToColor = {'Sports': "cyan", 'Entertainment': "purple", 'Academic': "darkorange", 'Off-campus': "olive", 'Outdoors': "navy",  
   'Meals/Coffee Chats': "maroon", 'Nassau Street': "green"} 
@@ -68,11 +62,6 @@ const displayPagination = <Pagination className="paginate">
 }
 </Pagination>
 
-// const displayError = (status, errMsg) => {
-//   setDisplayErr([status, errMsg])
-//   console.log("Setting the error state to: ", displayErr)
-// }
-
 const mySignUpsClicked= () => {
   if(clickedMySignUps) {
     setEvents([])
@@ -92,8 +81,8 @@ const mySignUpsClicked= () => {
     setEvents(res.data)
     setLoading(false)
   }).catch(err =>{
-    console.log("Error receiving event from db in Home.js:", err)
-    navigate("/error")
+    
+    console.log("Error receiving event from db:", err)
   })
 }
 
@@ -108,7 +97,6 @@ const activitiesClicked= () => {
   setClickedProfile(false)
   setRefresh(false)
   setCurrentPage(1)
-  // setDisplayErr([false, ""])
   getEvents(false, "")
   
 }
@@ -125,7 +113,6 @@ const myActivitiesClicked= ()=>{
   setClickedProfile(false)
   setRefresh(false)
   setCurrentPage(1)
-  // setDisplayErr([false, ""])
   getEvents(true, "")
 }
 
@@ -135,7 +122,6 @@ const profileClicked= () =>{
   setClickedActivities(false)
   setClickedMySignUps(false)
   setClickedProfile(true)
-  // setDisplayErr([false, ""])
   getProfileData(currNetid)
   console.log("Inside clickedProfile set Clicked Profile to true.")
 }
@@ -169,7 +155,6 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
     setLoading(false)
   }).catch(err =>{
     console.log("Error receiving event from db:", err)
-    navigate("/error")
   })
 }
 
@@ -187,8 +172,7 @@ const getProfileData = (netid) => {
           setProfileData([response.data.name, response.data.phone, response.data.email, response.data.class_year])
           console.log("Profile Data:", profileData)
       }
-  }).catch(err => {
-      navigate("/error")
+  }).catch(err =>{
       console.log("Error received from db:", err)
   })
 
@@ -219,7 +203,7 @@ const getProfileData = (netid) => {
 const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator !== currLogin).map((event, index)=>{
   return (
 
-    <XDSCard key ={index} item ={event} ownerView={false} signUpsView = {false} 
+    <XDSCard key ={index} item ={event} ownerView={false} signUpsView = {false} setLoading = {setLoading}
     name={profileData[0]}
     phone={profileData[1]}
     email={profileData[2]}
@@ -229,13 +213,13 @@ const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator
 const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
   return (
     <XDSCard key ={index} item={event} setEvents = {setEvents} setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize} ownerView={true} signUpsView = {false} 
-    tagColor = {categoryToColor[event.category]}/>
+    tagColor = {categoryToColor[event.category]} setLoading = {setLoading}/>
   )
 }): <h1 className = "center-screen">"No events created yet"</h1>
 const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
   return (
     <XDSCard key ={index} item={event} setEvents = {setEvents} ownerView={false} signUpsView = {true}
-    tagColor = {categoryToColor[event.category]}/>
+    tagColor = {categoryToColor[event.category]} setLoading = {setLoading}/>
   )
 }): <h1 className = "center-screen">No current sign-ups</h1>
 
@@ -291,7 +275,11 @@ const showResults = clickedActivities? (
   ): null
 
   const showProfile = clickedProfile ? <Profile 
+    // name={profileData[0]}
     netid={currNetid}
+    // phone={profileData[1]}
+    // email={profileData[2]}
+    // classYear={profileData[3]}
     profileData={profileData}
     getProfileData={getProfileData}
     /> : null
@@ -301,7 +289,7 @@ const showResults = clickedActivities? (
   )
 
   const showLoading = <ClipLoader loading={loading} size={200}/>
-
+ 
   return (
     <div className="page">
       {topNav}
@@ -309,14 +297,15 @@ const showResults = clickedActivities? (
       {showCreateEventButton}
       {showNote}
       <div className="content"> 
-      {showResults}
-      {showProfile}
-      {!loading ? results : showLoading}
-      {!loading ? showOwnerActivities : showLoading}
-          {showSignUps}
-          {modal}
+        {showResults}
+        {showProfile}
+        {!loading ? results : showLoading}
+        {!loading ? showOwnerActivities : showLoading}
+            {showSignUps}
+            {modal}
       </div>
       {!clickedProfile?  displayPagination : null}
-    </div>  
+    </div>
+    
   );
 };

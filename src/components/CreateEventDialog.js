@@ -6,7 +6,6 @@ import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_orange.css";
 import axios from 'axios';
 import "./CreateEventDialog.css"
-import { useNavigate } from "react-router-dom";
 
 
 function CreateEventDialog(props) {
@@ -32,12 +31,11 @@ function CreateEventDialog(props) {
     // console.log("Max time in future",five_days_in_future)
     
   const currLogin = "neww"
-  const navigate = useNavigate()
   const getEvents =  (ownerView, name, day, category, cost, capMin, capMax)=> {
     props.setLoading(true)
 
 // axios.get('https://tigeractivities.onrender.com/events').then(res =>{
-    axios.get('/events', {params: {title: name, day: day, category: category, cost: cost, capMin:capMin, capMax: capMax}}).then(res =>{
+  axios.get('/events', {params: {title: name, day: day, category: category, cost: cost, capMin:capMin, capMax: capMax}}).then(res =>{
     console.log("Events received from db:", res)
     console.log("Setting events to:", res.data)
     props.setEvents([])
@@ -49,6 +47,8 @@ function CreateEventDialog(props) {
       }
       else {
         console.log("No events created by owner")
+        props.setEvents([])
+        props.setPaginatedEvents([])
       }
     } else {
       props.setEvents(res.data)
@@ -58,7 +58,6 @@ function CreateEventDialog(props) {
 
   }).catch(err =>{
     console.log("Error receiving event from db:", err)
-    navigate("/error")
   })
 }
    
@@ -87,11 +86,9 @@ function CreateEventDialog(props) {
             getEvents(true, "")
             props.setOpenModal(false)
           }, (error) => {
-            // add some kind of message at the top as to why the error occured
             console.log(error)
             setErrorMsg(error)
             setSaving(false)
-            navigate("/error")
             // setShowErrorMsg(true)
           })
     }
@@ -229,7 +226,7 @@ function CreateEventDialog(props) {
                         setCost(event.target.value)
                         }}/>
         <InputGroup.Text>.00</InputGroup.Text>
-        </InputGroup></Col>
+      </InputGroup></Col>
             </Row>
           </Form.Group><Form.Group>
             <Row>
@@ -252,9 +249,8 @@ function CreateEventDialog(props) {
         <Button variant="primary" onClick={()=>{
           let error = 0;
           let errorMsg = []
-        
-        // console.log(endTime.getTime())
-        // console.log(startTime.getTime())
+        console.log(endTime.getTime())
+        console.log(startTime.getTime())
         if(eventTitle.length === 0 ){
 //              error.push("Title field cannot be empty")
           // setShowErrorMsg(true)
@@ -274,17 +270,7 @@ function CreateEventDialog(props) {
           document.getElementById('category').classList.add("error");
           error = 1;
         }
-        if (endTime === ""){
-          errorMsg.push("End Date can not be empty. Please fix this \n")
-          document.getElementById('end-time').classList.add("error")
-          document.getElementById('end-time').placeholder = "End date can not be empty"
-        }
-        if (startTime === ""){
-          errorMsg.push("Start Date can not be empty. Please fix this \n")
-          document.getElementById('start-time').classList.add("error")
-          document.getElementById('start-time').placeholder = "Start date can not be empty"
-        }
-       if(startTime !=="" && endTime !=="" && endTime.getTime() <= startTime.getTime()){
+       if( endTime.getTime() <= startTime.getTime()){
           console.log("wrong dates")
           errorMsg.push("End Date before or equal to start date. Please fix this \n")
           document.getElementById('start-time').classList.add("error")
@@ -385,3 +371,4 @@ function CreateEventDialog(props) {
 }
 
 export default CreateEventDialog;
+
