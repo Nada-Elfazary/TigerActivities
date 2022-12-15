@@ -202,6 +202,9 @@ function EditEventDialog(props) {
                      class = "customFlatpickr"
                      value={startTime} 
                      defaultValue = {startDate}
+                     options={ { minDate: "today" ,
+                     maxDate: new Date().fp_incr(5)
+                   } } 
                      onChange={(event) => 
                      {
                         console.log("event: ", event)

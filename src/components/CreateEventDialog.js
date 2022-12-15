@@ -181,6 +181,9 @@ function CreateEventDialog(props) {
                      id = "start-time"
                      class = "customFlatpickr"
                      value={startTime} 
+                     options={ { minDate: "today" ,
+                     maxDate: new Date().fp_incr(5)
+                   } } 
                      onChange={(event) => 
                      {
                         console.log("date:" +  startTime)
