@@ -87,7 +87,7 @@ const mySignUpsClicked= () => {
   axios.get('https://tigeractivities.onrender.com/user-sign-ups').then((res) =>{
     console.log("in sign-up")
     setEvents(res.data)
-    setPaginatedEvents(res.data)
+    setPaginatedEvents(res.data.slice(0).take(pageSize).value())
     setLoading(false)
   }).catch(err =>{
     console.log("Error receiving event from db:", err)
