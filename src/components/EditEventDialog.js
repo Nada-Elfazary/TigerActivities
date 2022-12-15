@@ -43,7 +43,7 @@ function EditEventDialog(props) {
       props.setLoading(true)
   
   // axios.get('https://tigeractivities.onrender.com/events').then(res =>{
-    axios.get('/events', {params: {title: name, day: day, category: category, cost: cost, capMin:capMin, capMax: capMax}}).then(res =>{
+    axios.get('/api/events', {params: {title: name, day: day, category: category, cost: cost, capMin:capMin, capMax: capMax}}).then(res =>{
     console.log("Events received from db:", res)
     console.log("Setting events to:", res.data)
     props.setEvents([])

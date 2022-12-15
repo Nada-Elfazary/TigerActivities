@@ -71,7 +71,7 @@ def dummy_route():
   username = auth.authenticate()
   return (username)
 
-@app.route("/events", methods = ['GET'])
+@app.route("api/events", methods = ['GET'])
 #
 def index():
    #username = auth.authenticate()

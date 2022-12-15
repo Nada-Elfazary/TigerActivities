@@ -172,7 +172,7 @@ const handleCreateEvent = () =>{
 
 const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
   setLoading(true)
-  axios.get('https://tigeractivities.onrender.com/events', {params: {title: name, day: day, category: category, cost: cost, capMin: capMin, capMax: capMax}}).then(res =>{
+  axios.get('https://tigeractivities.onrender.com/api/events', {params: {title: name, day: day, category: category, cost: cost, capMin: capMin, capMax: capMax}}).then(res =>{
     console.log("Events received from db:", res)
     setEvents([])
     if (ownerView === true) {
