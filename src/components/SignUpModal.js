@@ -28,7 +28,7 @@ function SignUpModal(props) {
 
   const submitForm= () =>
   {
-    axios.post('/sign-up', {
+    axios.post('/api/sign-up', {
       name: name,
       phone: phone,
       email: email,

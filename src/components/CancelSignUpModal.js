@@ -22,7 +22,7 @@ function CancelSignUpModal(props) {
   const navigate = useNavigate()
   const getSignUps =  ()=> {
     props.setLoading(true)
-    axios.get('/user-sign-ups').then((res) =>{
+    axios.get('/api/user-sign-ups').then((res) =>{
       console.log("in sign-up")
       console.log(res.data)
       props.setEvents([])
@@ -39,7 +39,7 @@ function CancelSignUpModal(props) {
   const submitForm= () =>
   {
     console.log("props.id", props.id)
-    axios.post('/cancel-sign-up', {
+    axios.post('/api/cancel-sign-up', {
         event_id : props.event_id,
       }).then(res =>{
         console.log(res)

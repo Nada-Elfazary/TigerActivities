@@ -63,7 +63,7 @@ export default function Profile(props) {
       //   submits the edit form once user is done updaing infomation
         const submitForm= () =>
         {
-            axios.post('/update-profile', {
+            axios.post('/api/update-profile', {
           //  netid: props.netid,
             name: updateName,
             phone: updatePhone,

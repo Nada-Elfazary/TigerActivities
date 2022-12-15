@@ -85,7 +85,7 @@ const mySignUpsClicked= () => {
   setCurrentPage(1)
   console.log("Requesting user signups")
   setLoading(true)
-  axios.get('https://tigeractivities.onrender.com/user-sign-ups').then((res) =>{
+  axios.get('https://tigeractivities.onrender.com/api/user-sign-ups').then((res) =>{
     console.log("in sign-up")
     setEvents(res.data)
     setPaginatedEvents(_(res.data).slice(0).take(pageSize).value())
@@ -205,7 +205,7 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
 }
 
 const getProfileData = (netid) => {
-  axios.get('https://tigeractivities.onrender.com/profile', {params:{
+  axios.get('https://tigeractivities.onrender.com/api/profile', {params:{
           netid: netid
       }
   })
@@ -233,7 +233,7 @@ const getProfileData = (netid) => {
 
 
 const handleLogout = ()=>{
-  axios.get('/logoutapp').then(res =>{
+  axios.get('/api/logoutapp').then(res =>{
     console.log(res)
     let response = res.data
     console.log("logged out")

@@ -22,13 +22,13 @@ app.secret_key = os.environ['APP_SECRET_KEY']
 #CORS(app)
 cors = CORS(app, resources={r"/*": {'origins': "http://tigeractivities-iqwe.onrender.com"}}, supports_credentials=True)
 
-@app.route('/logoutapp', methods=['GET'])
-@app.route('/logoutcas', methods=['GET'])
+@app.route('/api/logoutapp', methods=['GET'])
+@app.route('/api/logoutcas', methods=['GET'])
 def logout():
     authResult = CasClient.CASClient().logout()
     return jsonify(redirect = authResult)
 
-@app.route('/' , methods=['GET'])
+@app.route('/api' , methods=['GET'])
 def shree():
     print('I am here')
     return flask.render_template('index.html')
@@ -41,7 +41,7 @@ def shree():
  # response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
  # return response
 
-@app.route('/authenticate', methods=['GET'])
+@app.route('/api/authenticate', methods=['GET'])
 def authenticate():
    authResult = CasClient.CASClient().authenticate()
    #return(authResult)
@@ -51,7 +51,7 @@ def authenticate():
 
 #-----------------------------------------------------------------------
 
-@app.route('/authenticate2', methods=['GET'])
+@app.route('/api/authenticate2', methods=['GET'])
 def authenticate2():
     authResult = CasClient.CASClient().authenticate()
     if authResult['username'] == '':
@@ -65,7 +65,7 @@ def authenticate2():
 
 #-----------------------------------------------------------------------
 
-@app.route("/dummy", methods = ['GET'])
+@app.route("/api/dummy", methods = ['GET'])
 def dummy_route():
   print("inside dummy")
   username = auth.authenticate()
@@ -107,7 +107,7 @@ def index():
         results.append(response_body)
    return results
 
-@app.route("/user-sign-ups", methods = ['GET'])
+@app.route("/api/user-sign-ups", methods = ['GET'])
 def sign_ups():
   authResult = CasClient.CASClient().authenticate()
   username = authResult['username']
@@ -135,7 +135,7 @@ def sign_ups():
         results.append(response_body)
   return results
 
-@app.route('/attendees', methods=['GET'])
+@app.route('/api/attendees', methods=['GET'])
 def get_attendees():
     #username = auth.authenticate()
     #res = request.json
@@ -152,7 +152,7 @@ def get_attendees():
         attendees_response.append(response_body)
     return attendees_response
 
-@app.route('/create-event', methods = ['POST'])
+@app.route('/api/create-event', methods = ['POST'])
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 # cross_origin()
 def createEvent():
@@ -188,7 +188,7 @@ def createEvent():
     return res
   
 '''
-@app.route('/validate', methods=['GET'])
+@app.route('/api/validate', methods=['GET'])
 @cross_origin(origins= ['https://tigeractivities-iqwe.onrender.com'])
 def validate():
     #res = flask.request.json
@@ -198,11 +198,11 @@ def validate():
         lines = flo.readlines()
     return lines[0].decode('utf-8')
 '''
-@app.route('/hello', methods = ['GET'])
+@app.route('/api/hello', methods = ['GET'])
 def hello():
     return "Hello, worlds!"
 
-@app.route('/sign-up', methods = ['POST'])
+@app.route('/api/sign-up', methods = ['POST'])
 def signUp():
     authResult = CasClient.CASClient().authenticate()
     username = authResult['username']
@@ -214,7 +214,7 @@ def signUp():
     proc.store_sign_up(res, username)
     return res
 
-@app.route('/cancel-sign-up', methods = ['POST'])
+@app.route('/api/cancel-sign-up', methods = ['POST'])
 def cancelSignUp():
     authResult = CasClient.CASClient().authenticate()
     username = authResult['username']
@@ -228,7 +228,7 @@ def cancelSignUp():
     proc.delete_signup(id, username)
     return res
 
-@app.route('/update-profile', methods = ['POST'])
+@app.route('/api/update-profile', methods = ['POST'])
 def updateProfile():
     res = flask.request.json
     authResult = CasClient.CASClient().authenticate()
@@ -243,7 +243,7 @@ def updateProfile():
     proc.store_student([username,name,phone,email])
     return res
 
-@app.route('/edit-activity', methods = ['POST'])
+@app.route('/api/edit-activity', methods = ['POST'])
 def editActivity():
    # username = auth.authenticate()
     authResult = CasClient.CASClient().authenticate()
@@ -268,7 +268,7 @@ def editActivity():
     proc.edit_event(res)
     return res
 
-@app.route('/profile', methods = ['GET'])
+@app.route('/api/profile', methods = ['GET'])
 def getProfileInfo():
     netid = flask.request.args.get("netid")
     print("Inside /profile. Request data: {}".format(netid))
