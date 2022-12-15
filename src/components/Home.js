@@ -125,9 +125,11 @@ const cas = ()=>{
       window.location.replace(response.redirect);
       console.log('username: ', response.username)
     } else {
-      setUserName(response.username)
+      // try to synchronosly wait for state change
+      setUserName(response.username, () => {
       console.log("Username after being set:", username, "real username:", response.username)
       activitesClicked()
+      })
     }
   }).catch(err=>{
     console.log(err)
