@@ -28,13 +28,11 @@ export default function  Home() : React.ReactNode {
   const [refresh, setRefresh] = useState(false)
   const [loading, setLoading] = useState(false)
   const [nameFilter, setNameFilter] = useState('')
-  // let currLogin = "Nada"
   const [profileData, setProfileData] = useState(["","",""])
   const [paginatedEvents, setPaginatedEvents] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
-  const [updateProfileMsg, setUpdateProfileMsg] = useState("")
+  // const [updateProfileMsg, setUpdateProfileMsg] = useState("")
   const pageSize = 9;
- //let profileData = ['', '', '', '']
   const navigate = useNavigate()
 
   let fast_username = username
@@ -215,10 +213,10 @@ const getProfileData = (netid) => {
           setProfileData(["", "", ""])
           // redirect to profile page and set some kind of warning
           fast_profileData = ["","",""]
-          setUpdateProfileMsg("Please update your profile information.")
-          if (!clickedProfile) {
-            profileClicked()
-          }
+          // setUpdateProfileMsg("Please update your profile information.")
+          // if (!clickedProfile) {
+          //   profileClicked()
+          // }
          
 
       }
@@ -353,7 +351,7 @@ const showResults = clickedActivites? (
     netid={fast_username}
     profileData={fast_profileData}
     getProfileData={getProfileData}
-    updateProfileMsg={updateProfileMessage}
+    // updateProfileMsg={updateProfileMessage}
     /> : null
 
 
@@ -361,10 +359,10 @@ const showResults = clickedActivites? (
     <Dropdown filter = {filter} items = {items}></Dropdown>
   )
 
-  const showUpdateProfile = updateProfileMsg!==""?
-  <Card className="updateProfileMessage" variant="Info">
-    <Card.Title>{updateProfileMsg}</Card.Title>
-  </Card>:null
+  // const showUpdateProfile = updateProfileMsg!==""?
+  // <Card className="updateProfileMessage" variant="Info">
+  //   <Card.Title>{updateProfileMsg}</Card.Title>
+  // </Card>:null
 
   const showLoading = <ClipLoader loading={loading} size={200}/>
 
@@ -372,7 +370,7 @@ const showResults = clickedActivites? (
     <div className="page">
       {topNav}
       {showFilter}
-      {showUpdateProfile}
+      {/* {showUpdateProfile} */}
       {showCreateEventButton}
       {/* {showNote} */}
       <div className="content"> 
