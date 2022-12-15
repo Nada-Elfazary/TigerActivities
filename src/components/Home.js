@@ -38,6 +38,7 @@ export default function  Home() : React.ReactNode {
   const navigate = useNavigate()
 
   let fast_username = username
+  let fast_profileData = profileData
 
   const categoryToColor = {'Sports': "DeepSkyBlue", 'Entertainment': "slateblue", 'Academic': "orange", 'Off-campus': "olive", 'Outdoors': "navy",  
   'Meals/Coffee Chats': "maroon", 'Nassau Street': "green", 'Social': "tomato"} 
@@ -213,16 +214,18 @@ const getProfileData = (netid) => {
       if (response.length === 0 || response.data.email==="") {
           setProfileData(["", "", ""])
           // redirect to profile page and set some kind of warning
-          // setUpdateProfileMsg("Please update your profile information.")
-          // profileClicked()
+          fast_profileData = ["","",""]
+          setUpdateProfileMsg("Please update your profile information.")
+          profileClicked()
 
       }
       else {
           console.log("Response is:",response)
           console.log(response.data)
           setProfileData ([response.data.name, response.data.phone, response.data.email])
+          fast_profileData=[response.data.name, response.data.phone, response.data.email]
           // setUpdateProfileMsg("")
-          console.log("Profile Data in axios:", profileData)
+          console.log("Profile Data in axios:", profileData, "fast:", fast_profileData)
       }
   }).catch(err =>{
       console.log("Inside Home.js. Error receiveing profile information from db for user:",netid, err)
@@ -272,9 +275,9 @@ const handleLogout = ()=>{
     return (
   
       <XDSCard key ={index} item ={event} ownerView={false} signUpsView = {false} setLoading = {setLoading}
-      name={profileData[0]}
-      phone={profileData[1]}
-      email={profileData[2]}
+      name={fast_profileData[0]}
+      phone={fast_profileData[1]}
+      email={fast_profileData[2]}
       tagColor = {categoryToColor[event.category]}/>
     )
   }): <h1 className = "center-screen">No events created yet</h1>
@@ -345,8 +348,8 @@ const showResults = clickedActivites? (
 
   const showProfile = clickedProfile ? <Profile 
     netid={username}
-    profileData={profileData}
-    getProfileData={getProfileData}
+    profileData={pfast_rofileData}
+    getProfileData={fast_getProfileData}
     // updateProfileMsg={updateProfileMessage}
     /> : null
 
