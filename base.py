@@ -44,7 +44,10 @@ def shree():
 @app.route('/api/authenticate', methods=['GET'])
 def authenticate():
    authResult = CasClient.CASClient().authenticate()
-   #return(authResult)
+   student_row = proc.student_details(authResult['username'])
+   if student_row is None:
+        proc.store_student([authResult['username'],"","",""])
+
    return jsonify(
         username=authResult['username'],
         redirect=authResult['redirect'])
