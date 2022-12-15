@@ -111,9 +111,9 @@ const activitesClicked= () => {
   
 }
 
-const updateProfileMessage= (msg) => {
-  setUpdateProfileMsg(msg)
-}
+// const updateProfileMessage= (msg) => {
+//   setUpdateProfileMsg(msg)
+// }
 
 const cas = ()=>{ 
   console.log("inside cas")
@@ -131,7 +131,6 @@ const cas = ()=>{
       console.log("Username after being set:", username, "real username:", response.username, data)
       activitesClicked()
       fast_username = response.username
-      setUserName(response.username)
     }
   }).catch(err=>{
     console.log(err)
@@ -213,12 +212,11 @@ const getProfileData = (netid) => {
           setProfileData(["", "", ""])
           // redirect to profile page and set some kind of warning
           fast_profileData = ["","",""]
+          console.log("Inside Home.js. Clicked Profile:", clickedProfile)
           // setUpdateProfileMsg("Please update your profile information.")
           // if (!clickedProfile) {
           //   profileClicked()
           // }
-         
-
       }
       else {
           console.log("Response is:",response)
