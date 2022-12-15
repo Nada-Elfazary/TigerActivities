@@ -270,14 +270,14 @@ const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((e
   console.log(paginatedEvents.filter((event)=>event.creator === username))
 
   return (
-    <XDSCard key ={index} item={event} ownerView={true} signUpsView = {false} 
+    <XDSCard key ={index} item={event} ownerView={true} signUpsView = {false}  setLoading ={setLoading}
     tagColor = {categoryToColor[event.category]}/>
   )
 }): null 
 //<h1 className = "center-screen">No events created yet</h1>
 const displaySignUps = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
   return (
-    <XDSCard key ={index} item={event} setEvents = {setEvents} ownerView={false} signUpsView = {true}
+    <XDSCard key ={index} item={event} setEvents = {setEvents} ownerView={false} signUpsView = {true} setLoading ={setLoading}
     tagColor = {categoryToColor[event.category]}/>
   )
 }): null 
@@ -356,6 +356,7 @@ const showResults = clickedActivites? (
       {/* {showUpdateProfile} */}
       {showCreateEventButton}
       {/* {showNote} */}
+      {showLoading}
       <div className="content"> 
         {showResults}
         {showProfile}
@@ -363,6 +364,7 @@ const showResults = clickedActivites? (
         {showOwnerActivities}
             {showSignUps}
             {modal}
+           
       </div>
       {!clickedProfile?  displayPagination : null}
     </div>

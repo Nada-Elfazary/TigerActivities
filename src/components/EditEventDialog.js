@@ -30,7 +30,7 @@ function EditEventDialog(props) {
     //let endTime = new Date()
     const [cost, setCost] = useState(props.events.cost)
     const [description, setDescription] = useState(props.events.description)
-    const [saving, setSaving] = useState(true)
+    const [saving, setSaving] = useState(false)
     const [errorMsg, setErrorMsg] = useState("")
     const [showErrorMsg, setShowErrorMsg] = useState(false)
 
