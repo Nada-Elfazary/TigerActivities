@@ -55,6 +55,7 @@ def authenticate2():
     authResult = CasClient.CASClient().authenticate()
     if authResult['username'] == '':
         return 'Something is badly wrong.'
+    
     student_row = proc.student_details(authResult['username'])
     if student_row is None or student_row[1]== "":
         proc.store_student([authResult['username'],"","",""])
@@ -142,6 +143,10 @@ def sign_ups():
 def get_attendees():
     #username = auth.authenticate()
     #res = request.json
+    authResult = CasClient.CASClient().authenticate()
+    username = authResult['username']
+    if username == '':
+        return "Not found"
     id = flask.request.args.get("event_id")
     attendees_response = []
     attendees = proc.get_activity_attendees(id)
@@ -273,6 +278,10 @@ def editActivity():
 
 @app.route('/api/profile', methods = ['GET'])
 def getProfileInfo():
+    authResult = CasClient.CASClient().authenticate()
+    username = authResult['username']
+    if username == '':
+        return "Not found"
     netid = flask.request.args.get("netid")
     print("Inside /profile. Request data: {}".format(netid))
     student_row = proc.student_details(netid)

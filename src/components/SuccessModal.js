@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Container } from 'react-bootstrap';
-import {BsCheckLg} from 'react-icons/bs';
+//import {BsCheckLg} from 'react-icons/bs';
 import CreateEventModalDraggable from './CreateEventModalDraggable';
 
 const SuccessModal = (props) => {
@@ -16,7 +16,7 @@ const SuccessModal = (props) => {
             }}>
             </Modal.Header>
             <Modal.Body className='success'>
-                Successfully signed up! <BsCheckLg className="checkmark"/>
+                Successfully signed up! 
             </Modal.Body>
        
         </Modal>
