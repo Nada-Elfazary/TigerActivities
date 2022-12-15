@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import {Button, Modal, Form, Row, Col, Container} from 'react-bootstrap';
 import CreateEventModalDraggable from "./CreateEventModalDraggable";
-
+import SuccessModal from "./SuccessModal";
 import "./Modal.css";
 
 function SignUpModal(props) {
@@ -13,6 +13,7 @@ function SignUpModal(props) {
   const [errorMsg, setErrorMsg] = useState("")
   const [showErrorMsg, setShowErrorMsg] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [openSuccessModal, setOpenSuccessModal] = useState(false)
 
   /*
   React.useEffect(() => {
@@ -40,6 +41,7 @@ function SignUpModal(props) {
       }
       else {
         props.setOpenSignUpModal(false)
+        setOpenSuccessModal(true)
       }
     }, (error) => {
       console.log("Failed to load signup", error)
@@ -64,6 +66,7 @@ function SignUpModal(props) {
       // props.setClickMyActivities(true)
     }
 
+  const successModal  = openSuccessModal ? (<SuccessModal setOpenSuccessModal = {setOpenSuccessModal}/>): null
   const errorM  = showErrorMsg? <strong className="error">{errorMsg}</strong> : null
   const signUpModal = <Container fluid> <Modal show={props.setOpenSignUpModal} dialogAs={CreateEventModalDraggable} onHide={()=>{
     props.setOpenSignUpModal(false)
@@ -217,6 +220,7 @@ function SignUpModal(props) {
   return (
     <>
     {signUpModal}
+    {successModal}
     </>
   );
 }

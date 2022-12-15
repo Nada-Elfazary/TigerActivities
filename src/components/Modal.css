@@ -31,7 +31,13 @@
   .modalContainer .title {
     margin-top: 5px;
   }
-  
+  .success{
+    color: greenyellow;
+  }
+  .checkmark{
+    background-color: green;
+    color: green;
+  }
   .titleCloseBtn {
     display: flex;
     justify-content: flex-end;

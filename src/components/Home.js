@@ -87,6 +87,7 @@ const mySignUpsClicked= () => {
   axios.get('https://tigeractivities.onrender.com/user-sign-ups').then((res) =>{
     console.log("in sign-up")
     setEvents(res.data)
+    setPaginatedEvents(_(res.data).slice(0).take(pageSize).value())
     setLoading(false)
   }).catch(err =>{
     console.log("Error receiving event from db:", err)
@@ -268,10 +269,10 @@ const handleLogout = ()=>{
       tagColor = {categoryToColor[event.category]} setLoading = {setLoading} username={username}/>
     )
   }): <h1 className = "center-screen">No events created yet</h1>
-  const displaySignUps = events.length !== 0 ? events.map((event, index)=>{
+  const displaySignUps = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
     return (
-      <XDSCard key ={index} item={event} setEvents = {setEvents} ownerView={false} signUpsView = {true}
-      tagColor = {categoryToColor[event.category]} setLoading = {setLoading}/>
+      <XDSCard key ={index} item={event} setEvents = {setEvents} setPaginatedEvents = {setPaginatedEvents} ownerView={false} signUpsView = {true}
+      tagColor = {categoryToColor[event.category]} setLoading = {setLoading} pageSize={pageSize}/>
     )
   }): <h1 className = "center-screen">No current sign-ups</h1>
 

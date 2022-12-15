@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import {Button, Modal, Form, Row, Col, Container} from 'react-bootstrap';
 import CreateEventModalDraggable from "./CreateEventModalDraggable";
-
+import _ from "lodash"
 import "./Modal.css";
 
 function CancelSignUpModal(props) {
@@ -26,6 +26,8 @@ function CancelSignUpModal(props) {
       console.log(res.data)
       props.setEvents([])
       props.setEvents(res.data)
+      props.setPaginatedEvents([])
+      props.setPaginatedEvents(_(res.data).slice(0).take(props.pageSize).value())
       props.setLoading(false)
     }).catch(err =>{
       

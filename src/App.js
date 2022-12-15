@@ -6,6 +6,7 @@ import HomeTo from "./components/HomeTo"
 import CasPage from './components/CasPage';
 import CreateEventModalDraggable from './components/CreateEventModalDraggable';
 import SignUpModal from './components/SignUpModal';
+import Error from "./components/Error"
 // import 'bootstrap/dist/css/bootstrap.min.css';
 function App(): React.ReactNode {
 
@@ -17,6 +18,7 @@ function App(): React.ReactNode {
       <Route exact path="/home" element={<Home/>}/>
       <Route exact path = '/login' element={<CasPage />}/>
       <Route exact path="/homeTo" element={<HomeTo />}/>
+      <Route exact path="/error" element={<Error />}/>
       {/* <Route path="/profile" element={<SignUpModal />} /> */}
     </Routes>
    </div>

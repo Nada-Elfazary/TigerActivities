@@ -75,7 +75,7 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
     />): null
 
    const cancelModal = displayCancel ? (<CancelSignUpModal setOpenCancelModal={setDisplayCancel} setLoading = {setLoading} setEvents ={setEvents} 
-      event_id={id} title = {eventTitle} />) : null 
+      event_id={id} title = {eventTitle} setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize}/>) : null 
 
   const get_attendees = (event)=>{
     console.log("inside get attendees")
