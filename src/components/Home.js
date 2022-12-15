@@ -43,7 +43,7 @@ export default function  Home() : React.ReactNode {
 
   useEffect(()=>{
     cas()
-    setRefresh(true)
+    // setRefresh(true)
     activitesClicked()
     setEvents([])
     getProfileData()
@@ -292,7 +292,7 @@ const topNav =
   <Navbar.Brand><Button onClick={handleLogout}>Logout</Button></Navbar.Brand>
   </div>
 </Navbar>
-const results = refresh ? (displayEvents) : null
+// const results = refresh ? (displayEvents) : null
 
 const showResults = clickedActivites? (
  
@@ -356,7 +356,7 @@ const showResults = clickedActivites? (
       <div className="content"> 
         {showResults}
         {showProfile}
-        {!loading ? results : showLoading}
+        {/*!loading ? results : showLoading*/}
         {!loading ? showOwnerActivities : showLoading}
             {showSignUps}
             {modal}
