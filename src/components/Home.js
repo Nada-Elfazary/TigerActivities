@@ -37,7 +37,7 @@ export default function  Home() : React.ReactNode {
  //let profileData = ['', '', '', '']
   const navigate = useNavigate()
 
-  let fast_username = ""
+  let fast_username = username
 
   const categoryToColor = {'Sports': "DeepSkyBlue", 'Entertainment': "slateblue", 'Academic': "orange", 'Off-campus': "olive", 'Outdoors': "navy",  
   'Meals/Coffee Chats': "maroon", 'Nassau Street': "green", 'Social': "tomato"} 
@@ -132,6 +132,7 @@ const cas = ()=>{
       console.log("Username after being set:", username, "real username:", response.username, data)
       activitesClicked()
       fast_username = response.username
+      setUserName(response.username)
     }
   }).catch(err=>{
     console.log(err)
