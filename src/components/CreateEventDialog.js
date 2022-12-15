@@ -23,7 +23,7 @@ function CreateEventDialog(props) {
     const [endTime, setEndTime] = useState(new Date())
     const [cost, setCost] = useState(0)
     const [description, setDescription] = useState("")
-    const [saving, setSaving] = useState(true)
+    const [saving, setSaving] = useState(false)
     const [errorMsg, setErrorMsg] = useState("")
     const [showErrorMsg, setShowErrorMsg] = useState(false)
     // const curr_time = new Date()
