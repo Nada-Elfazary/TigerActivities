@@ -7,7 +7,7 @@ import "./Modal.css";
 
 function CancelSignUpModal(props) {
     console.log("cancel props: ", props)
-    const [saving, setSaving] = useState(true)
+    const [saving, setSaving] = useState(false)
   //  const [events, setEvents] = useState([])
    // const [loading, setLoading] = useState(false)
   /*
