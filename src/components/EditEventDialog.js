@@ -99,7 +99,7 @@ function EditEventDialog(props) {
           }, (error) => {
             console.log("Inside EditEventDialog. Error received trying to submit edite event", error)
             setErrorMsg(error)
-            useNavigate()
+            navigate("/error")
        //     setSaving(false)
             // setShowErrorMsg(true)
           })
