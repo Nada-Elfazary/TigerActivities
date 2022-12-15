@@ -120,9 +120,12 @@ export default function Filter(props) : React.ReactNode {
         <Form.Group>
                 <Form.Label>Maximum Cost ($)</Form.Label>
                 <Form.Control type = "text" value={cost} name="cost" placeholder= "Enter a positive integer" onChange={(event) => {
+                   
                         setCost(event.target.value)
                         console.log("Cost value:", event, event.target.value, cost)
                         props.getEvents(false, title, dayToNumber[day], category, event.target.value, capMin, capMax)
+                   
+
                     }}></Form.Control>
         </Form.Group>
         </Navbar.Brand>
