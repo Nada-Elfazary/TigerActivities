@@ -4,6 +4,7 @@ import {Button, Modal, Form, Row, Col, Container} from 'react-bootstrap';
 import CreateEventModalDraggable from "./CreateEventModalDraggable";
 import SuccessModal from "./SuccessModal";
 import "./Modal.css";
+import { useNavigate } from "react-router-dom";
 
 function SignUpModal(props) {
 
@@ -23,6 +24,7 @@ function SignUpModal(props) {
   }, [])
 
   */
+  const navigate=useNavigate()
 
   const submitForm= () =>
   {
@@ -44,7 +46,8 @@ function SignUpModal(props) {
         setOpenSuccessModal(true)
       }
     }, (error) => {
-      console.log("Failed to load signup", error)
+      console.log("Inside SignUpModal.js. Failed to load signup", error)
+      navigate("/error")
     })
   }
 

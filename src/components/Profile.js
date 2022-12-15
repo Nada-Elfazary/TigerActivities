@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import {Button, Modal, Form, Row, Col, Container, Card} from 'react-bootstrap';
 import CreateEventModalDraggable from "./CreateEventModalDraggable";
+import { useNavigate } from "react-router-dom";
 import "./Profile.css"
 
 // import "./Modal.css";
@@ -28,6 +29,8 @@ export default function Profile(props) {
          setShowErrorMsg(true)
          console.log("error")
     }
+
+    const navigate = useNavigate()
 
     // React.useEffect(() => {
     //   setDbName(props.name)
@@ -71,7 +74,8 @@ export default function Profile(props) {
             console.log("Props:", props)
             // props.updateProfileMsg("")
             }, (error) => {
-            console.log(error)
+            console.log("Inside Profile.js. Error recieved updating profile:", error)
+            navigate("/error")
             })
         }
 

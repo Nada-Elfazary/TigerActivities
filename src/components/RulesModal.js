@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import  {useNavigate} from "react-router-dom";
-import axios from "axios";
 import CreateEventModalDraggable from "./CreateEventModalDraggable";
 import "./Modal.css";
 import { Container, Modal, Button, Form, ListGroup } from "react-bootstrap";

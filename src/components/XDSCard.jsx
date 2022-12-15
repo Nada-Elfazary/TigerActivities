@@ -6,6 +6,7 @@ import SignUpModal from './SignUpModal';
 import CancelSignUpModal from './CancelSignUpModal';
 import "./Home.css";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { propTypes } from 'react-bootstrap/esm/Image';
 
 const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, ownerView, signUpsView,name, phone, email, tagColor, username}) => {
@@ -22,7 +23,7 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
     const [isCurrUserSignedUp, setIsCurrUserSignedUp] = useState(false)
     const backgroundColor = tagColor
 
-    
+    const navigate = useNavigate()
    // const [activityData, setActivityData] = useState(["","","","","","","",""])
   //  const [displayEditModal, setDisplayEditModal] = useState(false)
     const closedText = "(CLOSED)"
@@ -91,7 +92,8 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
               }
             }     
     }).catch(err =>{
-      console.log(err)
+      console.log("Inside XDSCard.js error receiveing attendees:", err)
+      navigate("/error")
     
     })
   }
