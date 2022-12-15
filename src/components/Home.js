@@ -119,7 +119,7 @@ const updateProfileMessage= (msg) => {
 
 const cas = ()=>{ 
   console.log("inside cas")
-  fetch('https://tigeractivities.onrender.com/authenticate').then((resp)=>
+  fetch('https://tigeractivities.onrender.com/api/authenticate').then((resp)=>
     {return resp.text();}).then((data) => {
     let response = JSON.parse(data)
     console.log('data from cas: ', data)
