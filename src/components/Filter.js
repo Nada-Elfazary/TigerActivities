@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
@@ -16,14 +15,9 @@ export default function Filter(props) : React.ReactNode {
     const [attendeesNum, setAttendeesNum] = useState(0)
     const [capMin, setCapMin] = useState("")
     const [capMax, setCapMax] = useState("")
-
-    // const leqAttendeeFilter
-
     const dayToNumber = {"Monday": 0, "Tuesday":1, "Wednesday":2, 
     "Thursday":3, "Friday":4, "Saturday":5, "Sunday":6}
 
-    // getEvents takes in query parameters and returns event respecting
-    // all params
     const handleSelect = (key, event, filterTitle) => {
         console.log("Event data & key:", event.nativeEvent.target.firstChild.data, key)
         if (filterTitle == "dayFilter") {

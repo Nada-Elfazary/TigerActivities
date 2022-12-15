@@ -23,7 +23,7 @@ export default function  Home() : React.ReactNode {
   const [clickedMySignUps, setClickedMySignUps] = useState(false)
   const [clickedProfile, setClickedProfile] = useState(false)
   const [events, setEvents] = useState([])
-  const [username, setUserName] = useState(null)
+  const [username, setUserName] = useState("")
   const [displayModal, setDisplayModal] = useState(false)
   const [refresh, setRefresh] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -90,7 +90,8 @@ const mySignUpsClicked= () => {
     setPaginatedEvents(_(res.data).slice(0).take(pageSize).value())
     setLoading(false)
   }).catch(err =>{
-    console.log("Error receiving event from db:", err)
+    console.log("Inside Home.js. Error receiving user sign ups:", err)
+    navigate("/error")
   })
 }
 
@@ -183,12 +184,14 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
     } else {
       let explored = res.data.filter(event => event.creator !== username)
       console.log("Setting events to:", explored)
+      console.log("username in get events", username)
       setEvents(explored)
       setPaginatedEvents(_(explored).slice(0).take(pageSize).value())
     }
     setLoading(false)
   }).catch(err =>{
-    console.log("Error receiving event from db:", err)
+    console.log("Inside Home.js. Error receiving event from db:", err)
+    navigate("/error")
   })
 }
 
@@ -213,7 +216,8 @@ const getProfileData = (netid) => {
           console.log("Profile Data in axios:", profileData)
       }
   }).catch(err =>{
-      console.log("Error received from db:", err)
+      console.log("Inside Home.js. Error receiveing profile information from db for user:",netid, err)
+      navigate("/error")
   })
 
 }
@@ -227,7 +231,8 @@ const handleLogout = ()=>{
     window.location.replace(response.redirect)
   }).catch(
     err=>{
-      console.log(err)
+      console.log("Inside Home.js. Error recieving logout info from db:", err)
+      navigate("/error")
     }
   )
 }

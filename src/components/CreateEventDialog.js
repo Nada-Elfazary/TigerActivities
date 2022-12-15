@@ -7,6 +7,7 @@ import "flatpickr/dist/themes/material_orange.css";
 import axios from 'axios';
 import "./CreateEventDialog.css"
 import _ from "lodash"
+import { useNavigate } from "react-router-dom";
 
 
 function CreateEventDialog(props) {
@@ -26,16 +27,11 @@ function CreateEventDialog(props) {
     const [saving, setSaving] = useState(false)
     const [errorMsg, setErrorMsg] = useState("")
     const [showErrorMsg, setShowErrorMsg] = useState(false)
-    // const curr_time = new Date()
-    // console.log("Current time", curr_time.getTime())
-    // const five_days_in_future = curr_time.setDate(curr_time.getDate() + MAX_NO_DAYS) 
-    // console.log("Max time in future",five_days_in_future)
-    
-  // const currLogin = "Reuben"
+
+  const navigate = useNavigate()
   const getEvents =  (ownerView, name, day, category, cost, capMin, capMax)=> {
     props.setLoading(true)
 
-// axios.get('https://tigeractivities.onrender.com/events').then(res =>{
   axios.get('https://tigeractivities.onrender.com/events', {params: {title: name, day: day, category: category, cost: cost, capMin:capMin, capMax: capMax}}).then(res =>{
     console.log("Events received from db:", res)
     console.log("Setting events to:", res.data)
@@ -61,7 +57,8 @@ function CreateEventDialog(props) {
     
 
   }).catch(err =>{
-    console.log("Error receiving event from db:", err)
+    console.log("Inside CreateEventDialog. Error receiving events from db:", err)
+    navigate("/error")
   })
 }
    
@@ -69,7 +66,6 @@ function CreateEventDialog(props) {
         setDisableSubmitForm(true)
         console.log(disableSubmitForm)
         axios.post('https://tigeractivities.onrender.com/create-event', {
-          // create_id
             event_name:    eventTitle,
             start_time:    startTime.toString(),
             end_time:      endTime.toString(),
@@ -87,9 +83,9 @@ function CreateEventDialog(props) {
             getEvents(true, "")
             props.setOpenModal(false)
           }, (error) => {
-            console.log(error)
+            console.log("Trying to submit created createEventDialog. Receiveing error:", error)
             setErrorMsg(error)
-            // setShowErrorMsg(true)
+            navigate("/error")
           })
     }
 
@@ -107,8 +103,6 @@ function CreateEventDialog(props) {
       console.log(description)
       console.log(eventLocation)
       submitForm()
-      
-      // props.setClickMyActivities(true)
     }
     const errorM  = showErrorMsg? <strong className="error">{errorMsg}</strong> : null
     

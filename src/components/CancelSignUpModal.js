@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import {Button, Modal, Form, Row, Col, Container} from 'react-bootstrap';
 import CreateEventModalDraggable from "./CreateEventModalDraggable";
 import _ from "lodash"
+import { useNavigate } from "react-router-dom";
 import "./Modal.css";
 
 function CancelSignUpModal(props) {
@@ -17,8 +18,8 @@ function CancelSignUpModal(props) {
     setPhone(props.phone)
   }, [])
   */
-  const currLogin = "Reuben"
 
+  const navigate = useNavigate()
   const getSignUps =  ()=> {
     props.setLoading(true)
     axios.get('/user-sign-ups').then((res) =>{
@@ -30,8 +31,8 @@ function CancelSignUpModal(props) {
       props.setPaginatedEvents(_(res.data).slice(0).take(props.pageSize).value())
       props.setLoading(false)
     }).catch(err =>{
-      
-      console.log("Error receiving event from db:", err)
+      console.log("Inside Cancel SignPp Modal. Error receiving event from db:", err)
+      navigate("/error")
     })
 }
 

@@ -6,6 +6,7 @@ import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/material_orange.css";
 import axios from 'axios';
 import "./CreateEventDialog.css"
+import { useNavigate } from "react-router-dom";
 import _ from "lodash"
 
 function EditEventDialog(props) {
@@ -26,25 +27,18 @@ function EditEventDialog(props) {
     const [disableSubmitForm, setDisableSubmitForm] = useState(false)
     const [startTime, setStartTime] = useState(new Date(startDate))
     const [endTime, setEndTime] = useState(new Date(endDate))
-    //let startTime = new Date()
-    //let endTime = new Date()
     const [cost, setCost] = useState(props.events.cost)
     const [description, setDescription] = useState(props.events.description)
     const [saving, setSaving] = useState(false)
     const [errorMsg, setErrorMsg] = useState("")
     const [showErrorMsg, setShowErrorMsg] = useState(false)
 
-    console.log("event info: ", eventTitle, eventLocation, eventCategory)
-    // const curr_time = new Date()
-    // console.log("Current time", curr_time.getTime())
-    // const five_days_in_future = curr_time.setDate(curr_time.getDate() + MAX_NO_DAYS) 
-    // console.log("Max time in future",five_days_in_future)
-    
-   // const currLogin = "Nada"
+    console.log("Inside EditEventDialog. Event info: ", eventTitle, eventLocation, eventCategory)
 
-    console.log("props: ", props)
+    console.log("EditEventDialog props: ", props)
     //console.log("start date: ", props.events.start_date.split("/")[0], props.events.start_date.split("/")[1], props.events.start_date.split("/")[2],  props.events.start_time.split(":")[0], props.events.start_time.split(":")[1])
 
+    const navigate = useNavigate()
     const getEvents =  (ownerView, name, day, category, cost, capMin, capMax)=> {
       props.setLoading(true)
   
@@ -73,7 +67,8 @@ function EditEventDialog(props) {
     props.setLoading(false)
 
   }).catch(err =>{
-    console.log("Error receiving event from db:", err)
+    console.log("inside EditEventDialog. Error receiving event from db:", err)
+    navigate("/error")
   })
 }
    
@@ -102,8 +97,9 @@ function EditEventDialog(props) {
             getEvents(true, "")
             props.setOpenModal(false)
           }, (error) => {
-            console.log(error)
+            console.log("Inside EditEventDialog. Error received trying to submit edite event", error)
             setErrorMsg(error)
+            useNavigate()
        //     setSaving(false)
             // setShowErrorMsg(true)
           })

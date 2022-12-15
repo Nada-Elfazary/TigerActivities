@@ -5,7 +5,7 @@ import CreateEventModalDraggable from './CreateEventModalDraggable';
 
 const SuccessModal = (props) => {
 
-    const successModal = <Container fluid> <Modal show={props.setOpenSuccessModal} dialogAs={CreateEventModalDraggable} onHide={()=>{
+    const successModal = <Container fluid> <Modal show={true} dialogAs={CreateEventModalDraggable} onHide={()=>{
         props.setOpenSuccessModal(false)
       }} size="sm-2"
       aria-labelledby="contained-modal-title-center"

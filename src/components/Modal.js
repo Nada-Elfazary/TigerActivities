@@ -1,12 +1,15 @@
 import axios from "axios";
 import React, { useState } from "react";
 import "./Modal.css";
+import { useNavigate } from "react-router-dom"
 
 function Modal(props) {
 
   const [name,setName] = useState("")
   const [phone,setPhone] = useState("")
   const [email,setEmail] = useState("")
+
+  const navigate = useNavigate()
   
   const submitForm= () =>
   {
@@ -20,7 +23,8 @@ function Modal(props) {
     .then((response) => {
       console.log(response)
     }, (error) => {
-      console.log(error)
+      console.log("Inside Modal.js. Error fetching signup info:",error)
+      navigate("/error")
     })
   }
 
