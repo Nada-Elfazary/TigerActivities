@@ -180,10 +180,10 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
         setPaginatedEvents([])
       }
     } else {
-      let filtered = res.data.filter(event => event.creator !== username)
-      console.log("Setting events to:", filtered)
-      setEvents(filtered)
-      setPaginatedEvents(_(filtered).slice(0).take(pageSize).value())
+      let explored = res.data.filter(event => event.creator !== username)
+      console.log("Setting events to:", explored)
+      setEvents(explored)
+      setPaginatedEvents(_(explored).slice(0).take(pageSize).value())
     }
     setLoading(false)
   }).catch(err =>{
@@ -252,7 +252,7 @@ const handleLogout = ()=>{
     pageSize = {pageSize} username={username} />) : null 
 
 
-  const displayEvents = events.length !== 0 ? events.filter((event)=>event.creator !== username).map((event, index)=>{
+  const displayEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
     return (
   
       <XDSCard key ={index} item ={event} ownerView={false} signUpsView = {false} setLoading = {setLoading}

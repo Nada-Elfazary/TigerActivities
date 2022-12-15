@@ -22,7 +22,7 @@ function SignUpModal(props) {
   }, [])
 
   */
- 
+
   const submitForm= () =>
   {
     axios.post('/sign-up', {
