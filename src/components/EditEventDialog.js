@@ -76,7 +76,7 @@ function EditEventDialog(props) {
         setDisableSubmitForm(true)
         console.log(disableSubmitForm)
         console.log('editing')
-        axios.post('/edit-activity', {
+        axios.post('/api/edit-activity', {
           // create_id
             event_id:      props.events.id,
             event_name:    eventTitle,
