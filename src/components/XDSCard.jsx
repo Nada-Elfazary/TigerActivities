@@ -116,7 +116,7 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
           </Row>
         </Card.Text>
         <Row>
-            <Col><p {...getCollapseProps()}><strong>Number of attendees :</strong> {item.signup_number}/{item.maxcap}</p></Col>
+            <Col><p {...getCollapseProps()}><strong>Number of attendees :</strong> {attendees.length}/{item.maxcap}</p></Col>
             <Col><p {...getCollapseProps()}><strong>Estimated Cost : </strong>$ {item.cost}</p></Col>
           </Row>
         <Card.Text>
@@ -134,7 +134,7 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
                         :
                          <Button  
                          variant="warning"
-                         onClick={handleSignUp} disabled={item.signup_number === item.maxcap}>Sign Up</Button> 
+                         onClick={handleSignUp} disabled={attendees.length === item.maxcap}>Sign Up</Button> 
                         
                         }
                                   
