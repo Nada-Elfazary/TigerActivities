@@ -175,6 +175,9 @@ function CreateEventDialog(props) {
                      id = "start-time"
                      class = "customFlatpickr"
                      value={startTime} 
+                     options={ { minDate: "today" ,
+                     maxDate: new Date().fp_incr(5)
+                   } } 
                      onChange={(event) => 
                      {
                         console.log("date:" +  startTime)
@@ -278,16 +281,18 @@ function CreateEventDialog(props) {
          if(cost < 0){
         //  errorMsg.push("Cost involved cannot be negative")
           // setShowErrorMsg(true)
+          setCost("")
           document.getElementById('cost').classList.add("error");
-          document.getElementById('cost').placeholder = "Cost involved cannot be negative";
+          document.getElementById('cost').value = "Cost is negative";
 
           error = 1;
         }
         else if(!/^[0-9]+$/.test(cost)){
           //  errorMsg.push("Cost involved cannot be negative")
             // setShowErrorMsg(true)
+            setCost("")
             document.getElementById('cost').classList.add("error");
-            document.getElementById('cost').placeholder = "Cost cannot be negative";
+            document.getElementById('cost').value = "Cost is inavlid";
             error = 1;
           }
 
@@ -296,7 +301,12 @@ function CreateEventDialog(props) {
           // setShowErrorMsg(true)
           document.getElementById('cap').classList.add("error");
           setMaxAttendeeCount("")
-          document.getElementById('cap').placeholder = "Count cannot be negative or zero";
+          document.getElementById('cap').value = "Count negative or zero";
+          error = 1;
+        } else if (!/^[0-9]+$/.test(maxAttendeeCount)) {
+          document.getElementById('cap').classList.add("error");
+          setMaxAttendeeCount("")
+          document.getElementById('cap').value = "Max is invalid";
           error = 1;
         }
   
@@ -304,7 +314,7 @@ function CreateEventDialog(props) {
           //    error.push("Max Attendee Count cannot be negative")
               // setShowErrorMsg(true)
               document.getElementById('cap').classList.add("error");
-              document.getElementById('cap').placeholder = "Count cannot be empty";
+              document.getElementById('cap').placeholder = "Count is empty";
     
               error = 1;
             }

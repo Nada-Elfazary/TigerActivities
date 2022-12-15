@@ -213,7 +213,7 @@ def store_activity(activity):
     cost = activity['cost']
     description = activity['description']
     category = activity['category']
-    signedup_number = activity['signup_number']
+    signedup_number = 0
     creator = activity['creator']
 
     try:
