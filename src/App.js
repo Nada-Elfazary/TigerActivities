@@ -2,7 +2,6 @@ import './App.css';
 import {Route, Routes, Router} from 'react-router-dom'
 import Welcome from './components/welcome'
 import Home from "./components/Home"
-import HomeTo from "./components/HomeTo"
 import CasPage from './components/CasPage';
 import CreateEventModalDraggable from './components/CreateEventModalDraggable';
 import SignUpModal from './components/SignUpModal';
@@ -17,7 +16,6 @@ function App(): React.ReactNode {
       <Route exact path ="/" element={<Welcome/>}/>
       <Route exact path="/home" element={<Home/>}/>
       <Route exact path = '/login' element={<CasPage />}/>
-      <Route exact path="/homeTo" element={<HomeTo />}/>
       <Route exact path="/error" element={<Error errMsg={"A server error has occured."}/>}/>
       <Route path="/*" element={<Error errMsg={"Web Page not found."}/>} />
       {/* <Route path="/profile" element={<SignUpModal />} /> */}

@@ -1,5 +1,5 @@
 import './Error.css';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Alert from 'react-bootstrap/Alert';
 import Card from 'react-bootstrap/Card';
 
@@ -8,7 +8,11 @@ import Card from 'react-bootstrap/Card';
 // takes in te error message that should be displayed
 export default function Error(props) : React.ReactNode {
 
-    const cas = ()=>{ 
+    useEffect(()=>{
+        cas()
+    }, [])
+
+    const cas = ()=> { 
         console.log("inside cas")
         fetch('https://tigeractivities.onrender.com/api/authenticate').then((resp)=>
           {return resp.text();}).then((data) => {
@@ -20,7 +24,8 @@ export default function Error(props) : React.ReactNode {
             console.log('username: ', response.username)
           } 
         })
-        
+    }
+
         return (
             <Card className="errorBackground">
                 <div className="errMsgContainer">
