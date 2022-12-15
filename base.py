@@ -44,7 +44,6 @@ def shree():
 @app.route('/api/authenticate', methods=['GET'])
 def authenticate():
    authResult = CasClient.CASClient().authenticate()
-   #return(authResult)
    return jsonify(
         username=authResult['username'],
         redirect=authResult['redirect'])
@@ -56,6 +55,10 @@ def authenticate2():
     authResult = CasClient.CASClient().authenticate()
     if authResult['username'] == '':
         return 'Something is badly wrong.'
+    student_row = proc.student_details(authResult['username'])
+    if student_row is None or student_row[1]== "":
+        proc.store_student([authResult['username'],"","",""])
+
    # global username
   #  username = authResult['username']
     html_code = flask.render_template('index.html')

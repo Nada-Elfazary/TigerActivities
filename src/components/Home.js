@@ -28,13 +28,11 @@ export default function  Home() : React.ReactNode {
   const [refresh, setRefresh] = useState(false)
   const [loading, setLoading] = useState(false)
   const [nameFilter, setNameFilter] = useState('')
-  // let currLogin = "Nada"
   const [profileData, setProfileData] = useState(["","",""])
   const [paginatedEvents, setPaginatedEvents] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
-  const [updateProfileMsg, setUpdateProfileMsg] = useState("")
+  // const [updateProfileMsg, setUpdateProfileMsg] = useState("")
   const pageSize = 9;
- //let profileData = ['', '', '', '']
   const navigate = useNavigate()
 
   let fast_username = username
@@ -113,9 +111,9 @@ const activitesClicked= () => {
   
 }
 
-const updateProfileMessage= (msg) => {
-  setUpdateProfileMsg(msg)
-}
+// const updateProfileMessage= (msg) => {
+//   setUpdateProfileMsg(msg)
+// }
 
 const cas = ()=>{ 
   console.log("inside cas")
@@ -133,7 +131,6 @@ const cas = ()=>{
       console.log("Username after being set:", username, "real username:", response.username, data)
       activitesClicked()
       fast_username = response.username
-      setUserName(response.username)
     }
   }).catch(err=>{
     console.log(err)
@@ -163,7 +160,7 @@ const profileClicked= () =>{
   setClickedProfile(true)
   // getProfileData(username)
   getProfileData(fast_username)
-  console.log("Inside profileClicked: set clickedProfile to true.")
+  console.log("Inside profileClicked: set clickedProfile to true.Server Rerendered")
 }
 
 const handleCreateEvent = () =>{
@@ -216,9 +213,11 @@ const getProfileData = (netid) => {
           setProfileData(["", "", ""])
           // redirect to profile page and set some kind of warning
           fast_profileData = ["","",""]
-          setUpdateProfileMsg("Please update your profile information.")
-          profileClicked()
-
+          console.log("Inside Home.js. Clicked Profile:", clickedProfile)
+          // setUpdateProfileMsg("Please update your profile information.")
+          // if (!clickedProfile) {
+          //   profileClicked()
+          // }
       }
       else {
           console.log("Response is:",response)
@@ -351,7 +350,7 @@ const showResults = clickedActivites? (
     netid={fast_username}
     profileData={fast_profileData}
     getProfileData={getProfileData}
-    updateProfileMsg={updateProfileMessage}
+    // updateProfileMsg={updateProfileMessage}
     /> : null
 
 
@@ -359,10 +358,10 @@ const showResults = clickedActivites? (
     <Dropdown filter = {filter} items = {items}></Dropdown>
   )
 
-  const showUpdateProfile = updateProfileMsg!==""?
-  <Card className="updateProfileMessage" variant="Info">
-    <Card.Title>{updateProfileMsg}</Card.Title>
-  </Card>:null
+  // const showUpdateProfile = updateProfileMsg!==""?
+  // <Card className="updateProfileMessage" variant="Info">
+  //   <Card.Title>{updateProfileMsg}</Card.Title>
+  // </Card>:null
 
   const showLoading = <ClipLoader loading={loading} size={200}/>
 
@@ -370,7 +369,7 @@ const showResults = clickedActivites? (
     <div className="page">
       {topNav}
       {showFilter}
-      {showUpdateProfile}
+      {/* {showUpdateProfile} */}
       {showCreateEventButton}
       {/* {showNote} */}
       <div className="content"> 
