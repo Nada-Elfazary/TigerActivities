@@ -32,7 +32,7 @@ export default function  Home() : React.ReactNode {
   const [profileData, setProfileData] = useState(["","",""])
   const [paginatedEvents, setPaginatedEvents] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
-  // const [updateProfileMsg, setUpdateProfileMsg] = useState("")
+  const [updateProfileMsg, setUpdateProfileMsg] = useState("")
   const pageSize = 9;
  //let profileData = ['', '', '', '']
   const navigate = useNavigate()
@@ -113,9 +113,9 @@ const activitesClicked= () => {
   
 }
 
-// const updateProfileMessage= (msg) => {
-//   setUpdateProfileMsg(msg)
-// }
+const updateProfileMessage= (msg) => {
+  setUpdateProfileMsg(msg)
+}
 
 const cas = ()=>{ 
   console.log("inside cas")
@@ -348,9 +348,9 @@ const showResults = clickedActivites? (
 
   const showProfile = clickedProfile ? <Profile 
     netid={username}
-    profileData={pfast_rofileData}
-    getProfileData={fast_getProfileData}
-    // updateProfileMsg={updateProfileMessage}
+    profileData={fast_profileData}
+    getProfileData={getProfileData}
+    updateProfileMsg={updateProfileMessage}
     /> : null
 
 
@@ -358,10 +358,10 @@ const showResults = clickedActivites? (
     <Dropdown filter = {filter} items = {items}></Dropdown>
   )
 
-  // const showUpdateProfile = updateProfileMsg!==""?
-  // <Card className="updateProfileMessage" variant="Info">
-  //   <Card.Title>{updateProfileMsg}</Card.Title>
-  // </Card>:null
+  const showUpdateProfile = updateProfileMsg!==""?
+  <Card className="updateProfileMessage" variant="Info">
+    <Card.Title>{updateProfileMsg}</Card.Title>
+  </Card>:null
 
   const showLoading = <ClipLoader loading={loading} size={200}/>
 
@@ -369,7 +369,7 @@ const showResults = clickedActivites? (
     <div className="page">
       {topNav}
       {showFilter}
-      {/* {showUpdateProfile} */}
+      {showUpdateProfile}
       {showCreateEventButton}
       {/* {showNote} */}
       <div className="content"> 
