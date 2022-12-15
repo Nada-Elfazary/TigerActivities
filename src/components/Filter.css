@@ -113,3 +113,8 @@ background: var(--main-color);
     margin-right: 5px;
 
 }
+
+input.error {
+    border-color: red;
+    color: red;
+}

@@ -72,9 +72,11 @@ const displayPagination = <Pagination className="paginate">
 
 
 const mySignUpsClicked= () => {
-  if(clickedMySignUps) {
+  /*if(clickedMySignUps) {
     setEvents([])
-  }
+    
+  }*/
+  setPaginatedEvents([])
   setInitialState(false)
   setClickedMySignUps(true)
   setClickedActivities(false)
@@ -141,6 +143,7 @@ const myActivitesClicked= ()=>{
   if(clickedMyActivites) {
     setEvents([])
   } 
+  setPaginatedEvents([])
   setInitialState(false)
   setClickedMyActivities(true)
   console.log("Clicked 'My Activities'. Events:", events.length, events)

@@ -119,12 +119,15 @@ export default function Filter(props) : React.ReactNode {
         <Navbar.Brand>
         <Form.Group>
                 <Form.Label>Maximum Cost ($)</Form.Label>
-                <Form.Control type = "text" value={cost} name="cost" placeholder= "Enter a positive integer" onChange={(event) => {
-                   
+                <Form.Control type = "text" value={cost} name="cost" id = "cost" placeholder= "Enter a positive integer" onChange={(event) => {
+                    document.getElementById('cost').classList.remove("error");
+                    if(/^[0-9]+$/.test(event.target.value)) {
                         setCost(event.target.value)
                         console.log("Cost value:", event, event.target.value, cost)
                         props.getEvents(false, title, dayToNumber[day], category, event.target.value, capMin, capMax)
-                   
+                    } else {
+                        document.getElementById('cost').classList.add("error");             
+                    }
 
                     }}></Form.Control>
         </Form.Group>
@@ -138,16 +141,27 @@ export default function Filter(props) : React.ReactNode {
                     <Col>  <Form.Label>From:</Form.Label></Col>
 
                     <Col>       
-                <Form.Control type="text" className = "inputBox" value = {capMin} onChange={(event) => {
+                <Form.Control type="text" className = "inputBox" id = "min" value = {capMin} onChange={(event) => {
+                    document.getElementById('min').classList.remove("error");
+                    if(/^[0-9]+$/.test(event.target.value)) {
                         setCapMin(event.target.value)
                         console.log("capMin value:", event, event.target.value, capMin)
                         props.getEvents(false, title, dayToNumber[day], category, cost, event.target.value, capMax)
+                    } else {
+                        document.getElementById('min').classList.add("error");             
+                    }
+                        
                     }}></Form.Control> </Col>
                      <Col>  <Form.Label>To:</Form.Label></Col>
-                    <Col><Form.Control type="text" className = "inputBox" value = {capMax} onChange={(event) => {
-                        setCapMax(event.target.value)
-                        console.log("capMax value:", event, event.target.value, capMax)
-                        props.getEvents(false, title, dayToNumber[day], category, cost, capMin, event.target.value)
+                    <Col><Form.Control type="text" className = "inputBox" id = "max" value = {capMax} onChange={(event) => {
+                        document.getElementById('max').classList.remove("error");
+                        if(/^[0-9]+$/.test(event.target.value)) {
+                            setCapMax(event.target.value)
+                            console.log("capMax value:", event, event.target.value, capMax)
+                            props.getEvents(false, title, dayToNumber[day], category, cost, capMin, event.target.value)
+                        } else {
+                            document.getElementById('max').classList.add("error");             
+                        }
                     }}></Form.Control></Col>
 
                 </Row>
