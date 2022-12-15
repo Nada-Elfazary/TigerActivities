@@ -80,7 +80,7 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
 
   const get_attendees = (event)=>{
     console.log("inside get attendees")
-    axios.get('/attendees', {params: {
+    axios.get('/api/attendees', {params: {
       event_id : event.id,
     }}).then(res =>{ 
             setAttendees(res.data)
