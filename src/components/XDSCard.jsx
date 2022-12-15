@@ -107,10 +107,10 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
         <Card.Subtitle> <h5><a className='tag' style={{'backgroundColor': backgroundColor}}><text className='white'>{item.category}</text></a></h5></Card.Subtitle>
         <Card.Text> 
                 <Row>
-                <h5 className='date'><strong>{numToDay[item.week_day]} {numToMonth[item.start_date.split("/")[1]]} {item.start_date.split("/")[2]}, {item.start_time}</strong></h5>
+                <h5 className='date'><strong>{numToDay[item.start_week_day]} {numToMonth[item.start_date.split("/")[1]]} {item.start_date.split("/")[2]}, {item.start_time}</strong></h5>
                 </Row>
                 <Row>
-          <Col><strong>End time : </strong>{item.end_time}</Col>
+          <Col><strong>End time : </strong>{numToDay[item.end_week_day]} {numToMonth[item.end_date.split("/")[1]]} {item.end_date.split("/")[2]}, {item.end_time}</Col>
           <Col><strong>Location : </strong>{item.location}</Col>
             
           </Row>
