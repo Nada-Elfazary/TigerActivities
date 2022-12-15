@@ -216,7 +216,10 @@ const getProfileData = (netid) => {
           // redirect to profile page and set some kind of warning
           fast_profileData = ["","",""]
           setUpdateProfileMsg("Please update your profile information.")
-          profileClicked()
+          if (!clickedProfile) {
+            profileClicked()
+          }
+         
 
       }
       else {

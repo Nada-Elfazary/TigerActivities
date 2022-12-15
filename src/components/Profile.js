@@ -11,9 +11,7 @@ import SignUpModal from "./SignUpModal";
 export default function Profile(props) {
     console.log("Props before declaration:", props)
     // const [dbName, setDbName] = useState(props.name)
-    const name = String(props.profileData[0])
-    console.log("name var: ", name)
-    const [updateName, setUpdateName] = useState(name)
+    const [updateName, setUpdateName] = useState(props.profileData[0])
     // const [dbPhone, setDbPhone] = useState(props.phone)
     const [updatePhone, setUpdatePhone] = useState(props.profileData[1])
     // const [dbEmail,setDbEmail] = useState(props.email)
@@ -89,7 +87,7 @@ export default function Profile(props) {
          display: "flex",
          justifyContent: "center",
         }}>
-        <Modal.Title> Edit Profile Information</Modal.Title>
+        <Modal.Title>Edit Profile Information</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -97,9 +95,10 @@ export default function Profile(props) {
             <Row>
               <Col><Form.Label>Name: </Form.Label></Col>
               <Col><Form.Control type="text"  id = "name" name="name" placeholder = {updateName.length===0?"Full Name":updateName} value={updateName} onChange={(event) =>
-
-                    { document.getElementById('name').classList.remove("error");
-                    setUpdateName(event.target.value)
+                    {
+                      console.log("Inside editProfile Modal. Name before typing: ", updateName)
+                       document.getElementById('name').classList.remove("error");
+                      setUpdateName(event.target.value)
                     }}
                 ></Form.Control>
                 </Col>
@@ -110,7 +109,7 @@ export default function Profile(props) {
               <Col><Form.Label>Phone Number: </Form.Label></Col>
               <Col><Form.Control type="text" id = "num" name="Number" placeholder = {updatePhone.length===0?"Only digits allowed":updatePhone} value={updatePhone} onChange={(event) =>
                     {
-                      console.log("phone num before typing: ", updatePhone)
+                      console.log("Inside editProfile Modal. Phone num before typing: ", updatePhone)
                       document.getElementById('num').classList.remove("error");
                       setUpdatePhone(event.target.value)
                     }}
@@ -123,6 +122,7 @@ export default function Profile(props) {
               <Col><Form.Label>Email: </Form.Label></Col>
               <Col><Form.Control type="text" id = "email" name="Email" placeholder = {updateEmail.length===0?"Email Address":updatePhone} value={updateEmail} onChange={(event) =>
                     {
+                      console.log("Email befrore typing:", updateEmail)
                       document.getElementById('email').classList.remove("error");
                       setUpdateEmail(event.target.value)
                     }}
