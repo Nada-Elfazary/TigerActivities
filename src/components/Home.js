@@ -163,7 +163,7 @@ const profileClicked= () =>{
   setClickedProfile(true)
   // getProfileData(username)
   getProfileData(fast_username)
-  console.log("Inside profileClicked: set clickedProfile to true.")
+  console.log("Inside profileClicked: set clickedProfile to true.Server Rerendered")
 }
 
 const handleCreateEvent = () =>{
