@@ -126,8 +126,8 @@ const cas = ()=>{
       console.log('username: ', response.username)
     } else {
       // try to synchronosly wait for state change
-      setUserName(response.username, () => {
-      console.log("Username after being set:", username, "real username:", response.username)
+      setUserName(response.username, (data) => {
+      console.log("Username after being set:", username, "real username:", response.username, data)
       activitesClicked()
       })
     }
