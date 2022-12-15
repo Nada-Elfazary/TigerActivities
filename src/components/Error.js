@@ -10,7 +10,7 @@ export default function Error(props) : React.ReactNode {
         return (
             <Card className="errorBackground">
                 <div className="errMsgContainer">
-                    <Card.Title>A server error has occured.</Card.Title>
+                    <Card.Title>{props.errMsg}</Card.Title>
                     <Card.Body>
                     <Card.Link href="/home" className='card-link-css'> Navigate to the Homepage</Card.Link>
                     </Card.Body>

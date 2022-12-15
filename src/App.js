@@ -18,7 +18,8 @@ function App(): React.ReactNode {
       <Route exact path="/home" element={<Home/>}/>
       <Route exact path = '/login' element={<CasPage />}/>
       <Route exact path="/homeTo" element={<HomeTo />}/>
-      <Route exact path="/error" element={<Error />}/>
+      <Route exact path="/error" element={<Error errMsg={"A server error has occured."}/>}/>
+      <Route path="/*" element={<Error errMsg={"Web Page not found."}/>} />
       {/* <Route path="/profile" element={<SignUpModal />} /> */}
     </Routes>
    </div>

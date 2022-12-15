@@ -47,7 +47,7 @@ export default function  Home() : React.ReactNode {
     // setRefresh(true)
     activitesClicked()
     setEvents([])
-    getProfileData()
+    getProfileData(fast_username)
     // console.log("user on page is", user)
     
 }, [])
