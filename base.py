@@ -28,7 +28,7 @@ def logout():
     authResult = CasClient.CASClient().logout()
     return jsonify(redirect = authResult)
 
-@app.route('/api' , methods=['GET'])
+@app.route('/' , methods=['GET'])
 def shree():
     print('I am here')
     return flask.render_template('index.html')
