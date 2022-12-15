@@ -12,7 +12,7 @@ export default function Error(props) : React.ReactNode {
                 <div className="errMsgContainer">
                     <Card.Title>{props.errMsg}</Card.Title>
                     <Card.Body>
-                    <Card.Link href="/home" className='card-link-css'> Navigate to the Homepage</Card.Link>
+                    <Card.Link href="/#/home" className='card-link-css'> Navigate to the Homepage</Card.Link>
                     </Card.Body>
                 </div>
             </Card>
