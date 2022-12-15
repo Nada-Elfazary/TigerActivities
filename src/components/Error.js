@@ -8,7 +8,7 @@ import Card from 'react-bootstrap/Card';
 // takes in te error message that should be displayed
 export default function Error(props) : React.ReactNode {
         return (
-            <Card className="error">
+            <Card className="errorBackground">
                 <div className="errMsgContainer">
                     <Card.Title>A server error has occured.</Card.Title>
                     <Card.Body>
