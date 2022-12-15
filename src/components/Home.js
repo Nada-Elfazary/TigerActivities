@@ -37,6 +37,8 @@ export default function  Home() : React.ReactNode {
  //let profileData = ['', '', '', '']
   const navigate = useNavigate()
 
+  let fast_username = ""
+
   const categoryToColor = {'Sports': "DeepSkyBlue", 'Entertainment': "slateblue", 'Academic': "orange", 'Off-campus': "olive", 'Outdoors': "navy",  
   'Meals/Coffee Chats': "maroon", 'Nassau Street': "green", 'Social': "tomato"} 
 
@@ -126,10 +128,10 @@ const cas = ()=>{
       console.log('username: ', response.username)
     } else {
       // try to synchronosly wait for state change
-      setUserName(response.username, (data) => {
+      setUserName(response.username)
       console.log("Username after being set:", username, "real username:", response.username, data)
       activitesClicked()
-      })
+      fast_username = response.username
     }
   }).catch(err=>{
     console.log(err)
@@ -157,7 +159,8 @@ const profileClicked= () =>{
   setClickedActivities(false)
   setClickedMySignUps(false)
   setClickedProfile(true)
-  getProfileData(username)
+  // getProfileData(username)
+  getProfileData(fast_username)
   console.log("Inside profileClicked: set clickedProfile to true.")
 }
 
@@ -172,7 +175,8 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
     console.log("Events received from db:", res)
     setEvents([])
     if (ownerView === true) {
-      let filtered = res.data.filter(event => event.creator === username)
+      // let filtered = res.data.filter(event => event.creator === username)
+      let filtered = res.data.filter(event => event.creator === fast_username)
       console.log("length: ", filtered.length)
       if (filtered.length !== 0) {
         console.log("Setting events to:", filtered)
@@ -184,9 +188,11 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
         setPaginatedEvents([])
       }
     } else {
-      let explored = res.data.filter(event => event.creator !== username)
+      let explored = res.data.filter(event => event.creator !== fast_username)
+      // let explored = res.data.filter(event => event.creator !== username)
       console.log("Setting events to:", explored)
-      console.log("username in get events", username)
+      // console.log("username in get events", username)
+      console.log("username in get events", fast_username)
       setEvents(explored)
       setPaginatedEvents(_(explored).slice(0).take(pageSize).value())
     }
@@ -257,7 +263,8 @@ const handleLogout = ()=>{
   const mySignUps = <Button onClick={mySignUpsClicked}>My Sign-Ups</Button>
   const createEventButton = <Button className="buttonStyle" onClick={handleCreateEvent}>Create Activity</Button>
   const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents} setPaginatedEvents = {setPaginatedEvents}
-    pageSize = {pageSize} username={username} />) : null 
+    // pageSize = {pageSize} username={username} />) : null 
+    pageSize = {pageSize} username={fast_username} />) : null 
 
 
   const displayEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
@@ -273,7 +280,7 @@ const handleLogout = ()=>{
   const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
     return (
       <XDSCard key ={index} item={event} setEvents = {setEvents} setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize} ownerView={true} signUpsView = {false} 
-      tagColor = {categoryToColor[event.category]} setLoading = {setLoading} username={username}/>
+      tagColor = {categoryToColor[event.category]} setLoading = {setLoading} username={fast_username}/> //</XDSCard>username={username}/>
     )
   }): <h1 className = "center-screen">No events created yet</h1>
   const displaySignUps = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{

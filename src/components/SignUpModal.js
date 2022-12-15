@@ -43,6 +43,7 @@ function SignUpModal(props) {
       }
       else {
         props.setOpenSignUpModal(false)
+        console.log("Inside SignUpModal: setting openSuccessModel to true.")
         setOpenSuccessModal(true)
       }
     }, (error) => {
@@ -68,6 +69,8 @@ function SignUpModal(props) {
         submitForm()
       // props.setClickMyActivities(true)
     }
+
+  console.log("opensuccessModal state before creating component:", openSuccessModal)
 
   const successModal  = openSuccessModal ? (<SuccessModal setOpenSuccessModal = {setOpenSuccessModal}/>): null
   const errorM  = showErrorMsg? <strong className="error">{errorMsg}</strong> : null
