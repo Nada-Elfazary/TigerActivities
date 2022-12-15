@@ -35,7 +35,6 @@ export default function  Home() : React.ReactNode {
   // const [updateProfileMsg, setUpdateProfileMsg] = useState("")
   const pageSize = 9;
  //let profileData = ['', '', '', '']
-  const location = useLocation()
   const navigate = useNavigate()
 
   const categoryToColor = {'Sports': "DeepSkyBlue", 'Entertainment': "slateblue", 'Academic': "orange", 'Off-campus': "olive", 'Outdoors': "navy",  
@@ -127,6 +126,7 @@ const cas = ()=>{
       console.log('username: ', response.username)
     } else {
       setUserName(response.username)
+      console.log("Username after being set:", username, "real username:", response.username)
       activitesClicked()
     }
   }).catch(err=>{
