@@ -209,14 +209,14 @@ const getProfileData = (netid) => {
   })
   .then((response) => {
       if (response.length === 0 || response.data.email==="") {
-          setProfileData(["", "", ""])
+          // setProfileData(["", "", ""])
           // redirect to profile page and set some kind of warning
           fast_profileData = ["","",""]
           console.log("Inside Home.js. Clicked Profile:", clickedProfile)
           // setUpdateProfileMsg("Please update your profile information.")
-          // if (!clickedProfile) {
-          //   profileClicked()
-          // }
+          if (!clickedProfile) {
+            profileClicked()
+          }
       }
       else {
           console.log("Response is:",response)
