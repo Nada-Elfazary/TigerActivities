@@ -347,7 +347,7 @@ const showResults = clickedActivites? (
   // ): null
 
   const showProfile = clickedProfile ? <Profile 
-    netid={username}
+    netid={fast_username}
     profileData={fast_profileData}
     getProfileData={getProfileData}
     updateProfileMsg={updateProfileMessage}
