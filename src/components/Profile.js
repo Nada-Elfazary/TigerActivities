@@ -182,8 +182,8 @@ export default function Profile(props) {
     return (
         <div className="profileDisplay">
             <h1>Profile</h1>
-            <div classname="outerProfileContainer">
-              <Card classname="innerProfileContainer">
+            <div className="outerProfileContainer">
+              <Card className="innerProfileContainer">
                   <Card.Title></Card.Title>
                   <Card.Text>
                       <Row>
