@@ -48,11 +48,11 @@ useEffect(() => {
   cas()
   // setRefresh(true)
   activitesClicked()
-  setEvents([])
-  getProfileData()
+  // setEvents([])
+  // getProfileData()
 
   const timer = new IdleTimer({
-    timeout: 10, //expire after 10 seconds
+    timeout: 600, //expire after 10 seconds
     onTimeout: () => {
 
       
@@ -68,6 +68,8 @@ useEffect(() => {
     timer.cleanUp();
   };
 }, []);
+
+
 useEffect(() => {
   if (skipCount) setSkipCount(false);
   if (!skipCount) handleLogout();
