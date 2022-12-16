@@ -46,9 +46,10 @@ export default function  Home() : React.ReactNode {
     // setRefresh(true)
   //  activitesClicked()
   //  setEvents([])
+    getProfileData(fast_username)
     setCurrentPage(1)
     getEvents(false, '')
-    getProfileData(fast_username)
+   
     // console.log("user on page is", user)
     
 }, [])
@@ -132,9 +133,10 @@ const cas = ()=>{
     } else {
       // try to synchronosly wait for state change
       setUserName(response.username)
-      console.log("Username after being set:", username, "real username:", response.username, data)
-      activitesClicked()
       fast_username = response.username
+      console.log("Username after being set:", username, "real username:", response.username, fast_username)
+      // activitesClicked()
+      
     }
   }).catch(err=>{
     console.log(err)
