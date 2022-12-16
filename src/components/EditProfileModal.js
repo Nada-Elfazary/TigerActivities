@@ -45,6 +45,7 @@ export default function EditProfileModal(props){
           .then((response) => {
           console.log("Response:", response)
           console.log("Props:", props)
+          props.getProfileData()
           // props.updateProfileMsg("")
           }, (error) => {
           console.log("Inside Profile.js. Error recieved updating profile:", error)
