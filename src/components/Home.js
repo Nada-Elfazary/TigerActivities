@@ -12,11 +12,14 @@ import axios from 'axios';
 import ClipLoader from 'react-spinners/ClipLoader'
 import "./App.css"
 import _ from "lodash"
+import IdleTimer from "./IdleTimer";
 
 // importing Link from react-router-dom to navigate to 
 // different end points.
   
 export default function  Home() : React.ReactNode {
+  const [skipCount, setSkipCount] = useState(true)
+  const [isTimeout, setIsTimeout] = useState(false)
   const [initialState, setInitialState] = useState(true)
   const [clickedActivites, setClickedActivities] = useState(false)
   const [clickedMyActivites, setClickedMyActivities] = useState(false)
@@ -42,15 +45,35 @@ export default function  Home() : React.ReactNode {
   const categoryToColor = {'Sports': "DeepSkyBlue", 'Entertainment': "slateblue", 'Academic': "orange", 'Off-campus': "olive", 'Outdoors': "navy",  
   'Meals/Coffee Chats': "maroon", 'Nassau Street': "green", 'Social': "tomato"} 
 
-  useEffect(()=>{
-    cas()
-    // setRefresh(true)
-    activitesClicked()
-    setEvents([])
-    getProfileData()
-    // console.log("user on page is", user)
-    
-}, [])
+useEffect(() => {
+  cas()
+  // setRefresh(true)
+  activitesClicked()
+  setEvents([])
+  getProfileData()
+  const timer = new IdleTimer({
+    timeout: 20, //expire after 10 seconds
+    onTimeout: () => {
+      console.log("here")
+      
+      setIsTimeout(true);
+    },
+    onExpired: () => {
+      //do something if expired on load
+      setIsTimeout(true);
+    }
+  });
+
+  return () => {
+    timer.cleanUp();
+  };
+}, []);
+
+useEffect(() => {
+  if (skipCount) setSkipCount(false);
+  if(!skipCount) profileClicked();
+  
+}, [isTimeout]);
 
 const pageCount = events ? Math.ceil(events.length/ pageSize) : 0
 const pagination = (pageNo)=>{
