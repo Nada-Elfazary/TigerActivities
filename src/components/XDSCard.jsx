@@ -84,12 +84,14 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
       event_id : event.id,
     }}).then(res =>{ 
             setAttendees(res.data)
+            let isSignedUp = false
             console.log("Iterating thorugh attendees:", res.data)
             for (const attendee of res.data) {
               console.log("Attendee:", attendee)
               if (attendee["netid"] === username){
-                setIsCurrUserSignedUp(true)
+                isSignedUp = true
               }
+              setIsCurrUserSignedUp(isSignedUp)
             }     
     }).catch(err =>{
       console.log("Inside XDSCard.js error receiveing attendees:", err)
