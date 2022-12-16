@@ -42,9 +42,8 @@ function SignUpModal(props) {
         setShowErrorMsg(true)
       }
       else {
-        props.setOpenSignUpModal(false)
-        console.log("Inside SignUpModal: setting openSuccessModel to true.")
         setOpenSuccessModal(true)
+        console.log("Inside SignUpModal: setting openSuccessModel to true.")    
       }
     }, (error) => {
       console.log("Inside SignUpModal.js. Failed to load signup", error)
@@ -72,7 +71,8 @@ function SignUpModal(props) {
 
   console.log("opensuccessModal state before creating component:", openSuccessModal)
 
-  const successModal  = openSuccessModal ? (<SuccessModal setOpenSuccessModal = {setOpenSuccessModal}/>): null
+  const successModal  = openSuccessModal ? (<SuccessModal setOpenSuccessModal = {setOpenSuccessModal} 
+    setOpenSignUpModal = {props.setOpenSignUpModal}/>): null
   const errorM  = showErrorMsg? <strong className="error">{errorMsg}</strong> : null
   const signUpModal = <Container fluid> <Modal show={props.setOpenSignUpModal} dialogAs={CreateEventModalDraggable} onHide={()=>{
     props.setOpenSignUpModal(false)

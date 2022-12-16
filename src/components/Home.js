@@ -44,8 +44,10 @@ export default function  Home() : React.ReactNode {
   useEffect(()=>{
     cas()
     // setRefresh(true)
-    activitesClicked()
-    setEvents([])
+  //  activitesClicked()
+  //  setEvents([])
+    setCurrentPage(1)
+    getEvents(false, '')
     getProfileData(fast_username)
     // console.log("user on page is", user)
     
@@ -335,6 +337,7 @@ const showResults = clickedActivites? (
 
   ): null
   const showSignUps = clickedMySignUps ? (
+    showLoading,
     displaySignUps
   ): null
 
@@ -366,7 +369,7 @@ const showResults = clickedActivites? (
   //   <Card.Title>{updateProfileMsg}</Card.Title>
   // </Card>:null
 
-  const showLoading = <ClipLoader loading={loading} size={200}/>
+  const showLoading = <ClipLoader className = "center" loading={loading} size={200}/>
 
   return (
     <div className="page">
@@ -375,15 +378,17 @@ const showResults = clickedActivites? (
       {/* {showUpdateProfile} */}
       {showCreateEventButton}
       {/* {showNote} */}
+      {!loading ? null: showLoading}
       <div className="content"> 
-        {showResults}
+        {/*!loading ? null: showLoading*/}
+        {!loading ? showResults: null}
         {showProfile}
         {/*!loading ? results : showLoading*/}
-        {!loading ? showOwnerActivities : showLoading}
-            {showSignUps}
+        {!loading ? showOwnerActivities: null}
+            {!loading ? showSignUps: null}
             {modal}
       </div>
-      {!clickedProfile?  displayPagination : null}
+      {!clickedProfile && !loading?  displayPagination : null}
     </div>
     
   );

@@ -298,7 +298,21 @@ function EditEventDialog(props) {
           error = 1;
         }
 
-       if(endTime.getTime() <= startTime.getTime()){
+        if (endTime == "") {
+          console.log("End Time can not be empty.")
+          errorMsg.push("End Date can not be empty. Please fix this \n")
+          document.getElementById('end-time').classList.add("error")
+          document.getElementById('end-time').value = "End date can not be empty"
+        }
+
+        if (startTime == "") {
+          console.log("Start time can not be empty.")
+          errorMsg.push("Start Date can not be empty. Please fix this \n")
+          document.getElementById('start-time').classList.add("error")
+          document.getElementById('start-time').value = "Start date can not be empty"
+        }
+
+       if(endTime != "" &&  startTime  != "" && endTime.getTime() <= startTime.getTime()){
           console.log("wrong dates")
           errorMsg.push("End Date before or equal to start date. Please fix this \n")
           document.getElementById('start-time').classList.add("error")
@@ -314,7 +328,7 @@ function EditEventDialog(props) {
           // setShowErrorMsg(true)
           setCost("")
           document.getElementById('cost').classList.add("error");
-          document.getElementById('cost').value = "Cost involved cannot be negative";
+          document.getElementById('cost').placeholder = "Cost involved cannot be negative";
 
           error = 1;
         }
@@ -323,8 +337,13 @@ function EditEventDialog(props) {
             // setShowErrorMsg(true)
             setCost("")
             document.getElementById('cost').classList.add("error");
-            document.getElementById('cost').value = "Cost involved must be an integer";
+            document.getElementById('cost').placeholder = "Cost involved must be an integer";
   
+            error = 1;
+          } else if(cost.length > 4){
+            setCost("")
+            document.getElementById('cost').classList.add("error");
+            document.getElementById('cost').placeholder = "Maximum cost is 9999$.";
             error = 1;
           }
 
@@ -333,12 +352,12 @@ function EditEventDialog(props) {
                 // setShowErrorMsg(true)
                 document.getElementById('cap').classList.add("error");
                 setMaxAttendeeCount("")
-                document.getElementById('cap').value = "Count negative or zero";
+                document.getElementById('cap').placeholder = "Count negative or zero";
                 error = 1;
               } else if (!/^[0-9]+$/.test(maxAttendeeCount)) {
                 document.getElementById('cap').classList.add("error");
                 setMaxAttendeeCount("")
-                document.getElementById('cap').value = "Max is invalid";
+                document.getElementById('cap').placeholder = "Max is invalid";
                 error = 1;
           }
 
