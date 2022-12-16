@@ -126,8 +126,8 @@ export default function Filter(props) : React.ReactNode {
                       //  document.getElementById('cost').classList.add("error"); 
                         console.log("wrong input")           
                     } else {
-                        if (+event.target.value > 9999){
-                            setCapMax("9999")
+                        if (event.target.value.length > 4){
+                           // setCapMax("9999")
                             console.log("Cost value exceeded. Setting max cap value to:", event, event.target.value, capMax)   
                         } else {
                         setCost(event.target.value)
@@ -150,7 +150,7 @@ export default function Filter(props) : React.ReactNode {
                     <Col>       
                 <Form.Control type="text" className = "inputBox" id = "min" value = {capMin} onChange={(event) => {
                   //  document.getElementById('min').classList.remove("error")
-                    if(!/^[0-9]+$/.test(event.target.value) && event.target.value.length != 0) {
+                    if((!/^[0-9]+$/.test(event.target.value) && event.target.value.length != 0) || event.target.value.length > 4) {
                         console.log("wrong input")    
                     } else       
                      {
@@ -162,16 +162,16 @@ export default function Filter(props) : React.ReactNode {
                     }}></Form.Control> </Col>
                      <Col>  <Form.Label>To:</Form.Label></Col>
                     <Col><Form.Control type="text" className = "inputBox" id = "max" value = {capMax} onChange={(event) => {
-                        if(!/^[0-9]+$/.test(event.target.value) && event.target.value.length != 0) {
+                        if((!/^[0-9]+$/.test(event.target.value) && event.target.value.length != 0) || event.target.value.length > 4) {
                            //document.getElementById('max').classList.add("error"); 
                            console.log("wrong input")
                         } else {
                             // convert string to a number
-                            if (+event.target.value > 9999){
-                            setCapMax("9999")
+                            if (event.target.value.length <= 4){
+                            setCapMax(event.target.value)
                             console.log("capMax value exceeded. Setting max cap value to:", event, event.target.value, capMax)   
                         } else {
-                            setCapMax(event.target.value)
+                           // setCapMax(event.target.value)
                             console.log("capMax value:", event, event.target.value, capMax)          
                         }
                         props.getEvents(false, title, dayToNumber[day], category, cost, capMin, event.target.value) 

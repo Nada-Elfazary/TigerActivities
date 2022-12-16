@@ -125,7 +125,7 @@ function CreateEventDialog(props) {
               
               <Col><Form.Control type="text" id = "title" name="title" value={eventTitle} onChange={(event)=>{
                   document.getElementById('title').classList.remove("error");
-                  if (event.target.value.length < 100) {
+                  if (event.target.value.length <= 100) {
                         setEventTitle(event.target.value)
                         console.log(eventTitle)
                   } else {
@@ -140,8 +140,13 @@ function CreateEventDialog(props) {
             <Row>
               <Col><Form.Label>Location:</Form.Label></Col>
               <Col><Form.Control type="text" id = "location" name="Location" value ={eventLocation} onChange={(event)=>{
+                    document.getElementById('location').classList.remove("error");
+                    if(event.target.value.length <= 100) {
                         setEventLocation(event.target.value)
-                        document.getElementById('location').classList.remove("error");
+                    } else {
+                      console.log("input too large")
+                    }
+                        
                     }}></Form.Control></Col>
             </Row>
             
@@ -209,9 +214,13 @@ function CreateEventDialog(props) {
             <Row>
               <Col><Form.Label>Max Attendee Count:</Form.Label></Col>
               <Col><Form.Control type="text" id = "cap" name="Attendee Count" value={maxAttendeeCount} onChange={(event) =>
-                        {
+                        { 
                           document.getElementById('cap').classList.remove("error");
+                          if(event.target.value.length <= 4) {
                             setMaxAttendeeCount(event.target.value)
+                          }else {
+                            console.log("input too large")
+                          }
                         }}></Form.Control></Col>
             </Row>
           </Form.Group>
@@ -224,7 +233,11 @@ function CreateEventDialog(props) {
                         {
                           document.getElementById('cost').classList.remove("error");
                           console.log("cost: ", event.target.value)
+                          if(event.target.value.length <= 4) {
                           setCost(event.target.value)
+                          } else {
+                            console.log("input too large")
+                          }
                         }}/>
         <InputGroup.Text>.00</InputGroup.Text>
       </InputGroup></Col>
@@ -235,7 +248,7 @@ function CreateEventDialog(props) {
               <Col><Form.Control as="textarea" id = "descrip" name ="description" value={description} onChange={(event) =>
                       {
                       document.getElementById('descrip').classList.remove("error");
-                      if(event.target.value.length < 1000) {
+                      if(event.target.value.length <= 1000) {
                       setDescription(event.target.value)
                       } else {
                         console.log("input too large")
