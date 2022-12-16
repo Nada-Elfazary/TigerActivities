@@ -54,9 +54,6 @@ export default function  Home() : React.ReactNode {
     // setRefresh(true)
   //  activitesClicked()
   //  setEvents([])
-    console.log("Getting profile data for username", fast_username)
-    getProfileData(fast_username)
-    setCurrentPage(1)
     activitesClicked()
    
     // console.log("user on page is", user)
@@ -144,8 +141,9 @@ const cas = ()=>{
       setUserName(response.username)
       fast_username = response.username
       console.log("Username after being set:", username, "real username:", response.username, fast_username)
-      // activitesClicked()
-      
+      console.log("Getting profile data for username", fast_username)
+      getProfileData(fast_username)
+      setCurrentPage(1)
     }
   }).catch(err=>{
     console.log(err)
