@@ -145,9 +145,13 @@ function EditEventDialog(props) {
               <Col><Form.Label>Title: </Form.Label></Col>
               
               <Col><Form.Control type="text" id = "title" name="title" value={eventTitle} onChange={(event)=>{
-                        setEventTitle(event.target.value)
-                        document.getElementById('title').classList.remove("error");
-                        console.log(eventTitle)
+                       document.getElementById('title').classList.remove("error");
+                       if (event.target.value.length <= 100) {
+                             setEventTitle(event.target.value)
+                             console.log(eventTitle)
+                       } else {
+                         console.log("input too large")
+                       }
                     }}></Form.Control>
 </Col>
             </Row>
@@ -157,8 +161,11 @@ function EditEventDialog(props) {
             <Row>
               <Col><Form.Label>Location:</Form.Label></Col>
               <Col><Form.Control type="text" id = "location" name="Location" value ={eventLocation} onChange={(event)=>{
+                       if(event.target.value.length <= 100) {
                         setEventLocation(event.target.value)
-                        document.getElementById('location').classList.remove("error");
+                    } else {
+                      console.log("input too large")
+                    }
                     }}></Form.Control></Col>
             </Row>
             
@@ -237,7 +244,11 @@ function EditEventDialog(props) {
               <Col><Form.Control type="text" id = "cap" name="Attendee Count" value={maxAttendeeCount} onChange={(event) =>
                         {
                           document.getElementById('cap').classList.remove("error");
+                          if(event.target.value.length <= 4) {
                             setMaxAttendeeCount(event.target.value)
+                          }else {
+                            console.log("input too large")
+                          }
                         }}></Form.Control></Col>
             </Row>
           </Form.Group>
@@ -250,7 +261,11 @@ function EditEventDialog(props) {
                         {
                           document.getElementById('cost').classList.remove("error");
                           console.log("cost: ", event.target.value)
-                        setCost(event.target.value)
+                          if(event.target.value.length <= 4) {
+                          setCost(event.target.value)
+                          } else {
+                            console.log("input too large")
+                          }
                         }}/>
         <InputGroup.Text>.00</InputGroup.Text>
       </InputGroup></Col>
@@ -260,8 +275,12 @@ function EditEventDialog(props) {
               <Col><Form.Label>Description:</Form.Label></Col>
               <Col><Form.Control as="textarea" id = "descrip" name ="description" value={description} onChange={(event) =>
                       {
-                      setDescription(event.target.value)
-                      document.getElementById('descrip').classList.remove("error");
+                        document.getElementById('descrip').classList.remove("error");
+                        if(event.target.value.length <= 1000) {
+                        setDescription(event.target.value)
+                        } else {
+                          console.log("input too large")
+                        }
                       }}></Form.Control></Col>
             </Row>
           </Form.Group>
