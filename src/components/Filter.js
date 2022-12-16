@@ -65,7 +65,7 @@ export default function Filter(props) : React.ReactNode {
                 <Form.Control type="text" name="title" onChange={(event) => {
                         setTitle(event.target.value)
                         console.log("Title value:", event, event.target.value, title)
-                        props.getEvents(false, event.target.value, dayToNumber[day], category, cost)
+                        props.getEvents(false, event.target.value, dayToNumber[day], category, cost, capMin, capMax)
                     }} ></Form.Control>
             </Form.Group>
         </Form>
@@ -126,9 +126,14 @@ export default function Filter(props) : React.ReactNode {
                       //  document.getElementById('cost').classList.add("error"); 
                         console.log("wrong input")           
                     } else {
+                        if (+event.target.value > 9999){
+                            setCapMax("9999")
+                            console.log("Cost value exceeded. Setting max cap value to:", event, event.target.value, capMax)   
+                        } else {
                         setCost(event.target.value)
                         console.log("Cost value:", event, event.target.value, cost)
                         props.getEvents(false, title, dayToNumber[day], category, event.target.value, capMin, capMax)
+                        }
                     }
 
                     }}></Form.Control>

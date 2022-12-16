@@ -76,6 +76,7 @@ html {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 10px;
     /*
     display: flex; 
     flex-direction: column; 

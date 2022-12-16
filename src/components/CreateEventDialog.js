@@ -124,10 +124,14 @@ function CreateEventDialog(props) {
               <Col><Form.Label>Title: </Form.Label></Col>
               
               <Col><Form.Control type="text" id = "title" name="title" value={eventTitle} onChange={(event)=>{
+                  document.getElementById('title').classList.remove("error");
+                  if (event.target.value.length < 100) {
                         setEventTitle(event.target.value)
-                        document.getElementById('title').classList.remove("error");
                         console.log(eventTitle)
-                    }}></Form.Control>
+                  } else {
+                    console.log("input too large")
+                  }
+                }}></Form.Control>
 </Col>
             </Row>
             
@@ -220,7 +224,7 @@ function CreateEventDialog(props) {
                         {
                           document.getElementById('cost').classList.remove("error");
                           console.log("cost: ", event.target.value)
-                        setCost(event.target.value)
+                          setCost(event.target.value)
                         }}/>
         <InputGroup.Text>.00</InputGroup.Text>
       </InputGroup></Col>
@@ -230,9 +234,14 @@ function CreateEventDialog(props) {
               <Col><Form.Label>Description:</Form.Label></Col>
               <Col><Form.Control as="textarea" id = "descrip" name ="description" value={description} onChange={(event) =>
                       {
-                      setDescription(event.target.value)
                       document.getElementById('descrip').classList.remove("error");
-                      }}></Form.Control></Col>
+                      if(event.target.value.length < 1000) {
+                      setDescription(event.target.value)
+                      } else {
+                        console.log("input too large")
+                      }
+                    }
+                    }></Form.Control></Col>
             </Row>
           </Form.Group>
           <Form.Group>{errorM}</Form.Group>
@@ -267,7 +276,21 @@ function CreateEventDialog(props) {
           document.getElementById('category').classList.add("error");
           error = 1;
         }
-       if( endTime.getTime() <= startTime.getTime()){
+        if (endTime == "") {
+          console.log("End Time can not be empty.")
+          errorMsg.push("End Date can not be empty. Please fix this \n")
+          document.getElementById('end-time').classList.add("error")
+          document.getElementById('end-time').value = "End date can not be empty"
+        }
+
+        if (startTime == "") {
+          console.log("Start time can not be empty.")
+          errorMsg.push("Start Date can not be empty. Please fix this \n")
+          document.getElementById('start-time').classList.add("error")
+          document.getElementById('start-time').value = "Start date can not be empty"
+        }
+
+       if(endTime != "" && startTime != "" && endTime.getTime() <= startTime.getTime()){
           console.log("wrong dates")
           errorMsg.push("End Date before or equal to start date. Please fix this \n")
           document.getElementById('start-time').classList.add("error")
@@ -293,6 +316,12 @@ function CreateEventDialog(props) {
             setCost("")
             document.getElementById('cost').classList.add("error");
             document.getElementById('cost').placeholder = "Cost is inavlid";
+            error = 1;
+          }
+          else if(cost.length > 4){
+            setCost("")
+            document.getElementById('cost').classList.add("error");
+            document.getElementById('cost').placeholder = "Maximum cost is 9999$.";
             error = 1;
           }
 

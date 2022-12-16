@@ -376,10 +376,11 @@ const showResults = clickedActivites? (
       {showCreateEventButton}
       {/* {showNote} */}
       <div className="content"> 
+        {!loading ? null: showLoading}
         {showResults}
         {showProfile}
         {/*!loading ? results : showLoading*/}
-        {!loading ? showOwnerActivities : showLoading}
+        {showOwnerActivities}
             {showSignUps}
             {modal}
       </div>
