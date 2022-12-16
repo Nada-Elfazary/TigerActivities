@@ -21,10 +21,11 @@ const SuccessModal = (props) => {
        
         </Modal>
         </Container>
-    props.setOpenSignUpModal(false)
+    
   return (
     <div>
       {successModal}
+      {props.setOpenSignUpModal(false)}
     </div>
   )
 }
