@@ -43,7 +43,7 @@ export default function  Home() : React.ReactNode {
 
   const categoryToColor = {'Sports': "DeepSkyBlue", 'Entertainment': "slateblue", 'Academic': "orange", 'Off-campus': "olive", 'Outdoors': "navy",  
   'Meals/Coffee Chats': "maroon", 'Nassau Street': "green", 'Social': "tomato"} 
-
+console.log("karimeeeeeee")
 useEffect(() => {
   cas()
   // setRefresh(true)
