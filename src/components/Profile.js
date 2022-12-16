@@ -18,7 +18,7 @@ export default function Profile(props) {
     
     const editProfileModal = showModal?
     <EditProfileModal 
-    profileData={props.ProfileData}
+    profileData={props.profileData}
     setShowModal={setShowModal}
     showModal={showModal}
     />:
