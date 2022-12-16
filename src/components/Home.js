@@ -53,6 +53,7 @@ useEffect(() => {
   const timer = new IdleTimer({
     timeout: 10, //expire after 10 seconds
     onTimeout: () => {
+      console.log("yessss")
       
       setIsTimeout(true);
     },
