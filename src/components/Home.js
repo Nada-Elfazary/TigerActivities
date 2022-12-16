@@ -353,7 +353,7 @@ const showResults = clickedActivites? (
   // const showNote = !clickedProfile ? (
   //   <h3><text className = 'note'>Note: The activities shown are the ones within the next 5 days</text></h3>
   // ): null
-
+console.log("before showProfile component is rendered. Clicked profile:", clickedProfile)
   const showProfile = clickedProfile ? <Profile 
     netid={fast_username}
     profileData={fast_profileData}
