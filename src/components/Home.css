@@ -76,6 +76,7 @@ html {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 10px;
     /*
     display: flex; 
     flex-direction: column; 
@@ -147,8 +148,11 @@ table.center {
 .buttonStyle {
     top:50%; 
     left:50%;
-    background-color: grey;
+    margin-top: 2%;
+    align-self: center;
+    width: 30%
 }
+
 .buttonShift:hover {
     background-color:red;
     transition: 0.7s;
@@ -237,4 +241,8 @@ th{
 
 .updateProfileMessage {
     text-align: center;
+}
+
+.center {
+    align-self: center;
 }

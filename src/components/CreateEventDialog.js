@@ -65,7 +65,7 @@ function CreateEventDialog(props) {
     const submitForm = ()=>{
         setDisableSubmitForm(true)
         console.log(disableSubmitForm)
-        axios.post('https://tigeractivities.onrender.com/create-event', {
+        axios.post('https://tigeractivities.onrender.com/api/create-event', {
             event_name:    eventTitle,
             start_time:    startTime.toString(),
             end_time:      endTime.toString(),
@@ -124,10 +124,14 @@ function CreateEventDialog(props) {
               <Col><Form.Label>Title: </Form.Label></Col>
               
               <Col><Form.Control type="text" id = "title" name="title" value={eventTitle} onChange={(event)=>{
+                  document.getElementById('title').classList.remove("error");
+                  if (event.target.value.length <= 100) {
                         setEventTitle(event.target.value)
-                        document.getElementById('title').classList.remove("error");
                         console.log(eventTitle)
-                    }}></Form.Control>
+                  } else {
+                    console.log("input too large")
+                  }
+                }}></Form.Control>
 </Col>
             </Row>
             
@@ -136,8 +140,13 @@ function CreateEventDialog(props) {
             <Row>
               <Col><Form.Label>Location:</Form.Label></Col>
               <Col><Form.Control type="text" id = "location" name="Location" value ={eventLocation} onChange={(event)=>{
+                    document.getElementById('location').classList.remove("error");
+                    if(event.target.value.length <= 100) {
                         setEventLocation(event.target.value)
-                        document.getElementById('location').classList.remove("error");
+                    } else {
+                      console.log("input too large")
+                    }
+                        
                     }}></Form.Control></Col>
             </Row>
             
@@ -175,6 +184,9 @@ function CreateEventDialog(props) {
                      id = "start-time"
                      class = "customFlatpickr"
                      value={startTime} 
+                     options={ { minDate: "today" ,
+                     maxDate: new Date().fp_incr(5)
+                   } } 
                      onChange={(event) => 
                      {
                         console.log("date:" +  startTime)
@@ -202,9 +214,13 @@ function CreateEventDialog(props) {
             <Row>
               <Col><Form.Label>Max Attendee Count:</Form.Label></Col>
               <Col><Form.Control type="text" id = "cap" name="Attendee Count" value={maxAttendeeCount} onChange={(event) =>
-                        {
+                        { 
                           document.getElementById('cap').classList.remove("error");
+                          if(event.target.value.length <= 4) {
                             setMaxAttendeeCount(event.target.value)
+                          }else {
+                            console.log("input too large")
+                          }
                         }}></Form.Control></Col>
             </Row>
           </Form.Group>
@@ -217,7 +233,11 @@ function CreateEventDialog(props) {
                         {
                           document.getElementById('cost').classList.remove("error");
                           console.log("cost: ", event.target.value)
-                        setCost(event.target.value)
+                          if(event.target.value.length <= 4) {
+                          setCost(event.target.value)
+                          } else {
+                            console.log("input too large")
+                          }
                         }}/>
         <InputGroup.Text>.00</InputGroup.Text>
       </InputGroup></Col>
@@ -227,9 +247,14 @@ function CreateEventDialog(props) {
               <Col><Form.Label>Description:</Form.Label></Col>
               <Col><Form.Control as="textarea" id = "descrip" name ="description" value={description} onChange={(event) =>
                       {
-                      setDescription(event.target.value)
                       document.getElementById('descrip').classList.remove("error");
-                      }}></Form.Control></Col>
+                      if(event.target.value.length <= 1000) {
+                      setDescription(event.target.value)
+                      } else {
+                        console.log("input too large")
+                      }
+                    }
+                    }></Form.Control></Col>
             </Row>
           </Form.Group>
           <Form.Group>{errorM}</Form.Group>
@@ -264,7 +289,21 @@ function CreateEventDialog(props) {
           document.getElementById('category').classList.add("error");
           error = 1;
         }
-       if( endTime.getTime() <= startTime.getTime()){
+        if (endTime == "") {
+          console.log("End Time can not be empty.")
+          errorMsg.push("End Date can not be empty. Please fix this \n")
+          document.getElementById('end-time').classList.add("error")
+          document.getElementById('end-time').value = "End date can not be empty"
+        }
+
+        if (startTime == "") {
+          console.log("Start time can not be empty.")
+          errorMsg.push("Start Date can not be empty. Please fix this \n")
+          document.getElementById('start-time').classList.add("error")
+          document.getElementById('start-time').value = "Start date can not be empty"
+        }
+
+       if(endTime != "" && startTime != "" && endTime.getTime() <= startTime.getTime()){
           console.log("wrong dates")
           errorMsg.push("End Date before or equal to start date. Please fix this \n")
           document.getElementById('start-time').classList.add("error")
@@ -278,16 +317,24 @@ function CreateEventDialog(props) {
          if(cost < 0){
         //  errorMsg.push("Cost involved cannot be negative")
           // setShowErrorMsg(true)
+          setCost("")
           document.getElementById('cost').classList.add("error");
-          document.getElementById('cost').placeholder = "Cost involved cannot be negative";
+          document.getElementById('cost').placeholder = "Cost is negative";
 
           error = 1;
         }
         else if(!/^[0-9]+$/.test(cost)){
           //  errorMsg.push("Cost involved cannot be negative")
             // setShowErrorMsg(true)
+            setCost("")
             document.getElementById('cost').classList.add("error");
-            document.getElementById('cost').placeholder = "Cost cannot be negative";
+            document.getElementById('cost').placeholder = "Cost is inavlid";
+            error = 1;
+          }
+          else if(cost.length > 4){
+            setCost("")
+            document.getElementById('cost').classList.add("error");
+            document.getElementById('cost').placeholder = "Maximum cost is 9999$.";
             error = 1;
           }
 
@@ -296,7 +343,12 @@ function CreateEventDialog(props) {
           // setShowErrorMsg(true)
           document.getElementById('cap').classList.add("error");
           setMaxAttendeeCount("")
-          document.getElementById('cap').placeholder = "Count cannot be negative or zero";
+          document.getElementById('cap').placeholder = "Count negative or zero";
+          error = 1;
+        } else if (!/^[0-9]+$/.test(maxAttendeeCount)) {
+          document.getElementById('cap').classList.add("error");
+          setMaxAttendeeCount("")
+          document.getElementById('cap').placeholder = "Max is invalid";
           error = 1;
         }
   
@@ -304,7 +356,7 @@ function CreateEventDialog(props) {
           //    error.push("Max Attendee Count cannot be negative")
               // setShowErrorMsg(true)
               document.getElementById('cap').classList.add("error");
-              document.getElementById('cap').placeholder = "Count cannot be empty";
+              document.getElementById('cap').placeholder = "Count is empty";
     
               error = 1;
             }

@@ -31,16 +31,15 @@ export default function  Home() : React.ReactNode {
   const [refresh, setRefresh] = useState(false)
   const [loading, setLoading] = useState(false)
   const [nameFilter, setNameFilter] = useState('')
-  // let currLogin = "Nada"
   const [profileData, setProfileData] = useState(["","",""])
   const [paginatedEvents, setPaginatedEvents] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   // const [updateProfileMsg, setUpdateProfileMsg] = useState("")
   const pageSize = 9;
- //let profileData = ['', '', '', '']
   const navigate = useNavigate()
 
   let fast_username = username
+  let fast_profileData = profileData
 
   const categoryToColor = {'Sports': "DeepSkyBlue", 'Entertainment': "slateblue", 'Academic': "orange", 'Off-campus': "olive", 'Outdoors': "navy",  
   'Meals/Coffee Chats': "maroon", 'Nassau Street': "green", 'Social': "tomato"} 
@@ -54,7 +53,6 @@ useEffect(() => {
   const timer = new IdleTimer({
     timeout: 20, //expire after 10 seconds
     onTimeout: () => {
-      console.log("here")
       
       setIsTimeout(true);
     },
@@ -68,7 +66,6 @@ useEffect(() => {
     timer.cleanUp();
   };
 }, []);
-
 useEffect(() => {
   if (skipCount) setSkipCount(false);
   if(!skipCount) profileClicked();
@@ -96,9 +93,11 @@ const displayPagination = <Pagination className="paginate">
 
 
 const mySignUpsClicked= () => {
-  if(clickedMySignUps) {
+  /*if(clickedMySignUps) {
     setEvents([])
-  }
+    
+  }*/
+  setPaginatedEvents([])
   setInitialState(false)
   setClickedMySignUps(true)
   setClickedActivities(false)
@@ -108,7 +107,7 @@ const mySignUpsClicked= () => {
   setCurrentPage(1)
   console.log("Requesting user signups")
   setLoading(true)
-  axios.get('https://tigeractivities.onrender.com/user-sign-ups').then((res) =>{
+  axios.get('https://tigeractivities.onrender.com/api/user-sign-ups').then((res) =>{
     console.log("in sign-up")
     setEvents(res.data)
     setPaginatedEvents(_(res.data).slice(0).take(pageSize).value())
@@ -141,7 +140,7 @@ const activitesClicked= () => {
 
 const cas = ()=>{ 
   console.log("inside cas")
-  fetch('https://tigeractivities.onrender.com/authenticate').then((resp)=>
+  fetch('https://tigeractivities.onrender.com/api/authenticate').then((resp)=>
     {return resp.text();}).then((data) => {
     let response = JSON.parse(data)
     console.log('data from cas: ', data)
@@ -152,10 +151,11 @@ const cas = ()=>{
     } else {
       // try to synchronosly wait for state change
       setUserName(response.username)
-      console.log("Username after being set:", username, "real username:", response.username, data)
-      activitesClicked()
       fast_username = response.username
-      setUserName(response.username)
+      console.log("Username after being set:", username, "real username:", response.username, fast_username)
+      console.log("Getting profile data for username", fast_username)
+      getProfileData(fast_username)
+      setCurrentPage(1)
     }
   }).catch(err=>{
     console.log(err)
@@ -166,6 +166,7 @@ const myActivitesClicked= ()=>{
   if(clickedMyActivites) {
     setEvents([])
   } 
+  setPaginatedEvents([])
   setInitialState(false)
   setClickedMyActivities(true)
   console.log("Clicked 'My Activities'. Events:", events.length, events)
@@ -184,8 +185,9 @@ const profileClicked= () =>{
   setClickedMySignUps(false)
   setClickedProfile(true)
   // getProfileData(username)
+  console.log("Inside profile clickes. get Profile of", username)
   getProfileData(fast_username)
-  console.log("Inside profileClicked: set clickedProfile to true.")
+  console.log("Inside profileClicked: set clickedProfile to true.Server Rerendered")
 }
 
 const handleCreateEvent = () =>{
@@ -198,6 +200,7 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
   axios.get('https://tigeractivities.onrender.com/api/events', {params: {title: name, day: day, category: category, cost: cost, capMin: capMin, capMax: capMax}}).then(res =>{
     console.log("Events received from db:", res)
     setEvents([])
+    setPaginatedEvents([])
     if (ownerView === true) {
       // let filtered = res.data.filter(event => event.creator === username)
       let filtered = res.data.filter(event => event.creator === fast_username)
@@ -228,24 +231,29 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
 }
 
 const getProfileData = (netid) => {
-  axios.get('https://tigeractivities.onrender.com/profile', {params:{
+  axios.get('https://tigeractivities.onrender.com/api/profile', {params:{
           netid: netid
       }
   })
   .then((response) => {
       if (response.length === 0 || response.data.email==="") {
-          setProfileData(["", "", ""])
+          // setProfileData(["", "", ""])
           // redirect to profile page and set some kind of warning
+          fast_profileData = ["","",""]
+          console.log("Inside Home.js. Response from get profile:", response)
+          console.log("Inside Home.js. Clicked Profile:", clickedProfile)
           // setUpdateProfileMsg("Please update your profile information.")
-          // profileClicked()
-
+          if (!clickedProfile) {
+            profileClicked()
+          }
       }
       else {
           console.log("Response is:",response)
           console.log(response.data)
           setProfileData ([response.data.name, response.data.phone, response.data.email])
+          fast_profileData=[response.data.name, response.data.phone, response.data.email]
           // setUpdateProfileMsg("")
-          console.log("Profile Data in axios:", profileData)
+          console.log("Profile Data in axios:", profileData, "fast:", fast_profileData)
       }
   }).catch(err =>{
       console.log("Inside Home.js. Error receiveing profile information from db for user:",netid, err)
@@ -256,7 +264,7 @@ const getProfileData = (netid) => {
 
 
 const handleLogout = ()=>{
-  axios.get('/logoutapp').then(res =>{
+  axios.get('/api/logoutapp').then(res =>{
     console.log(res)
     let response = res.data
     console.log("logged out")
@@ -295,9 +303,9 @@ const handleLogout = ()=>{
     return (
   
       <XDSCard key ={index} item ={event} ownerView={false} signUpsView = {false} setLoading = {setLoading}
-      name={profileData[0]}
-      phone={profileData[1]}
-      email={profileData[2]}
+      name={fast_profileData[0]}
+      phone={fast_profileData[1]}
+      email={fast_profileData[2]}
       tagColor = {categoryToColor[event.category]}/>
     )
   }): <h1 className = "center-screen">No events created yet</h1>
@@ -352,6 +360,7 @@ const showResults = clickedActivites? (
 
   ): null
   const showSignUps = clickedMySignUps ? (
+    showLoading,
     displaySignUps
   ): null
 
@@ -365,10 +374,10 @@ const showResults = clickedActivites? (
   // const showNote = !clickedProfile ? (
   //   <h3><text className = 'note'>Note: The activities shown are the ones within the next 5 days</text></h3>
   // ): null
-
+console.log("before showProfile component is rendered. Clicked profile:", clickedProfile)
   const showProfile = clickedProfile ? <Profile 
-    netid={username}
-    profileData={profileData}
+    netid={fast_username}
+    profileData={fast_profileData}
     getProfileData={getProfileData}
     // updateProfileMsg={updateProfileMessage}
     /> : null
@@ -383,7 +392,7 @@ const showResults = clickedActivites? (
   //   <Card.Title>{updateProfileMsg}</Card.Title>
   // </Card>:null
 
-  const showLoading = <ClipLoader loading={loading} size={200}/>
+  const showLoading = <ClipLoader className = "center" loading={loading} size={200}/>
 
   return (
     <div className="page">
@@ -392,15 +401,17 @@ const showResults = clickedActivites? (
       {/* {showUpdateProfile} */}
       {showCreateEventButton}
       {/* {showNote} */}
+      {!loading ? null: showLoading}
       <div className="content"> 
-        {showResults}
+        {/*!loading ? null: showLoading*/}
+        {!loading ? showResults: null}
         {showProfile}
         {/*!loading ? results : showLoading*/}
-        {!loading ? showOwnerActivities : showLoading}
-            {showSignUps}
+        {!loading ? showOwnerActivities: null}
+            {!loading ? showSignUps: null}
             {modal}
       </div>
-      {!clickedProfile?  displayPagination : null}
+      {!clickedProfile && !loading?  displayPagination : null}
     </div>
     
   );

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Modal, Container } from 'react-bootstrap';
-import {BsCheckLg} from 'react-icons/bs';
+//import {BsCheckLg} from 'react-icons/bs';
 import CreateEventModalDraggable from './CreateEventModalDraggable';
 
 const SuccessModal = (props) => {
-
+    console.log("in success modal")
     const successModal = <Container fluid> <Modal show={true} dialogAs={CreateEventModalDraggable} onHide={()=>{
         props.setOpenSuccessModal(false)
       }} size="sm-2"
@@ -16,14 +16,16 @@ const SuccessModal = (props) => {
             }}>
             </Modal.Header>
             <Modal.Body className='success'>
-                Successfully signed up! <BsCheckLg className="checkmark"/>
+                <strong><center>Successfully signed up!</center></strong>
             </Modal.Body>
        
         </Modal>
         </Container>
+    
   return (
     <div>
       {successModal}
+      {props.setOpenSignUpModal(false)}
     </div>
   )
 }
