@@ -42,9 +42,9 @@ function SignUpModal(props) {
         setShowErrorMsg(true)
       }
       else {
-        props.setOpenSignUpModal(false)
-        console.log("Inside SignUpModal: setting openSuccessModel to true.")
         setOpenSuccessModal(true)
+        props.setOpenSignUpModal(false)
+        console.log("Inside SignUpModal: setting openSuccessModel to true.")    
       }
     }, (error) => {
       console.log("Inside SignUpModal.js. Failed to load signup", error)

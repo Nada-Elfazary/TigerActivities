@@ -335,6 +335,7 @@ const showResults = clickedActivites? (
 
   ): null
   const showSignUps = clickedMySignUps ? (
+    showLoading,
     displaySignUps
   ): null
 
@@ -375,16 +376,17 @@ const showResults = clickedActivites? (
       {/* {showUpdateProfile} */}
       {showCreateEventButton}
       {/* {showNote} */}
+      {!loading ? null: showLoading}
       <div className="content"> 
-        {!loading ? null: showLoading}
-        {showResults}
+        {/*!loading ? null: showLoading*/}
+        {!loading ? showResults: null}
         {showProfile}
         {/*!loading ? results : showLoading*/}
-        {showOwnerActivities}
-            {showSignUps}
+        {!loading ? showOwnerActivities: null}
+            {!loading ? showSignUps: null}
             {modal}
       </div>
-      {!clickedProfile?  displayPagination : null}
+      {!clickedProfile && !loading?  displayPagination : null}
     </div>
     
   );
