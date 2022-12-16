@@ -41,7 +41,7 @@ export default function  Home() : React.ReactNode {
   const categoryToColor = {'Sports': "DeepSkyBlue", 'Entertainment': "slateblue", 'Academic': "orange", 'Off-campus': "olive", 'Outdoors': "navy",  
   'Meals/Coffee Chats': "maroon", 'Nassau Street': "green", 'Social': "tomato"} 
   // check invariant that at most one of the buttons is clicked at the same time
-  assert(
+  console.assert(
     (!clickedActivites && !clickedMyActivites && !clickedMySignUps && !clickedProfile) ||
     (clickedActivites && !clickedMyActivites && !clickedMySignUps && !clickedProfile)  ||
     (!clickedActivites && clickedMyActivites && !clickedMySignUps && !clickedProfile)  ||
@@ -54,6 +54,7 @@ export default function  Home() : React.ReactNode {
     // setRefresh(true)
   //  activitesClicked()
   //  setEvents([])
+    console.log("Getting profile data for username", fast_username)
     getProfileData(fast_username)
     setCurrentPage(1)
     activitesClicked()
@@ -174,6 +175,7 @@ const profileClicked= () =>{
   setClickedMySignUps(false)
   setClickedProfile(true)
   // getProfileData(username)
+  console.log("Inside profile clickes. get Profile of", username)
   getProfileData(fast_username)
   console.log("Inside profileClicked: set clickedProfile to true.Server Rerendered")
 }
@@ -228,6 +230,7 @@ const getProfileData = (netid) => {
           // setProfileData(["", "", ""])
           // redirect to profile page and set some kind of warning
           fast_profileData = ["","",""]
+          console.log("Inside Home.js. Response from get profile:", response)
           console.log("Inside Home.js. Clicked Profile:", clickedProfile)
           // setUpdateProfileMsg("Please update your profile information.")
           if (!clickedProfile) {
