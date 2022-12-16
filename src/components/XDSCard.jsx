@@ -107,16 +107,18 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
         <Card.Subtitle> <h5><a className='tag' style={{'backgroundColor': backgroundColor}}><text className='white'>{item.category}</text></a></h5></Card.Subtitle>
         <Card.Text> 
                 <Row>
-                <h5 className='date'><strong>{numToDay[item.week_day]} {numToMonth[item.start_date.split("/")[1]]} {item.start_date.split("/")[2]}, {item.start_time}</strong></h5>
+                <h5 className='date'><strong>{numToDay[item.start_week_day]} {numToMonth[item.start_date.split("/")[1]]} {item.start_date.split("/")[2]}, {item.start_time}</strong></h5>
                 </Row>
                 <Row>
-          <Col><strong>End time : </strong>{item.end_time}</Col>
+          <Col><strong>End time : </strong>{numToDay[item.end_week_day]} {numToMonth[item.end_date.split("/")[1]]} {item.end_date.split("/")[2]}, {item.end_time}</Col>
           <Col><strong>Location : </strong>{item.location}</Col>
             
           </Row>
         </Card.Text>
         <Row>
-            <Col><p {...getCollapseProps()}><strong>Number of attendees :</strong> {item.signup_number}/{item.maxcap}</p></Col>
+            <Col><p {...getCollapseProps()}><strong>Number of attendees :</strong> {
+            attendees.length ===1 && attendees[0]["netid"] === "No Sign Ups Yet"? 0:attendees.length
+            }/{item.maxcap}</p></Col>
             <Col><p {...getCollapseProps()}><strong>Estimated Cost : </strong>$ {item.cost}</p></Col>
           </Row>
         <Card.Text>
@@ -134,7 +136,9 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
                         :
                          <Button  
                          variant="warning"
-                         onClick={handleSignUp} disabled={item.signup_number === item.maxcap}>Sign Up</Button> 
+                         onClick={handleSignUp} disabled={
+                          attendees.length ===1 && attendees[0]["netid"] !== "No Sign Ups Yet"? false: 
+                          attendees.length === item.maxcap}>Sign Up</Button> 
                         
                         }
                                   

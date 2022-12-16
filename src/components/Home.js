@@ -72,9 +72,11 @@ const displayPagination = <Pagination className="paginate">
 
 
 const mySignUpsClicked= () => {
-  if(clickedMySignUps) {
+  /*if(clickedMySignUps) {
     setEvents([])
-  }
+    
+  }*/
+  setPaginatedEvents([])
   setInitialState(false)
   setClickedMySignUps(true)
   setClickedActivities(false)
@@ -141,6 +143,7 @@ const myActivitesClicked= ()=>{
   if(clickedMyActivites) {
     setEvents([])
   } 
+  setPaginatedEvents([])
   setInitialState(false)
   setClickedMyActivities(true)
   console.log("Clicked 'My Activities'. Events:", events.length, events)
@@ -173,6 +176,7 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
   axios.get('https://tigeractivities.onrender.com/api/events', {params: {title: name, day: day, category: category, cost: cost, capMin: capMin, capMax: capMax}}).then(res =>{
     console.log("Events received from db:", res)
     setEvents([])
+    setPaginatedEvents([])
     if (ownerView === true) {
       // let filtered = res.data.filter(event => event.creator === username)
       let filtered = res.data.filter(event => event.creator === fast_username)
