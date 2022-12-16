@@ -40,7 +40,15 @@ export default function  Home() : React.ReactNode {
 
   const categoryToColor = {'Sports': "DeepSkyBlue", 'Entertainment': "slateblue", 'Academic': "orange", 'Off-campus': "olive", 'Outdoors': "navy",  
   'Meals/Coffee Chats': "maroon", 'Nassau Street': "green", 'Social': "tomato"} 
-
+  // check invariant that at most one of the buttons is clicked at the same time
+  assert(
+    (!clickedActivites && !clickedMyActivites && !clickedMySignUps && !clickedProfile) ||
+    (clickedActivites && !clickedMyActivites && !clickedMySignUps && !clickedProfile)  ||
+    (!clickedActivites && clickedMyActivites && !clickedMySignUps && !clickedProfile)  ||
+    (!clickedActivites && !clickedMyActivites && clickedMySignUps && !clickedProfile)  ||
+    (!clickedActivites && !clickedMyActivites && !clickedMySignUps && clickedProfile), 
+    "more than one page view is selected at the same time"
+  )
   useEffect(()=>{
     cas()
     // setRefresh(true)

@@ -86,11 +86,13 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
             setAttendees(res.data)
             let isSignedUp = false
             console.log("Iterating thorugh attendees:", res.data)
+            console.log("looking to match username:", username)
             for (const attendee of res.data) {
               console.log("Attendee:", attendee)
               if (attendee["netid"] === username){
                 isSignedUp = true
               }
+              console.log("set current user's signed up status to", isSignedUp)
               setIsCurrUserSignedUp(isSignedUp)
             }     
     }).catch(err =>{
