@@ -283,7 +283,7 @@ function CreateEventDialog(props) {
           // setShowErrorMsg(true)
           setCost("")
           document.getElementById('cost').classList.add("error");
-          document.getElementById('cost').value = "Cost is negative";
+          document.getElementById('cost').placeholder = "Cost is negative";
 
           error = 1;
         }
@@ -292,7 +292,7 @@ function CreateEventDialog(props) {
             // setShowErrorMsg(true)
             setCost("")
             document.getElementById('cost').classList.add("error");
-            document.getElementById('cost').value = "Cost is inavlid";
+            document.getElementById('cost').placeholder = "Cost is inavlid";
             error = 1;
           }
 
@@ -301,12 +301,12 @@ function CreateEventDialog(props) {
           // setShowErrorMsg(true)
           document.getElementById('cap').classList.add("error");
           setMaxAttendeeCount("")
-          document.getElementById('cap').value = "Count negative or zero";
+          document.getElementById('cap').placeholder = "Count negative or zero";
           error = 1;
         } else if (!/^[0-9]+$/.test(maxAttendeeCount)) {
           document.getElementById('cap').classList.add("error");
           setMaxAttendeeCount("")
-          document.getElementById('cap').value = "Max is invalid";
+          document.getElementById('cap').placeholder = "Max is invalid";
           error = 1;
         }
   
