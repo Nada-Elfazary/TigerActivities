@@ -44,8 +44,10 @@ export default function  Home() : React.ReactNode {
   useEffect(()=>{
     cas()
     // setRefresh(true)
-    activitesClicked()
-    setEvents([])
+  //  activitesClicked()
+  //  setEvents([])
+    setCurrentPage(1)
+    getEvents(false, '')
     getProfileData(fast_username)
     // console.log("user on page is", user)
     
@@ -367,7 +369,7 @@ const showResults = clickedActivites? (
   //   <Card.Title>{updateProfileMsg}</Card.Title>
   // </Card>:null
 
-  const showLoading = <ClipLoader loading={loading} size={200}/>
+  const showLoading = <ClipLoader className = "center" loading={loading} size={200}/>
 
   return (
     <div className="page">

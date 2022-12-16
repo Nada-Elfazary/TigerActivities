@@ -242,3 +242,7 @@ th{
 .updateProfileMessage {
     text-align: center;
 }
+
+.center {
+    justify-self: center;
+}

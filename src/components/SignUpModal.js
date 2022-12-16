@@ -43,7 +43,7 @@ function SignUpModal(props) {
       }
       else {
         setOpenSuccessModal(true)
-        props.setOpenSignUpModal(false)
+       // props.setOpenSignUpModal(false)
         console.log("Inside SignUpModal: setting openSuccessModel to true.")    
       }
     }, (error) => {
