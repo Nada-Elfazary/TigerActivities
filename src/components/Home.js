@@ -68,7 +68,7 @@ useEffect(() => {
 }, []);
 useEffect(() => {
   if (skipCount) setSkipCount(false);
-  if(!skipCount) profileClicked();
+  if(!skipCount) handleLogout();
   
 }, [isTimeout]);
 
