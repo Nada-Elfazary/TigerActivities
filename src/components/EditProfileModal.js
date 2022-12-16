@@ -118,37 +118,39 @@ return (
           }}>Cancel</Button>
       <Button variant="primary" onClick={()=>{
           let error = 0;
-          let errorMsg = []
-        // console.log(endTime.getTime())
-        // console.log(startTime.getTime())
-        if(updateName.length === 0 ){
-          // error.push("Title field cannot be empty")
-          // setShowErrorMsg(true)
-          document.getElementById('name').classList.add("error");
-          document.getElementById('name').placeholder = "Name field cannot be empty";
-
-          error = 1;
-        }
-        if(updatePhone.length === 0){
-      //     error.push("Number field cannot be empty \n")
-          document.getElementById('num').classList.add("error");
-          document.getElementById('num').placeholder = "Phone number field cannot be empty";
-
-          error = 1;
-        }
-      
-        if(updateEmail.length === 0){
-          document.getElementById('email').classList.add("error");
-          document.getElementById('email').placeholder = "Email field cannot be empty";
-          error = 1;
-        }
-        
-        if(!/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/.test(updateEmail)){
-          console.log("email state:", updateEmail)
-          document.getElementById('email').classList.add("error");
-          document.getElementById('email').value="Email address is invalid";
-          error = 1;
-        }
+          if(updateName.length === 0 ){
+   
+            document.getElementById('name').classList.add("error");
+            document.getElementById('name').placeholder = "Name field cannot be empty";
+  
+            error = 1;
+          }
+          if(updatePhone.length === 0){
+           console.log("inside phone === 0")
+            document.getElementById('num').classList.add("error");
+            document.getElementById('num').value = "Phone number field cannot be empty";
+  
+            error = 1;
+          }
+          else if(!/^[0-9]{10}$/.test(updatePhone)){
+           console.log("inside invalid phone")
+           document.getElementById('num').classList.add("error");
+           document.getElementById('num').setAttribute("value", 'Invalid phone number')
+           setShowErrorMsg(true)
+           error = 1;
+         }
+          if(updateEmail.length === 0){
+            document.getElementById('email').classList.add("error");
+            document.getElementById('email').placeholder = "Email field cannot be empty";
+            error = 1;
+          }
+          
+          else if(!/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/.test(updateEmail)){
+           console.log("email state:", updateEmail)
+           document.getElementById('email').classList.add("error");
+           document.getElementById('email').value="Email address is invalid";
+           error = 1;
+         }
 
         error !== 0 ? failureCallBack("Please fix errors above") : successCallBack()             
         }}>Submit</Button>

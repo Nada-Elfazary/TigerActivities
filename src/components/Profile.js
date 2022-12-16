@@ -5,7 +5,6 @@ import "./Profile.css"
 import "./EditProfileModal.js"
 
 // import "./Modal.css";
-import SignUpModal from "./SignUpModal";
 import EditProfileModal from "./EditProfileModal";
 
 export default function Profile(props) {
@@ -19,6 +18,7 @@ export default function Profile(props) {
     const editProfileModal = showModal?
     <EditProfileModal 
     profileData={props.profileData}
+    getProfileData={props.getProfileData}
     setShowModal={setShowModal}
     showModal={showModal}
     />:
