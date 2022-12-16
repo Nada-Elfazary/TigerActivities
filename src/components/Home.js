@@ -73,6 +73,8 @@ useEffect(() => {
   
 }, [isTimeout]);
 
+console.log("karim")
+
 const pageCount = events ? Math.ceil(events.length/ pageSize) : 0
 const pagination = (pageNo)=>{
   setCurrentPage(pageNo)
