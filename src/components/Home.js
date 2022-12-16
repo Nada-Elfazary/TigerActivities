@@ -43,17 +43,18 @@ export default function  Home() : React.ReactNode {
 
   const categoryToColor = {'Sports': "DeepSkyBlue", 'Entertainment': "slateblue", 'Academic': "orange", 'Off-campus': "olive", 'Outdoors': "navy",  
   'Meals/Coffee Chats': "maroon", 'Nassau Street': "green", 'Social': "tomato"} 
-console.log("karimeeeeeee")
+
 useEffect(() => {
   cas()
   // setRefresh(true)
   activitesClicked()
   setEvents([])
   getProfileData()
+
   const timer = new IdleTimer({
     timeout: 10, //expire after 10 seconds
     onTimeout: () => {
-      console.log("yessss")
+
       
       setIsTimeout(true);
     },
@@ -69,11 +70,11 @@ useEffect(() => {
 }, []);
 useEffect(() => {
   if (skipCount) setSkipCount(false);
-  if(!skipCount) handleLogout();
+  if (!skipCount) handleLogout();
   
 }, [isTimeout]);
 
-console.log("karim")
+
 
 const pageCount = events ? Math.ceil(events.length/ pageSize) : 0
 const pagination = (pageNo)=>{
