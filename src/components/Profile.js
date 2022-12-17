@@ -41,28 +41,18 @@ export default function Profile(props) {
       console.log("success")
       setShowErrorMsg(false) 
       setErrorMsg(null)
-      // setSaving(true)
-      //   console.log(eventTitle)
-      //   console.log(description)
-      //   console.log(eventLocation)
+
       submitForm()
       setShowModal(false)
       props.getProfileData(props.netid)
-      // updateProfileInformation()
-      // props.setClickMyActivities(true)
+
       }
 
-      // const updateProfileInformation = () => {
-      //   setDbName(updateName)
-      //   setDbEmail(updateEmail)
-      //   setDbPhone(updatePhone)
-      // }
 
       //   submits the edit form once user is done updaing infomation
         const submitForm= () =>
         {
             axios.post('/api/update-profile', {
-          //  netid: props.netid,
             name: updateName,
             phone: updatePhone,
             email: updateEmail,
@@ -70,7 +60,6 @@ export default function Profile(props) {
             .then((response) => {
             console.log("Response:", response)
             console.log("Props:", props)
-            // props.updateProfileMsg("")
             }, (error) => {
             console.log("Inside Profile.js. Error recieved updating profile:", error)
             navigate("/error")
@@ -97,9 +86,11 @@ export default function Profile(props) {
               <Col><Form.Control type="text"  id = "name" name="name" placeholder = {updateName.length===0?"Full Name":updateName} value={updateName} onChange={(event) =>
                     {
                       console.log("Inside editProfile Modal. Name before typing: ", updateName)
-                       document.getElementById('name').classList.remove("error");
-                      setUpdateName(event.target.value)
-                    }}
+                      document.getElementById('name').classList.remove("error");
+                      if (event.target.value <= 100) {
+                        setUpdateName(event.target.value)
+                      }
+                      }}
                 ></Form.Control>
                 </Col>
             </Row>
@@ -124,7 +115,9 @@ export default function Profile(props) {
                     {
                       console.log("Email befrore typing:", updateEmail)
                       document.getElementById('email').classList.remove("error");
-                      setUpdateEmail(event.target.value)
+                      if (event.target.value <= 100) {
+                        setUpdateEmail(event.target.value)
+                      }
                     }}
                  ></Form.Control>
                 </Col>
@@ -143,11 +136,9 @@ export default function Profile(props) {
         <Button variant="primary" onClick={()=>{
              let error = 0;
              let errorMsg = []
-          // console.log(endTime.getTime())
-          // console.log(startTime.getTime())
+   
            if(updateName.length === 0 ){
-             // error.push("Title field cannot be empty")
-             // setShowErrorMsg(true)
+     
              document.getElementById('name').classList.add("error");
              document.getElementById('name').placeholder = "Name field cannot be empty";
    
@@ -159,7 +150,13 @@ export default function Profile(props) {
              document.getElementById('num').placeholder = "Phone number field cannot be empty";
    
              error = 1;
-           }
+           } else if(!/^[0-9]{10}$/.test(updatePhone)){
+            console.log("inside invalid phone")
+            document.getElementById('num').classList.add("error");
+          //  document.getElementById('num').setAttribute("value", 'Invalid phone number')
+            setShowErrorMsg(true)
+            error = 1;
+          }
          
            if(updateEmail.length === 0){
              document.getElementById('email').classList.add("error");
@@ -170,7 +167,7 @@ export default function Profile(props) {
            if(!/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/.test(updateEmail)){
             console.log("email state:", updateEmail)
             document.getElementById('email').classList.add("error");
-            document.getElementById('email').value="Email address is invalid";
+           // document.getElementById('email').value="Email address is invalid";
             error = 1;
           }
 

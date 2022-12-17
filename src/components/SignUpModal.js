@@ -93,7 +93,9 @@ function SignUpModal(props) {
               <Col><Form.Control type="text"  id = "name" name="name" placeholder = "Full Name" value={name} onChange={(event) =>
           
                     { document.getElementById('name').classList.remove("error");
+                    if (event.target.value <= 100) {
                       setName(event.target.value)
+                    }
                     }}
             ></Form.Control>
 </Col>
@@ -117,7 +119,9 @@ function SignUpModal(props) {
               <Col><Form.Control type="text" id = "email" name="Email" placeholder = "Email Address" value={email} onChange={(event) =>
                     {
                       document.getElementById('email').classList.remove("error");
+                      if (event.target.value.length <= 100) {
                       setEmail(event.target.value)
+                      }
                     }}
             ></Form.Control>
 </Col>
@@ -154,7 +158,7 @@ function SignUpModal(props) {
            else if(!/^[0-9]{10}$/.test(phone)){
             console.log("inside invalid phone")
             document.getElementById('num').classList.add("error");
-            document.getElementById('num').setAttribute("value", 'Invalid phone number')
+          //  document.getElementById('num').setAttribute("value", 'Invalid phone number')
             setShowErrorMsg(true)
             error = 1;
           }
@@ -167,7 +171,7 @@ function SignUpModal(props) {
            else if(!/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/.test(email)){
             console.log("email state:", email)
             document.getElementById('email').classList.add("error");
-            document.getElementById('email').value="Email address is invalid";
+           // document.getElementById('email').value="Email address is invalid";
             error = 1;
           }
            /*

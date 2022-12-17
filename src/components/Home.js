@@ -206,6 +206,7 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
   axios.get('https://tigeractivities.onrender.com/api/events', {params: {title: name, day: day, category: category, cost: cost, capMin: capMin, capMax: capMax}}).then(res =>{
     console.log("Events received from db:", res)
     setEvents([])
+    setCurrentPage(1)
     setPaginatedEvents([])
     if (ownerView === true) {
       // let filtered = res.data.filter(event => event.creator === username)
@@ -312,7 +313,7 @@ const handleLogout = ()=>{
       name={fast_profileData[0]}
       phone={fast_profileData[1]}
       email={fast_profileData[2]}
-      tagColor = {categoryToColor[event.category]}/>
+      tagColor = {categoryToColor[event.category]} username = {fast_username}/>
     )
   }): <h1 className = "center-screen">No events created yet</h1>
   const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
