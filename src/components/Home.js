@@ -18,8 +18,8 @@ import IdleTimer from "./IdleTimer";
 // different end points.
   
 export default function  Home() : React.ReactNode {
-  const [skipCount, setSkipCount] = useState(true)
-  const [isTimeout, setIsTimeout] = useState(false)
+  // const [skipCount, setSkipCount] = useState(true)
+  // const [isTimeout, setIsTimeout] = useState(false)
   const [initialState, setInitialState] = useState(true)
   const [clickedActivites, setClickedActivities] = useState(false)
   const [clickedMyActivites, setClickedMyActivities] = useState(false)
@@ -51,30 +51,30 @@ useEffect(() => {
   // setEvents([])
   // getProfileData()
 
-  const timer = new IdleTimer({
-    timeout: 600, //expire after 10 seconds
-    onTimeout: () => {
+//   const timer = new IdleTimer({
+//     timeout: 600, //expire after 10 seconds
+//     onTimeout: () => {
 
       
-      setIsTimeout(true);
-    },
-    onExpired: () => {
-      //do something if expired on load
-      setIsTimeout(true);
-    }
-  });
+//       setIsTimeout(true);
+//     },
+//     onExpired: () => {
+//       //do something if expired on load
+//       setIsTimeout(true);
+//     }
+//   });
 
-  return () => {
-    timer.cleanUp();
-  };
-}, []);
+//   return () => {
+//     timer.cleanUp();
+//   };
+// }, []);
 
 
-useEffect(() => {
-  if (skipCount) setSkipCount(false);
-  if (!skipCount) handleLogout();
+// useEffect(() => {
+//   if (skipCount) setSkipCount(false);
+//   else if (!skipCount) handleLogout();
   
-}, [isTimeout]);
+// }, [isTimeout]);
 
 
 
