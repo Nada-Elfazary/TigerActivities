@@ -81,7 +81,7 @@ function SignUpModal(props) {
               <Col><Form.Control type="text"  id = "name" name="name" placeholder = "Full Name" value={name} onChange={(event) =>
           
                     { document.getElementById('name').classList.remove("error");
-                    if (event.target.value <= 100) {
+                    if (event.target.value.length <= 100) {
                       setName(event.target.value)
                     }
                     }}
