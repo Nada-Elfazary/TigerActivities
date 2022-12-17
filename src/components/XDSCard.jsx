@@ -43,7 +43,7 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
     setEventTitle(item.event_name)
     setEventId(item.id)
     get_attendees(item.id)
-    setIsExpanded(false)
+    setExpanded(false)
   
   }
 
@@ -64,7 +64,7 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
     console.log(item.event_name)
     setDisplayModal(true);
     console.log("display modal state: ", displayModal)
-    setIsExpanded(false)
+    setExpanded(false)
   }
   
   const editModal = displayModal ? (<EditEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents} 
