@@ -1,14 +1,14 @@
 import { update } from "lodash";
 
 class IdleTimer{
-    constructor({timeout, onTimeout, onExpired}) {
+    constructor({timeout, onTimeout}) {
         this.timeout = timeout;
         this.onTimeout = onTimeout;
         const expiredTime = parseInt(localStorage.getItem("_expiredTime") || 0, 10);
-        if (expiredTime > 0 && expiredTime < Date.now()) {
-            onExpired();
-            return;
-        }
+        // if (expiredTime > 0 && expiredTime < Date.now()) {
+        //     // onExpired();
+        //     return;
+        // }
 
 
 

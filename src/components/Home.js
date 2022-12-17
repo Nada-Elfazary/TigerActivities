@@ -58,10 +58,10 @@ useEffect(() => {
       
       setIsTimeout(true);
     },
-    onExpired: () => {
-      //do something if expired on load
-      setIsTimeout(true);
-    }
+    // onExpired: () => {
+    //   //do something if expired on load
+    //   setIsTimeout(true);
+    // }
   });
 
   return () => {
