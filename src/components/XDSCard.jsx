@@ -141,7 +141,7 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
                          <Button  
                          variant="warning"
                          onClick={handleSignUp} disabled={
-                          attendees.length ===1 && attendees[0]["netid"] !== "No Sign Ups Yet"? false: 
+                          attendees.length ===1 && attendees[0]["netid"] === "No Sign Ups Yet"? false: 
                           attendees.length === item.maxcap}>Sign Up attendees:{attendees.length} items:{item.maxcap}</Button> 
                         
                         }
