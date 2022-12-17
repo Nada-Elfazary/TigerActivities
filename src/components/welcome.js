@@ -66,43 +66,10 @@ export default function Welcome(): React.ReactNode{
     const logInButton = <button disabled={logInClicked} className='button' onClick={()=>{
       setLogInClicked(true)}}>Log In</button>
 
-
-
-    //const displayEventsButton = <button onClick={handleOnClickedDisplayEvents} disabled={clickedDisplayEvents}> Display Events</button>
-    //const createEventButton = <button onClick={handleOnClickedCreateEvent} disabled={clickedCreateEvent}>Create Event</button>
-    /*
-      const getEvents =()=> {
-        axios({
-          method: "GET",
-          url:"/events",
-        })
-        .then((response) => {
-          const res =response.data
-          console.log("inside get data")
-          setEvents(res)
-        }).catch((error) => {
-          if (error.response) {
-            console.log(error.response)
-            console.log(error.response.status)
-            console.log(error.response.headers)
-            }
-        })}
-        
-      */
-        
-
 return (
   <div> 
-    {/* <div> */}
       <div className='App'>
-        {/* {title} */}
       </div>
-      {/* {displayEventsButton} */}
-      {/* {createEventButton} */}
-      {/* {showResults} */}
-
-      {/* {createEventModal} */}
-    {/* </div> */}
     <div>
       <div className='center-screen'>
         <div className='title'>

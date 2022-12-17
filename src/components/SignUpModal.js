@@ -16,14 +16,6 @@ function SignUpModal(props) {
   const [saving, setSaving] = useState(false)
   const [openSuccessModal, setOpenSuccessModal] = useState(false)
 
-  /*
-  React.useEffect(() => {
-    setName(props.name)
-    setEmail(props.email)
-    setPhone(props.phone)
-  }, [])
-
-  */
   const navigate=useNavigate()
 
   const submitForm= () =>
@@ -58,14 +50,10 @@ function SignUpModal(props) {
     }
     const successCallBack = ()=>{
       console.log("success")
-     setShowErrorMsg(false) 
-     setErrorMsg(null)
-     setSaving(true)
-      // setSaving(true)
-   //   console.log(eventTitle)
-   //   console.log(description)
-   //   console.log(eventLocation)
-        submitForm()
+      setShowErrorMsg(false) 
+      setErrorMsg(null)
+      setSaving(true)
+      submitForm()
       // props.setClickMyActivities(true)
     }
 
@@ -110,7 +98,7 @@ function SignUpModal(props) {
                       setPhone(event.target.value)
                     }}
             ></Form.Control>
-</Col>
+            </Col>
             </Row>
             </Form.Group>
             <Form.Group>
@@ -124,7 +112,7 @@ function SignUpModal(props) {
                       }
                     }}
             ></Form.Control>
-</Col>
+            </Col>
             </Row>
             </Form.Group>
             <Form.Group>{errorM}</Form.Group>
@@ -174,52 +162,7 @@ function SignUpModal(props) {
            // document.getElementById('email').value="Email address is invalid";
             error = 1;
           }
-           /*
-          if( endTime.getTime() <= startTime.getTime()){
-             console.log("wrong dates")
-             errorMsg.push("End Date before or equal to start date. Please fix this \n")
-             document.getElementById('start-time').classList.add("error")
-             document.getElementById('start-time').value = "Start date after or equal to end date"
-             document.getElementById('end-time').classList.add("error")
-             document.getElementById('end-time').value = "End date before or equal to start date"
-             // setShowErrorMsg(true)
-             // failureCallBack("End Date before start date. Please fix this")
-             
-           }
-            if(cost < 0){
-           //  errorMsg.push("Cost involved cannot be negative")
-             // setShowErrorMsg(true)
-             document.getElementById('cost').classList.add("error");
-             document.getElementById('cost').value = "Cost involved cannot be negative";
-   
-             error = 1;
-           }
-           else if(!/^[0-9]+$/.test(cost)){
-             //  errorMsg.push("Cost involved cannot be negative")
-               // setShowErrorMsg(true)
-              // document.getElementById('cost').classList.add("error");
-               document.getElementById('cost').value = "Cost involved must be an integer";
      
-               error = 1;
-             }
-   
-           if(maxAttendeeCount < 0){
-         //    error.push("Max Attendee Count cannot be negative")
-             // setShowErrorMsg(true)
-             document.getElementById('cap').classList.add("error");
-             document.getElementById('cap').value = "Max Attendee Count cannot be negative";
-   
-             error = 1;
-           }
-   
-           if(description.length == 0){
-             //    error.push("Max Attendee Count cannot be negative")
-                 // setShowErrorMsg(true)
-                // document.getElementById('descrip').classList.add("error");
-                 document.getElementById('descrip').placeholder = "Description cannot be empty";
-       
-                 error = 1;
-               }*/
           error !== 0 ? failureCallBack("Please fix errors above") : successCallBack()             
           }}>Sign Up</Button>
 

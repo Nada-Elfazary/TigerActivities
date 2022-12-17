@@ -141,9 +141,6 @@ const activitesClicked= () => {
   
 }
 
-// const updateProfileMessage= (msg) => {
-//   setUpdateProfileMsg(msg)
-// }
 
 const cas = ()=>{ 
   console.log("inside cas")
@@ -250,10 +247,6 @@ const getProfileData = (netid) => {
           fast_profileData = ["","",""]
           console.log("Inside Home.js. Response from get profile:", response)
           console.log("Inside Home.js. Clicked Profile:", clickedProfile)
-          // setUpdateProfileMsg("Please update your profile information.")
-          if (!clickedProfile) {
-            profileClicked()
-          }
       }
       else {
           console.log("Response is:",response)
