@@ -87,7 +87,7 @@ export default function Profile(props) {
                     {
                       console.log("Inside editProfile Modal. Name before typing: ", updateName)
                       document.getElementById('name').classList.remove("error");
-                      if (event.target.value <= 100) {
+                      if (event.target.value.length <= 100) {
                         setUpdateName(event.target.value)
                       }
                       }}
