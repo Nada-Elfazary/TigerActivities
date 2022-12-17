@@ -52,7 +52,7 @@ useEffect(() => {
   // getProfileData()
 
   const timer = new IdleTimer({
-    timeout: 10, //expire after 10 seconds
+    timeout: 600, //expire after 10 seconds
     onTimeout: () => {
 
       
