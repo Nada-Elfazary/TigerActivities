@@ -202,7 +202,10 @@ function CreateEventDialog(props) {
                      data-enable-time 
                       id = "end-time"
                       class = "customFlatpickr"
-                     value={endTime} 
+                      value={endTime} 
+                      options={ { minDate: "today" ,
+                     maxDate: new Date().fp_incr(5)
+                   } } 
                      onChange={(event) => 
                      {
                         setEndTime(new Date(event))
