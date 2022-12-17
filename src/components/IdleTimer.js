@@ -4,7 +4,7 @@ class IdleTimer{
     constructor({timeout, onTimeout}) {
         this.timeout = timeout;
         this.onTimeout = onTimeout;
-        const expiredTime = parseInt(localStorage.getItem("_expiredTime") || 0, 10);
+        // const expiredTime = parseInt(localStorage.getItem("_expiredTime") || 0, 10);
         // if (expiredTime > 0 && expiredTime < Date.now()) {
         //     // onExpired();
         //     return;
@@ -47,7 +47,7 @@ class IdleTimer{
 
     }
     cleanUp() {
-    localStorage.removeItem("_expiredTime");
+    // localStorage.removeItem("_expiredTime");
     clearInterval(this.interval);
     window.removeEventListener("mousemove", this.eventHandler);
     window.removeEventListener("scroll", this.eventHandler);

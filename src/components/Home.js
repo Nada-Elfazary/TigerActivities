@@ -54,15 +54,14 @@ useEffect(() => {
   const timer = new IdleTimer({
     timeout: 600, //expire after 10 seconds
     onTimeout: () => {
-
-      
       setIsTimeout(true);
-    },
+    }
+  });
     // onExpired: () => {
     //   //do something if expired on load
     //   setIsTimeout(true);
     // }
-  });
+
 
   return () => {
     timer.cleanUp();
