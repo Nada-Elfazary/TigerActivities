@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Button, Modal, Form, Row, Col, InputGroup, Container, NavItem} from 'react-bootstrap';
+import {Button, Modal, Form, Row, Col, InputGroup, Container} from 'react-bootstrap';
 import CreateEventModalDraggable from "./CreateEventModalDraggable";
 import "bootstrap/dist/css/bootstrap.css";
 import Flatpickr from "react-flatpickr";
@@ -14,17 +14,11 @@ function EditEventDialog(props) {
     const startDate = backendStartDate[0] + " " + backendStartDate[1] + " " + backendStartDate[2] + " " + String(props.events.start_time)
     const backendEndDate = props.events.end_date.split("/")
     const endDate = backendEndDate[0] + " " + backendEndDate[1] + " " + backendEndDate[2] + " " + String(props.events.end_time)
-    console.log("start date: ", startDate)
-    console.log("end date: ", endDate)
-    const MAX_NO_DAYS = 5
-    const DEFAULT_CREATOR = "Reuben"
-    const DEFAULT_CATEGORY = "Sports"
     const DEFAULT_SIGNUP_NR = 0
     const[eventTitle, setEventTitle] = useState(props.events.event_name)
     const[eventLocation, setEventLocation] = useState(props.events.location)
     const [eventCategory, setEventCategory] = useState(props.events.category)
     const[maxAttendeeCount, setMaxAttendeeCount] = useState(props.events.maxcap)
-    const [disableSubmitForm, setDisableSubmitForm] = useState(false)
     const [startTime, setStartTime] = useState(new Date(startDate))
     const [endTime, setEndTime] = useState(new Date(endDate))
     const [cost, setCost] = useState(props.events.cost)
@@ -33,10 +27,7 @@ function EditEventDialog(props) {
     const [errorMsg, setErrorMsg] = useState("")
     const [showErrorMsg, setShowErrorMsg] = useState(false)
 
-    console.log("Inside EditEventDialog. Event info: ", eventTitle, eventLocation, eventCategory)
 
-    console.log("EditEventDialog props: ", props)
-    //console.log("start date: ", props.events.start_date.split("/")[0], props.events.start_date.split("/")[1], props.events.start_date.split("/")[2],  props.events.start_time.split(":")[0], props.events.start_time.split(":")[1])
 
     const navigate = useNavigate()
     const getEvents =  (ownerView, name, day, category, cost, capMin, capMax)=> {
@@ -44,18 +35,14 @@ function EditEventDialog(props) {
   
   // axios.get('https://tigeractivities.onrender.com/events').then(res =>{
     axios.get('/api/events', {params: {title: name, day: day, category: category, cost: cost, capMin:capMin, capMax: capMax}}).then(res =>{
-    console.log("Events received from db:", res)
-    console.log("Setting events to:", res.data)
     props.setEvents([])
     if (ownerView === true) {
       let filtered = res.data.filter(event => event.creator === props.username)
-      console.log("length: ", filtered.length)
       if (filtered.length !== 0) {
       props.setEvents(filtered)
       props.setPaginatedEvents(_(filtered).slice(0).take(props.pageSize).value())
       }
       else {
-        console.log("No events created by owner")
         props.setEvents([])
         props.setPaginatedEvents([])
       }
@@ -67,23 +54,17 @@ function EditEventDialog(props) {
     props.setLoading(false)
 
   }).catch(err =>{
-    console.log("inside EditEventDialog. Error receiving event from db:", err)
     navigate("/error")
   })
 }
    
     const submitForm = ()=>{
-        setDisableSubmitForm(true)
-        console.log(disableSubmitForm)
-        console.log('editing')
         axios.post('/api/edit-activity', {
-          // create_id
             event_id:      props.events.id,
             event_name:    eventTitle,
             start_time:    startTime.toString(),
             end_time:      endTime.toString(),
             maxcap:        maxAttendeeCount,
-          //  creator:       DEFAULT_CREATOR,
             category:      eventCategory,
             location:      eventLocation,
             description:   description,
@@ -92,36 +73,24 @@ function EditEventDialog(props) {
 
           })
           .then((response) =>{
-            console.log(response);
-         //   setSaving(true)
             getEvents(true, "")
             props.setOpenModal(false)
           }, (error) => {
-            console.log("Inside EditEventDialog. Error received trying to submit edite event", error)
             setErrorMsg(error)
             navigate("/error")
-       //     setSaving(false)
-            // setShowErrorMsg(true)
           })
     }
 
     const failureCallBack = (error)=>{
     setErrorMsg(error)
      setShowErrorMsg(true)
-     console.log("error")
     }
     const successCallBack = ()=>{
-      console.log("success")
      setShowErrorMsg(false) 
      setErrorMsg(null)
       setSaving(true)
-      console.log(eventTitle)
-      console.log(description)
-      console.log(eventLocation)
       submitForm()
-      
-      // props.setClickMyActivities(true)
-    }
+          }
     const errorM  = showErrorMsg? <strong className="error">{errorMsg}</strong> : null
     
     const createEventModal =<Container fluid> <Modal show={props.setOpenModal} dialogAs={CreateEventModalDraggable} onHide={()=>{
@@ -148,9 +117,6 @@ function EditEventDialog(props) {
                        document.getElementById('title').classList.remove("error");
                        if (event.target.value.length <= 100) {
                              setEventTitle(event.target.value)
-                             console.log(eventTitle)
-                       } else {
-                         console.log("input too large")
                        }
                     }}></Form.Control>
 </Col>
@@ -163,8 +129,6 @@ function EditEventDialog(props) {
               <Col><Form.Control type="text" id = "location" name="Location" value ={eventLocation} onChange={(event)=>{
                        if(event.target.value.length <= 100) {
                         setEventLocation(event.target.value)
-                    } else {
-                      console.log("input too large")
                     }
                     }}></Form.Control></Col>
             </Row>
@@ -210,12 +174,8 @@ function EditEventDialog(props) {
                    } } 
                      onChange={(event) => 
                      {
-                        console.log("event: ", event)
-                      //  console.log("date:" +  startTime)
                         document.getElementById('start-time').classList.remove("error");
                         setStartTime(new Date(event))
-                        console.log("start: ", startTime)
-                      //  console.log("date after:", event)
                      }} /></Col>
             </Row>
           </Form.Group><Form.Group>
@@ -225,17 +185,13 @@ function EditEventDialog(props) {
                      data-enable-time 
                       id = "end-time"
                       class = "customFlatpickr"
-                   // value={endTime} 
                     defaultValue = {endDate}
 
                      onChange={(event) => 
                      {
-                        console.log("event:", event)
                         setEndTime(new Date(event))
                         event.target.value = endTime
                         document.getElementById('end-time').classList.remove("error");
-                        console.log("end: ", endTime)
-                       // console.log("date:", event)
                      }} /> </Col>
             </Row>
           </Form.Group><Form.Group>
@@ -246,8 +202,6 @@ function EditEventDialog(props) {
                           document.getElementById('cap').classList.remove("error");
                           if(event.target.value.length <= 4) {
                             setMaxAttendeeCount(event.target.value)
-                          }else {
-                            console.log("input too large")
                           }
                         }}></Form.Control></Col>
             </Row>
@@ -260,12 +214,9 @@ function EditEventDialog(props) {
         <Form.Control aria-label="Amount (to the nearest dollar)" id= "cost" name="Cost" value={cost} onChange={(event) =>
                         {
                           document.getElementById('cost').classList.remove("error");
-                          console.log("cost: ", event.target.value)
                           if(event.target.value.length <= 4) {
                           setCost(event.target.value)
-                          } else {
-                            console.log("input too large")
-                          }
+                          } 
                         }}/>
         <InputGroup.Text>.00</InputGroup.Text>
       </InputGroup></Col>
@@ -278,9 +229,7 @@ function EditEventDialog(props) {
                         document.getElementById('descrip').classList.remove("error");
                         if(event.target.value.length <= 1000) {
                         setDescription(event.target.value)
-                        } else {
-                          console.log("input too large")
-                        }
+                        } 
                       }}></Form.Control></Col>
             </Row>
           </Form.Group>
@@ -295,18 +244,13 @@ function EditEventDialog(props) {
         <Button variant="primary" disabled = {saving} onClick={()=>{
           let error = 0;
           let errorMsg = []
-        console.log("end time", endTime.getTime())
-        console.log(startTime.getTime())
         if(eventTitle.length === 0 ){
-//              error.push("Title field cannot be empty")
-          // setShowErrorMsg(true)
           document.getElementById('title').classList.add("error");
           document.getElementById('title').placeholder = "title cannot be empty";
 
           error = 1;
         }
         if(eventLocation.length === 0){
-     //     error.push("Location field cannot be empty \n")
           document.getElementById('location').classList.add("error");
           document.getElementById('location').placeholder = "location cannot be empty";
 
@@ -317,34 +261,26 @@ function EditEventDialog(props) {
           error = 1;
         }
 
-        if (endTime == "") {
-          console.log("End Time can not be empty.")
+        if (endTime === "") {
           errorMsg.push("End Date can not be empty. Please fix this \n")
           document.getElementById('end-time').classList.add("error")
           document.getElementById('end-time').value = "End date can not be empty"
         }
 
-        if (startTime == "") {
-          console.log("Start time can not be empty.")
+        if (startTime === "") {
           errorMsg.push("Start Date can not be empty. Please fix this \n")
           document.getElementById('start-time').classList.add("error")
           document.getElementById('start-time').value = "Start date can not be empty"
         }
 
-       if(endTime != "" &&  startTime  != "" && endTime.getTime() <= startTime.getTime()){
-          console.log("wrong dates")
+       if(endTime !== "" &&  startTime  !== "" && endTime.getTime() <= startTime.getTime()){
           errorMsg.push("End Date before or equal to start date. Please fix this \n")
           document.getElementById('start-time').classList.add("error")
           document.getElementById('start-time').value = "Start date after or equal to end date"
           document.getElementById('end-time').classList.add("error")
-          document.getElementById('end-time').value = "End date before or equal to start date"
-          // setShowErrorMsg(true)
-          // failureCallBack("End Date before start date. Please fix this")
-          
+          document.getElementById('end-time').value = "End date before or equal to start date"          
         }
          if(cost < 0){
-        //  errorMsg.push("Cost involved cannot be negative")
-          // setShowErrorMsg(true)
           setCost("")
           document.getElementById('cost').classList.add("error");
           document.getElementById('cost').placeholder = "Cost involved cannot be negative";
@@ -352,8 +288,6 @@ function EditEventDialog(props) {
           error = 1;
         }
         else if(!/^[0-9]+$/.test(cost)){
-          //  errorMsg.push("Cost involved cannot be negative")
-            // setShowErrorMsg(true)
             setCost("")
             document.getElementById('cost').classList.add("error");
             document.getElementById('cost').placeholder = "Cost involved must be an integer";
@@ -367,8 +301,6 @@ function EditEventDialog(props) {
           }
 
           if(maxAttendeeCount <= 0){
-            //    error.push("Max Attendee Count cannot be negative")
-                // setShowErrorMsg(true)
                 document.getElementById('cap').classList.add("error");
                 setMaxAttendeeCount("")
                 document.getElementById('cap').placeholder = "Count negative or zero";
@@ -380,9 +312,7 @@ function EditEventDialog(props) {
                 error = 1;
           }
 
-        if(description.length == 0){
-          //    error.push("Max Attendee Count cannot be negative")
-              // setShowErrorMsg(true)
+        if(description.length === 0){
               document.getElementById('descrip').classList.add("error");
               document.getElementById('descrip').placeholder = "Description cannot be empty";
     
