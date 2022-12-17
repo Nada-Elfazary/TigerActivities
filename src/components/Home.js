@@ -75,6 +75,7 @@ useEffect(() => {
 //   else if (!skipCount) handleLogout();
   
 // }, [isTimeout]);
+},[])
 
 
 
