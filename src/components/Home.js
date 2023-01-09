@@ -34,6 +34,7 @@ export default function  Home() : React.ReactNode {
   const [profileData, setProfileData] = useState(["","",""])
   const [paginatedEvents, setPaginatedEvents] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
+  const [none, setNone] = useState(false)
   // const [updateProfileMsg, setUpdateProfileMsg] = useState("")
   const pageSize = 9;
   const navigate = useNavigate()
@@ -307,7 +308,7 @@ const handleLogout = ()=>{
       email={fast_profileData[2]}
       tagColor = {categoryToColor[event.category]} username = {fast_username}/>
     )
-  }): <h1 className = "center-screen">No events created yet</h1>
+  }): setNone(true)
   const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
     return (
       <XDSCard key ={index} item={event} setEvents = {setEvents} setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize} ownerView={true} signUpsView = {false} 
@@ -348,9 +349,7 @@ const showResults = clickedActivites? (
 
   const showCreateEventButton = clickedMyActivites? (
 
-    createEventButton,
-    document.getElementById("myAct").style.backgroundColor = "DarkBlue"
-  
+    createEventButton
 
   ): null
 
@@ -369,6 +368,8 @@ const showResults = clickedActivites? (
           <Filter getEvents={getEvents} />
 
   ): null
+
+  const showNone = <h1 className = "center-screen">No events created yet</h1>
 
   // const showNote = !clickedProfile ? (
   //   <h3><text className = 'note'>Note: The activities shown are the ones within the next 5 days</text></h3>
@@ -403,6 +404,7 @@ console.log("before showProfile component is rendered. Clicked profile:", clicke
       {!loading ? null: showLoading}
       <div className="content"> 
         {/*!loading ? null: showLoading*/}
+        {none ? showNone: null}
         {!loading ? showResults: null}
         {showProfile}
         {/*!loading ? results : showLoading*/}
