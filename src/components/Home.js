@@ -308,7 +308,7 @@ const handleLogout = ()=>{
       email={fast_profileData[2]}
       tagColor = {categoryToColor[event.category]} username = {fast_username}/>
     )
-  }): setNone(true)
+  }): <h1 className = "center-screen">No events created yet</h1>
   const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
     return (
       <XDSCard key ={index} item={event} setEvents = {setEvents} setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize} ownerView={true} signUpsView = {false} 
@@ -404,7 +404,7 @@ console.log("before showProfile component is rendered. Clicked profile:", clicke
       {!loading ? null: showLoading}
       <div className="content"> 
         {/*!loading ? null: showLoading*/}
-        {none ? showNone: null}
+        {!none ? null: showNone}
         {!loading ? showResults: null}
         {showProfile}
         {/*!loading ? results : showLoading*/}
