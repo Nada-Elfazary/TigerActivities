@@ -81,10 +81,10 @@ function CancelSignUpModal(props) {
         }}>
        <Button id="cancelBtn" variant="secondary" onClick={() => {
               props.setOpenCancelModal(false);
-            }}>Cancel</Button>
+            }}>No</Button>
         <Button variant="primary" onClick={()=>{
             successCallBack()             
-          }}>Cancel Sign Up</Button>
+          }}>Yes</Button>
 
         </Modal.Footer>
    

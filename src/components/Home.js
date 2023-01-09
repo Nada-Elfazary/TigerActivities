@@ -331,10 +331,10 @@ const topNav =
 
   <div className = "buttonsSec">
   <Navbar.Brand><strong>{username}</strong></Navbar.Brand>
-  <Navbar.Brand><Button onClick={activitesClicked}>Explore Activities</Button></Navbar.Brand>
-  <Navbar.Brand><Button onClick={myActivitesClicked}>My Activities</Button></Navbar.Brand>
-  <Navbar.Brand><Button onClick={mySignUpsClicked}>My Sign-Ups</Button></Navbar.Brand>
-  <Navbar.Brand><Button onClick={profileClicked}>Profile</Button></Navbar.Brand>
+  <Navbar.Brand><Button onClick={activitesClicked} id = "explore">Explore Activities</Button></Navbar.Brand>
+  <Navbar.Brand><Button onClick={myActivitesClicked} id = "myAct">My Activities</Button></Navbar.Brand>
+  <Navbar.Brand><Button onClick={mySignUpsClicked} id = "mySignUps">My Sign-Ups</Button></Navbar.Brand>
+  <Navbar.Brand><Button onClick={profileClicked} id = "profile">Profile</Button></Navbar.Brand>
   <Navbar.Brand><Button onClick={handleLogout}>Logout</Button></Navbar.Brand>
   </div>
 </Navbar>
@@ -343,13 +343,13 @@ const topNav =
 const showResults = clickedActivites? (
  
     displayEvents
-  
 
   ): null
 
   const showCreateEventButton = clickedMyActivites? (
 
-    createEventButton
+    createEventButton,
+    document.getElementById("myAct").style.backgroundColor = "DarkBlue"
   
 
   ): null

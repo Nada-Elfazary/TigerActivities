@@ -43,9 +43,6 @@ export default function Profile(props) {
       setErrorMsg(null)
 
       submitForm()
-      setShowModal(false)
-      props.getProfileData(props.netid)
-
       }
 
 
@@ -60,6 +57,9 @@ export default function Profile(props) {
             .then((response) => {
             console.log("Response:", response)
             console.log("Props:", props)
+            setShowModal(false)
+            props.getProfileData(props.netid)
+            
             }, (error) => {
             console.log("Inside Profile.js. Error recieved updating profile:", error)
             navigate("/error")
