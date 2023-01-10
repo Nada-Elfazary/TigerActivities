@@ -235,7 +235,7 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
       // console.log("username in get events", username)
       console.log("username in get events", fast_username)
       setEvents(explored)
-      setPaginatedEvents(_(expored).slice(0).take(pageSize).value())
+      setPaginatedEvents(_(explored).slice(0).take(pageSize).value())
       if (explored.length === 0) {
         setNoActivities(true)
       }

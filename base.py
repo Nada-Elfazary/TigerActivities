@@ -253,7 +253,6 @@ def updateProfile():
 
 @app.route('/api/edit-activity', methods = ['POST'])
 def editActivity():
-   # username = auth.authenticate()
     authResult = CasClient.CASClient().authenticate()
     username = authResult['username']
     if username == '':
@@ -274,6 +273,17 @@ def editActivity():
     res['end_time']= result
     
     proc.edit_event(res)
+    return res
+
+@app.route('/api/delete-activity', methods = ['POST'])
+def editActivity():
+    authResult = CasClient.CASClient().authenticate()
+    username = authResult['username']
+    if username == '':
+        return "Not found"
+    res = flask.request.json
+    id = res["event_id"]
+    proc.delete_event(id)
     return res
 
 @app.route('/api/profile', methods = ['GET'])
