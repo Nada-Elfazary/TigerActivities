@@ -325,7 +325,7 @@ const handleLogout = ()=>{
   const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
     return (
       <XDSCard key ={index} item={event} setEvents = {setEvents} setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize} ownerView={true} signUpsView = {false} 
-      tagColor = {categoryToColor[event.category]} setLoading = {setLoading} username={fast_username}/> //</XDSCard>username={username}/>
+      tagColor = {categoryToColor[event.category]} setLoading = {setLoading} username={fast_username} getEvents = {getEvents}/> //</XDSCard>username={username}/>
     )
   }): null
   const displaySignUps = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
