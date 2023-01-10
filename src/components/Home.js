@@ -7,6 +7,7 @@ import Dropdown from "./Dropdown";
 import tiger from './tiger.jpeg';
 import Filter from './Filter';
 import Profile from "./Profile";
+import ToggleButton from "./ToggleButton";
 import "./Home.css";
 import axios from 'axios';
 import ClipLoader from 'react-spinners/ClipLoader'
@@ -48,7 +49,7 @@ export default function  Home() : React.ReactNode {
 useEffect(() => {
   cas()
   // setRefresh(true)
-  activitesClicked()
+  activitiesClicked()
   // setEvents([])
   // getProfileData()
 
@@ -124,7 +125,7 @@ const mySignUpsClicked= () => {
   })
 }
 
-const activitesClicked= () => {
+const activitiesClicked= () => {
   if(clickedActivites) {
     setEvents([])
   }
@@ -165,7 +166,7 @@ const cas = ()=>{
   })
 }
 
-const myActivitesClicked= ()=>{
+const myActivitiesClicked= ()=>{
   if(clickedMyActivites) {
     setEvents([])
   } 
@@ -282,13 +283,13 @@ const handleLogout = ()=>{
  
   const activities = (
     <>
-    <Button class = 'button'id = "act" onClick={activitesClicked}>Activities</Button>
+    <Button class = 'button'id = "act" onClick={activitiesClicked}>Activities</Button>
     <br/>
   </>
   )
   const myActivities = (
     <>
-  <Button onClick={myActivitesClicked}>My Activities</Button>
+  <Button onClick={myActivitiesClicked}>My Activities</Button>
   <br/>
   </>
   )
@@ -325,18 +326,14 @@ const handleLogout = ()=>{
 const topNav = 
 
  <Navbar className="Navbar">
-  <Navbar.Brand><Button onClick = {activitesClicked} id = "logo"><img alt="" src={tiger} width="60" height="60"
+  <Navbar.Brand><Button onClick = {activitiesClicked} id = "logo"><img alt="" src={tiger} width="60" height="60"
                 className="d-inline-block align-top"
                 /> {' '}</Button></Navbar.Brand>
-  <Navbar.Brand><Button className="titleLink" onClick={activitesClicked}>{title}</Button></Navbar.Brand>
+  <Navbar.Brand><Button className="titleLink" onClick={activitiesClicked}>{title}</Button></Navbar.Brand>
 
   <div className = "buttonsSec">
-  <Navbar.Brand><strong>{username}</strong></Navbar.Brand>
-  <Navbar.Brand><Button onClick={activitesClicked} id = "explore">Explore Activities</Button></Navbar.Brand>
-  <Navbar.Brand><Button onClick={myActivitesClicked} id = "myAct">My Activities</Button></Navbar.Brand>
-  <Navbar.Brand><Button onClick={mySignUpsClicked} id = "mySignUps">My Sign-Ups</Button></Navbar.Brand>
-  <Navbar.Brand><Button onClick={profileClicked} id = "profile">Profile</Button></Navbar.Brand>
-  <Navbar.Brand><Button onClick={handleLogout}>Logout</Button></Navbar.Brand>
+  <Navbar.Brand><ToggleButton activitiesFn = {activitiesClicked} myActivitiesFn = {myActivitiesClicked}
+  mySignUpsFn = {mySignUpsClicked} profileFn = {profileClicked}></ToggleButton></Navbar.Brand>
   </div>
 </Navbar>
 // const results = refresh ? (displayEvents) : null
