@@ -232,6 +232,7 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
     {signUpModal}
     {editModal}
     {cancelModal}
+    {deleteModal}
     </>
   )
 }

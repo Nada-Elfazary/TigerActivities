@@ -73,7 +73,7 @@ function DeleteEventModal(props) {
          display: "flex",
          justifyContent: "center",
         }}>
-        <Modal.Title>Are you sure you want to cancel your sign up for "{props.title}"?</Modal.Title>
+        <Modal.Title>Are you sure you want to delete "{props.title}"?</Modal.Title>
         </Modal.Header>
     
         <Modal.Footer  style={{

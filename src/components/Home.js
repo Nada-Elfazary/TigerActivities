@@ -404,7 +404,7 @@ console.log("before showProfile component is rendered. Clicked profile:", clicke
   const showLoading = <ClipLoader className = "center" loading={loading} size={200}/>
 
   const showNoAct = noActivities ? (<h1 className="none-style">No activities found</h1>): null
-  const showNoSignUps = noSignUps ? (<h1 className="none-style">You have no current Sign-Ups</h1>): null
+  const showNoSignUps = noSignUps ? (<h1 className="none-style">You have no current sign-ups</h1>): null
 
   return (
     <div className="page">
