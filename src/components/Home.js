@@ -332,9 +332,11 @@ const topNav =
   <Navbar.Brand><Button className="titleLink" onClick={activitiesClicked}>{title}</Button></Navbar.Brand>
 
   <div className = "buttonsSec">
+  <Navbar.Brand><strong>{username}</strong></Navbar.Brand>
   <Navbar.Brand><ToggleButton activitiesFn = {activitiesClicked} myActivitiesFn = {myActivitiesClicked}
   mySignUpsFn = {mySignUpsClicked} profileFn = {profileClicked}></ToggleButton></Navbar.Brand>
   </div>
+  <Navbar.Brand><Button onClick={handleLogout}>Logout</Button></Navbar.Brand>
 </Navbar>
 // const results = refresh ? (displayEvents) : null
 
