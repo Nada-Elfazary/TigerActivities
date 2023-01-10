@@ -30,7 +30,7 @@ function EditEventDialog(props) {
 
 
     const navigate = useNavigate()
-    const getEvents =  (ownerView, name, day, category, cost, capMin, capMax)=> {
+  /*  const getEvents =  (ownerView, name, day, category, cost, capMin, capMax)=> {
       props.setLoading(true)
   
   // axios.get('https://tigeractivities.onrender.com/events').then(res =>{
@@ -56,7 +56,7 @@ function EditEventDialog(props) {
   }).catch(err =>{
     navigate("/error")
   })
-}
+}*/
    
     const submitForm = ()=>{
         axios.post('/api/edit-activity', {
@@ -73,7 +73,7 @@ function EditEventDialog(props) {
 
           })
           .then((response) =>{
-            getEvents(true, "")
+            props.getEvents(true, "")
             props.setOpenModal(false)
           }, (error) => {
             setErrorMsg(error)

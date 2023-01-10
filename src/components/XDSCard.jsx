@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { propTypes } from 'react-bootstrap/esm/Image';
 
-const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, ownerView, signUpsView,name, phone, email, tagColor, username}) => {
+const XDSCard = ({item, getEvents, setEvents, setPaginatedEvents, setLoading, pageSize, ownerView, signUpsView,name, phone, email, tagColor, username}) => {
     const [isExpanded, setExpanded] = useState(false)
     const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded })
     const [displaySignUp, setDisplaySignUp] = useState(false)
@@ -74,11 +74,13 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
     console.log(item.id)
     console.log(item.event_name)
     setDisplayDelete(true);
+    setEventTitle(item.event_name)
+    setEventId(item.id)
     console.log("display modal state: ", displayDelete)
     setExpanded(false)
   }
   
-  const editModal = displayModal ? (<EditEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents} 
+  const editModal = displayModal ? (<EditEventDialog setOpenModal = {setDisplayModal} getEvents = {getEvents} setLoading ={setLoading} setEvents ={setEvents} 
     setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize} events = {item} username={username}/>) : null 
 
   const deleteModal = displayDelete ? (<DeleteEventModal setOpenDeleteModal = {setDisplayDelete}  setLoading = {setLoading} setEvents ={setEvents} 

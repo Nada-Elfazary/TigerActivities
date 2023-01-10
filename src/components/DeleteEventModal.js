@@ -20,37 +20,49 @@ function DeleteEventModal(props) {
   */
 
   const navigate = useNavigate()
-  const getSignUps =  ()=> {
+  const getEvents =  (ownerView, name, day, category, cost, capMin, capMax)=> {
     props.setLoading(true)
-    axios.get('/api/user-sign-ups').then((res) =>{
-      console.log("in sign-up")
-      console.log(res.data)
+
+// axios.get('https://tigeractivities.onrender.com/events').then(res =>{
+  axios.get('/api/events', {params: {title: name, day: day, category: category, cost: cost, capMin:capMin, capMax: capMax}}).then(res =>{
+  props.setEvents([])
+  if (ownerView === true) {
+    let filtered = res.data.filter(event => event.creator === props.username)
+    if (filtered.length !== 0) {
+    props.setEvents(filtered)
+    props.setPaginatedEvents(_(filtered).slice(0).take(props.pageSize).value())
+    }
+    else {
       props.setEvents([])
-      props.setEvents(res.data)
       props.setPaginatedEvents([])
-      props.setPaginatedEvents(_(res.data).slice(0).take(props.pageSize).value())
-      props.setLoading(false)
-    }).catch(err =>{
-      console.log("Inside Cancel SignPp Modal. Error receiving event from db:", err)
-      navigate("/error")
-    })
+    }
+  } else {
+    let filtered = res.data.filter(event => event.creator !== props.username)
+    props.setEvents(filtered)
+    props.setPaginatedEvents(_(filtered).slice(0).take(props.pageSize).value())
+  }
+  props.setLoading(false)
+
+}).catch(err =>{
+  navigate("/error")
+})
 }
 
   const submitForm= () =>
   {
     console.log("deleting")
-   /* console.log("props.id", props.id)
-    axios.post('/api/cancel-sign-up', {
+    console.log("props.id", props.id)
+    axios.post('/api/delete-activity', {
         event_id : props.event_id,
       }).then(res =>{
         console.log(res)
         setSaving(true)
-        getSignUps()
-        props.setOpenCancelModal(false)
+      //  getSignUps()
+        props.setOpenDeleteModal(false)
       }).catch(err =>{
         console.log(err)
-      
-      })*/
+        navigate("/error")
+      })
   }
 
 
