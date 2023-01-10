@@ -106,6 +106,7 @@ const mySignUpsClicked= () => {
     
   }*/
   setNoSignUps(false)
+  setNoActivities(false)
   setPaginatedEvents([])
   setInitialState(false)
   setClickedMySignUps(true)
@@ -234,7 +235,7 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
       // console.log("username in get events", username)
       console.log("username in get events", fast_username)
       setEvents(explored)
-      setPaginatedEvents(_(explored).slice(0).take(pageSize).value())
+      setPaginatedEvents(_(expored).slice(0).take(pageSize).value())
       if (explored.length === 0) {
         setNoActivities(true)
       }
@@ -332,7 +333,7 @@ const handleLogout = ()=>{
       <XDSCard key ={index} item={event} setEvents = {setEvents} setPaginatedEvents = {setPaginatedEvents} ownerView={false} signUpsView = {true}
       tagColor = {categoryToColor[event.category]} setLoading = {setLoading} pageSize={pageSize}/>
     )
-  }): <h1 className = "center-screen">No current sign-ups</h1>
+  }): null
 
 const topNav = 
 
