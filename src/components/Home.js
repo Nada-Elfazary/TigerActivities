@@ -307,7 +307,7 @@ const handleLogout = ()=>{
   )
   const mySignUps = <Button onClick={mySignUpsClicked}>My Sign-Ups</Button>
   const createEventButton = <Button className="buttonStyle" onClick={handleCreateEvent}>Create Activity</Button>
-  const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents} setPaginatedEvents = {setPaginatedEvents}
+  const modal = displayModal ? (<CreateEventDialog setOpenModal = {setDisplayModal} getEvents = {getEvents} setLoading ={setLoading} setEvents ={setEvents} setPaginatedEvents = {setPaginatedEvents}
     // pageSize = {pageSize} username={username} />) : null 
     pageSize = {pageSize} username={fast_username} />) : null 
 

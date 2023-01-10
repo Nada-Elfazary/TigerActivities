@@ -83,7 +83,7 @@ const XDSCard = ({item, getEvents, setEvents, setPaginatedEvents, setLoading, pa
   const editModal = displayModal ? (<EditEventDialog setOpenModal = {setDisplayModal} getEvents = {getEvents} setLoading ={setLoading} setEvents ={setEvents} 
     setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize} events = {item} username={username}/>) : null 
 
-  const deleteModal = displayDelete ? (<DeleteEventModal setOpenDeleteModal = {setDisplayDelete}  setLoading = {setLoading} setEvents ={setEvents} 
+  const deleteModal = displayDelete ? (<DeleteEventModal setOpenDeleteModal = {setDisplayDelete} getEvents = {getEvents} setLoading = {setLoading} setEvents ={setEvents} 
     event_id={id} title = {eventTitle} setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize}/>) : null 
 
       

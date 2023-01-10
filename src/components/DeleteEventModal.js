@@ -18,36 +18,8 @@ function DeleteEventModal(props) {
     setPhone(props.phone)
   }, [])
   */
-
   const navigate = useNavigate()
-  const getEvents =  (ownerView, name, day, category, cost, capMin, capMax)=> {
-    props.setLoading(true)
-
-// axios.get('https://tigeractivities.onrender.com/events').then(res =>{
-  axios.get('/api/events', {params: {title: name, day: day, category: category, cost: cost, capMin:capMin, capMax: capMax}}).then(res =>{
-  props.setEvents([])
-  if (ownerView === true) {
-    let filtered = res.data.filter(event => event.creator === props.username)
-    if (filtered.length !== 0) {
-    props.setEvents(filtered)
-    props.setPaginatedEvents(_(filtered).slice(0).take(props.pageSize).value())
-    }
-    else {
-      props.setEvents([])
-      props.setPaginatedEvents([])
-    }
-  } else {
-    let filtered = res.data.filter(event => event.creator !== props.username)
-    props.setEvents(filtered)
-    props.setPaginatedEvents(_(filtered).slice(0).take(props.pageSize).value())
-  }
-  props.setLoading(false)
-
-}).catch(err =>{
-  navigate("/error")
-})
-}
-
+  
   const submitForm= () =>
   {
     console.log("deleting")
@@ -57,7 +29,7 @@ function DeleteEventModal(props) {
       }).then(res =>{
         console.log(res)
         setSaving(true)
-      //  getSignUps()
+        props.getEvents(true, "")
         props.setOpenDeleteModal(false)
       }).catch(err =>{
         console.log(err)

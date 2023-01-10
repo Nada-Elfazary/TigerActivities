@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 
 function CreateEventDialog(props) {
+    console.log("create event dialog props: ", props)
     const MAX_NO_DAYS = 5
     // const DEFAULT_CREATOR = "Reuben"
     const DEFAULT_CATEGORY = "Sports"
@@ -29,6 +30,7 @@ function CreateEventDialog(props) {
     const [showErrorMsg, setShowErrorMsg] = useState(false)
 
   const navigate = useNavigate()
+  /*
   const getEvents =  (ownerView, name, day, category, cost, capMin, capMax)=> {
     props.setLoading(true)
 
@@ -60,7 +62,7 @@ function CreateEventDialog(props) {
     console.log("Inside CreateEventDialog. Error receiving events from db:", err)
     navigate("/error")
   })
-}
+} */
    
     const submitForm = ()=>{
         setDisableSubmitForm(true)
@@ -80,7 +82,7 @@ function CreateEventDialog(props) {
           })
           .then((response) =>{
             console.log(response);           
-            getEvents(true, "")
+            props.getEvents(true, "")
             props.setOpenModal(false)
           }, (error) => {
             console.log("Trying to submit created createEventDialog. Receiveing error:", error)

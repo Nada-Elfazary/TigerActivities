@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import _ from "lodash"
 
 function EditEventDialog(props) {
+    console.log('edit dialog props', props)
     const backendStartDate = props.events.start_date.split("/")
     const startDate = backendStartDate[0] + " " + backendStartDate[1] + " " + backendStartDate[2] + " " + String(props.events.start_time)
     const backendEndDate = props.events.end_date.split("/")
