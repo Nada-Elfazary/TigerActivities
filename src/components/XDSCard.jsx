@@ -3,6 +3,7 @@ import EditEventDialog from "./EditEventDialog";
 import {Button, Row, Col, Card, Table} from 'react-bootstrap';
 import useCollapse from 'react-collapsed';
 import SignUpModal from './SignUpModal';
+import DeleteEventModal from './DeleteEventModal'
 import CancelSignUpModal from './CancelSignUpModal';
 import "./Home.css";
 import axios from 'axios';
@@ -20,6 +21,7 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
     const [id, setEventId] = useState('')
     const [attendees, setAttendees] = useState([])
     const [displayCancel, setDisplayCancel] = useState(false)
+    const [displayDelete, setDisplayDelete] = useState(false)
     const [isCurrUserSignedUp, setIsCurrUserSignedUp] = useState(false)
     const backgroundColor = tagColor
 
@@ -66,10 +68,23 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
     console.log("display modal state: ", displayModal)
     setExpanded(false)
   }
+
+  const handleDelete = ()=>{
+    console.log("delete clicked")
+    console.log(item.id)
+    console.log(item.event_name)
+    setDisplayDelete(true);
+    console.log("display modal state: ", displayDelete)
+    setExpanded(false)
+  }
   
   const editModal = displayModal ? (<EditEventDialog setOpenModal = {setDisplayModal} setLoading ={setLoading} setEvents ={setEvents} 
     setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize} events = {item} username={username}/>) : null 
 
+  const deleteModal = displayDelete ? (<DeleteEventModal setOpenDeleteModal = {setDisplayDelete}  setLoading = {setLoading} setEvents ={setEvents} 
+    event_id={id} title = {eventTitle} setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize}/>) : null 
+
+      
   const signUpModal = displaySignUp ? (<SignUpModal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}
     username={username}
     name={name}
@@ -200,6 +215,8 @@ const XDSCard = ({item, setEvents, setPaginatedEvents, setLoading, pageSize, own
             <Col>{!ownerView ? (<p {...getCollapseProps()} className = "creator">
               <strong>Created by : {item.creator}</strong></p>):null}
               {ownerView ? (<Button variant="warning" onClick={handleEdit}> Edit</Button>):null}
+              {ownerView ? (<Button variant="warning" class = "buttonShift" onMouseEnter={(e) => e.target.style.background = 'red'} onClick={handleDelete}
+              onMouseLeave={(e) => e.target.style.background = ''}>Delete</Button>):null}
                {(!ownerView && signUpsView) ? (
                         <Button 
                         variant="warning"

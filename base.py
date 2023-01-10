@@ -276,7 +276,7 @@ def editActivity():
     return res
 
 @app.route('/api/delete-activity', methods = ['POST'])
-def editActivity():
+def deleteActivity():
     authResult = CasClient.CASClient().authenticate()
     username = authResult['username']
     if username == '':
