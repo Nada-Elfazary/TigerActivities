@@ -266,12 +266,14 @@ function EditEventDialog(props) {
           errorMsg.push("End Date can not be empty. Please fix this \n")
           document.getElementById('end-time').classList.add("error")
           document.getElementById('end-time').value = "End date can not be empty"
+          error = 1;
         }
 
         if (startTime === "") {
           errorMsg.push("Start Date can not be empty. Please fix this \n")
           document.getElementById('start-time').classList.add("error")
           document.getElementById('start-time').value = "Start date can not be empty"
+          error = 1;
         }
 
        if(endTime !== "" &&  startTime  !== "" && endTime.getTime() <= startTime.getTime()){
@@ -279,7 +281,8 @@ function EditEventDialog(props) {
           document.getElementById('start-time').classList.add("error")
           document.getElementById('start-time').value = "Start date after or equal to end date"
           document.getElementById('end-time').classList.add("error")
-          document.getElementById('end-time').value = "End date before or equal to start date"          
+          document.getElementById('end-time').value = "End date before or equal to start date"   
+          error = 1;       
         }
          if(cost < 0){
           setCost("")

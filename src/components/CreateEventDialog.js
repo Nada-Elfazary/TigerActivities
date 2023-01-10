@@ -299,6 +299,7 @@ function CreateEventDialog(props) {
           errorMsg.push("End Date can not be empty. Please fix this \n")
           document.getElementById('end-time').classList.add("error")
           document.getElementById('end-time').value = "End date can not be empty"
+          error = 1;
         }
 
         if (startTime == "") {
@@ -306,6 +307,7 @@ function CreateEventDialog(props) {
           errorMsg.push("Start Date can not be empty. Please fix this \n")
           document.getElementById('start-time').classList.add("error")
           document.getElementById('start-time').value = "Start date can not be empty"
+          error = 1;
         }
 
        if(endTime != "" && startTime != "" && endTime.getTime() <= startTime.getTime()){
@@ -317,7 +319,7 @@ function CreateEventDialog(props) {
           document.getElementById('end-time').value = "End date before or equal to start date"
           // setShowErrorMsg(true)
           // failureCallBack("End Date before start date. Please fix this")
-          
+          error = 1;
         }
          if(cost < 0){
         //  errorMsg.push("Cost involved cannot be negative")

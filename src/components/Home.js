@@ -346,7 +346,7 @@ const topNav =
   <div className = "buttonsSec">
   <Navbar.Brand><strong>{username}</strong></Navbar.Brand>
   <Navbar.Brand><ToggleButton activitiesFn = {activitiesClicked} myActivitiesFn = {myActivitiesClicked}
-  mySignUpsFn = {mySignUpsClicked} profileFn = {profileClicked}></ToggleButton></Navbar.Brand>
+  mySignUpsFn = {mySignUpsClicked} profileFn = {profileClicked} clickedActivites = {clickedActivites}></ToggleButton></Navbar.Brand>
   </div>
   <Navbar.Brand><Button onClick={handleLogout}>Logout</Button></Navbar.Brand>
 </Navbar>
