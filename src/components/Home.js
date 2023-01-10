@@ -35,7 +35,8 @@ export default function  Home() : React.ReactNode {
   const [profileData, setProfileData] = useState(["","",""])
   const [paginatedEvents, setPaginatedEvents] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
-  const [none, setNone] = useState(false)
+  const [noActivities, setNoActivities] = useState(false)
+  const [noSignUps, setNoSignUps] = useState(false)
   // const [updateProfileMsg, setUpdateProfileMsg] = useState("")
   const pageSize = 9;
   const navigate = useNavigate()
@@ -104,6 +105,7 @@ const mySignUpsClicked= () => {
     setEvents([])
     
   }*/
+  setNoSignUps(false)
   setPaginatedEvents([])
   setInitialState(false)
   setClickedMySignUps(true)
@@ -119,6 +121,9 @@ const mySignUpsClicked= () => {
     setEvents(res.data)
     setPaginatedEvents(_(res.data).slice(0).take(pageSize).value())
     setLoading(false)
+    if (res.data.length === 0) {
+      setNoSignUps(true)
+    }
   }).catch(err =>{
     console.log("Inside Home.js. Error receiving user sign ups:", err)
     navigate("/error")
@@ -200,6 +205,8 @@ const handleCreateEvent = () =>{
 
 
 const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
+  setNoActivities(false)
+  setNoSignUps(false)
   setLoading(true)
   axios.get('https://tigeractivities.onrender.com/api/events', {params: {title: name, day: day, category: category, cost: cost, capMin: capMin, capMax: capMax}}).then(res =>{
     console.log("Events received from db:", res)
@@ -218,6 +225,7 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
       else {
         console.log("No events created by owner")
         setPaginatedEvents([])
+        setNoActivities(true)
       }
     } else {
       let explored = res.data.filter(event => event.creator !== fast_username)
@@ -227,6 +235,9 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
       console.log("username in get events", fast_username)
       setEvents(explored)
       setPaginatedEvents(_(explored).slice(0).take(pageSize).value())
+      if (explored.length === 0) {
+        setNoActivities(true)
+      }
     }
     setLoading(false)
   }).catch(err =>{
@@ -309,13 +320,13 @@ const handleLogout = ()=>{
       email={fast_profileData[2]}
       tagColor = {categoryToColor[event.category]} username = {fast_username}/>
     )
-  }): <h1 className = "center-screen">No events created yet</h1>
+  }): null
   const displayOwnerEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
     return (
       <XDSCard key ={index} item={event} setEvents = {setEvents} setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize} ownerView={true} signUpsView = {false} 
       tagColor = {categoryToColor[event.category]} setLoading = {setLoading} username={fast_username}/> //</XDSCard>username={username}/>
     )
-  }): <h1 className = "center-screen">No events created yet</h1>
+  }): null
   const displaySignUps = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
     return (
       <XDSCard key ={index} item={event} setEvents = {setEvents} setPaginatedEvents = {setPaginatedEvents} ownerView={false} signUpsView = {true}
@@ -368,8 +379,6 @@ const showResults = clickedActivites? (
 
   ): null
 
-  const showNone = <h1 className = "center-screen">No events created yet</h1>
-
   // const showNote = !clickedProfile ? (
   //   <h3><text className = 'note'>Note: The activities shown are the ones within the next 5 days</text></h3>
   // ): null
@@ -393,6 +402,9 @@ console.log("before showProfile component is rendered. Clicked profile:", clicke
 
   const showLoading = <ClipLoader className = "center" loading={loading} size={200}/>
 
+  const showNoAct = noActivities ? (<h1 className="none-style">No activities found</h1>): null
+  const showNoSignUps = noSignUps ? (<h1 className="none-style">You have no current Sign-Ups</h1>): null
+
   return (
     <div className="page">
       {topNav}
@@ -403,7 +415,8 @@ console.log("before showProfile component is rendered. Clicked profile:", clicke
       {!loading ? null: showLoading}
       <div className="content"> 
         {/*!loading ? null: showLoading*/}
-        {!none ? null: showNone}
+        {showNoAct}
+        {showNoSignUps}
         {!loading ? showResults: null}
         {showProfile}
         {/*!loading ? results : showLoading*/}
