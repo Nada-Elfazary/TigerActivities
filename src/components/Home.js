@@ -135,6 +135,7 @@ const activitiesClicked= () => {
   if(clickedActivites) {
     setEvents([])
   }
+  document.getElementById('explore').click()
   setInitialState(false)
   setClickedActivities(true)
   setClickedMyActivities(false)

@@ -7,16 +7,16 @@ function ToggleButtonGroupUncontrolled(props) {
   return (
     <>
       <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-        <ToggleButton id="tbg-radio-1" value={1} onClick = {props.activitiesFn} active = {props.clickedActivities}>
+        <ToggleButton id="explore" value={1} onClick = {props.activitiesFn}>
           Explore Activities
         </ToggleButton>
-        <ToggleButton id="tbg-radio-2" value={2} onClick = {props.myActivitiesFn}>
+        <ToggleButton id="manage" value={2} onClick = {props.myActivitiesFn}>
           My Activities
         </ToggleButton>
-        <ToggleButton id="tbg-radio-3" value={3} onClick = {props.mySignUpsFn}>
+        <ToggleButton id="signups" value={3} onClick = {props.mySignUpsFn}>
           My Sign-Ups
         </ToggleButton>
-        <ToggleButton id="tbg-radio-4" value={4}  onClick = {props.profileFn}>
+        <ToggleButton id="profile" value={4}  onClick = {props.profileFn}>
           Profile
         </ToggleButton>
       </ToggleButtonGroup>
