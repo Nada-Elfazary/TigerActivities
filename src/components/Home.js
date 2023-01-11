@@ -190,6 +190,8 @@ const myActivitiesClicked= ()=>{
 }
 
 const profileClicked= () =>{
+  setNoSignUps(false)
+  setNoActivities(false)
   setInitialState(false)
   setClickedMyActivities(false)
   setClickedActivities(false)
