@@ -216,8 +216,8 @@ const XDSCard = ({item, getEvents, setEvents, setPaginatedEvents, setLoading, pa
 
             <Col>{!ownerView ? (<p {...getCollapseProps()} className = "creator">
               <strong>Created by : {item.creator}</strong></p>):null}
-              {ownerView ? (<Button variant="warning" onClick={handleEdit}> Edit</Button>):null}
-              {ownerView ? (<Button variant="warning" class = "buttonShift" onMouseEnter={(e) => e.target.style.background = 'red'} onClick={handleDelete}
+              {ownerView ? (<Button variant="warning" onClick={handleEdit}> Edit</Button>):null} </Col>
+             <Col> {ownerView ? (<Button variant="warning" class = "buttonShift" onMouseEnter={(e) => e.target.style.background = 'red'} onClick={handleDelete}
               onMouseLeave={(e) => e.target.style.background = ''}>Delete</Button>):null}
                {(!ownerView && signUpsView) ? (
                         <Button 
