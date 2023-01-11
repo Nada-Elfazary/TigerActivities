@@ -337,20 +337,28 @@ const handleLogout = ()=>{
   }): null
 
 const topNav = 
-
- <Navbar className="Navbar">
-  <Navbar.Brand><Button onClick = {activitiesClicked} id = "logo"><img alt="" src={tiger} width="60" height="60"
+<Navbar className="Navbar" expand="lg">
+      <Container>
+      <Navbar.Brand><Button onClick = {activitiesClicked} id = "logo"><img alt="" src={tiger} width="60" height="60"
                 className="d-inline-block align-top"
-                /> {' '}</Button></Navbar.Brand>
-  <Navbar.Brand><Button className="titleLink" onClick={activitiesClicked}>{title}</Button></Navbar.Brand>
+                /> {' '}</Button><Button className="titleLink" onClick={activitiesClicked}>{title}</Button> </Navbar.Brand>
+        
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+        
+          
+          <div className="buttonsSec">
+          <strong>{username}</strong>
+          <ToggleButton activitiesFn = {activitiesClicked} myActivitiesFn = {myActivitiesClicked}
+  mySignUpsFn = {mySignUpsClicked} profileFn = {profileClicked} clickedActivites = {clickedActivites}></ToggleButton>
+          <Button onClick={handleLogout}>Logout</Button>
+            </div>
+          
+        
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
 
-  <div className = "buttonsSec">
-  <Navbar.Brand><strong>{username}</strong></Navbar.Brand>
-  <Navbar.Brand><ToggleButton activitiesFn = {activitiesClicked} myActivitiesFn = {myActivitiesClicked}
-  mySignUpsFn = {mySignUpsClicked} profileFn = {profileClicked} clickedActivites = {clickedActivites}></ToggleButton></Navbar.Brand>
-  </div>
-  <Navbar.Brand><Button onClick={handleLogout}>Logout</Button></Navbar.Brand>
-</Navbar>
 // const results = refresh ? (displayEvents) : null
 
 const showResults = clickedActivites? (
