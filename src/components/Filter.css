@@ -40,8 +40,6 @@
 
 .bootstrapFilter {
     background-color: #f5b52b51;
-    justify-content: center;
-    padding-left: 5%;
 }
 .FilterX {
     color: red;
@@ -118,3 +116,10 @@ input.error {
     border-color: red;
     color: red;
 }
+
+.customized-toggler {
+    border-color:grey;
+    border-width: 3px;
+    
+}
+ 

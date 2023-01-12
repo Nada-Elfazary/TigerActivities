@@ -2,7 +2,8 @@ import React, {useState} from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import {Button, Navbar, Form, NavbarBrand, Row, Col} from 'react-bootstrap';
+import { IoFunnel } from "react-icons/io5";
+import {Button, Navbar, Form, Container, NavbarBrand, Row, Col} from 'react-bootstrap';
 
 import "./Filter.css";
 export default function Filter(props) : React.ReactNode {
@@ -57,7 +58,11 @@ export default function Filter(props) : React.ReactNode {
     // console.log("handle select day:", handleSelectDay)
 
     return (
-        <Navbar className="bootstrapFilter">
+        <Navbar className="bootstrapFilter" expand='lg'>
+        <Container>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" className="customized-toggler"><IoFunnel/></Navbar.Toggle>
+    <Navbar.Collapse id="basic-navbar-nav"  className = 'collapse navbar-collapse justify-content-center'>
+
        <Navbar.Brand>
         <Form>
             <Form.Group>
@@ -183,8 +188,8 @@ export default function Filter(props) : React.ReactNode {
        
             </Form.Group>
         </Navbar.Brand>
-
-
+        </Navbar.Collapse>
+        </Container>
        </Navbar>
 
     );

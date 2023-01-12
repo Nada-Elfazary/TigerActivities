@@ -354,7 +354,7 @@ const topNav =
           <ToggleButton activitiesFn = {activitiesClicked} myActivitiesFn = {myActivitiesClicked}
   mySignUpsFn = {mySignUpsClicked} profileFn = {profileClicked} clickedActivites = {clickedActivites}></ToggleButton>
           
-          <Button onClick={handleLogout}>Logout</Button>
+          <Navbar.Brand><Button onClick={handleLogout}>Logout</Button></Navbar.Brand>
             </div>
           
         
