@@ -340,7 +340,7 @@ const handleLogout = ()=>{
 
 const topNav = 
 <Navbar className="Navbar" expand="lg">
-      <Container>
+      
       <Navbar.Brand><Button onClick = {activitiesClicked} id = "logo"><img alt="" src={tiger} width="60" height="60"
                 className="d-inline-block align-top"
                 /> {' '}</Button><Button className="titleLink" onClick={activitiesClicked}>{title}</Button> </Navbar.Brand>
@@ -353,12 +353,13 @@ const topNav =
           <strong>{username}</strong>
           <ToggleButton activitiesFn = {activitiesClicked} myActivitiesFn = {myActivitiesClicked}
   mySignUpsFn = {mySignUpsClicked} profileFn = {profileClicked} clickedActivites = {clickedActivites}></ToggleButton>
-          <Button onClick={handleLogout}>Logout</Button>
+          
+          <Navbar.Form> <Button onClick={handleLogout}>Logout</Button></Navbar.Form>
             </div>
           
         
         </Navbar.Collapse>
-      </Container>
+      
     </Navbar>
 
 // const results = refresh ? (displayEvents) : null
