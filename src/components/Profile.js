@@ -7,6 +7,7 @@ import "./Profile.css"
 
 // import "./Modal.css";
 import SignUpModal from "./SignUpModal";
+import EditProfileModal from "./EditProfileModal";
 
 export default function Profile(props) {
     console.log("Props before declaration:", props)
@@ -25,7 +26,7 @@ export default function Profile(props) {
     console.log("Name in Profile:", props.profileData[0])
 
     
-    const editProfileModal = showModal ? (<editProfileModal setOpenModal = {setShowModal}  userDetails = {props.profileData}/>) : null 
+    const editProfileModal = showModal ? (<EditProfileModal setOpenModal = {setShowModal}  userDetails = {props.profileData}/>) : null 
 
 
     return (

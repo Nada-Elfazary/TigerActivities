@@ -11,12 +11,12 @@ import SignUpModal from "./SignUpModal";
 function EditProfileModal(props) {
     console.log("Props in edit modal:", props)
     // const [dbName, setDbName] = useState(props.name)
-    const [prefilledName, setPrefilledName] = useState(props.userDetails[0])
+    const [updateName, setUpdateName] = useState(props.userDetails[0])
     // const [dbPhone, setDbPhone] = useState(props.phone)
-    const [prefilledPhone, setPrefilledPhone] = useState(props.userDetails[1])
+    const [updatePhone, setUpdatePhone] = useState(props.userDetails[1])
     // const [dbEmail,setDbEmail] = useState(props.email)
-    const [prefilledEmail, setPrefilledEmail] = useState(props.userDetails[2])
-    console.log("Update values:", prefilledName, prefilledPhone, prefilledEmail)
+    const [updateEmail, setUpdateEmail] = useState(props.userDetails[2])
+    console.log("Update values:", updateName, updatePhone, updateEmail)
     const [errorMsg, setErrorMsg] = useState("")
     const [showErrorMsg, setShowErrorMsg] = useState(false)
   //  const [showEditModal, setShowEditModal] = useState(false)
@@ -56,7 +56,7 @@ function EditProfileModal(props) {
         .then((response) => {
         console.log("Response:", response)
         console.log("Props:", props)
-        setOpenModal(false)
+        props.setOpenModal(false)
         props.getProfileData(props.netid)
         
         }, (error) => {
@@ -66,8 +66,8 @@ function EditProfileModal(props) {
     }
 
     const errorM  = showErrorMsg? <strong className="error">{errorMsg}</strong> : null
-    const editProfileModal = <Container fluid> <Modal show={showModal}  onHide={()=>{
-        setOpenModal(false)
+    const editProfileModal = <Container fluid> <Modal show={props.setOpenModal}  onHide={()=>{
+        props.setOpenModal(false)
       }} size="sm-5"
       aria-labelledby="contained-modal-title-center"
       centered>
@@ -130,7 +130,7 @@ function EditProfileModal(props) {
               justifyContent: "center",
             }}>
            <Button id="cancelBtn" variant="secondary" onClick={() => {
-                 setShowModal(false);
+                 props.setOpenModal(false);
                 }}>Cancel</Button>
             <Button variant="primary" onClick={()=>{
                  let error = 0;
