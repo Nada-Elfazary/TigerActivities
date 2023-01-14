@@ -110,7 +110,7 @@ function EditProfileModal(props) {
                 <Form.Group>
                 <Row>
                   <Col><Form.Label>Email: </Form.Label></Col>
-                  <Col><Form.Control type="text" id = "email" name="Email" placeholder = {updateEmail.length===0?"Email Address":updatePhone} value={updateEmail} onChange={(event) =>
+                  <Col><Form.Control type="text" id = "email" name="Email" placeholder = {updateEmail.length===0?"Email Address":updateEmail} value={updateEmail} onChange={(event) =>
                         {
                           console.log("Email befrore typing:", updateEmail)
                           document.getElementById('email').classList.remove("error");
@@ -139,14 +139,14 @@ function EditProfileModal(props) {
                if(updateName.length === 0 ){
          
                  document.getElementById('name').classList.add("error");
-                 document.getElementById('name').placeholder = "Name field cannot be empty";
+                 document.getElementById('name').placeholder = "Field cannot be empty";
        
                  error = 1;
                }
                if(updatePhone.length === 0){
             //     error.push("Number field cannot be empty \n")
                  document.getElementById('num').classList.add("error");
-                 document.getElementById('num').placeholder = "Phone number field cannot be empty";
+                 document.getElementById('num').placeholder = "Field cannot be empty";
        
                  error = 1;
                } else if(!/^[0-9]{10}$/.test(updatePhone)){
@@ -159,14 +159,14 @@ function EditProfileModal(props) {
              
                if(updateEmail.length === 0){
                  document.getElementById('email').classList.add("error");
-                 document.getElementById('email').placeholder = "Email field cannot be empty";
+                 document.getElementById('email').placeholder = "Field cannot be empty";
                  error = 1;
                }
                
                if(!/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/.test(updateEmail)){
                 console.log("email state:", updateEmail)
                 document.getElementById('email').classList.add("error");
-               // document.getElementById('email').value="Email address is invalid";
+                document.getElementById('email').value="Invalid Email address";
                 error = 1;
               }
     
