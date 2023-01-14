@@ -26,7 +26,7 @@ export default function Profile(props) {
     console.log("Name in Profile:", props.profileData[0])
 
     
-    const editProfileModal = showModal ? (<EditProfileModal setOpenModal = {setShowModal}  userDetails = {props.profileData} getProfileData = {props.getProfileData}/>) : null 
+    const editProfileModal = showModal ? (<EditProfileModal setOpenModal = {setShowModal}  userDetails = {props.profileData} getProfileData = {props.getProfileData} netid = {props.netid}/>) : null 
 
 
     return (
