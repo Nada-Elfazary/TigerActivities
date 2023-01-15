@@ -285,8 +285,7 @@ th{
     font-size: 8vw;
   }
 
-  li {
-    float: right;
+  .logout {
+    padding-left: 1%;
   }
-
   

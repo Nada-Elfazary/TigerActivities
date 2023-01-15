@@ -352,15 +352,16 @@ const topNav =
         <Navbar.Collapse id="basic-navbar-nav">
         
           
-          <ul>
-          <li><Button onClick={handleLogout}>Logout</Button></li>
-          <li><ToggleButton activitiesFn = {activitiesClicked} myActivitiesFn = {myActivitiesClicked}
-  mySignUpsFn = {mySignUpsClicked} profileFn = {profileClicked} clickedActivites = {clickedActivites}></ToggleButton></li>
+          <div className = "Navbar">
+          <strong>{username}</strong>
+          
+          <ToggleButton activitiesFn = {activitiesClicked} myActivitiesFn = {myActivitiesClicked}
+  mySignUpsFn = {mySignUpsClicked} profileFn = {profileClicked} clickedActivites = {clickedActivites}></ToggleButton>
          
-          <li><strong>{username}</strong></li>
+         <Button className = "logout" onClick={handleLogout}>Logout</Button>
          
            
-            </ul>
+          </div>
            
         
         </Navbar.Collapse>
