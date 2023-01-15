@@ -101,7 +101,9 @@ function EditProfileModal(props) {
                         {
                           console.log("Inside editProfile Modal. Phone num before typing: ", updatePhone)
                           document.getElementById('num').classList.remove("error");
-                          setUpdatePhone(event.target.value)
+                          if(/^[0-9]+$/.test(event.target.value) || event.target.value.length === 0) {
+                            setUpdatePhone(event.target.value)
+                          }
                         }}
                     ></Form.Control>
                     </Col>
@@ -114,7 +116,7 @@ function EditProfileModal(props) {
                         {
                           console.log("Email befrore typing:", updateEmail)
                           document.getElementById('email').classList.remove("error");
-                          if (event.target.value <= 100) {
+                          if (event.target.value.length <= 100) {
                             setUpdateEmail(event.target.value)
                           }
                         }}

@@ -252,6 +252,7 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
 }
 
 const getProfileData = (netid) => {
+  setLoading(true)
   axios.get('https://tigeractivities.onrender.com/api/profile', {params:{
           netid: netid
       }
@@ -272,6 +273,7 @@ const getProfileData = (netid) => {
           // setUpdateProfileMsg("")
           console.log("Profile Data in axios:", profileData, "fast:", fast_profileData)
       }
+      setLoading(false)
   }).catch(err =>{
       console.log("Inside Home.js. Error receiveing profile information from db for user:",netid, err)
       navigate("/error")
@@ -350,13 +352,15 @@ const topNav =
         <Navbar.Collapse id="basic-navbar-nav">
         
           
-          <div className="buttonsSec">
-          <strong>{username}</strong>
-          <ToggleButton activitiesFn = {activitiesClicked} myActivitiesFn = {myActivitiesClicked}
-  mySignUpsFn = {mySignUpsClicked} profileFn = {profileClicked} clickedActivites = {clickedActivites}></ToggleButton>
-          <Button onClick={handleLogout}>Logout</Button>
-          
-            </div>
+          <ul>
+          <li><Button onClick={handleLogout}>Logout</Button></li>
+          <li><ToggleButton activitiesFn = {activitiesClicked} myActivitiesFn = {myActivitiesClicked}
+  mySignUpsFn = {mySignUpsClicked} profileFn = {profileClicked} clickedActivites = {clickedActivites}></ToggleButton></li>
+         
+          <li><strong>{username}</strong></li>
+         
+           
+            </ul>
            
         
         </Navbar.Collapse>
@@ -438,7 +442,7 @@ console.log("before showProfile component is rendered. Clicked profile:", clicke
         {showNoAct}
         {showNoSignUps}
         {!loading ? showResults: null}
-        {showProfile}
+        {!loading ? showProfile: null}
         {/*!loading ? results : showLoading*/}
         {!loading ? showOwnerActivities: null}
             {!loading ? showSignUps: null}

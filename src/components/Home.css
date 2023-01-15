@@ -284,3 +284,9 @@ th{
   .heading {
     font-size: 8vw;
   }
+
+  li {
+    float: right;
+  }
+
+  
