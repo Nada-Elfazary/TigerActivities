@@ -5,6 +5,7 @@ import {Button, Navbar, Container, Pagination, Card} from 'react-bootstrap'
 import XDSCard from "./XDSCard";
 import Dropdown from "./Dropdown";
 import tiger from './tiger.jpeg';
+import Homepg_pic from './Homepg_pic.jpg';
 import Filter from './Filter';
 import Profile from "./Profile";
 import ToggleButton from "./ToggleButton";
@@ -418,9 +419,15 @@ console.log("before showProfile component is rendered. Clicked profile:", clicke
   const showNoAct = noActivities ? (<h1 className="none-style">No activities found</h1>): null
   const showNoSignUps = noSignUps ? (<h1 className="none-style">You have no current sign-ups</h1>): null
 
+  const showImage = clickedActivites ? (
+    <div className = "container">
+    <img className = "mainImg" alt="" src={Homepg_pic} width="100%"
+  /><div className="centered"><h1 className = 'heading'>Explore Campus Life</h1></div></div> ): null
+
   return (
     <div className="page">
       {topNav}
+      {showImage}
       {showFilter}
       {/* {showUpdateProfile} */}
       {showCreateEventButton}
