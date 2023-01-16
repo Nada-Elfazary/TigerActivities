@@ -352,7 +352,7 @@ const topNav =
         <Navbar.Collapse id="basic-navbar-nav">
         
           
-          <div className = "Navbar">
+          <div className = "buttonsSec">
           <strong>{username}</strong>
           
           <ToggleButton activitiesFn = {activitiesClicked} myActivitiesFn = {myActivitiesClicked}
