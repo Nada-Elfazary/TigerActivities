@@ -87,14 +87,14 @@ const XDSCard = ({item, getEvents, setEvents, setPaginatedEvents, setLoading, ge
     event_id={id} title = {eventTitle} setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize}/>) : null 
 
       
-  const signUpModal = displaySignUp ? (<SignUpModal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id} getSignUps = {getSignUps}
+  const signUpModal = displaySignUp ? (<SignUpModal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}
     username={username}
     name={name}
     phone={phone}
     email={email}
     />): null
 
-   const cancelModal = displayCancel ? (<CancelSignUpModal setOpenCancelModal={setDisplayCancel} setLoading = {setLoading} setEvents ={setEvents} 
+   const cancelModal = displayCancel ? (<CancelSignUpModal setOpenCancelModal={setDisplayCancel} setLoading = {setLoading} setEvents ={setEvents} getSignUps = {getSignUps}
       event_id={id} title = {eventTitle} setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize}/>) : null 
 
   const get_attendees = (event)=>{
