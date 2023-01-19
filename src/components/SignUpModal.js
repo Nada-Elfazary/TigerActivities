@@ -34,7 +34,7 @@ function SignUpModal(props) {
         setShowErrorMsg(true)
       }
       else {
-        setOpenSuccessModal(true)
+        props.signUpSuccess(true)
         console.log("Inside SignUpModal: setting openSuccessModel to true.")    
       }
     }, (error) => {

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import CreateEventDialog from "./CreateEventDialog";
+import SuccessModal from "./SuccessModal";
 import {Button, Navbar, Container, Pagination, Card} from 'react-bootstrap'
 import XDSCard from "./XDSCard";
 import Dropdown from "./Dropdown";
@@ -38,6 +39,7 @@ export default function  Home() : React.ReactNode {
   const [currentPage, setCurrentPage] = useState(1)
   const [noActivities, setNoActivities] = useState(false)
   const [noSignUps, setNoSignUps] = useState(false)
+  const [signUpSuccess, setSignUpSuccess] = useState(false)
   // const [updateProfileMsg, setUpdateProfileMsg] = useState("")
   const pageSize = 9;
   const navigate = useNavigate()
@@ -106,8 +108,7 @@ const mySignUpsClicked= () => {
     setEvents([])
     
   }*/
-  setNoSignUps(false)
-  setNoActivities(false)
+  
   setPaginatedEvents([])
   setInitialState(false)
   setClickedMySignUps(true)
@@ -116,20 +117,7 @@ const mySignUpsClicked= () => {
   setClickedProfile(false)
   setRefresh(false)
   setCurrentPage(1)
-  console.log("Requesting user signups")
-  setLoading(true)
-  axios.get('https://tigeractivities.onrender.com/api/user-sign-ups').then((res) =>{
-    console.log("in sign-up")
-    setEvents(res.data)
-    setPaginatedEvents(_(res.data).slice(0).take(pageSize).value())
-    setLoading(false)
-    if (res.data.length === 0) {
-      setNoSignUps(true)
-    }
-  }).catch(err =>{
-    console.log("Inside Home.js. Error receiving user sign ups:", err)
-    navigate("/error")
-  })
+  getSignUps()
 }
 
 const activitiesClicked= () => {
@@ -251,6 +239,24 @@ const getEvents = (ownerView, name, day, category, cost, capMin, capMax)=> {
   })
 }
 
+const getSignUps = () => {
+  setNoSignUps(false)
+  setNoActivities(false)
+  console.log("Requesting user signups")
+  setLoading(true)
+  axios.get('https://tigeractivities.onrender.com/api/user-sign-ups').then((res) =>{
+    console.log("in sign-up")
+    setEvents(res.data)
+    setPaginatedEvents(_(res.data).slice(0).take(pageSize).value())
+    setLoading(false)
+    if (res.data.length === 0) {
+      setNoSignUps(true)
+    }
+  }).catch(err =>{
+    console.log("Inside Home.js. Error receiving user sign ups:", err)
+    navigate("/error")
+  })
+}
 const getProfileData = (netid) => {
   setLoading(true)
   axios.get('https://tigeractivities.onrender.com/api/profile', {params:{
@@ -317,6 +323,10 @@ const handleLogout = ()=>{
     // pageSize = {pageSize} username={username} />) : null 
     pageSize = {pageSize} username={fast_username} />) : null 
 
+  const successModal = signUpSuccess ? (<SuccessModal setOpenSuccessModal = {setSignUpSuccess} getEvents = {getEvents} setLoading ={setLoading} setEvents ={setEvents} setPaginatedEvents = {setPaginatedEvents}
+    // pageSize = {pageSize} username={username} />) : null 
+    pageSize = {pageSize} username={fast_username} />) : null 
+
 
   const displayEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
     return (
@@ -337,7 +347,7 @@ const handleLogout = ()=>{
   const displaySignUps = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
     return (
       <XDSCard key ={index} item={event} setEvents = {setEvents} setPaginatedEvents = {setPaginatedEvents} ownerView={false} signUpsView = {true}
-      tagColor = {categoryToColor[event.category]} setLoading = {setLoading} pageSize={pageSize}/>
+      tagColor = {categoryToColor[event.category]} setLoading = {setLoading} pageSize={pageSize} getSignUps = {getSignUps} signUpSuccess = {signUpSuccess}/>
     )
   }): null
 
@@ -431,6 +441,7 @@ console.log("before showProfile component is rendered. Clicked profile:", clicke
 
   return (
     <div className="page">
+      
       {topNav}
       {showImage}
       {showFilter}
@@ -448,6 +459,7 @@ console.log("before showProfile component is rendered. Clicked profile:", clicke
         {!loading ? showOwnerActivities: null}
             {!loading ? showSignUps: null}
             {modal}
+            {successModal}
       </div>
       {!clickedProfile && !loading?  displayPagination : null}
     </div>

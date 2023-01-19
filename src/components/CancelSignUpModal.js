@@ -20,7 +20,7 @@ function CancelSignUpModal(props) {
   */
 
   const navigate = useNavigate()
-  const getSignUps =  ()=> {
+ /* const getSignUps =  ()=> {
     props.setLoading(true)
     axios.get('/api/user-sign-ups').then((res) =>{
       console.log("in sign-up")
@@ -34,7 +34,7 @@ function CancelSignUpModal(props) {
       console.log("Inside Cancel SignPp Modal. Error receiving event from db:", err)
       navigate("/error")
     })
-}
+}*/
 
   const submitForm= () =>
   {
@@ -44,7 +44,7 @@ function CancelSignUpModal(props) {
       }).then(res =>{
         console.log(res)
         setSaving(true)
-        getSignUps()
+        props.getSignUps()
         props.setOpenCancelModal(false)
       }).catch(err =>{
         console.log(err)
