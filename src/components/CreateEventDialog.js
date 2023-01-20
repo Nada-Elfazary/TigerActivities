@@ -304,32 +304,27 @@ function CreateEventDialog(props) {
           document.getElementById('category').classList.add("error");
           error = 1;
         }
-        if (endTime == "") {
-          console.log("End Time can not be empty.")
+        if (isNaN(endTime.getTime)) {
           errorMsg.push("End Date can not be empty. Please fix this \n")
           document.getElementById('end-time').classList.add("error")
-          document.getElementById('end-time').placeholder = "End date can not be empty"
+          document.getElementById('end-time').value = "End date cannot be empty"
           error = 1;
         }
 
-        if (startTime == "") {
-          console.log("Start time can not be empty.")
+        if (isNaN(startTime.getTime)) {
           errorMsg.push("Start Date can not be empty. Please fix this \n")
           document.getElementById('start-time').classList.add("error")
-          document.getElementById('start-time').placeholder = "Start date can not be empty"
+          document.getElementById('start-time').value = "Start date cannot be empty"
           error = 1;
         }
 
-       if(endTime != "" && startTime != "" && endTime.getTime() <= startTime.getTime()){
-          console.log("wrong dates")
+       if(!isNaN(endTime.getTime) &&  !isNaN(startTime.getTime) && endTime.getTime() <= startTime.getTime()){
           errorMsg.push("End Date before or equal to start date. Please fix this \n")
           document.getElementById('start-time').classList.add("error")
-          document.getElementById('start-time').placeholder = "Start date after or equal to end date"
+          document.getElementById('start-time').value = "Start date after or equal to end date"
           document.getElementById('end-time').classList.add("error")
-          document.getElementById('end-time').placeholder = "End date before or equal to start date"
-          // setShowErrorMsg(true)
-          // failureCallBack("End Date before start date. Please fix this")
-          error = 1;
+          document.getElementById('end-time').value = "End date before or equal to start date"   
+          error = 1;       
         }
          if(cost < 0){
         //  errorMsg.push("Cost involved cannot be negative")

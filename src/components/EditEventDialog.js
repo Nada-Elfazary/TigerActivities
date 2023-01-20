@@ -116,6 +116,7 @@ function EditEventDialog(props) {
               
               <Col><Form.Control type="text" id = "title" name="title" value={eventTitle} onChange={(event)=>{
                        document.getElementById('title').classList.remove("error");
+                       document.getElementById('title').placeholder = '';
                        if (event.target.value.length <= 100) {
                              setEventTitle(event.target.value)
                        }
@@ -128,6 +129,8 @@ function EditEventDialog(props) {
             <Row>
               <Col><Form.Label>Location:</Form.Label></Col>
               <Col><Form.Control type="text" id = "location" name="Location" value ={eventLocation} onChange={(event)=>{
+                        document.getElementById('location').classList.remove("error");
+                        document.getElementById('location').placeholder = '';
                        if(event.target.value.length <= 100) {
                         setEventLocation(event.target.value)
                     }
@@ -140,6 +143,7 @@ function EditEventDialog(props) {
               </Col>
               <Col><Form.Select type="text" id = "category" name="Category" value ={eventCategory} onChange={(event)=>{
                         document.getElementById('category').classList.remove("error");
+                        document.getElementById('category').placeholder = '';
                         if (event.target.value === "Select a Category"){
                           setEventCategory("")
                         }
@@ -176,6 +180,7 @@ function EditEventDialog(props) {
                      onChange={(event) => 
                      {
                         document.getElementById('start-time').classList.remove("error");
+                        document.getElementById('start-time').placeholder = '';
                         setStartTime(new Date(event))
                      }} /></Col>
             </Row>
@@ -193,6 +198,7 @@ function EditEventDialog(props) {
                         setEndTime(new Date(event))
                         event.target.value = endTime
                         document.getElementById('end-time').classList.remove("error");
+                        document.getElementById('end-time').placeholder = '';
                      }} /> </Col>
             </Row>
           </Form.Group><Form.Group>
@@ -201,6 +207,7 @@ function EditEventDialog(props) {
               <Col><Form.Control type="text" id = "cap" name="Attendee Count" value={maxAttendeeCount} onChange={(event) =>
                         {
                           document.getElementById('cap').classList.remove("error");
+                          document.getElementById('cap').placeholder = '';
                           if(event.target.value.length <= 4) {
                             setMaxAttendeeCount(event.target.value)
                           }
