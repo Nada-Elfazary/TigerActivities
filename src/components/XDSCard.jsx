@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { propTypes } from 'react-bootstrap/esm/Image';
 
-const XDSCard = ({item, getEvents, setEvents, setPaginatedEvents, setLoading, getSignUps, pageSize, ownerView, signUpsView,name, phone, email, tagColor, username}) => {
+const XDSCard = ({item, getEvents, setEvents, setPaginatedEvents, setLoading, getSignUps, pageSize, ownerView, signUpsView,name, phone, email, tagColor, username, setSignUpSuccess}) => {
     const [isExpanded, setExpanded] = useState(false)
     const { getCollapseProps, getToggleProps } = useCollapse({ isExpanded })
     const [displaySignUp, setDisplaySignUp] = useState(false)
@@ -24,6 +24,8 @@ const XDSCard = ({item, getEvents, setEvents, setPaginatedEvents, setLoading, ge
     const [displayDelete, setDisplayDelete] = useState(false)
     const [isCurrUserSignedUp, setIsCurrUserSignedUp] = useState(false)
     const backgroundColor = tagColor
+
+    console.log('XDS card props: ', setSignUpSuccess)
 
     const navigate = useNavigate()
    // const [activityData, setActivityData] = useState(["","","","","","","",""])
@@ -87,7 +89,7 @@ const XDSCard = ({item, getEvents, setEvents, setPaginatedEvents, setLoading, ge
     event_id={id} title = {eventTitle} setPaginatedEvents = {setPaginatedEvents} pageSize = {pageSize}/>) : null 
 
       
-  const signUpModal = displaySignUp ? (<SignUpModal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id}
+  const signUpModal = displaySignUp ? (<SignUpModal setOpenSignUpModal={setDisplaySignUp} title ={eventTitle} event_id={id} setSignUpSuccess = {setSignUpSuccess}
     username={username}
     name={name}
     phone={phone}

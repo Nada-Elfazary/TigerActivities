@@ -45,6 +45,7 @@ html {
 }
 .buttonsSec {
     float: right;
+    width:100vw;
 }
 
 .button{
@@ -288,4 +289,3 @@ th{
   .logout {
     padding-left: 1%;
   }
-  

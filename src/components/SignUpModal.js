@@ -16,6 +16,8 @@ function SignUpModal(props) {
   const [saving, setSaving] = useState(false)
   const [openSuccessModal, setOpenSuccessModal] = useState(false)
 
+  console.log('signup model props:', props)
+  
   const navigate=useNavigate()
 
   const submitForm= () =>
@@ -35,6 +37,7 @@ function SignUpModal(props) {
       }
       else {
         props.setSignUpSuccess(true)
+        props.setOpenSignUpModal(false)
         console.log("Inside SignUpModal: setting openSuccessModel to true.")    
       }
     }, (error) => {

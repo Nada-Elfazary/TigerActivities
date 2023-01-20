@@ -359,15 +359,15 @@ const topNav =
                 /> {' '}</Button><Button className="titleLink" onClick={activitiesClicked}>{title}</Button> </Navbar.Brand>
         
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Collapse id="basic-navbar-nav" style = {{paddingLeft: '10%'}}>
         
           
           <div className = "buttonsSec">
-          <strong>{username}</strong>
           
           <ToggleButton activitiesFn = {activitiesClicked} myActivitiesFn = {myActivitiesClicked}
   mySignUpsFn = {mySignUpsClicked} profileFn = {profileClicked} clickedActivites = {clickedActivites}></ToggleButton>
          
+         <strong style = {{marginLeft: '17%'}}>{username}</strong>
          <Button className = "logout" onClick={handleLogout}>Logout</Button>
          
            

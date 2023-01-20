@@ -5,6 +5,7 @@ import CreateEventModalDraggable from './CreateEventModalDraggable';
 
 const SuccessModal = (props) => {
     console.log("in success modal")
+    console.log('success modal props: ', props)
     const successModal = <Container fluid> <Modal show={true} dialogAs={CreateEventModalDraggable} onHide={()=>{
         props.setOpenSuccessModal(false)
       }} size="sm-2"
