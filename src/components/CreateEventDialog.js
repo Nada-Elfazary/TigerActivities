@@ -127,6 +127,8 @@ function CreateEventDialog(props) {
               
               <Col><Form.Control type="text" id = "title" name="title" value={eventTitle} onChange={(event)=>{
                   document.getElementById('title').classList.remove("error");
+                  document.getElementById('title').placeholder = '';
+
                   if (event.target.value.length <= 100) {
                         setEventTitle(event.target.value)
                         console.log(eventTitle)
@@ -143,6 +145,7 @@ function CreateEventDialog(props) {
               <Col><Form.Label>Location:</Form.Label></Col>
               <Col><Form.Control type="text" id = "location" name="Location" value ={eventLocation} onChange={(event)=>{
                     document.getElementById('location').classList.remove("error");
+                    document.getElementById('location').placeholder = '';
                     if(event.target.value.length <= 100) {
                         setEventLocation(event.target.value)
                     } else {
@@ -158,6 +161,7 @@ function CreateEventDialog(props) {
               </Col>
               <Col><Form.Select type="text" id = "category" name="Category" value ={eventCategory} onChange={(event)=>{
                         document.getElementById('category').classList.remove("error");
+                        document.getElementById('category').placeholder = '';
                         if (event.target.value === "Select a Category"){
                           setEventCategory("")
                         }
@@ -193,6 +197,7 @@ function CreateEventDialog(props) {
                      {
                         console.log("date:" +  startTime)
                         document.getElementById('start-time').classList.remove("error");
+                        document.getElementById('start-time').placeholder = '';
                         setStartTime(new Date(event))
                         console.log("date after:", event)
                      }} /></Col>
@@ -212,6 +217,7 @@ function CreateEventDialog(props) {
                      {
                         setEndTime(new Date(event))
                         document.getElementById('end-time').classList.remove("error");
+                        document.getElementById('end-time').placeholder = '';
                         console.log("date:", event)
                      }} /> </Col>
             </Row>
@@ -221,6 +227,7 @@ function CreateEventDialog(props) {
               <Col><Form.Control type="text" id = "cap" name="Attendee Count" value={maxAttendeeCount} onChange={(event) =>
                         { 
                           document.getElementById('cap').classList.remove("error");
+                          document.getElementById('cap').placeholder = '';
                           if(event.target.value.length <= 4) {
                             setMaxAttendeeCount(event.target.value)
                           }else {
@@ -237,6 +244,7 @@ function CreateEventDialog(props) {
         <Form.Control aria-label="Amount (to the nearest dollar)" id= "cost" name="Cost" value={cost} onChange={(event) =>
                         {
                           document.getElementById('cost').classList.remove("error");
+                          document.getElementById('cost').placeholder = '';
                           console.log("cost: ", event.target.value)
                           if(event.target.value.length <= 4) {
                           setCost(event.target.value)
@@ -253,6 +261,8 @@ function CreateEventDialog(props) {
               <Col><Form.Control as="textarea" id = "descrip" name ="description" value={description} onChange={(event) =>
                       {
                       document.getElementById('descrip').classList.remove("error");
+                      document.getElementById('descrip').placeholder = '';
+                      
                       if(event.target.value.length <= 1000) {
                       setDescription(event.target.value)
                       } else {
@@ -298,7 +308,7 @@ function CreateEventDialog(props) {
           console.log("End Time can not be empty.")
           errorMsg.push("End Date can not be empty. Please fix this \n")
           document.getElementById('end-time').classList.add("error")
-          document.getElementById('end-time').value = "End date can not be empty"
+          document.getElementById('end-time').placeholder = "End date can not be empty"
           error = 1;
         }
 
@@ -306,7 +316,7 @@ function CreateEventDialog(props) {
           console.log("Start time can not be empty.")
           errorMsg.push("Start Date can not be empty. Please fix this \n")
           document.getElementById('start-time').classList.add("error")
-          document.getElementById('start-time').value = "Start date can not be empty"
+          document.getElementById('start-time').placeholder = "Start date can not be empty"
           error = 1;
         }
 
@@ -314,9 +324,9 @@ function CreateEventDialog(props) {
           console.log("wrong dates")
           errorMsg.push("End Date before or equal to start date. Please fix this \n")
           document.getElementById('start-time').classList.add("error")
-          document.getElementById('start-time').value = "Start date after or equal to end date"
+          document.getElementById('start-time').placeholder = "Start date after or equal to end date"
           document.getElementById('end-time').classList.add("error")
-          document.getElementById('end-time').value = "End date before or equal to start date"
+          document.getElementById('end-time').placeholder = "End date before or equal to start date"
           // setShowErrorMsg(true)
           // failureCallBack("End Date before start date. Please fix this")
           error = 1;

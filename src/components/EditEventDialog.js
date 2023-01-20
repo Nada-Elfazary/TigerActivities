@@ -262,21 +262,21 @@ function EditEventDialog(props) {
           error = 1;
         }
 
-        if (endTime === "") {
+        if (isNaN(endTime.getTime)) {
           errorMsg.push("End Date can not be empty. Please fix this \n")
           document.getElementById('end-time').classList.add("error")
-          document.getElementById('end-time').value = "End date can not be empty"
+          document.getElementById('end-time').value = "End date cannot be empty"
           error = 1;
         }
 
-        if (startTime === "") {
+        if (isNaN(startTime.getTime)) {
           errorMsg.push("Start Date can not be empty. Please fix this \n")
           document.getElementById('start-time').classList.add("error")
-          document.getElementById('start-time').value = "Start date can not be empty"
+          document.getElementById('start-time').value = "Start date cannot be empty"
           error = 1;
         }
 
-       if(endTime !== "" &&  startTime  !== "" && endTime.getTime() <= startTime.getTime()){
+       if(!isNaN(endTime.getTime) &&  !isNaN(startTime.getTime) && endTime.getTime() <= startTime.getTime()){
           errorMsg.push("End Date before or equal to start date. Please fix this \n")
           document.getElementById('start-time').classList.add("error")
           document.getElementById('start-time').value = "Start date after or equal to end date"
