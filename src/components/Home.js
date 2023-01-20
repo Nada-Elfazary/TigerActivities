@@ -331,7 +331,7 @@ const handleLogout = ()=>{
   const displayEvents = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
     return (
   
-      <XDSCard key ={index} item ={event} ownerView={false} signUpsView = {false} setLoading = {setLoading}
+      <XDSCard key ={index} item ={event} ownerView={false} signUpsView = {false} setLoading = {setLoading}  setSignUpSuccess = {setSignUpSuccess}
       name={fast_profileData[0]}
       phone={fast_profileData[1]}
       email={fast_profileData[2]}
@@ -347,7 +347,7 @@ const handleLogout = ()=>{
   const displaySignUps = paginatedEvents.length !== 0 ? paginatedEvents.map((event, index)=>{
     return (
       <XDSCard key ={index} item={event} setEvents = {setEvents} setPaginatedEvents = {setPaginatedEvents} ownerView={false} signUpsView = {true}
-      tagColor = {categoryToColor[event.category]} setLoading = {setLoading} pageSize={pageSize} getSignUps = {getSignUps} setSignUpSuccess = {setSignUpSuccess}/>
+      tagColor = {categoryToColor[event.category]} setLoading = {setLoading} pageSize={pageSize} getSignUps = {getSignUps}/>
     )
   }): null
 
@@ -359,7 +359,7 @@ const topNav =
                 /> {' '}</Button><Button className="titleLink" onClick={activitiesClicked}>{title}</Button> </Navbar.Brand>
         
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav" style = {{paddingLeft: '10%'}}>
+        <Navbar.Collapse id="basic-navbar-nav" style = {{paddingLeft: '3%'}}>
         
           
           <div className = "buttonsSec">
