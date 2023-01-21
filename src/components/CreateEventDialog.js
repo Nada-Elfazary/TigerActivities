@@ -189,8 +189,8 @@ function CreateEventDialog(props) {
               <Col style = {{marginRight: '10px', alignSelf:'center'}}><DateTimePicker id = 'start-time' value={startTime} class = "customFlatpickr" maxDate={new Date().fp_incr(5)} onChange={(event) => 
                      {
                         console.log("date:" +  startTime)
-                        document.getElementById('start-time').classList.remove("error");
-                        document.getElementById('start-time').placeholder = '';
+                      //  document.getElementById('start-time').classList.remove("error");
+                      //  document.getElementById('start-time').placeholder = '';
                         setStartTime(new Date(event))
                         console.log("date after:", event)
                      }}/></Col>
@@ -202,8 +202,8 @@ function CreateEventDialog(props) {
               <Col style = {{marginRight: '10px', alignSelf:'center'}}><DateTimePicker id = 'end-time' value={endTime} class = "customFlatpickr" onChange={(event) => 
                      {
                       setEndTime(new Date(event))
-                      document.getElementById('end-time').classList.remove("error");
-                      document.getElementById('end-time').placeholder = '';
+                     // document.getElementById('end-time').classList.remove("error");
+                     // document.getElementById('end-time').placeholder = '';
                       console.log("date:", event)
                      }}/></Col>
             </Row>
