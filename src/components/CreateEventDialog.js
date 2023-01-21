@@ -3,6 +3,7 @@ import {Button, Modal, Form, Row, Col, InputGroup, Container} from 'react-bootst
 import CreateEventModalDraggable from "./CreateEventModalDraggable";
 import "bootstrap/dist/css/bootstrap.css";
 import Flatpickr from "react-flatpickr";
+import DateTimePicker from 'react-datetime-picker'
 import "flatpickr/dist/themes/material_orange.css";
 import axios from 'axios';
 import "./CreateEventDialog.css"
@@ -185,41 +186,26 @@ function CreateEventDialog(props) {
           </Form.Group><Form.Group>
             <Row>
               <Col><Form.Label>Start Time:</Form.Label> </Col>
-              <Col><Flatpickr 
-                     data-enable-time 
-                     id = "start-time"
-                     class = "customFlatpickr"
-                     value={startTime} 
-                     options={ { minDate: "today" ,
-                     maxDate: new Date().fp_incr(5)
-                   } } 
-                     onChange={(event) => 
+              <Col style = {{marginRight: '10px', alignSelf:'center'}}><DateTimePicker  value={startTime} class = "customFlatpickr" maxDate={new Date().fp_incr(5)} onChange={(event) => 
                      {
                         console.log("date:" +  startTime)
                         document.getElementById('start-time').classList.remove("error");
                         document.getElementById('start-time').placeholder = '';
                         setStartTime(new Date(event))
                         console.log("date after:", event)
-                     }} /></Col>
+                     }}/></Col>
+                   
             </Row>
           </Form.Group><Form.Group>
             <Row>
               <Col><Form.Label>End Time:</Form.Label></Col>
-              <Col><Flatpickr
-                     data-enable-time 
-                      id = "end-time"
-                      class = "customFlatpickr"
-                      value={endTime} 
-                      options={ { minDate: "today" ,
-                     maxDate: new Date().fp_incr(5)
-                   } } 
-                     onChange={(event) => 
+              <Col style = {{marginRight: '10px', alignSelf:'center'}}><DateTimePicker  value={endTime} class = "customFlatpickr" onChange={(event) => 
                      {
-                        setEndTime(new Date(event))
-                        document.getElementById('end-time').classList.remove("error");
-                        document.getElementById('end-time').placeholder = '';
-                        console.log("date:", event)
-                     }} /> </Col>
+                      setEndTime(new Date(event))
+                      document.getElementById('end-time').classList.remove("error");
+                      document.getElementById('end-time').placeholder = '';
+                      console.log("date:", event)
+                     }}/></Col>
             </Row>
           </Form.Group><Form.Group>
             <Row>
