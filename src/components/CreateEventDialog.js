@@ -186,7 +186,7 @@ function CreateEventDialog(props) {
           </Form.Group><Form.Group>
             <Row>
               <Col><Form.Label>Start Time:</Form.Label> </Col>
-              <Col style = {{marginRight: '10px', alignSelf:'center'}}><DateTimePicker  value={startTime} class = "customFlatpickr" maxDate={new Date().fp_incr(5)} onChange={(event) => 
+              <Col style = {{marginRight: '10px', alignSelf:'center'}}><DateTimePicker id = 'start-time' value={startTime} class = "customFlatpickr" maxDate={new Date().fp_incr(5)} onChange={(event) => 
                      {
                         console.log("date:" +  startTime)
                         document.getElementById('start-time').classList.remove("error");
@@ -199,7 +199,7 @@ function CreateEventDialog(props) {
           </Form.Group><Form.Group>
             <Row>
               <Col><Form.Label>End Time:</Form.Label></Col>
-              <Col style = {{marginRight: '10px', alignSelf:'center'}}><DateTimePicker  value={endTime} class = "customFlatpickr" onChange={(event) => 
+              <Col style = {{marginRight: '10px', alignSelf:'center'}}><DateTimePicker id = 'end-time' value={endTime} class = "customFlatpickr" onChange={(event) => 
                      {
                       setEndTime(new Date(event))
                       document.getElementById('end-time').classList.remove("error");
