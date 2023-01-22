@@ -39,7 +39,7 @@ const XDSCard = ({item, getEvents, setEvents, setPaginatedEvents, setLoading, ge
     }
 
     stHourTime = stHourTime % 12
-    enMinTime = enMinTime % 12
+    enHourTime = enHourTime % 12
 
     console.log('XDS card props: ', setSignUpSuccess)
 
