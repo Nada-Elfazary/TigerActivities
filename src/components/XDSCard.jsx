@@ -31,6 +31,16 @@ const XDSCard = ({item, getEvents, setEvents, setPaginatedEvents, setLoading, ge
     let enMinTime = item.end_time.split(':')[1]
     let enAmPm = 'AM'
 
+    if (stHourTime > 12) {
+      stAmPm = 'PM'
+    }
+    if (enHourTime > 12) {
+      enAmPm = 'PM'
+    }
+
+    stHourTime = stHourTime % 12
+    enMinTime = enMinTime % 12
+
     console.log('XDS card props: ', setSignUpSuccess)
 
     const navigate = useNavigate()
@@ -57,16 +67,6 @@ const XDSCard = ({item, getEvents, setEvents, setPaginatedEvents, setLoading, ge
   
   }
 
-  const adjustTime = (hourTime, AmPm)=>{
-    if (hourTime > 12) {
-      hourTime = hourTime - 12;
-      AmPm = 'PM'
-      console.log('past 12')
-      console.log(hourTime)
-    }
-  } 
-adjustTime(stHourTime, stAmPm)
-adjustTime(enHourTime, enAmPm)
 
   const handleCancellation = () => {
     console.log("canceling sign-up")
