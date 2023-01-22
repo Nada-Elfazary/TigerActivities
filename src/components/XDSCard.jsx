@@ -24,6 +24,12 @@ const XDSCard = ({item, getEvents, setEvents, setPaginatedEvents, setLoading, ge
     const [displayDelete, setDisplayDelete] = useState(false)
     const [isCurrUserSignedUp, setIsCurrUserSignedUp] = useState(false)
     const backgroundColor = tagColor
+    let stHourTime = item.start_time.split(':')[0]
+    let stMinTime = item.start_time.split(':')[1]
+    let stAmPm = 'AM'
+    let enHourTime = item.end_time.split(':')[0]
+    let enMinTime = item.end_time.split(':')[1]
+    let enAmPm = 'AM'
 
     console.log('XDS card props: ', setSignUpSuccess)
 
@@ -51,7 +57,17 @@ const XDSCard = ({item, getEvents, setEvents, setPaginatedEvents, setLoading, ge
   
   }
 
-  
+  const adjustTime = (hourTime, AmPm)=>{
+    if (hourTime > 12) {
+      hourTime = hourTime - 12;
+      AmPm = 'PM'
+      console.log('past 12')
+      console.log(hourTime)
+    }
+  } 
+adjustTime(stHourTime, stAmPm)
+adjustTime(enHourTime, enAmPm)
+
   const handleCancellation = () => {
     console.log("canceling sign-up")
     console.log(item.id)
@@ -132,10 +148,10 @@ const XDSCard = ({item, getEvents, setEvents, setPaginatedEvents, setLoading, ge
         <Card.Subtitle> <h5><a className='tag' style={{'backgroundColor': backgroundColor}}><text className='white'>{item.category}</text></a></h5></Card.Subtitle>
         <Card.Text> 
                 <Row>
-                <h5 className='date'><strong>{numToDay[item.start_week_day]} {numToMonth[parseInt(item.start_date.split("/")[1])]} {item.start_date.split("/")[2]}, {item.start_time}</strong></h5>
+                <h5 className='date'><strong>{numToDay[item.start_week_day]} {numToMonth[parseInt(item.start_date.split("/")[1])]} {item.start_date.split("/")[2]}, {stHourTime}:{stMinTime} {stAmPm}</strong></h5>
                 </Row>
                 <Row>
-          <Col><strong>End time : </strong>{numToDay[item.end_week_day]} {numToMonth[parseInt(item.end_date.split("/")[1])]} {item.end_date.split("/")[2]}, {item.end_time}</Col>
+          <Col><strong>End time : </strong>{numToDay[item.end_week_day]} {numToMonth[parseInt(item.end_date.split("/")[1])]} {item.end_date.split("/")[2]}, {enHourTime}:{enMinTime} {enAmPm}</Col>
           <Col><strong>Location : </strong>{item.location}</Col>
             
           </Row>
