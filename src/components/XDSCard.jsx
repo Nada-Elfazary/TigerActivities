@@ -31,6 +31,7 @@ const XDSCard = ({item, getEvents, setEvents, setPaginatedEvents, setLoading, ge
     let enMinTime = item.end_time.split(':')[1]
     let enAmPm = 'AM'
 
+    console.log('num of attendees original: ', item.signup_number)
     if (stHourTime > 12) {
       stAmPm = 'PM'
     }
