@@ -14,12 +14,12 @@ import attendee as attendeemod
 DATABASE_URL = 'postgres://hwwlwcbv:hyNZQS9_LH8CSD3yQoc5IpDHkBJeSlhF@peanut.db.elephantsql.com/hwwlwcbv'
 
 def get_current_date():
-    currDate = datetime.datetime.now(pytz.timezone('US/Central'))
+    currDate = datetime.datetime.now(pytz.timezone('America/New_York'))
     currDate = currDate.strftime("%Y/%m/%d")
     return currDate
 
 def get_current_time():
-    currTime = datetime.datetime.now(pytz.timezone('US/Central'))
+    currTime = datetime.datetime.now(pytz.timezone('America/New_York'))
     currTime = currTime.strftime("%H:%M")
     return currTime
 

@@ -367,7 +367,7 @@ const topNav =
           <ToggleButton activitiesFn = {activitiesClicked} myActivitiesFn = {myActivitiesClicked}
   mySignUpsFn = {mySignUpsClicked} profileFn = {profileClicked} clickedActivites = {clickedActivites}></ToggleButton>
          
-         <strong style = {{marginLeft: '17%'}}>{username}</strong>
+         <strong style = {{float: 'right', marginTop: '5px', marginRight: '5px'}}>{username}</strong>
          <Button className = "logout" onClick={handleLogout}>Logout</Button>
          
            
