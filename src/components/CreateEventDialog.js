@@ -15,10 +15,6 @@ function CreateEventDialog(props) {
     console.log("create event dialog props: ", props)
     const MAX_NO_DAYS = 5
     // const DEFAULT_CREATOR = "Reuben"
-    const backendStartDate = props.events.start_date.split("/")
-    const startDate = backendStartDate[0] + " " + backendStartDate[1] + " " + backendStartDate[2] + " " + String(props.events.start_time)
-    const backendEndDate = props.events.end_date.split("/")
-    const endDate = backendEndDate[0] + " " + backendEndDate[1] + " " + backendEndDate[2] + " " + String(props.events.end_time)
     const DEFAULT_CATEGORY = "Sports"
     const DEFAULT_SIGNUP_NR = 0
     const[eventTitle, setEventTitle] = useState('')
@@ -196,7 +192,6 @@ function CreateEventDialog(props) {
                     id = "start-time"
                     class = "customFlatpickr"
                     value={startTime} 
-                    defaultValue = {startDate}
                     options={ { minDate: "today" ,
                     maxDate: new Date().fp_incr(5),
                     minuteIncrement: 1,
@@ -220,8 +215,9 @@ function CreateEventDialog(props) {
                      data-enable-time 
                       id = "end-time"
                       class = "customFlatpickr"
-                    defaultValue = {endDate}
+                      value={endTime} 
                     option = {{
+                      minDate: "today",
                       minuteIncrement: 1,
                      allowInput: true
                     }}
