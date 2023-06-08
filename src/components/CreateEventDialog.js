@@ -186,7 +186,7 @@ function CreateEventDialog(props) {
           </Form.Group><Form.Group>
             <Row>
               <Col><Form.Label>Start Time:</Form.Label> </Col>
-              <Col style = {{marginRight: '10px', alignSelf:'center'}}><Flatpickr 
+              <Col><Flatpickr 
                     
                     data-enable-time 
                     id = "start-time"
@@ -211,7 +211,7 @@ function CreateEventDialog(props) {
           </Form.Group><Form.Group>
             <Row>
               <Col><Form.Label>End Time:</Form.Label></Col>
-              <Col style = {{marginRight: '10px', alignSelf:'center'}}><Flatpickr
+              <Col><Flatpickr
                      data-enable-time 
                       id = "end-time"
                       class = "customFlatpickr"
