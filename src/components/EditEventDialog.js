@@ -175,7 +175,9 @@ function EditEventDialog(props) {
                      value={startTime} 
                      defaultValue = {startDate}
                      options={ { minDate: "today" ,
-                     maxDate: new Date().fp_incr(5)
+                     maxDate: new Date().fp_incr(5),
+                     minuteIncrement: 1,
+                     allowInput: true
                    } } 
                      onChange={(event) => 
                      {
@@ -192,7 +194,10 @@ function EditEventDialog(props) {
                       id = "end-time"
                       class = "customFlatpickr"
                     defaultValue = {endDate}
-
+                    option = {{
+                      minuteIncrement: 1,
+                     allowInput: true
+                    }}
                      onChange={(event) => 
                      {
                         setEndTime(new Date(event))

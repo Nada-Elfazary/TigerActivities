@@ -186,7 +186,20 @@ function CreateEventDialog(props) {
           </Form.Group><Form.Group>
             <Row>
               <Col><Form.Label>Start Time:</Form.Label> </Col>
-              <Col style = {{marginRight: '10px', alignSelf:'center'}}><DateTimePicker id = 'start-time' value={startTime} class = "customFlatpickr" maxDate={new Date().fp_incr(5)} onChange={(event) => 
+              <Col style = {{marginRight: '10px', alignSelf:'center'}}><Flatpickr 
+                    
+                    data-enable-time 
+                    id = "start-time"
+                    class = "customFlatpickr"
+                    value={startTime} 
+                    defaultValue = {startDate}
+                    options={ { minDate: "today" ,
+                    maxDate: new Date().fp_incr(5),
+                    minuteIncrement: 1,
+                    allowInput: true
+                  } } 
+                  
+                  onChange={(event) => 
                      {
                         console.log("date:" +  startTime)
                       //  document.getElementById('start-time').classList.remove("error");
@@ -199,7 +212,16 @@ function CreateEventDialog(props) {
           </Form.Group><Form.Group>
             <Row>
               <Col><Form.Label>End Time:</Form.Label></Col>
-              <Col style = {{marginRight: '10px', alignSelf:'center'}}><DateTimePicker id = 'end-time' value={endTime} class = "customFlatpickr" onChange={(event) => 
+              <Col style = {{marginRight: '10px', alignSelf:'center'}}><Flatpickr
+                     data-enable-time 
+                      id = "end-time"
+                      class = "customFlatpickr"
+                    defaultValue = {endDate}
+                    option = {{
+                      minuteIncrement: 1,
+                     allowInput: true
+                    }}
+                     onChange={(event) => 
                      {
                       setEndTime(new Date(event))
                      // document.getElementById('end-time').classList.remove("error");
