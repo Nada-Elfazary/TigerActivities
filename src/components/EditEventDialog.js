@@ -28,6 +28,10 @@ function EditEventDialog(props) {
     const [errorMsg, setErrorMsg] = useState("")
     const [showErrorMsg, setShowErrorMsg] = useState(false)
 
+    console.log('start date: ', startDate)
+    console.log('backend start date: ', backendStartDate)
+
+
 
 
     const navigate = useNavigate()

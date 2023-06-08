@@ -312,7 +312,7 @@ function CreateEventDialog(props) {
           document.getElementById('category').classList.add("error");
           error = 1;
         }
-        /*if (isNaN(endTime.getTime)) {
+        if (isNaN(endTime.getTime)) {
           errorMsg.push("End Date can not be empty. Please fix this \n")
           document.getElementById('end-time').classList.add("error")
           document.getElementById('end-time').value = "End date cannot be empty"
@@ -333,7 +333,7 @@ function CreateEventDialog(props) {
           document.getElementById('end-time').classList.add("error")
           document.getElementById('end-time').value = "End date before or equal to start date"   
           error = 1;       
-        }*/
+        }
          if(cost < 0){
         //  errorMsg.push("Cost involved cannot be negative")
           // setShowErrorMsg(true)
