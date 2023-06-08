@@ -28,8 +28,8 @@ function EditEventDialog(props) {
     const [errorMsg, setErrorMsg] = useState("")
     const [showErrorMsg, setShowErrorMsg] = useState(false)
 
-    console.log('start date: ', startDate)
-    console.log('backend start date: ', backendStartDate)
+    console.log('start time: ', startTime)
+    console.log('start time get time: ', startTime.getTime)
 
 
 
