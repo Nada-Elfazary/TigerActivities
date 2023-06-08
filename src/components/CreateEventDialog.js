@@ -15,6 +15,10 @@ function CreateEventDialog(props) {
     console.log("create event dialog props: ", props)
     const MAX_NO_DAYS = 5
     // const DEFAULT_CREATOR = "Reuben"
+    const backendStartDate = props.events.start_date.split("/")
+    const startDate = backendStartDate[0] + " " + backendStartDate[1] + " " + backendStartDate[2] + " " + String(props.events.start_time)
+    const backendEndDate = props.events.end_date.split("/")
+    const endDate = backendEndDate[0] + " " + backendEndDate[1] + " " + backendEndDate[2] + " " + String(props.events.end_time)
     const DEFAULT_CATEGORY = "Sports"
     const DEFAULT_SIGNUP_NR = 0
     const[eventTitle, setEventTitle] = useState('')
